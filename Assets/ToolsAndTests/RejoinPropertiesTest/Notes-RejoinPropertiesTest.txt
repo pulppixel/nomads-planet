@@ -1,0 +1,10 @@
+This test related to:
+https://app.asana.com/0/inbox/175292585001/431213266624092/767822022973260
+
+
+INFO:
+
+It joins a random room with player ttl. 
+When the client leaves a room (UI button), it will Rejoin the room.
+We log and check if player properties are re-sent from the server, 
+so the player may catch up with her own properties, if needed.
