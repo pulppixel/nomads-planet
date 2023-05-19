@@ -1,0 +1,227 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2457b8affe74ff798e76b9c2f62ab65, type: 3}
+  m_Name: Face Expression Database
+  m_EditorClassIdentifier: 
+  faceExpressionInfo:
+  - blendshapeName: Normal
+    blendShapeIcon: {fileID: 21300000, guid: 00389e8a0f4a7384e9d4087d8336564f, type: 3}
+    blendshapeValues: []
+  - blendshapeName: Surprise
+    blendShapeIcon: {fileID: 21300000, guid: e39f7bcb56fb4cd4bbece99eb2fe8d01, type: 3}
+    blendshapeValues:
+    - blendshapeName: FACE_01_JawOpen
+      value: 100
+    - blendshapeName: FACE_01_EyebrowLUp
+      value: 100
+    - blendshapeName: FACE_01_EyebrowRUp
+      value: 100
+    - blendshapeName: FACE_01_LowerEyelidLUp
+      value: 0
+    - blendshapeName: FACE_01_LowerEyelidRUp
+      value: 0
+  - blendshapeName: Happy
+    blendShapeIcon: {fileID: 21300000, guid: 7681e03da2c149d4a9ea5f766ba12d6f, type: 3}
+    blendshapeValues:
+    - blendshapeName: FACE_01_JawOpen
+      value: 26
+    - blendshapeName: FACE_01_UpperEyelidLDown
+      value: 70
+    - blendshapeName: FACE_01_UpperEyelidRDown
+      value: 70
+    - blendshapeName: FACE_01_LowerEyelidLUp
+      value: 30
+    - blendshapeName: FACE_01_LowerEyelidRUp
+      value: 30
+    - blendshapeName: FACE_01_EyesLookDown
+      value: 26
+    - blendshapeName: FACE_01_EyebrowLDown
+      value: 20
+    - blendshapeName: FACE_01_EyebrowRDown
+      value: 26
+    - blendshapeName: FACE_01_SmileL
+      value: 100
+    - blendshapeName: FACE_01_SmileR
+      value: 82
+    - blendshapeName: FACE_01_UpperLipUp
+      value: 100
+  - blendshapeName: Sad
+    blendShapeIcon: {fileID: 21300000, guid: 95ad07366e0e78a42a35e15b73a5853f, type: 3}
+    blendshapeValues:
+    - blendshapeName: FACE_01_UpperEyelidLDown
+      value: 20
+    - blendshapeName: FACE_01_UpperEyelidRDown
+      value: 20
+    - blendshapeName: FACE_01_LowerEyelidLUp
+      value: 13
+    - blendshapeName: FACE_01_LowerEyelidRUp
+      value: 14
+    - blendshapeName: FACE_01_EyesLookDown
+      value: 59
+    - blendshapeName: FACE_01_EyebrowLSad
+      value: 100
+    - blendshapeName: FACE_01_EyebrowRSad
+      value: 100
+    - blendshapeName: FACE_01_EyebrowLDown
+      value: 77.7
+    - blendshapeName: FACE_01_EyebrowRDown
+      value: 63.9
+    - blendshapeName: FACE_01_FrownL
+      value: 49
+    - blendshapeName: FACE_01_FrownR
+      value: 64
+  - blendshapeName: Inflate
+    blendShapeIcon: {fileID: 21300000, guid: e14ec1a561fb96b45a9b07d52138ed84, type: 3}
+    blendshapeValues:
+    - blendshapeName: FACE_01_UpperEyelidLDown
+      value: 36.9
+    - blendshapeName: FACE_01_UpperEyelidRDown
+      value: 37.2
+    - blendshapeName: FACE_01_LowerEyelidLUp
+      value: 23.8
+    - blendshapeName: FACE_01_LowerEyelidRUp
+      value: 22.4
+    - blendshapeName: FACE_01_EyesLookDown
+      value: 16.3
+    - blendshapeName: FACE_01_EyebrowLDown
+      value: 100
+    - blendshapeName: FACE_01_EyebrowRDown
+      value: 100
+    - blendshapeName: FACE_01_LipsNarrowL
+      value: 100
+    - blendshapeName: FACE_01_LipsNarrowR
+      value: 100
+    - blendshapeName: FACE_01_FrownL
+      value: 40.4
+    - blendshapeName: FACE_01_FrownR
+      value: 40.4
+    - blendshapeName: FACE_01_CheekLInflate
+      value: 100
+    - blendshapeName: FACE_01_CheekRInflate
+      value: 100
+  - blendshapeName: Wink and Tongue
+    blendShapeIcon: {fileID: 21300000, guid: 87a7d15ba42f4d84981c306d9ae7e81d, type: 3}
+    blendshapeValues:
+    - blendshapeName: FACE_01_JawOpen
+      value: 42.9
+    - blendshapeName: FACE_01_UpperEyelidLDown
+      value: 79
+    - blendshapeName: FACE_01_UpperEyelidRDown
+      value: 19.5
+    - blendshapeName: FACE_01_LowerEyelidLUp
+      value: 31
+    - blendshapeName: FACE_01_LowerEyelidRUp
+      value: 16
+    - blendshapeName: FACE_01_EyesLookR
+      value: 64.2
+    - blendshapeName: FACE_01_EyebrowRUp
+      value: 63.2
+    - blendshapeName: FACE_01_EyebrowLDown
+      value: 100
+    - blendshapeName: FACE_01_SmileR
+      value: 43.3
+    - blendshapeName: FACE_01_UpperLipUp
+      value: 51.4
+    - blendshapeName: FACE_01_TongueOut
+      value: 100
+  - blendshapeName: Disgusted
+    blendShapeIcon: {fileID: 21300000, guid: 3ed798cb5577b7240b6b376a4098c59e, type: 3}
+    blendshapeValues:
+    - blendshapeName: FACE_01_JawOpen
+      value: 50.4
+    - blendshapeName: FACE_01_UpperEyelidLDown
+      value: 16
+    - blendshapeName: FACE_01_UpperEyelidRDown
+      value: 16
+    - blendshapeName: FACE_01_LowerEyelidLUp
+      value: 6
+    - blendshapeName: FACE_01_LowerEyelidRUp
+      value: 6.4
+    - blendshapeName: FACE_01_EyesLookL
+      value: 40.1
+    - blendshapeName: FACE_01_EyebrowLSad
+      value: 36.2
+    - blendshapeName: FACE_01_EyebrowRSad
+      value: 32.6
+    - blendshapeName: FACE_01_EyebrowLDown
+      value: 35.8
+    - blendshapeName: FACE_01_EyebrowRDown
+      value: 56.4
+    - blendshapeName: FACE_01_UpperLipUp
+      value: 55.7
+    - blendshapeName: FACE_01_FrownL
+      value: 100
+    - blendshapeName: FACE_01_FrownR
+      value: 52.5
+  - blendshapeName: Funny
+    blendShapeIcon: {fileID: 21300000, guid: 5147a72fb870d2742ba1e8b975a30bb5, type: 3}
+    blendshapeValues:
+    - blendshapeName: FACE_01_JawOpen
+      value: 100
+    - blendshapeName: FACE_01_LowerEyelidLUp
+      value: 30.9
+    - blendshapeName: FACE_01_LowerEyelidRUp
+      value: 30.5
+    - blendshapeName: FACE_01_EyebrowRSad
+      value: 8.9
+    - blendshapeName: FACE_01_EyebrowLUp
+      value: 78.7
+    - blendshapeName: FACE_01_EyebrowRUp
+      value: 87.3
+    - blendshapeName: FACE_01_SmileL
+      value: 61
+    - blendshapeName: FACE_01_SmileR
+      value: 56.8
+    - blendshapeName: FACE_01_UpperLipUp
+      value: 64.9
+  - blendshapeName: Flirting
+    blendShapeIcon: {fileID: 21300000, guid: 0d7cfec40a5f0ba4ba46d3a341d386ff, type: 3}
+    blendshapeValues:
+    - blendshapeName: FACE_01_UpperEyelidLDown
+      value: 46.4
+    - blendshapeName: FACE_01_UpperEyelidRDown
+      value: 49.3
+    - blendshapeName: FACE_01_LowerEyelidLUp
+      value: 15.3
+    - blendshapeName: FACE_01_LowerEyelidRUp
+      value: 14.9
+    - blendshapeName: FACE_01_EyesLookDown
+      value: 43.6
+    - blendshapeName: FACE_01_EyesLookL
+      value: 50
+    - blendshapeName: FACE_01_EyebrowLDown
+      value: 62.1
+    - blendshapeName: FACE_01_EyebrowRDown
+      value: 61.7
+    - blendshapeName: FACE_01_SmileR
+      value: 79.1
+    - blendshapeName: FACE_01_LipsNarrowL
+      value: 21.3
+  - blendshapeName: Dizzy
+    blendShapeIcon: {fileID: 21300000, guid: 3cb74f91e1b1fd045bec46fc853099d5, type: 3}
+    blendshapeValues:
+    - blendshapeName: FACE_01_JawOpen
+      value: 21.3
+    - blendshapeName: FACE_01_UpperEyelidLDown
+      value: 11.3
+    - blendshapeName: FACE_01_UpperEyelidRDown
+      value: 36.6
+    - blendshapeName: FACE_01_EyesLookUp
+      value: 55.7
+    - blendshapeName: FACE_01_EyebrowLDown
+      value: 28.7
+    - blendshapeName: FACE_01_EyebrowRDown
+      value: 54.2
+    - blendshapeName: FACE_01_FrownL
+      value: 34.1
+    - blendshapeName: FACE_01_FrownR
+      value: 56.8
