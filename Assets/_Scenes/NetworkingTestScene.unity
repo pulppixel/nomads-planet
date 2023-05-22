@@ -1451,12 +1451,12 @@ MonoBehaviour:
     m_UpdateTime: 0
   m_Clipping: 1
   m_ShotType:
-    rid: 3816861646555709708
+    rid: 6358160688218898432
   references:
     version: 2
     RefIds:
-    - rid: 3816861646555709708
-      type: {class: ShotTypeFirstPerson, ns: GameCreator.Runtime.Cameras, asm: GameCreator.Runtime.Core}
+    - rid: 6358160688218898432
+      type: {class: ShotTypeThirdPerson, ns: GameCreator.Runtime.Cameras, asm: GameCreator.Runtime.Core}
       data:
         m_ShotSystemViewport:
           m_Projection:
@@ -1474,111 +1474,66 @@ MonoBehaviour:
           m_ClipPlaneFar:
             m_IsEnabled: 0
             m_Value: 1000
-        m_FirstPerson:
-          m_Target:
+        m_ShotSystemLook:
+          m_IsActive: 1
+          m_LookTarget:
             m_Property:
-              rid: 3816861646555709709
-          m_Offset:
+              rid: 6358160688218898433
+          m_LookOffset:
             m_Property:
-              rid: 3816861646555709710
-          m_InputRotate:
+              rid: 6358160688218898434
+        m_ShotSystemZoom:
+          m_TargetZoom: 1
+          m_MinDistance: 1
+          m_SmoothTime: 0.1
+          m_InputZoom:
             m_Input:
-              rid: 3816861646555709711
+              rid: 6358160688218898435
+        m_ShotSystemOrbit:
+          m_OrbitTarget:
+            m_Property:
+              rid: 6358160688218898436
+          m_OrbitOffset:
+            m_Property:
+              rid: 6358160688218898437
+          m_InputOrbit:
+            m_Input:
+              rid: 6358160688218898438
           m_InputSensitivityX:
             m_Property:
-              rid: 3816861646555709712
+              rid: 6358160688218898439
           m_InputSensitivityY:
             m_Property:
-              rid: 3816861646555709713
+              rid: 6358160688218898440
           m_MaxPitch: 60
-          m_SmoothTime: 0.1
-        m_HeadBobbing:
-          m_IsActive: 1
-          m_SmoothTime: 0.35
-          m_StepLength:
-            m_Property:
-              rid: 3816861646555709714
-          m_StepHeight:
-            m_Property:
-              rid: 3816861646555709715
-          m_StepWidth:
-            m_Property:
-              rid: 3816861646555709716
-        m_HeadLeaning:
-          m_IsActive: 1
-          m_SmoothTime: 0.2
-          m_AngleForward:
-            m_Property:
-              rid: 3816861646555709717
-          m_AngleSideways:
-            m_Property:
-              rid: 3816861646555709718
-        m_Noise:
-          m_Angle:
-            m_Property:
-              rid: 3816861646555709719
-          m_Movement:
-            m_Property:
-              rid: 3816861646555709720
-          m_AngularSpeed:
-            m_Property:
-              rid: 3816861646555709721
-          m_LinearSpeed:
-            m_Property:
-              rid: 3816861646555709722
-    - rid: 3816861646555709709
+          m_MaxRadius: 5
+          m_SmoothTime: 0.15
+          m_AlignWithTarget: 1
+          m_AlignDelay: 3
+          m_AlignSmoothTime: 3
+    - rid: 6358160688218898433
       type: {class: GetGameObjectPlayer, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
-    - rid: 3816861646555709710
+    - rid: 6358160688218898434
+      type: {class: GetOffsetNone, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
+    - rid: 6358160688218898435
+      type: {class: InputValueVector2Scroll, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
+    - rid: 6358160688218898436
+      type: {class: GetGameObjectPlayer, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
+    - rid: 6358160688218898437
       type: {class: GetOffsetLocalTarget, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
       data:
-        m_Offset: {x: 0, y: 0.75, z: 0}
-    - rid: 3816861646555709711
+        m_Offset: {x: 0, y: 0.5, z: 0}
+    - rid: 6358160688218898438
       type: {class: InputValueVector2MotionSecondary, ns: GameCreator.Runtime.Common,
         asm: GameCreator.Runtime.Core}
-    - rid: 3816861646555709712
+    - rid: 6358160688218898439
       type: {class: GetDecimalDecimal, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
       data:
         m_Value: 180
-    - rid: 3816861646555709713
+    - rid: 6358160688218898440
       type: {class: GetDecimalDecimal, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
       data:
         m_Value: 180
-    - rid: 3816861646555709714
-      type: {class: GetDecimalDecimal, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
-      data:
-        m_Value: 0.75
-    - rid: 3816861646555709715
-      type: {class: GetDecimalDecimal, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
-      data:
-        m_Value: 0.019999999552965164
-    - rid: 3816861646555709716
-      type: {class: GetDecimalDecimal, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
-      data:
-        m_Value: 0.009999999776482582
-    - rid: 3816861646555709717
-      type: {class: GetDecimalDecimal, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
-      data:
-        m_Value: 5
-    - rid: 3816861646555709718
-      type: {class: GetDecimalDecimal, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
-      data:
-        m_Value: 2
-    - rid: 3816861646555709719
-      type: {class: GetRotationEuler, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
-      data:
-        m_Rotation: {x: 1, y: 1, z: 1}
-    - rid: 3816861646555709720
-      type: {class: GetPositionVector3, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
-      data:
-        m_Position: {x: 0, y: 0, z: 0}
-    - rid: 3816861646555709721
-      type: {class: GetDecimalDecimal, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
-      data:
-        m_Value: 0.25
-    - rid: 3816861646555709722
-      type: {class: GetDecimalDecimal, ns: GameCreator.Runtime.Common, asm: GameCreator.Runtime.Core}
-      data:
-        m_Value: 0.5
 --- !u!4 &1025105151
 Transform:
   m_ObjectHideFlags: 0
