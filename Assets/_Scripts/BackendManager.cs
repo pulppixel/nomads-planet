@@ -27,7 +27,7 @@ public class BackendManager : MonoBehaviour
         await Task.Run(() =>
         {
             BackendLogin.Instance.CustomLogin("user1", "1234");
-            BackendLogin.Instance.UpdateNickname("바보");
+            // BackendLogin.Instance.UpdateNickname("바보2");
             CustomFunc.WriteLine("테스트 종료");
         });
     }
