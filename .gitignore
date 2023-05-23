@@ -75,24 +75,17 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Ignore All Assets
-Audio
-UI
-ExampleAssets
-Characters
-Levels
-ToolsAndTests
+_Resources
 Plugins
-Standard Assets
-SampleScenes
-Assets/Audio.meta
-Assets/UI.meta
-Assets/ExampleAssets.meta
-Assets/Characters.meta
-Assets/Levels.meta
+Assets/_Resources.meta
 Assets/Plugins.meta
-Assets/ToolsAndTests.meta
-Assets/SampleScenes.meta
-Assets/Standard Assets.meta
 ._.gitattributes
 ._Temp
 ._.gitignore
+Assets/.__Resources
+Assets/.__Resources.meta
+Assets/_Resources.meta
+Assets/_Resources/Audio.meta
+Assets/_Resources/Characters.meta
+Assets/_Resources/Levels.meta
+Assets/_Resources/UI.meta
