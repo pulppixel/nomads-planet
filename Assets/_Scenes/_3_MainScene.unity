@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 38
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -208,7 +208,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 26
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 21245516}
   - component: {fileID: 21245519}
   - component: {fileID: 21245518}
-  - component: {fileID: 21245517}
+  - component: {fileID: 21245520}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (55)
   m_TagString: Untagged
@@ -307,20 +307,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 55
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &21245517
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 21245515}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &21245518
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -371,6 +357,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21245515}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &21245520
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21245515}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &31056416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -381,7 +380,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 36
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -456,7 +455,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 43
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -531,7 +530,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 53
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -607,7 +606,7 @@ GameObject:
   - component: {fileID: 78059919}
   - component: {fileID: 78059922}
   - component: {fileID: 78059921}
-  - component: {fileID: 78059920}
+  - component: {fileID: 78059923}
   m_Layer: 0
   m_Name: CityTerrain_Base_5x5 (1)
   m_TagString: Untagged
@@ -630,20 +629,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!64 &78059920
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 78059918}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &78059921
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -694,6 +679,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78059918}
   m_Mesh: {fileID: 4300004, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &78059923
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78059918}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 3.0616167e-16, z: 4.9999995}
+  m_Center: {x: -2.4999998, y: -1.5308084e-16, z: -2.4999998}
 --- !u!1 &98605493
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,7 +703,7 @@ GameObject:
   - component: {fileID: 98605494}
   - component: {fileID: 98605497}
   - component: {fileID: 98605496}
-  - component: {fileID: 98605495}
+  - component: {fileID: 98605498}
   m_Layer: 0
   m_Name: CityTerrain_Base_5x5 (2)
   m_TagString: Untagged
@@ -728,20 +726,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!64 &98605495
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98605493}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &98605496
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -792,6 +776,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98605493}
   m_Mesh: {fileID: 4300004, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &98605498
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98605493}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 3.0616167e-16, z: 4.9999995}
+  m_Center: {x: -2.4999998, y: -1.5308084e-16, z: -2.4999998}
 --- !u!1001 &102601040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -952,7 +949,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 70
+      value: 69
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -1027,7 +1024,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 52
+      value: 51
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -1102,7 +1099,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 81
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -1328,7 +1325,7 @@ GameObject:
   - component: {fileID: 151851370}
   - component: {fileID: 151851373}
   - component: {fileID: 151851372}
-  - component: {fileID: 151851371}
+  - component: {fileID: 151851374}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (66)
   m_TagString: Untagged
@@ -1351,20 +1348,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 66
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &151851371
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 151851369}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &151851372
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1415,6 +1398,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 151851369}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &151851374
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151851369}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &154998416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,7 +1422,7 @@ GameObject:
   - component: {fileID: 154998417}
   - component: {fileID: 154998420}
   - component: {fileID: 154998419}
-  - component: {fileID: 154998418}
+  - component: {fileID: 154998421}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (20)
   m_TagString: Untagged
@@ -1449,20 +1445,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &154998418
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154998416}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &154998419
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1513,6 +1495,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154998416}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &154998421
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154998416}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &156434935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1628,7 +1623,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 50
+      value: 49
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -1703,7 +1698,7 @@ PrefabInstance:
     - target: {fileID: 558477061295801176, guid: 04e97c31fec80cb4c94bc411edc08d72,
         type: 3}
       propertyPath: m_RootOrder
-      value: 29
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 558477061295801176, guid: 04e97c31fec80cb4c94bc411edc08d72,
         type: 3}
@@ -1853,7 +1848,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 47
+      value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -1929,7 +1924,7 @@ GameObject:
   - component: {fileID: 245162820}
   - component: {fileID: 245162823}
   - component: {fileID: 245162822}
-  - component: {fileID: 245162821}
+  - component: {fileID: 245162824}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (60)
   m_TagString: Untagged
@@ -1952,20 +1947,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 60
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &245162821
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 245162819}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &245162822
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2016,6 +1997,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245162819}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &245162824
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245162819}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &245699508
 GameObject:
   m_ObjectHideFlags: 0
@@ -2027,7 +2021,7 @@ GameObject:
   - component: {fileID: 245699509}
   - component: {fileID: 245699512}
   - component: {fileID: 245699511}
-  - component: {fileID: 245699510}
+  - component: {fileID: 245699513}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (45)
   m_TagString: Untagged
@@ -2050,20 +2044,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 45
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &245699510
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 245699508}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &245699511
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2114,6 +2094,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245699508}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &245699513
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245699508}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &252663656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2274,7 +2267,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 76
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -2350,7 +2343,7 @@ GameObject:
   - component: {fileID: 291052328}
   - component: {fileID: 291052331}
   - component: {fileID: 291052330}
-  - component: {fileID: 291052329}
+  - component: {fileID: 291052332}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (40)
   m_TagString: Untagged
@@ -2373,20 +2366,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &291052329
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 291052327}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &291052330
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2437,6 +2416,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291052327}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &291052332
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291052327}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &291228475
 GameObject:
   m_ObjectHideFlags: 0
@@ -2448,7 +2440,7 @@ GameObject:
   - component: {fileID: 291228476}
   - component: {fileID: 291228479}
   - component: {fileID: 291228478}
-  - component: {fileID: 291228477}
+  - component: {fileID: 291228480}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (57)
   m_TagString: Untagged
@@ -2471,20 +2463,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 57
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &291228477
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 291228475}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &291228478
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2535,6 +2513,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291228475}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &291228480
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291228475}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &336732976
 GameObject:
   m_ObjectHideFlags: 0
@@ -2546,7 +2537,7 @@ GameObject:
   - component: {fileID: 336732977}
   - component: {fileID: 336732980}
   - component: {fileID: 336732979}
-  - component: {fileID: 336732978}
+  - component: {fileID: 336732981}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (23)
   m_TagString: Untagged
@@ -2569,20 +2560,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &336732978
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336732976}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &336732979
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2633,6 +2610,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336732976}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &336732981
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336732976}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &337222098
 GameObject:
   m_ObjectHideFlags: 0
@@ -2644,7 +2634,7 @@ GameObject:
   - component: {fileID: 337222099}
   - component: {fileID: 337222102}
   - component: {fileID: 337222101}
-  - component: {fileID: 337222100}
+  - component: {fileID: 337222103}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (21)
   m_TagString: Untagged
@@ -2667,20 +2657,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &337222100
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 337222098}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &337222101
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2731,6 +2707,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337222098}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &337222103
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337222098}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &338465797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2741,7 +2730,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 68
+      value: 67
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -2817,7 +2806,7 @@ GameObject:
   - component: {fileID: 352066706}
   - component: {fileID: 352066709}
   - component: {fileID: 352066708}
-  - component: {fileID: 352066707}
+  - component: {fileID: 352066710}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (58)
   m_TagString: Untagged
@@ -2840,20 +2829,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 58
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &352066707
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352066705}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &352066708
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2904,6 +2879,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 352066705}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &352066710
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352066705}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &369733074
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2914,7 +2902,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 80
+      value: 79
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -3246,7 +3234,7 @@ PrefabInstance:
     - target: {fileID: 2263968801367543978, guid: af596558517734a408ab37fbef9c1bab,
         type: 3}
       propertyPath: m_RootOrder
-      value: 46
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 2263968801367543978, guid: af596558517734a408ab37fbef9c1bab,
         type: 3}
@@ -3322,7 +3310,7 @@ GameObject:
   - component: {fileID: 417913905}
   - component: {fileID: 417913908}
   - component: {fileID: 417913907}
-  - component: {fileID: 417913906}
+  - component: {fileID: 417913909}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (3)
   m_TagString: Untagged
@@ -3345,20 +3333,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!64 &417913906
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 417913904}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &417913907
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3409,6 +3383,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417913904}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &417913909
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417913904}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.0000005, y: 6.1232335e-16, z: 10.000001}
+  m_Center: {x: -2.5000002, y: 0, z: -5.0000005}
 --- !u!1001 &434020110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3419,7 +3406,7 @@ PrefabInstance:
     - target: {fileID: 558477061295801176, guid: 04e97c31fec80cb4c94bc411edc08d72,
         type: 3}
       propertyPath: m_RootOrder
-      value: 30
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 558477061295801176, guid: 04e97c31fec80cb4c94bc411edc08d72,
         type: 3}
@@ -3494,7 +3481,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 48
+      value: 47
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -3570,7 +3557,7 @@ GameObject:
   - component: {fileID: 454215182}
   - component: {fileID: 454215185}
   - component: {fileID: 454215184}
-  - component: {fileID: 454215183}
+  - component: {fileID: 454215186}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (41)
   m_TagString: Untagged
@@ -3593,20 +3580,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &454215183
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 454215181}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &454215184
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3657,6 +3630,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454215181}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &454215186
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454215181}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &468873829
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3742,7 +3728,7 @@ PrefabInstance:
     - target: {fileID: 2263968801367543978, guid: af596558517734a408ab37fbef9c1bab,
         type: 3}
       propertyPath: m_RootOrder
-      value: 25
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 2263968801367543978, guid: af596558517734a408ab37fbef9c1bab,
         type: 3}
@@ -3818,7 +3804,7 @@ GameObject:
   - component: {fileID: 520916687}
   - component: {fileID: 520916690}
   - component: {fileID: 520916689}
-  - component: {fileID: 520916688}
+  - component: {fileID: 520916691}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (24)
   m_TagString: Untagged
@@ -3841,20 +3827,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &520916688
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 520916686}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &520916689
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3905,6 +3877,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520916686}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &520916691
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520916686}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &522783540
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3915,7 +3900,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 44
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -4066,7 +4051,7 @@ GameObject:
   - component: {fileID: 567611972}
   - component: {fileID: 567611975}
   - component: {fileID: 567611974}
-  - component: {fileID: 567611973}
+  - component: {fileID: 567611976}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (14)
   m_TagString: Untagged
@@ -4089,20 +4074,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &567611973
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567611971}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &567611974
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4153,6 +4124,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 567611971}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &567611976
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567611971}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &567782496
 GameObject:
   m_ObjectHideFlags: 0
@@ -4164,7 +4148,7 @@ GameObject:
   - component: {fileID: 567782497}
   - component: {fileID: 567782500}
   - component: {fileID: 567782499}
-  - component: {fileID: 567782498}
+  - component: {fileID: 567782501}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (12)
   m_TagString: Untagged
@@ -4187,20 +4171,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &567782498
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567782496}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &567782499
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4251,6 +4221,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 567782496}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &567782501
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567782496}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &591316904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4261,7 +4244,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 66
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -4337,7 +4320,7 @@ GameObject:
   - component: {fileID: 616080249}
   - component: {fileID: 616080252}
   - component: {fileID: 616080251}
-  - component: {fileID: 616080250}
+  - component: {fileID: 616080253}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (46)
   m_TagString: Untagged
@@ -4360,20 +4343,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 46
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &616080250
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 616080248}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &616080251
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4424,6 +4393,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616080248}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &616080253
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616080248}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &620178309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4584,7 +4566,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 56
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -4659,7 +4641,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 79
+      value: 78
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -4735,7 +4717,7 @@ GameObject:
   - component: {fileID: 701887592}
   - component: {fileID: 701887595}
   - component: {fileID: 701887594}
-  - component: {fileID: 701887593}
+  - component: {fileID: 701887596}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (11)
   m_TagString: Untagged
@@ -4758,20 +4740,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &701887593
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 701887591}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &701887594
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4822,6 +4790,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701887591}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &701887596
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701887591}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &717173975
 GameObject:
   m_ObjectHideFlags: 0
@@ -4952,7 +4933,7 @@ PrefabInstance:
     - target: {fileID: 3854561605134150321, guid: dffaa085529ff08458bbd317e937b980,
         type: 3}
       propertyPath: m_RootOrder
-      value: 83
+      value: 82
       objectReference: {fileID: 0}
     - target: {fileID: 3854561605134150321, guid: dffaa085529ff08458bbd317e937b980,
         type: 3}
@@ -5022,7 +5003,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 55
+      value: 54
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -5097,7 +5078,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 78
+      value: 77
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -5173,7 +5154,7 @@ GameObject:
   - component: {fileID: 778271339}
   - component: {fileID: 778271342}
   - component: {fileID: 778271341}
-  - component: {fileID: 778271340}
+  - component: {fileID: 778271343}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (67)
   m_TagString: Untagged
@@ -5196,20 +5177,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 67
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &778271340
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 778271338}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &778271341
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5260,6 +5227,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778271338}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &778271343
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778271338}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &780235169
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5270,7 +5250,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 64
+      value: 63
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -5452,7 +5432,7 @@ GameObject:
   - component: {fileID: 786456863}
   - component: {fileID: 786456866}
   - component: {fileID: 786456865}
-  - component: {fileID: 786456864}
+  - component: {fileID: 786456867}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (64)
   m_TagString: Untagged
@@ -5475,20 +5455,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 64
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &786456864
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 786456862}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &786456865
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5539,6 +5505,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786456862}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &786456867
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786456862}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &799724649
 GameObject:
   m_ObjectHideFlags: 0
@@ -5550,7 +5529,7 @@ GameObject:
   - component: {fileID: 799724650}
   - component: {fileID: 799724653}
   - component: {fileID: 799724652}
-  - component: {fileID: 799724651}
+  - component: {fileID: 799724654}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (59)
   m_TagString: Untagged
@@ -5573,20 +5552,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 59
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &799724651
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 799724649}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &799724652
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5637,6 +5602,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799724649}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &799724654
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799724649}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &807631785
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5837,7 +5815,7 @@ GameObject:
   - component: {fileID: 821225321}
   - component: {fileID: 821225324}
   - component: {fileID: 821225323}
-  - component: {fileID: 821225322}
+  - component: {fileID: 821225325}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (70)
   m_TagString: Untagged
@@ -5860,20 +5838,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 70
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &821225322
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 821225320}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &821225323
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5924,6 +5888,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 821225320}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &821225325
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821225320}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &843478513
 GameObject:
   m_ObjectHideFlags: 0
@@ -5935,7 +5912,7 @@ GameObject:
   - component: {fileID: 843478514}
   - component: {fileID: 843478517}
   - component: {fileID: 843478516}
-  - component: {fileID: 843478515}
+  - component: {fileID: 843478518}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (36)
   m_TagString: Untagged
@@ -5958,20 +5935,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &843478515
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 843478513}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &843478516
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6022,6 +5985,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843478513}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &843478518
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843478513}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &847650413
 GameObject:
   m_ObjectHideFlags: 0
@@ -6051,7 +6027,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &874970468
 GameObject:
@@ -6064,7 +6040,7 @@ GameObject:
   - component: {fileID: 874970469}
   - component: {fileID: 874970472}
   - component: {fileID: 874970471}
-  - component: {fileID: 874970470}
+  - component: {fileID: 874970473}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (65)
   m_TagString: Untagged
@@ -6087,20 +6063,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 65
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &874970470
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 874970468}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &874970471
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6151,6 +6113,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 874970468}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &874970473
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874970468}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &877362632
 GameObject:
   m_ObjectHideFlags: 0
@@ -6162,7 +6137,7 @@ GameObject:
   - component: {fileID: 877362633}
   - component: {fileID: 877362636}
   - component: {fileID: 877362635}
-  - component: {fileID: 877362634}
+  - component: {fileID: 877362637}
   m_Layer: 0
   m_Name: CityTerrain_Base_5x5 (3)
   m_TagString: Untagged
@@ -6185,20 +6160,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 73
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!64 &877362634
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 877362632}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &877362635
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6249,6 +6210,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877362632}
   m_Mesh: {fileID: 4300004, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &877362637
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877362632}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 3.0616167e-16, z: 4.9999995}
+  m_Center: {x: -2.4999998, y: -1.5308084e-16, z: -2.4999998}
 --- !u!1001 &886631233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6259,7 +6233,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 51
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -6335,7 +6309,7 @@ GameObject:
   - component: {fileID: 898011659}
   - component: {fileID: 898011662}
   - component: {fileID: 898011661}
-  - component: {fileID: 898011660}
+  - component: {fileID: 898011663}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (4)
   m_TagString: Untagged
@@ -6358,20 +6332,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!64 &898011660
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 898011658}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &898011661
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6422,6 +6382,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898011658}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &898011663
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898011658}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.0000005, y: 6.1232335e-16, z: 10.000001}
+  m_Center: {x: -2.5000002, y: 0, z: -5.0000005}
 --- !u!1 &909323653
 GameObject:
   m_ObjectHideFlags: 0
@@ -6433,7 +6406,7 @@ GameObject:
   - component: {fileID: 909323654}
   - component: {fileID: 909323657}
   - component: {fileID: 909323656}
-  - component: {fileID: 909323655}
+  - component: {fileID: 909323658}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (5)
   m_TagString: Untagged
@@ -6456,20 +6429,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!64 &909323655
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909323653}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &909323656
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6520,6 +6479,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 909323653}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &909323658
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909323653}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.0000005, y: 6.1232335e-16, z: 10.000001}
+  m_Center: {x: -2.5000002, y: 0, z: -5.0000005}
 --- !u!1001 &923627860
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6530,7 +6502,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 59
+      value: 58
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -6606,7 +6578,7 @@ GameObject:
   - component: {fileID: 936919577}
   - component: {fileID: 936919580}
   - component: {fileID: 936919579}
-  - component: {fileID: 936919578}
+  - component: {fileID: 936919581}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (28)
   m_TagString: Untagged
@@ -6629,20 +6601,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &936919578
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 936919576}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &936919579
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6693,6 +6651,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 936919576}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &936919581
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936919576}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &961822161
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6703,7 +6674,7 @@ PrefabInstance:
     - target: {fileID: 558477061295801176, guid: 04e97c31fec80cb4c94bc411edc08d72,
         type: 3}
       propertyPath: m_RootOrder
-      value: 31
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 558477061295801176, guid: 04e97c31fec80cb4c94bc411edc08d72,
         type: 3}
@@ -6779,7 +6750,7 @@ GameObject:
   - component: {fileID: 962354077}
   - component: {fileID: 962354080}
   - component: {fileID: 962354079}
-  - component: {fileID: 962354078}
+  - component: {fileID: 962354081}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (15)
   m_TagString: Untagged
@@ -6802,20 +6773,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &962354078
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 962354076}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &962354079
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6866,6 +6823,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962354076}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &962354081
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962354076}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &968267628
 GameObject:
   m_ObjectHideFlags: 0
@@ -6877,7 +6847,7 @@ GameObject:
   - component: {fileID: 968267629}
   - component: {fileID: 968267632}
   - component: {fileID: 968267631}
-  - component: {fileID: 968267630}
+  - component: {fileID: 968267633}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (39)
   m_TagString: Untagged
@@ -6900,20 +6870,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &968267630
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 968267628}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &968267631
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6964,6 +6920,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 968267628}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &968267633
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968267628}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &979746283
 GameObject:
   m_ObjectHideFlags: 0
@@ -6975,7 +6944,7 @@ GameObject:
   - component: {fileID: 979746284}
   - component: {fileID: 979746287}
   - component: {fileID: 979746286}
-  - component: {fileID: 979746285}
+  - component: {fileID: 979746288}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (53)
   m_TagString: Untagged
@@ -6998,20 +6967,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 53
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &979746285
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 979746283}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &979746286
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7062,6 +7017,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979746283}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &979746288
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979746283}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1010669980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7072,7 +7040,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 62
+      value: 61
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -7148,7 +7116,7 @@ GameObject:
   - component: {fileID: 1024219820}
   - component: {fileID: 1024219823}
   - component: {fileID: 1024219822}
-  - component: {fileID: 1024219821}
+  - component: {fileID: 1024219824}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (42)
   m_TagString: Untagged
@@ -7171,20 +7139,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 42
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1024219821
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1024219819}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1024219822
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7235,6 +7189,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024219819}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1024219824
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024219819}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1049652351
 GameObject:
   m_ObjectHideFlags: 0
@@ -7246,7 +7213,7 @@ GameObject:
   - component: {fileID: 1049652352}
   - component: {fileID: 1049652355}
   - component: {fileID: 1049652354}
-  - component: {fileID: 1049652353}
+  - component: {fileID: 1049652356}
   m_Layer: 0
   m_Name: CityTerrain_Base_5x5
   m_TagString: Untagged
@@ -7269,20 +7236,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!64 &1049652353
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049652351}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1049652354
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7333,6 +7286,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1049652351}
   m_Mesh: {fileID: 4300004, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1049652356
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049652351}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 3.0616167e-16, z: 4.9999995}
+  m_Center: {x: -2.4999998, y: -1.5308084e-16, z: -2.4999998}
 --- !u!1001 &1053936651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7343,7 +7309,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 40
+      value: 39
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -7418,7 +7384,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 75
+      value: 74
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -7494,7 +7460,7 @@ GameObject:
   - component: {fileID: 1061587235}
   - component: {fileID: 1061587238}
   - component: {fileID: 1061587237}
-  - component: {fileID: 1061587236}
+  - component: {fileID: 1061587239}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (35)
   m_TagString: Untagged
@@ -7517,20 +7483,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &1061587236
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1061587234}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1061587237
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7581,6 +7533,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061587234}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1061587239
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061587234}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1069102420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7591,7 +7556,7 @@ PrefabInstance:
     - target: {fileID: 2263968801367543978, guid: af596558517734a408ab37fbef9c1bab,
         type: 3}
       propertyPath: m_RootOrder
-      value: 63
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 2263968801367543978, guid: af596558517734a408ab37fbef9c1bab,
         type: 3}
@@ -7667,7 +7632,7 @@ GameObject:
   - component: {fileID: 1108932435}
   - component: {fileID: 1108932438}
   - component: {fileID: 1108932437}
-  - component: {fileID: 1108932436}
+  - component: {fileID: 1108932439}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (61)
   m_TagString: Untagged
@@ -7690,20 +7655,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 61
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &1108932436
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108932434}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1108932437
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7754,6 +7705,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1108932434}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1108932439
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108932434}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1130921676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7764,7 +7728,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 45
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -7840,7 +7804,7 @@ GameObject:
   - component: {fileID: 1132020413}
   - component: {fileID: 1132020416}
   - component: {fileID: 1132020415}
-  - component: {fileID: 1132020414}
+  - component: {fileID: 1132020417}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (72)
   m_TagString: Untagged
@@ -7863,20 +7827,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 72
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &1132020414
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1132020412}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1132020415
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7927,6 +7877,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132020412}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1132020417
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132020412}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1137168191
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7937,7 +7900,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 69
+      value: 68
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -8088,7 +8051,7 @@ GameObject:
   - component: {fileID: 1145545101}
   - component: {fileID: 1145545104}
   - component: {fileID: 1145545103}
-  - component: {fileID: 1145545102}
+  - component: {fileID: 1145545105}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (26)
   m_TagString: Untagged
@@ -8111,20 +8074,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1145545102
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1145545100}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1145545103
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8175,6 +8124,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1145545100}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1145545105
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145545100}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1148295152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8185,7 +8147,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 39
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -8336,7 +8298,7 @@ GameObject:
   - component: {fileID: 1157043045}
   - component: {fileID: 1157043048}
   - component: {fileID: 1157043047}
-  - component: {fileID: 1157043046}
+  - component: {fileID: 1157043049}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (31)
   m_TagString: Untagged
@@ -8359,20 +8321,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1157043046
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1157043044}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1157043047
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8423,6 +8371,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1157043044}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1157043049
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157043044}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1162688848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8539,7 +8500,7 @@ PrefabInstance:
     - target: {fileID: 2263968801367543978, guid: af596558517734a408ab37fbef9c1bab,
         type: 3}
       propertyPath: m_RootOrder
-      value: 73
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 2263968801367543978, guid: af596558517734a408ab37fbef9c1bab,
         type: 3}
@@ -8614,7 +8575,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 71
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -8690,7 +8651,7 @@ GameObject:
   - component: {fileID: 1203733284}
   - component: {fileID: 1203733287}
   - component: {fileID: 1203733286}
-  - component: {fileID: 1203733285}
+  - component: {fileID: 1203733288}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (51)
   m_TagString: Untagged
@@ -8713,20 +8674,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 51
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1203733285
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1203733283}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1203733286
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8777,6 +8724,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1203733283}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1203733288
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203733283}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1238765217
 GameObject:
   m_ObjectHideFlags: 0
@@ -8788,7 +8748,7 @@ GameObject:
   - component: {fileID: 1238765218}
   - component: {fileID: 1238765221}
   - component: {fileID: 1238765220}
-  - component: {fileID: 1238765219}
+  - component: {fileID: 1238765222}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (48)
   m_TagString: Untagged
@@ -8811,20 +8771,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 48
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1238765219
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1238765217}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1238765220
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8875,6 +8821,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238765217}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1238765222
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238765217}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1263012788
 GameObject:
   m_ObjectHideFlags: 0
@@ -8886,7 +8845,7 @@ GameObject:
   - component: {fileID: 1263012789}
   - component: {fileID: 1263012792}
   - component: {fileID: 1263012791}
-  - component: {fileID: 1263012790}
+  - component: {fileID: 1263012793}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (27)
   m_TagString: Untagged
@@ -8909,20 +8868,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1263012790
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263012788}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1263012791
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8973,6 +8918,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263012788}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1263012793
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263012788}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1265767199
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8983,7 +8941,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 77
+      value: 76
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -9059,7 +9017,7 @@ GameObject:
   - component: {fileID: 1288059003}
   - component: {fileID: 1288059006}
   - component: {fileID: 1288059005}
-  - component: {fileID: 1288059004}
+  - component: {fileID: 1288059007}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (8)
   m_TagString: Untagged
@@ -9082,20 +9040,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1288059004
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288059002}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1288059005
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9146,6 +9090,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288059002}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1288059007
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288059002}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1306095126
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9156,7 +9113,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 61
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -9232,7 +9189,7 @@ GameObject:
   - component: {fileID: 1310429679}
   - component: {fileID: 1310429682}
   - component: {fileID: 1310429681}
-  - component: {fileID: 1310429680}
+  - component: {fileID: 1310429683}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (33)
   m_TagString: Untagged
@@ -9255,20 +9212,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1310429680
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1310429678}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1310429681
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9319,6 +9262,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310429678}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1310429683
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310429678}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1333284414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9329,7 +9285,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 57
+      value: 56
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -9405,7 +9361,7 @@ GameObject:
   - component: {fileID: 1341361186}
   - component: {fileID: 1341361189}
   - component: {fileID: 1341361188}
-  - component: {fileID: 1341361187}
+  - component: {fileID: 1341361190}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (32)
   m_TagString: Untagged
@@ -9428,20 +9384,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1341361187
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341361185}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1341361188
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9492,6 +9434,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341361185}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1341361190
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341361185}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1359418977
 GameObject:
   m_ObjectHideFlags: 0
@@ -9503,7 +9458,7 @@ GameObject:
   - component: {fileID: 1359418978}
   - component: {fileID: 1359418981}
   - component: {fileID: 1359418980}
-  - component: {fileID: 1359418979}
+  - component: {fileID: 1359418982}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (2)
   m_TagString: Untagged
@@ -9526,20 +9481,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!64 &1359418979
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359418977}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1359418980
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9590,6 +9531,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359418977}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1359418982
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359418977}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.0000005, y: 6.1232335e-16, z: 10.000001}
+  m_Center: {x: -2.5000002, y: 0, z: -5.0000005}
 --- !u!1001 &1384012470
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9600,7 +9554,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 82
+      value: 81
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -9751,7 +9705,7 @@ GameObject:
   - component: {fileID: 1443391613}
   - component: {fileID: 1443391616}
   - component: {fileID: 1443391615}
-  - component: {fileID: 1443391614}
+  - component: {fileID: 1443391617}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (13)
   m_TagString: Untagged
@@ -9774,20 +9728,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1443391614
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1443391612}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1443391615
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9838,6 +9778,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1443391612}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1443391617
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443391612}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1445780955
 GameObject:
   m_ObjectHideFlags: 0
@@ -9849,7 +9802,7 @@ GameObject:
   - component: {fileID: 1445780956}
   - component: {fileID: 1445780959}
   - component: {fileID: 1445780958}
-  - component: {fileID: 1445780957}
+  - component: {fileID: 1445780960}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (10)
   m_TagString: Untagged
@@ -9872,20 +9825,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1445780957
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1445780955}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1445780958
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9936,6 +9875,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445780955}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1445780960
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445780955}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1458144952
 GameObject:
   m_ObjectHideFlags: 0
@@ -9947,7 +9899,7 @@ GameObject:
   - component: {fileID: 1458144953}
   - component: {fileID: 1458144956}
   - component: {fileID: 1458144955}
-  - component: {fileID: 1458144954}
+  - component: {fileID: 1458144957}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (68)
   m_TagString: Untagged
@@ -9970,20 +9922,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 68
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1458144954
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458144952}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1458144955
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10034,6 +9972,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458144952}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1458144957
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458144952}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1477344716
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10119,7 +10070,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 49
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -10194,7 +10145,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 74
+      value: 73
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -10270,7 +10221,7 @@ GameObject:
   - component: {fileID: 1540170491}
   - component: {fileID: 1540170494}
   - component: {fileID: 1540170493}
-  - component: {fileID: 1540170492}
+  - component: {fileID: 1540170495}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (34)
   m_TagString: Untagged
@@ -10293,20 +10244,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1540170492
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1540170490}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1540170493
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10357,6 +10294,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540170490}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1540170495
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540170490}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1548652857
 GameObject:
   m_ObjectHideFlags: 0
@@ -10368,7 +10318,7 @@ GameObject:
   - component: {fileID: 1548652858}
   - component: {fileID: 1548652861}
   - component: {fileID: 1548652860}
-  - component: {fileID: 1548652859}
+  - component: {fileID: 1548652862}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (43)
   m_TagString: Untagged
@@ -10391,20 +10341,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 43
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1548652859
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1548652857}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1548652860
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10455,6 +10391,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1548652857}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1548652862
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548652857}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1550788078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10541,7 +10490,7 @@ GameObject:
   - component: {fileID: 1554548524}
   - component: {fileID: 1554548527}
   - component: {fileID: 1554548526}
-  - component: {fileID: 1554548525}
+  - component: {fileID: 1554548528}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (19)
   m_TagString: Untagged
@@ -10564,20 +10513,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1554548525
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554548523}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1554548526
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10628,6 +10563,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554548523}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1554548528
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554548523}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1560580154
 GameObject:
   m_ObjectHideFlags: 0
@@ -10639,7 +10587,7 @@ GameObject:
   - component: {fileID: 1560580155}
   - component: {fileID: 1560580158}
   - component: {fileID: 1560580157}
-  - component: {fileID: 1560580156}
+  - component: {fileID: 1560580159}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (17)
   m_TagString: Untagged
@@ -10662,20 +10610,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1560580156
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560580154}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1560580157
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10726,6 +10660,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1560580154}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1560580159
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560580154}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
+--- !u!1 &1584653107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1584653108}
+  m_Layer: 0
+  m_Name: Fences
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1584653108
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584653107}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.91, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1872684897}
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1593662151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10736,7 +10715,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 65
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -10812,7 +10791,7 @@ GameObject:
   - component: {fileID: 1594643272}
   - component: {fileID: 1594643275}
   - component: {fileID: 1594643274}
-  - component: {fileID: 1594643273}
+  - component: {fileID: 1594643276}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (69)
   m_TagString: Untagged
@@ -10835,20 +10814,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 69
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1594643273
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1594643271}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1594643274
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10899,6 +10864,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594643271}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1594643276
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594643271}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1613317080
 GameObject:
   m_ObjectHideFlags: 0
@@ -10910,7 +10888,7 @@ GameObject:
   - component: {fileID: 1613317081}
   - component: {fileID: 1613317084}
   - component: {fileID: 1613317083}
-  - component: {fileID: 1613317082}
+  - component: {fileID: 1613317085}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (49)
   m_TagString: Untagged
@@ -10933,20 +10911,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 49
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1613317082
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1613317080}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1613317083
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10997,6 +10961,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613317080}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1613317085
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613317080}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1626994914
 GameObject:
   m_ObjectHideFlags: 0
@@ -11008,7 +10985,7 @@ GameObject:
   - component: {fileID: 1626994915}
   - component: {fileID: 1626994918}
   - component: {fileID: 1626994917}
-  - component: {fileID: 1626994916}
+  - component: {fileID: 1626994919}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (1)
   m_TagString: Untagged
@@ -11031,20 +11008,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!64 &1626994916
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626994914}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1626994917
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11095,6 +11058,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626994914}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1626994919
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626994914}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1641253245
 GameObject:
   m_ObjectHideFlags: 0
@@ -11106,7 +11082,7 @@ GameObject:
   - component: {fileID: 1641253246}
   - component: {fileID: 1641253249}
   - component: {fileID: 1641253248}
-  - component: {fileID: 1641253247}
+  - component: {fileID: 1641253250}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (16)
   m_TagString: Untagged
@@ -11129,20 +11105,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1641253247
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1641253245}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1641253248
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11193,6 +11155,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641253245}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1641253250
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641253245}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1687771182
 GameObject:
   m_ObjectHideFlags: 0
@@ -11204,7 +11179,7 @@ GameObject:
   - component: {fileID: 1687771183}
   - component: {fileID: 1687771186}
   - component: {fileID: 1687771185}
-  - component: {fileID: 1687771184}
+  - component: {fileID: 1687771187}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (29)
   m_TagString: Untagged
@@ -11227,20 +11202,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1687771184
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1687771182}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1687771185
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11291,6 +11252,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687771182}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1687771187
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687771182}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1704817872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11301,7 +11275,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 34
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -11377,7 +11351,7 @@ GameObject:
   - component: {fileID: 1722833908}
   - component: {fileID: 1722833911}
   - component: {fileID: 1722833910}
-  - component: {fileID: 1722833909}
+  - component: {fileID: 1722833912}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (38)
   m_TagString: Untagged
@@ -11400,20 +11374,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1722833909
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722833907}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1722833910
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11464,6 +11424,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722833907}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1722833912
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722833907}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1730998096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11474,7 +11447,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 58
+      value: 57
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -11550,7 +11523,7 @@ GameObject:
   - component: {fileID: 1739182060}
   - component: {fileID: 1739182063}
   - component: {fileID: 1739182062}
-  - component: {fileID: 1739182061}
+  - component: {fileID: 1739182064}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (52)
   m_TagString: Untagged
@@ -11573,20 +11546,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 52
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1739182061
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739182059}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1739182062
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11637,6 +11596,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739182059}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1739182064
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739182059}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1757348874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11830,7 +11802,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 67
+      value: 66
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -11905,7 +11877,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 35
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -12055,7 +12027,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 42
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -12130,7 +12102,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 41
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -12206,7 +12178,7 @@ GameObject:
   - component: {fileID: 1779588108}
   - component: {fileID: 1779588111}
   - component: {fileID: 1779588110}
-  - component: {fileID: 1779588109}
+  - component: {fileID: 1779588112}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (71)
   m_TagString: Untagged
@@ -12229,20 +12201,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 71
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1779588109
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1779588107}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1779588110
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12293,6 +12251,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779588107}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1779588112
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779588107}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1788441032
 GameObject:
   m_ObjectHideFlags: 0
@@ -12304,7 +12275,7 @@ GameObject:
   - component: {fileID: 1788441033}
   - component: {fileID: 1788441036}
   - component: {fileID: 1788441035}
-  - component: {fileID: 1788441034}
+  - component: {fileID: 1788441037}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (63)
   m_TagString: Untagged
@@ -12327,20 +12298,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 63
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1788441034
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1788441032}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1788441035
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12391,6 +12348,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1788441032}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1788441037
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788441032}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1790040322
 GameObject:
   m_ObjectHideFlags: 0
@@ -12402,7 +12372,7 @@ GameObject:
   - component: {fileID: 1790040323}
   - component: {fileID: 1790040326}
   - component: {fileID: 1790040325}
-  - component: {fileID: 1790040324}
+  - component: {fileID: 1790040327}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (25)
   m_TagString: Untagged
@@ -12425,20 +12395,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &1790040324
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1790040322}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1790040325
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12489,6 +12445,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1790040322}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1790040327
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790040322}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1800542070
 GameObject:
   m_ObjectHideFlags: 0
@@ -12531,7 +12500,7 @@ GameObject:
   - component: {fileID: 1805638535}
   - component: {fileID: 1805638538}
   - component: {fileID: 1805638537}
-  - component: {fileID: 1805638536}
+  - component: {fileID: 1805638539}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (37)
   m_TagString: Untagged
@@ -12554,20 +12523,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1805638536
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805638534}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1805638537
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12618,6 +12573,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805638534}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1805638539
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805638534}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1821017650
 GameObject:
   m_ObjectHideFlags: 0
@@ -12659,7 +12627,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 27
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -12735,7 +12703,7 @@ GameObject:
   - component: {fileID: 1830861824}
   - component: {fileID: 1830861827}
   - component: {fileID: 1830861826}
-  - component: {fileID: 1830861825}
+  - component: {fileID: 1830861828}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (22)
   m_TagString: Untagged
@@ -12758,20 +12726,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1830861825
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1830861823}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1830861826
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12822,6 +12776,82 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830861823}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1830861828
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830861823}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
+--- !u!1001 &1872684896
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1584653108}
+    m_Modifications:
+    - target: {fileID: 1615591941778580, guid: c5bddabe9726ddb4bbb934593b7e0e7d, type: 3}
+      propertyPath: m_Name
+      value: SmallFence005
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698941027338182, guid: c5bddabe9726ddb4bbb934593b7e0e7d, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698941027338182, guid: c5bddabe9726ddb4bbb934593b7e0e7d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.638
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698941027338182, guid: c5bddabe9726ddb4bbb934593b7e0e7d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698941027338182, guid: c5bddabe9726ddb4bbb934593b7e0e7d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 32.365
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698941027338182, guid: c5bddabe9726ddb4bbb934593b7e0e7d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698941027338182, guid: c5bddabe9726ddb4bbb934593b7e0e7d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698941027338182, guid: c5bddabe9726ddb4bbb934593b7e0e7d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698941027338182, guid: c5bddabe9726ddb4bbb934593b7e0e7d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698941027338182, guid: c5bddabe9726ddb4bbb934593b7e0e7d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698941027338182, guid: c5bddabe9726ddb4bbb934593b7e0e7d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698941027338182, guid: c5bddabe9726ddb4bbb934593b7e0e7d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c5bddabe9726ddb4bbb934593b7e0e7d, type: 3}
+--- !u!4 &1872684897 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4698941027338182, guid: c5bddabe9726ddb4bbb934593b7e0e7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1872684896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1894853183
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12832,7 +12862,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 32
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -13015,7 +13045,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 37
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -13090,7 +13120,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 33
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -13166,7 +13196,7 @@ GameObject:
   - component: {fileID: 1925921316}
   - component: {fileID: 1925921319}
   - component: {fileID: 1925921318}
-  - component: {fileID: 1925921317}
+  - component: {fileID: 1925921320}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (47)
   m_TagString: Untagged
@@ -13189,20 +13219,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 47
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1925921317
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1925921315}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1925921318
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13253,6 +13269,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925921315}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1925921320
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925921315}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1926905936
 GameObject:
   m_ObjectHideFlags: 0
@@ -13264,7 +13293,7 @@ GameObject:
   - component: {fileID: 1926905937}
   - component: {fileID: 1926905940}
   - component: {fileID: 1926905939}
-  - component: {fileID: 1926905938}
+  - component: {fileID: 1926905941}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5
   m_TagString: Untagged
@@ -13287,20 +13316,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
---- !u!64 &1926905938
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926905936}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1926905939
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13351,6 +13366,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1926905936}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1926905941
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1926905936}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &1965597286
 GameObject:
   m_ObjectHideFlags: 0
@@ -13362,7 +13390,7 @@ GameObject:
   - component: {fileID: 1965597287}
   - component: {fileID: 1965597290}
   - component: {fileID: 1965597289}
-  - component: {fileID: 1965597288}
+  - component: {fileID: 1965597291}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (54)
   m_TagString: Untagged
@@ -13385,20 +13413,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 54
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1965597288
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965597286}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1965597289
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13449,6 +13463,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965597286}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1965597291
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965597286}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1966832072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13459,7 +13486,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 28
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -13535,7 +13562,7 @@ GameObject:
   - component: {fileID: 1967073562}
   - component: {fileID: 1967073565}
   - component: {fileID: 1967073564}
-  - component: {fileID: 1967073563}
+  - component: {fileID: 1967073566}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (9)
   m_TagString: Untagged
@@ -13558,20 +13585,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1967073563
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1967073561}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1967073564
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13622,6 +13635,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967073561}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1967073566
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967073561}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1001 &1974036382
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13632,7 +13658,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 54
+      value: 53
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -13783,7 +13809,7 @@ GameObject:
   - component: {fileID: 1990145011}
   - component: {fileID: 1990145014}
   - component: {fileID: 1990145013}
-  - component: {fileID: 1990145012}
+  - component: {fileID: 1990145015}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (30)
   m_TagString: Untagged
@@ -13806,20 +13832,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &1990145012
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1990145010}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &1990145013
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13870,6 +13882,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990145010}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &1990145015
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990145010}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &2008293920
 GameObject:
   m_ObjectHideFlags: 0
@@ -13881,7 +13906,7 @@ GameObject:
   - component: {fileID: 2008293921}
   - component: {fileID: 2008293924}
   - component: {fileID: 2008293923}
-  - component: {fileID: 2008293922}
+  - component: {fileID: 2008293925}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (50)
   m_TagString: Untagged
@@ -13904,20 +13929,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 50
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &2008293922
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2008293920}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &2008293923
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13968,6 +13979,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008293920}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &2008293925
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008293920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &2013247431
 GameObject:
   m_ObjectHideFlags: 0
@@ -13979,7 +14003,7 @@ GameObject:
   - component: {fileID: 2013247432}
   - component: {fileID: 2013247435}
   - component: {fileID: 2013247434}
-  - component: {fileID: 2013247433}
+  - component: {fileID: 2013247436}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (44)
   m_TagString: Untagged
@@ -14002,20 +14026,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 44
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &2013247433
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2013247431}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &2013247434
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14066,6 +14076,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2013247431}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &2013247436
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013247431}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &2025104552
 GameObject:
   m_ObjectHideFlags: 0
@@ -14077,7 +14100,7 @@ GameObject:
   - component: {fileID: 2025104553}
   - component: {fileID: 2025104556}
   - component: {fileID: 2025104555}
-  - component: {fileID: 2025104554}
+  - component: {fileID: 2025104557}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (56)
   m_TagString: Untagged
@@ -14100,20 +14123,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 56
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &2025104554
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025104552}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &2025104555
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14164,6 +14173,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2025104552}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &2025104557
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2025104552}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &2041075901
 GameObject:
   m_ObjectHideFlags: 0
@@ -14175,7 +14197,7 @@ GameObject:
   - component: {fileID: 2041075902}
   - component: {fileID: 2041075905}
   - component: {fileID: 2041075904}
-  - component: {fileID: 2041075903}
+  - component: {fileID: 2041075906}
   m_Layer: 0
   m_Name: CityTerrain_Base_10x5 (62)
   m_TagString: Untagged
@@ -14198,20 +14220,6 @@ Transform:
   m_Father: {fileID: 156434936}
   m_RootOrder: 62
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!64 &2041075903
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041075901}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300008, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
 --- !u!23 &2041075904
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14262,6 +14270,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041075901}
   m_Mesh: {fileID: 4300002, guid: e601176dc029b5245bac0aaf70f3cf80, type: 3}
+--- !u!65 &2041075906
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041075901}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.9999995, y: 6.1232335e-16, z: 9.999999}
+  m_Center: {x: -2.4999998, y: 0, z: -4.9999995}
 --- !u!1 &2108237094
 GameObject:
   m_ObjectHideFlags: 0
@@ -14340,7 +14361,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 60
+      value: 59
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
@@ -14490,7 +14511,7 @@ PrefabInstance:
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
       propertyPath: m_RootOrder
-      value: 72
+      value: 71
       objectReference: {fileID: 0}
     - target: {fileID: 15263989395663522, guid: ada6b4f0ff7b8354a9751d0f3bb71d34,
         type: 3}
