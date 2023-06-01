@@ -19,9 +19,9 @@ Category {
 
 		// This pass grabs the screen behind the object into a texture.
 		// We can access the result in the next pass as _GrabTexture
-		GrabPass {
+	/* 	GrabPass {
 			Name "BASE"
-			Tags { "LightMode" = "Always" }
+			Tags { "LightMode" = "Always" } */
 		}
 		
 		// Main pass: Take the texture grabbed above and use the bumpmap to perturb it

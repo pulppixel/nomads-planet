@@ -370,7 +370,7 @@ Subshader
 	Lod 500
 	ColorMask RGB
 	
-	GrabPass { "_RefractionTex" }
+/* 	GrabPass { "_RefractionTex" } */
 	
 	Pass {
 			Blend SrcAlpha OneMinusSrcAlpha
