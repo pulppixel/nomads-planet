@@ -60,7 +60,7 @@ namespace NomadsPlanet
         private void CarMovement()
         {
             // todo: 점진적으로 0~1로 갈 수 있도록 하기
-            _carController.Move(0, 1, 1, 0);
+            _carController.Move(0, .5f, .5f, 0);
         }
 
         // 직진

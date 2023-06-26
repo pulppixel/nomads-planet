@@ -1,6 +1,5 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
+using NomadsPlanet.Utils;
 using LightType = NomadsPlanet.Utils.LightType;
 
 namespace NomadsPlanet
@@ -9,6 +8,7 @@ namespace NomadsPlanet
     // 좌회전이나 우회전만 가능한 차선에서는, 2차선 모두 이용이 가능하다.
     public class TrafficFlow : MonoBehaviour
     {
+        public TrafficType trafficType;
         public LightType currentLightType { get; private set; }
         private LightController _lightController;
 
