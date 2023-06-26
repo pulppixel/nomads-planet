@@ -16,7 +16,6 @@ namespace UnityStandardAssets.Vehicles.Car
             m_Car = GetComponent<CarController>();
         }
 
-
         private void FixedUpdate()
         {
             // pass the input to the car!
