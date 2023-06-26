@@ -1,20 +1,35 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using NomadsPlanet.Utils;
+using Unity.VisualScripting;
 
 namespace NomadsPlanet
 {
     public class TrafficManager : MonoBehaviour
     {
-        [Flags]
-        internal enum TrafficType
+        public static TrafficManager Instance { get; private set; }
+
+        private void Awake()
         {
-            Left = 1,
-            Right = 2,
-            Forward = 4,
+            if (Instance != null && Instance != this)
+            {
+                return;
+            }
+
+            Instance = this;
         }
-        
-        
+
+        public TrafficType GetTrafficType(string carTag)
+        {
+            return carTag switch
+            {
+                "L" => TrafficType.Left,
+                "R" => TrafficType.Right,
+                "LR" => TrafficType.Left | TrafficType.Right,
+                "LF" => TrafficType.Left | TrafficType.Forward,
+                "RF" => TrafficType.Right | TrafficType.Forward,
+                _ => TrafficType.Left | TrafficType.Right | TrafficType.Forward
+            };
+        }
     }
 }

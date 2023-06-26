@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using System;
 
 namespace NomadsPlanet.Utils
 {
@@ -7,5 +7,13 @@ namespace NomadsPlanet.Utils
         Red,
         Yellow,
         Green
+    }
+    
+    [Flags]
+    public enum TrafficType
+    {
+        Left = 1,
+        Right = 2,
+        Forward = 4,
     }
 }
