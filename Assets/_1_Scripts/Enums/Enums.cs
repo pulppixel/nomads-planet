@@ -2,7 +2,7 @@
 
 namespace NomadsPlanet.Utils
 {
-    public enum TrafficSign
+    public enum LightType
     {
         Red,
         Yellow,
