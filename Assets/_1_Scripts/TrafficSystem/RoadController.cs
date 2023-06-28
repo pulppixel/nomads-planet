@@ -1,5 +1,5 @@
-﻿using NomadsPlanet.Utils;
-using UnityEngine;
+﻿using UnityEngine;
+using NomadsPlanet.Utils;
 
 namespace NomadsPlanet
 {

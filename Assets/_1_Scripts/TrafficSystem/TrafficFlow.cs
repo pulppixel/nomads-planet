@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
 using NomadsPlanet.Utils;
-using UnityEngine.Serialization;
 using LightType = NomadsPlanet.Utils.LightType;
 
 namespace NomadsPlanet
@@ -11,7 +9,7 @@ namespace NomadsPlanet
     public class TrafficFlow : MonoBehaviour
     {
         public TrafficType trafficType { get; private set; }
-        public LightType currentLightType { get; private set; }
+        public LightType curLightType { get; private set; }
         private LightController _lightController;
 
         private void Awake()
@@ -22,7 +20,7 @@ namespace NomadsPlanet
 
         public void SetLightType(LightType type)
         {
-            currentLightType = type;
+            curLightType = type;
             _lightController.SetTrafficSign(type);
         }
     }

@@ -1,6 +1,6 @@
 using System;
-using NomadsPlanet.Utils;
 using UnityEngine;
+using NomadsPlanet.Utils;
 using UnityStandardAssets.Vehicles.Car;
 
 namespace NomadsPlanet
@@ -46,10 +46,11 @@ namespace NomadsPlanet
                 Debug.Log(roadController.LaneType.ToString());
             }
 
-            // 
+            // 목표하고 있는 방향을 정한다.
             if (other.TryGetComponent<TrafficFlow>(out var trafficFlow))
             {
-                Debug.Log(trafficFlow.currentLightType.ToString());
+                targetTraffic = trafficFlow.trafficType;
+                Debug.Log(trafficFlow.curLightType.ToString());
             }
         }
 
@@ -90,37 +91,7 @@ namespace NomadsPlanet
         private void CarMovement()
         {
             // todo: 점진적으로 0~1로 갈 수 있도록 하기
-            _carController.Move(-.05f, .1f, .1f, 0);
-        }
-
-        // 직진
-        public void GoThrough()
-        {
-            Debug.Log("직전");
-        }
-
-        // 유턴
-        public void UTurn()
-        {
-            Debug.Log("유턴");
-        }
-
-        // 차선 변경
-        public void ChangeLane()
-        {
-            Debug.Log("차선 변경");
-        }
-
-        // 좌회전
-        public void TurnLeft()
-        {
-            Debug.Log("좌회전");
-        }
-
-        // 우회전
-        public void TurnRight()
-        {
-            Debug.Log("우회전");
+            // _carController.Move(-.05f, .1f, .1f, 0);
         }
     }
 }
