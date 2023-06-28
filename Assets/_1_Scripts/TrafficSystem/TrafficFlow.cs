@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using NomadsPlanet.Utils;
+using UnityEngine.Serialization;
 using LightType = NomadsPlanet.Utils.LightType;
 
 namespace NomadsPlanet
@@ -14,8 +16,8 @@ namespace NomadsPlanet
 
         private void Awake()
         {
-            _lightController = transform.GetChild(0).GetComponent<LightController>();
             trafficType = TrafficManager.GetTrafficType(tag);
+            _lightController = transform.GetChild(0).GetComponent<LightController>();
         }
 
         public void SetLightType(LightType type)

@@ -2,19 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NomadsPlanet.Utils;
-using Sirenix.OdinInspector;
 using LightType = NomadsPlanet.Utils.LightType;
 
 namespace NomadsPlanet
 {
-    // 초록불 60초
-    // 노랑불 5초
-    // 나머지는 무조건 빨간불
     public class TrafficController : MonoBehaviour
     {
-        [ShowInInspector] private List<TrafficFlow> _trafficFlows;
-
-        [Button]
+        private List<TrafficFlow> _trafficFlows;
+        
         private void Awake()
         {
             _trafficFlows = new List<TrafficFlow>();
@@ -37,6 +32,8 @@ namespace NomadsPlanet
             StartCoroutine(TrafficCycle());
         }
 
+        // 하나의 신호가 초록불일 때, 나머지는 빨간불 유지
+        // 초록 -> 노랑 -> 빨강
         private IEnumerator TrafficCycle()
         {
             while (gameObject)

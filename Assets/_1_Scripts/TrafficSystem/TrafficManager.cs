@@ -31,5 +31,10 @@ namespace NomadsPlanet
                 _ => TrafficType.Left | TrafficType.Right | TrafficType.Forward
             };
         }
+
+        public static LaneType GetLaneType(string name)
+        {
+            return name.Contains("1") ? LaneType.First : LaneType.Second;
+        }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using NomadsPlanet.Utils;
 using UnityEngine;
 using UnityStandardAssets.Vehicles.Car;
 
@@ -9,12 +10,23 @@ namespace NomadsPlanet
     public class CarHandler : MonoBehaviour
     {
         private CarController _carController;
+        public LayerMask layerMask;
 
         private const float MaxDistance = 20f;
         private const float SlowerDistance = 10f;
 
-        public LayerMask layerMask;
+        private LaneType currentLane;
+        private LaneType targetLane;
+        private TrafficType targetTraffic;
 
+        internal enum CarState
+        {
+            Idle,       // 정지 상태
+            ChangeLane, // 차선 변경 상태
+            Drive,      // 드라이브 상태
+            Stopping,   // 브레이크 밟은 상태
+        }
+        
         private void Awake()
         {
             _carController = GetComponent<CarController>();
@@ -26,19 +38,33 @@ namespace NomadsPlanet
             StoppingControl(DetectOtherCar());
         }
 
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
+            // 현재 달리고 있는 차선을 받아온다.
+            if (other.TryGetComponent<RoadController>(out var roadController))
+            {
+                Debug.Log(roadController.LaneType.ToString());
+            }
+
+            // 
             if (other.TryGetComponent<TrafficFlow>(out var trafficFlow))
             {
                 Debug.Log(trafficFlow.currentLightType.ToString());
             }
         }
 
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.TryGetComponent<TrafficFlow>(out var trafficFlow))
+            {
+                // Debug.Log(trafficFlow.currentLightType.ToString());
+            }
+        }
+
         private float DetectOtherCar()
         {
             var tr = GetComponent<Transform>();
-            RaycastHit hit;
-            if (Physics.Raycast(tr.position, tr.forward, out hit, MaxDistance, layerMask))
+            if (Physics.Raycast(tr.position, tr.forward, out var hit, MaxDistance, layerMask))
             {
                 Debug.Log("Player Detected! Distance: " + hit.distance);
 
@@ -46,6 +72,7 @@ namespace NomadsPlanet
             }
 
             return 0f;
+
         }
 
         private static void StoppingControl(float distance)
@@ -63,7 +90,7 @@ namespace NomadsPlanet
         private void CarMovement()
         {
             // todo: 점진적으로 0~1로 갈 수 있도록 하기
-            _carController.Move(0, .5f, .5f, 0);
+            _carController.Move(-.05f, .1f, .1f, 0);
         }
 
         // 직진
