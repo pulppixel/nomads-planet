@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BackEnd;
+using NomadsPlanet.Utils;
 
 
-public class BackendLogin : MonoBehaviour
+public class BackendLogin
 {
-    private static BackendLogin _instance = null;
+    private static BackendLogin _instance;
 
     public static BackendLogin Instance {
         get {

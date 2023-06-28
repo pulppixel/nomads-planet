@@ -2,11 +2,12 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 using BackEnd;
+using NomadsPlanet.Utils;
 
 public class BackendManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         var bro = Backend.Initialize(true);
 
@@ -22,7 +23,7 @@ public class BackendManager : MonoBehaviour
         Test();
     }
 
-    async void Test()
+    private async void Test()
     {
         await Task.Run(() =>
         {

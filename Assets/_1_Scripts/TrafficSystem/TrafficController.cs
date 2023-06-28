@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using NomadsPlanet.Utils;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using LightType = NomadsPlanet.Utils.LightType;
 
@@ -10,8 +13,10 @@ namespace NomadsPlanet
     // 빨간불 55초
     public class TrafficController : MonoBehaviour
     {
+        [ShowInInspector]
         private List<TrafficFlow> _trafficFlows;
 
+        [Button]
         private void Awake()
         {
             _trafficFlows = new List<TrafficFlow>();
@@ -20,6 +25,8 @@ namespace NomadsPlanet
                 var flow = transform.GetChild(i).GetComponent<TrafficFlow>();
                 _trafficFlows.Add(flow);
             }
+            
+            _trafficFlows.ShuffleList();
         }
 
         private void Start()
@@ -28,6 +35,11 @@ namespace NomadsPlanet
             {
                 flow.SetLightType(LightType.Red);
             }
+        }
+
+        private IEnumerator TrafficFlower()
+        {
+            yield return new WaitForSeconds(1);
         }
     }
 }

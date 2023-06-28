@@ -26,9 +26,12 @@ namespace NomadsPlanet
             StoppingControl(DetectOtherCar());
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
-            Debug.Log(TrafficManager.Instance.GetTrafficType(other.tag));
+            if (other.TryGetComponent<TrafficFlow>(out var trafficFlow))
+            {
+                Debug.Log(trafficFlow.currentLightType.ToString());
+            }
         }
 
         private float DetectOtherCar()
