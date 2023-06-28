@@ -19,7 +19,7 @@ namespace NomadsPlanet
             Instance = this;
         }
 
-        public TrafficType GetTrafficType(string carTag)
+        public static TrafficType GetTrafficType(string carTag)
         {
             return carTag switch
             {

@@ -5,20 +5,6 @@ namespace NomadsPlanet.Utils
 {
     public static class CustomFunc
     {
-        public static void WriteLine(object message, bool isError = false)
-        {
-#if UNITY_EDITOR
-            if (isError)
-            {
-                Debug.LogError(message);
-            }
-            else
-            {
-                Debug.Log(message);
-            }
-#endif
-        }
-
         // Fisher-Yates Algorithm
         public static void ShuffleList<T>(this IList<T> list)
         {
