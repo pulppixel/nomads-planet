@@ -1,5 +1,4 @@
 using UnityEngine;
-using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using LightType = NomadsPlanet.Utils.LightType;
 
@@ -10,7 +9,6 @@ namespace NomadsPlanet
         private LightType _lightType;
         private List<GameObject> _trafficSigns;
 
-        [Button]
         private void Awake()
         {
             _trafficSigns = new List<GameObject>();
@@ -20,7 +18,6 @@ namespace NomadsPlanet
             }
         }
 
-        [ShowInInspector]
         public void SetTrafficSign(LightType seLightType)
         {
             _lightType = seLightType;

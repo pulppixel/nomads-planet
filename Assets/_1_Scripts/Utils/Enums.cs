@@ -8,6 +8,12 @@ namespace NomadsPlanet.Utils
         Yellow,
         Green
     }
+
+    public enum LaneType
+    {
+        First,
+        Second,
+    }
     
     [Flags]
     public enum TrafficType

@@ -19,7 +19,7 @@ namespace NomadsPlanet
             Instance = this;
         }
 
-        public TrafficType GetTrafficType(string carTag)
+        public static TrafficType GetTrafficType(string carTag)
         {
             return carTag switch
             {
@@ -30,6 +30,11 @@ namespace NomadsPlanet
                 "RF" => TrafficType.Right | TrafficType.Forward,
                 _ => TrafficType.Left | TrafficType.Right | TrafficType.Forward
             };
+        }
+
+        public static LaneType GetLaneType(string name)
+        {
+            return name.Contains("1") ? LaneType.First : LaneType.Second;
         }
     }
 }

@@ -8,18 +8,19 @@ namespace NomadsPlanet
     // 좌회전이나 우회전만 가능한 차선에서는, 2차선 모두 이용이 가능하다.
     public class TrafficFlow : MonoBehaviour
     {
-        public TrafficType trafficType;
-        public LightType currentLightType { get; private set; }
+        public TrafficType trafficType { get; private set; }
+        public LightType curLightType { get; private set; }
         private LightController _lightController;
 
         private void Awake()
         {
+            trafficType = TrafficManager.GetTrafficType(tag);
             _lightController = transform.GetChild(0).GetComponent<LightController>();
         }
 
         public void SetLightType(LightType type)
         {
-            currentLightType = type;
+            curLightType = type;
             _lightController.SetTrafficSign(type);
         }
     }
