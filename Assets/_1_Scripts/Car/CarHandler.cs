@@ -7,6 +7,12 @@ namespace NomadsPlanet
 {
     // 차 속도는 최대 30km/h, 15km/h부터 줄이고, 거리가 10되면 멈추기
     // 현재 도로를 가는데, 현재 도로의 정보를 얻어오고, 좌회전할지 우회전할지, 직진할 지 선택할 수 있게 하기
+    
+    // 각 도로마다 포인트를 만들어두고, 들어온 차량의 순번에 따라 배치해주기
+    // Queue 구조로 만들면 딱 맞을 거야.
+    
+    // 그리고 가장 도로의 가장 끝에서, 방향 이동 Move를 해주면 될듯
+    // 직선용 Move와 방향용 Move
     public class CarHandler : MonoBehaviour
     {
         private CarController _carController;

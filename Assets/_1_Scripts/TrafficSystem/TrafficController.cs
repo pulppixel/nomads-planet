@@ -9,7 +9,7 @@ namespace NomadsPlanet
     public class TrafficController : MonoBehaviour
     {
         private List<TrafficFlow> _trafficFlows;
-        
+
         private void Awake()
         {
             _trafficFlows = new List<TrafficFlow>();
@@ -38,15 +38,17 @@ namespace NomadsPlanet
         {
             while (gameObject)
             {
+                // todo: 대충 시간 은근 달라지게끔 해두기
+                int duration = Random.Range(10, 15);
                 for (int i = 0; i < _trafficFlows.Count; i++)
                 {
                     for (int j = 0; j < _trafficFlows.Count; j++)
                     {
                         if (j == i) continue;
-                        StartCoroutine(SetTrafficSign(_trafficFlows[j], LightType.Red, 35));
+                        StartCoroutine(SetTrafficSign(_trafficFlows[j], LightType.Red, duration));
                     }
 
-                    yield return StartCoroutine(SetTrafficSign(_trafficFlows[i], LightType.Green, 30));
+                    yield return StartCoroutine(SetTrafficSign(_trafficFlows[i], LightType.Green, duration - 5));
                     yield return StartCoroutine(SetTrafficSign(_trafficFlows[i], LightType.Yellow, 5));
                 }
             }
