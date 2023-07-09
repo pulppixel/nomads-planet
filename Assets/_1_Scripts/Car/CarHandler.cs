@@ -39,10 +39,10 @@ namespace NomadsPlanet
         private void OnTriggerEnter(Collider other)
         {
             // 현재 달리고 있는 차선을 받아온다.
-            if (other.TryGetComponent<LaneController>(out var roadController))
-            {
-                // Debug.Log(roadController.LaneType.ToString());
-            }
+            // if (other.TryGetComponent<LaneController>(out var roadController))
+            // {
+            //     // Debug.Log(roadController.LaneType.ToString());
+            // }
 
             // 목표하고 있는 방향을 정한다.
             if (other.TryGetComponent<TrafficFlow>(out var trafficFlow))
