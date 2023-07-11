@@ -28,6 +28,7 @@ namespace NomadsPlanet
         public LightType curLightType { get; private set; }
         
         private LightController _lightController;
+        private CarDetector _carDetector;
 
         private void Awake()
         {
@@ -41,10 +42,20 @@ namespace NomadsPlanet
             _lightController.SetTrafficSign(type);
         }
 
+        /* CAR STATE를 정해보자. (현재 신호등의 색상에 따라 내용 정리를 해야한다.)
+         * 1. 처음에 들어왔을 때, 위치할 곳을 정해준다. (50% 확률로 왼쪽, 오른쪽 차선 구분),
+         *    차선 정해주는 것부터 해서 전체 이동은... 여기서 할듯?
+         *    대신 이동 관련 내용은 `CarHandler`에 넣어야함
+         * 2. 맨 앞에 있는 애 또한 분기점이 있을 시, 50% 확률로 갈 곳 정하기
+         * 3. 노란불은 멈추는 불. 무리하게 건너진 말고, 보이면 멈추되, 앞 2개까지는 건널 수 있게 하기
+         * 4. 
+         */ 
+
         // 여기서 필요한 멤버들을 초기화해준다.
         private void _InitGetters()
         {
             trafficType = TrafficManager.GetTrafficType(tag);
+            _carDetector = GetComponent<CarDetector>();
             _lightController = transform.GetChild(0).GetComponent<LightController>();
             var leftParents = transform.GetChild(1);
             var rightParents = transform.GetChild(2);
