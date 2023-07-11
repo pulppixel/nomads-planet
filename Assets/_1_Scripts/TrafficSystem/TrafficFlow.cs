@@ -21,9 +21,12 @@ namespace NomadsPlanet
         [ShowInInspector, ReadOnly]
         public List<Transform> leftCarPoints { get; private set; }
 
-        [ShowInInspector, ReadOnly] public List<Transform> rightCarPoints { get; private set; }
+        [ShowInInspector, ReadOnly]
+        public List<Transform> rightCarPoints { get; private set; }
+        
         public TrafficType trafficType { get; private set; }
         public LightType curLightType { get; private set; }
+        
         private LightController _lightController;
 
         private void Awake()
