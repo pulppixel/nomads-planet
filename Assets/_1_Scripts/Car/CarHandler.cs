@@ -47,7 +47,7 @@ namespace NomadsPlanet
             // 목표하고 있는 방향을 정한다.
             if (other.TryGetComponent<TrafficFlow>(out var trafficFlow))
             {
-                targetTraffic = trafficFlow.trafficType;
+                targetTraffic = trafficFlow.TrafficType;
                 // Debug.Log(trafficFlow.curLightType.ToString());
             }
         }

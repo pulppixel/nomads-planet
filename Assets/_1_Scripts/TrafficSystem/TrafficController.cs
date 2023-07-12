@@ -8,7 +8,7 @@ namespace NomadsPlanet
 {
     public class TrafficController : MonoBehaviour
     {
-        private const int SIGN_DURATION = 30;
+        private const int SignDuration = 30;
         
         private List<TrafficFlow> _trafficFlows;
 
@@ -28,7 +28,7 @@ namespace NomadsPlanet
         {
             foreach (var flow in _trafficFlows)
             {
-                flow.SetLightType(LightType.Red);
+                flow.SetLightAction(LightType.Red);
             }
 
             StartCoroutine(TrafficCycle());
@@ -41,7 +41,7 @@ namespace NomadsPlanet
             while (gameObject)
             {
                 // todo: 대충 시간 은근 달라지게끔 해두기
-                int duration = Random.Range(SIGN_DURATION, SIGN_DURATION + 5);
+                int duration = Random.Range(SignDuration, SignDuration + 5);
                 for (int i = 0; i < _trafficFlows.Count; i++)
                 {
                     for (int j = 0; j < _trafficFlows.Count; j++)
@@ -58,7 +58,7 @@ namespace NomadsPlanet
 
         private static IEnumerator SetTrafficSign(TrafficFlow trafficFlow, LightType lightType, int duration)
         {
-            trafficFlow.SetLightType(lightType);
+            trafficFlow.SetLightAction(lightType);
             yield return new WaitForSeconds(duration);
         }
     }
