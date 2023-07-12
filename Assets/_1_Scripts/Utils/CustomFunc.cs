@@ -16,5 +16,24 @@ namespace NomadsPlanet.Utils
                 list[randomIndex] = temp;
             }
         }
+
+        public static T GetChildFromName<T>(this Transform parent, string name) where T : Component
+        {
+            foreach (Transform child in parent.transform)
+            {
+                if (child.name.Equals(name) && child.TryGetComponent<T>(out var component))
+                {
+                    return component;
+                }
+
+                var result = child.GetChildFromName<T>(name);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+
+            return null;
+        }
     }
 }

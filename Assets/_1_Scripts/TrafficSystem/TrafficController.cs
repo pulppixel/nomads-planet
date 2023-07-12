@@ -9,7 +9,7 @@ namespace NomadsPlanet
     public class TrafficController : MonoBehaviour
     {
         private const int SignDuration = 30;
-        
+
         private List<TrafficFlow> _trafficFlows;
 
         private void Awake()
@@ -17,8 +17,10 @@ namespace NomadsPlanet
             _trafficFlows = new List<TrafficFlow>();
             for (int i = 0; i < transform.childCount; i++)
             {
-                var flow = transform.GetChild(i).GetComponent<TrafficFlow>();
-                _trafficFlows.Add(flow);
+                if (transform.GetChild(i).TryGetComponent<TrafficFlow>(out var flow))
+                {
+                    _trafficFlows.Add(flow);
+                }
             }
 
             _trafficFlows.ShuffleList();

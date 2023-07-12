@@ -1,95 +1,65 @@
 using System;
+using System.Collections;
 using UnityEngine;
-using NomadsPlanet.Utils;
-using UnityStandardAssets.Vehicles.Car;
+using DG.Tweening;
+using Sirenix.OdinInspector;
 
 namespace NomadsPlanet
 {
     public class CarHandler : MonoBehaviour
     {
-        private CarController _carController;
-        public LayerMask layerMask;
+        private Transform _carTransform;
+        public Transform target;
+        public Transform center;
+        public bool moveToCenter;
 
-        private const float MaxDistance = 20f;
-        private const float SlowerDistance = 10f;
-
-        private LaneType currentLane;
-        private LaneType targetLane;
-        private TrafficType targetTraffic;
-
-        internal enum CarState
-        {
-            Idle,       // 정지 상태
-            ChangeLane, // 차선 변경 상태
-            Drive,      // 드라이브 상태
-            Stopping,   // 브레이크 밟은 상태
-        }
-        
         private void Awake()
         {
-            _carController = GetComponent<CarController>();
+            _carTransform = GetComponent<Transform>();
         }
 
-        private void Update()
+        public IEnumerator MoveToTarget(Transform targetPos, float speed = 10)
         {
-            CarMovement();
-            StoppingControl(DetectOtherCar());
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            // 현재 달리고 있는 차선을 받아온다.
-            // if (other.TryGetComponent<LaneController>(out var roadController))
-            // {
-            //     // Debug.Log(roadController.LaneType.ToString());
-            // }
-
-            // 목표하고 있는 방향을 정한다.
-            if (other.TryGetComponent<TrafficFlow>(out var trafficFlow))
+            if (DOTween.IsTweening(this))
             {
-                targetTraffic = trafficFlow.TrafficType;
-                // Debug.Log(trafficFlow.curLightType.ToString());
-            }
-        }
-
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.TryGetComponent<TrafficFlow>(out var trafficFlow))
-            {
-                // Debug.Log(trafficFlow.currentLightType.ToString());
-            }
-        }
-
-        private float DetectOtherCar()
-        {
-            var tr = GetComponent<Transform>();
-            if (Physics.Raycast(tr.position, tr.forward, out var hit, MaxDistance, layerMask))
-            {
-                // Debug.Log("Player Detected! Distance: " + hit.distance);
-
-                return hit.distance;
+                DOTween.Kill(this);
             }
 
-            return 0f;
+            // 타겟 좌표로
+            _carTransform.SetParent(targetPos);
 
+            // Movement
+            var carTween = _carTransform.DOLocalMove(Vector3.zero, speed)
+                .SetSpeedBased(true);
+
+            _carTransform.DOLocalRotate(Vector3.zero, 1f);
+
+            yield return carTween.WaitForCompletion();
         }
 
-        private static void StoppingControl(float distance)
+        public IEnumerator MoveToWaypoint(Transform targetPos, Transform wayPoint, float speed = 10)
         {
-            if (!(Math.Abs(distance) > 0.001f)) return;
-
-            // 만약 거리가 너무 가까우면 속도를 줄이거나 정지하게 합니다.
-            if (distance < SlowerDistance)
+            if (DOTween.IsTweening(this))
             {
-                // Debug.Log("Too Close! Slowing down or stopping...");
-                // 여기에 차량의 속도를 조절하는 코드를 작성하세요.
+                DOTween.Kill(this);
             }
+
+            var getQuaternion = _GetTurnQuaternion(targetPos);
+            _carTransform.DORotateQuaternion(getQuaternion, 1f);
+
+            // 타겟 좌표로
+            _carTransform.SetParent(wayPoint);
+
+            var carTween = _carTransform.DOLocalMove(Vector3.zero, speed)
+                .SetSpeedBased(true);
+
+            yield return carTween.WaitForCompletion();
         }
 
-        private void CarMovement()
+        private Quaternion _GetTurnQuaternion(Transform targetPos)
         {
-            // todo: 점진적으로 0~1로 갈 수 있도록 하기 DOTWeen 사용하면 돼
-            // _carController.Move(-.05f, .1f, .1f, 0);
+            Vector3 direction = (targetPos.position - _carTransform.position).normalized;
+            return Quaternion.LookRotation(direction);
         }
     }
 }
