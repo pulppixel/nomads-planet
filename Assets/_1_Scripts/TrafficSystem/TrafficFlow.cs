@@ -52,6 +52,8 @@ namespace NomadsPlanet
             if (_carDetector.GetCarOnPosition(LeftCarPoints[0]))
             {
                 Debug.Log("왼쪽 가장 앞 차선에 위치함");
+                // 1. 만약 신호가 파란불일 떄, 건널 수 있도록 하기
+                // 2. 다른 차들도 전부 재배열 해주기
             }
             
             if (_carDetector.GetCarOnPosition(rightCarTargets[0]))
@@ -78,12 +80,12 @@ namespace NomadsPlanet
          * 3. 노란불은 멈추는 불. 무리하게 건너진 말고, 보이면 멈추되, 앞 2개까지는 건널 수 있게 하기
          * 4. 
          */
-        private void OnCarEnterEvent(List<CarHandler> insideCars)
+        private void OnCarEnterEvent(CarHandler insideCars)
         {
             // 각 차 순서대로 위치를 정해준다.
             // Position 
         }
-        private void OnCarExitEvent(List<CarHandler> insideCars)
+        private void OnCarExitEvent(CarHandler insideCars)
         {
             
         }
