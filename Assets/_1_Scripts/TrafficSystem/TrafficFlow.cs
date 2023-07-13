@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using NomadsPlanet.Utils;
 using Sirenix.OdinInspector;
@@ -14,11 +15,13 @@ namespace NomadsPlanet
         [SerializeField, RequiredListLength(2)]
         private Transform[] leftCarTargets = new Transform[2];
 
+        [ShowInInspector, ReadOnly]
+        private Transform _leftWayPoint; // 왼쪽 좌회전 경유지, 곡선 이동 수학 지식 미숙
+
         [SerializeField, RequiredListLength(2)]
         private Transform[] rightCarTargets = new Transform[2];
 
-        // 다음 곳으로 넘어가기 전에 중간에 들렀다가 넘어가게 하기 위함
-        [ShowInInspector] private Transform centerCarTarget;
+        [ShowInInspector, ReadOnly] private Transform _rightWayPoint; // 우회전 경유지
 
         [InfoBox("현재 차선에서 차량이 위치할 수 있는 곳들 목록")]
         [ShowInInspector, ReadOnly]
@@ -26,8 +29,7 @@ namespace NomadsPlanet
 
         private List<bool> _leftCarPlaced = new();
 
-        [ShowInInspector, ReadOnly]
-        public List<Transform> RightCarPoints { get; private set; }
+        [ShowInInspector, ReadOnly] public List<Transform> RightCarPoints { get; private set; }
 
         private List<bool> _rightCarPlaced = new();
 
@@ -50,17 +52,59 @@ namespace NomadsPlanet
                 return;
             }
 
-            if (_carDetector.GetCarOnPosition(LeftCarPoints[0]))
+            // 이거 함수 호출 이후, Pop되면 어차피 더 이상 이뤄지ㅣ지 않을 거야
+            if (!_carDetector.GetCarOnPosition(LeftCarPoints[0]) &&
+                !_carDetector.GetCarOnPosition(rightCarTargets[0]))
             {
-                Debug.Log("왼쪽 가장 앞 차선에 위치함");
-                // 1. 만약 신호가 파란불일 떄, 건널 수 있도록 하기
-                // 2. 다른 차들도 전부 재배열 해주기
+                return;
             }
 
-            if (_carDetector.GetCarOnPosition(rightCarTargets[0]))
+            _carDetector.ExitFirstCar();
+            Debug.Log("왼쪽 가장 앞 차선에 위치함");
+            // 1. 만약 신호가 파란불일 떄, 건널 수 있도록 하기
+            // 2. 다른 차들도 전부 재배열 해주기
+        }
+
+        private const int MaxCount = 2;
+        private int _yellowCount = 0;
+
+        private void CarOnStartLineAction()
+        {
+            // 차가 없을 때는 동작 x
+            if (_carDetector.GetCarLength().Equals(0))
             {
-                Debug.Log("오른쪽 가장 앞 차선에 위치함");
+                return;
             }
+
+            if (!_carDetector.GetCarOnPosition(LeftCarPoints[0]) &&
+                !_carDetector.GetCarOnPosition(rightCarTargets[0]))
+            {
+                return;
+            }
+
+            // 신호등 별로 로직 부여
+            switch (CurLightType)
+            {
+                case LightType.Red:
+                    _yellowCount = 0;
+                    return;
+                case LightType.Yellow:
+
+
+                    if (_yellowCount++ >= MaxCount)
+                    {
+                        return;
+                    }
+
+                    break;
+                case LightType.Green:
+                default:
+                    break;
+            }
+        }
+
+        private void CarMovementAction()
+        {
         }
 
         // LightController에서 횡단보도 타입을 정할 수 있도록 해준다.
@@ -96,25 +140,25 @@ namespace NomadsPlanet
         // 여기서 필요한 멤버들을 초기화해준다.
         private void _InitGetters()
         {
-            // 차량 탐지 부분 초기화 (이벤트 메소드 두개를 넘겨준다.)
             _carDetector = GetComponent<CarDetector>();
             TrafficType = TrafficManager.GetTrafficType(tag);
             _carDetector.InitSetup(OnCarEnterEvent, OnCarExitEvent);
-            centerCarTarget = transform.parent.GetChildFromName<Transform>("center");
             _lightController = transform.GetChildFromName<LightController>("TrafficLight");
 
             var leftParents = transform.GetChildFromName<Transform>("1");
             var rightParents = transform.GetChildFromName<Transform>("2");
+            _leftWayPoint = leftParents.GetChildFromName<Transform>("waypoint") ?? transform;
+            _rightWayPoint = rightParents.GetChildFromName<Transform>("waypoint") ?? transform;
 
             LeftCarPoints = new List<Transform>();
             RightCarPoints = new List<Transform>();
-            for (int i = 0; i < leftParents.childCount; i++)
+            for (int i = 0; i < leftParents.childCount - 1; i++)
             {
                 LeftCarPoints.Add(leftParents.GetChild(i));
                 _leftCarPlaced.Add(false);
             }
 
-            for (int i = 0; i < rightParents.childCount; i++)
+            for (int i = 0; i < rightParents.childCount - 1; i++)
             {
                 RightCarPoints.Add(rightParents.GetChild(i));
                 _rightCarPlaced.Add(false);
