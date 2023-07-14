@@ -1,22 +1,25 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-using Sirenix.OdinInspector;
+using NomadsPlanet.Utils;
 
 namespace NomadsPlanet
 {
     public class CarHandler : MonoBehaviour
     {
+        // Null 체크 대용으로 쓰기 위함
+        public static CarHandler NullCar { get; private set; } = new();
+
+        public TrafficType TargetType { get; private set; }
+        public void SetTrafficTarget(TrafficType trafficType) => TargetType = trafficType;
+
         private Transform _carTransform;
-        public Transform target;
-        public Transform center;
-        public bool moveToCenter;
 
         private void Awake()
         {
             _carTransform = GetComponent<Transform>();
         }
+
 
         public IEnumerator MoveToTarget(Transform targetPos, float speed = 10)
         {
@@ -25,7 +28,7 @@ namespace NomadsPlanet
                 DOTween.Kill(this);
             }
 
-            // 타겟 좌표로
+            // 타겟 오브젝트의 자식으로 들어가서 이동한다.
             _carTransform.SetParent(targetPos);
 
             // Movement
@@ -37,7 +40,7 @@ namespace NomadsPlanet
             yield return carTween.WaitForCompletion();
         }
 
-        public IEnumerator MoveToWaypoint(Transform targetPos, Transform wayPoint, float speed = 10)
+        public IEnumerator MoveViaWaypoint(Transform targetPos, Transform wayPoint, float speed = 10)
         {
             if (DOTween.IsTweening(this))
             {
@@ -45,7 +48,6 @@ namespace NomadsPlanet
             }
 
             var getQuaternion = _GetTurnQuaternion(targetPos);
-            _carTransform.DORotateQuaternion(getQuaternion, 1f);
 
             // 타겟 좌표로
             _carTransform.SetParent(wayPoint);
@@ -53,7 +55,10 @@ namespace NomadsPlanet
             var carTween = _carTransform.DOLocalMove(Vector3.zero, speed)
                 .SetSpeedBased(true);
 
+            _carTransform.DORotateQuaternion(getQuaternion, 1f);
+
             yield return carTween.WaitForCompletion();
+            yield return MoveToTarget(targetPos, speed);
         }
 
         private Quaternion _GetTurnQuaternion(Transform targetPos)
