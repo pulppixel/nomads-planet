@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,7 +9,8 @@ namespace NomadsPlanet
     public class CarDetector : MonoBehaviour
     {
         // FIFO
-        [ShowInInspector, ReadOnly] private List<CarHandler> _insideCars = new();
+        [ShowInInspector, ReadOnly]
+        private List<CarHandler> _insideCars = new();
 
         private UnityAction<CarHandler> _actWhenCarEntranced;
         private UnityAction<CarHandler> _actWhenCarExited;
@@ -37,7 +37,7 @@ namespace NomadsPlanet
         // Not Event Function (Pop)
         public void ExitFirstCar(CarHandler car)
         {
-            if (car == null)
+            if (car == CarHandler.NullCar)
             {
                 return;
             }
