@@ -12,14 +12,14 @@ namespace NomadsPlanet
         [ShowInInspector, ReadOnly]
         private List<CarHandler> _insideCars = new();
 
-        private UnityAction<CarHandler> _actWhenCarEntranced;
-        private UnityAction<CarHandler> _actWhenCarExited;
+        private UnityAction<CarHandler> _carEntranceMove; // 이거 존나 두루뭉실함
+        private UnityAction<CarHandler> _carExitMove;
 
         // Required
         public void InitSetup(UnityAction<CarHandler> newCarEntered, UnityAction<CarHandler> newCarExited)
         {
-            _actWhenCarEntranced = newCarEntered;
-            _actWhenCarExited = newCarExited;
+            _carEntranceMove = newCarEntered;
+            _carExitMove = newCarExited;
         }
 
         // Event Function (Push)
@@ -31,7 +31,7 @@ namespace NomadsPlanet
             }
 
             _insideCars.Add(car.CarHandler);
-            _actWhenCarEntranced.Invoke(car.CarHandler);
+            _carEntranceMove.Invoke(car.CarHandler);
         }
 
         // Not Event Function (Pop)
@@ -42,8 +42,10 @@ namespace NomadsPlanet
                 return;
             }
 
-            _actWhenCarExited.Invoke(car);
+            _carExitMove.Invoke(car);
             _insideCars.Remove(car); // 근데 꼭 0번이 맨 앞이 아닐 수도 있어.
+            
+            // 어레인지 여기서 할까?
         }
 
         // 현재 차량의 총 개수를 받아온다.
