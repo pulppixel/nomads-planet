@@ -95,14 +95,14 @@ namespace NomadsPlanet
             }
 
             // 만약 왼쪽차가 가장 앞에 정상적으로 도달했다면,
-            if (leftCar != CarHandler.NullCar)
+            if (leftCar != CarHandler.NullCar && _carDetector.InsideCars.Contains(leftCar))
             {
                 // 왼쪽 차를 출발시킨다. (OnCarExitEvent 가 발생된다.)
                 _carDetector.ExitFirstCar(leftCar);
             }
 
             // 그리고 오른쪽 차도 가장 앞에 정상적으로 도달했다면,
-            if (rightCar != CarHandler.NullCar)
+            if (rightCar != CarHandler.NullCar && _carDetector.InsideCars.Contains(rightCar))
             {
                 // 오른쪽 차도 출발시킨다.
                 _carDetector.ExitFirstCar(rightCar);
