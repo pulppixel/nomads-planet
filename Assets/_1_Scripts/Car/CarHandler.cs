@@ -11,6 +11,8 @@ namespace NomadsPlanet
         public static CarHandler NullCar { get; private set; } = new();
 
         public TrafficType TargetType { get; private set; }
+        public LaneType CurLaneType { get; private set; }
+
         public void SetTrafficTarget(TrafficType trafficType) => TargetType = trafficType;
 
         private Transform _carTransform;
@@ -21,8 +23,10 @@ namespace NomadsPlanet
         }
 
 
-        public IEnumerator MoveToTarget(Transform targetPos, float speed = 10)
+        public IEnumerator MoveToTarget(Transform targetPos, LaneType laneType, float speed = 10)
         {
+            CurLaneType = laneType;
+
             if (DOTween.IsTweening(this))
             {
                 DOTween.Kill(this);
@@ -58,7 +62,7 @@ namespace NomadsPlanet
             _carTransform.DORotateQuaternion(getQuaternion, 1f);
 
             yield return carTween.WaitForCompletion();
-            yield return MoveToTarget(targetPos, speed);
+            yield return MoveToTarget(targetPos, CurLaneType, speed);
         }
 
         private Quaternion _GetTurnQuaternion(Transform targetPos)

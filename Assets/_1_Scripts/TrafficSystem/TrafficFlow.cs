@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using NomadsPlanet.Utils;
 using Sirenix.OdinInspector;
@@ -48,13 +49,20 @@ namespace NomadsPlanet
         // Index 0번에 도착했을 때 발생시킬 액션도 있어야해
         private void Update()
         {
-            CarOnFirstLine();
+            _CarOnFirstLine();
         }
 
         private const int MaxCount = 2;
         private int _yellowCount;
 
-        private void CarOnFirstLine()
+        // LightController에서 횡단보도 타입을 정할 수 있도록 해준다.
+        public void SetLightAction(LightType type)
+        {
+            _curLightType = type;
+            _lightController.SetTrafficSign(type);
+        }
+
+        private void _CarOnFirstLine()
         {
             // 빨간 불일 때는 차를 그대로 둬야 한다.
             if (_curLightType == LightType.Red)
@@ -70,15 +78,15 @@ namespace NomadsPlanet
             }
 
             // 차가 없을 때는 동작 x
-            bool hasCarOnRoad = _carDetector.GetCarLength() > 0;
+            bool hasCarOnRoad = _carDetector.InsideCars.Count > 0;
             if (!hasCarOnRoad)
             {
                 return;
             }
 
             // 왼쪽이나 오른쪽에서 차가 젤 앞에 도달했는지 확인한다.
-            CarHandler leftCar = _carDetector.GetCarOnPosition(LeftCarPoints[0]);
-            CarHandler rightCar = _carDetector.GetCarOnPosition(RightCarPoints[0]);
+            var leftCar = _carDetector.GetCarOnPosition(LeftCarPoints[0]);
+            var rightCar = _carDetector.GetCarOnPosition(RightCarPoints[0]);
 
             bool ifCarOnForward = leftCar != CarHandler.NullCar || rightCar != CarHandler.NullCar;
             if (!ifCarOnForward)
@@ -102,14 +110,15 @@ namespace NomadsPlanet
         }
 
         // # 코드 잘 짰다. 이건 FIX 해도 좋을듯
-        private void OnCarEntranceMove(CarHandler insideCar)
+        private void _OnCarEntranceMove(CarHandler insideCar)
         {
             // 처음 차가 들어갔을 때, 향해야할 목표 지점을 정해준다.
             var targetTrafficType = _thisTrafficType.GetRandomTrafficType();
             insideCar.SetTrafficTarget(targetTrafficType);
-            
+
             // 타겟 포지션. 해당 위치로 이동할 수 있도록 한다.
             Transform targetPoint;
+            LaneType carLaneType;
 
             // 각 방향 별로 상태 목표 지점 정하기
             switch (targetTrafficType)
@@ -122,40 +131,45 @@ namespace NomadsPlanet
                     if (!ifOnlyLeft)
                     {
                         targetPoint = _GetLeftEmptyPoint();
+                        carLaneType = LaneType.First; // 1차로
                         break;
                     }
 
                     bool isLeft = Random.Range(0f, 1f) < 0.5f;
 
                     // 왼쪽만 갈 수 있는 곳이라면, 양쪽 차선 전부 이용해도 큰 문제는 없다.
+                    carLaneType = isLeft ? LaneType.First : LaneType.Second;
                     targetPoint = isLeft ? _GetLeftEmptyPoint() : _GetRightEmptyPoint();
                     break;
                 case TrafficType.Right:
                     bool ifOnlyRight = !_thisTrafficType.HasFlag(TrafficType.Forward) &&
-                                      !_thisTrafficType.HasFlag(TrafficType.Left);
+                                       !_thisTrafficType.HasFlag(TrafficType.Left);
                     if (ifOnlyRight)
                     {
                         targetPoint = _GetRightEmptyPoint();
+                        carLaneType = LaneType.Second;
                         break;
                     }
 
                     bool isRight = Random.Range(0f, 1f) < 0.5f;
 
+                    carLaneType = isRight ? LaneType.Second : LaneType.First;
                     targetPoint = isRight ? _GetLeftEmptyPoint() : _GetRightEmptyPoint();
                     break;
                 case TrafficType.Forward:
                 default:
                     // * 직진이 가능한 이상, 어느 차선이던 상관 없다.
                     bool getLeftOrRight = Random.Range(0f, 1f) < 0.5f;
+                    carLaneType = getLeftOrRight ? LaneType.First : LaneType.Second;
                     targetPoint = getLeftOrRight ? _GetLeftEmptyPoint() : _GetRightEmptyPoint();
                     break;
             }
 
             // 최종적으로 결정된 해당 위치까지 차량을 출발시킨다.
-            StartCoroutine(insideCar.MoveToTarget(targetPoint ? targetPoint : insideCar.transform));
+            StartCoroutine(insideCar.MoveToTarget(targetPoint ? targetPoint : insideCar.transform, carLaneType));
         }
-        
-        private void OnCarExitMove(CarHandler insideCar)
+
+        private void _OnCarExitMove(CarHandler insideCar)
         {
             // 차가 어디로 가야할 지 알려주고, 출발시킨다.
             switch (insideCar.TargetType)
@@ -174,7 +188,7 @@ namespace NomadsPlanet
                     bool isLeft = _carDetector.GetCarOnPosition(LeftCarPoints[0]);
                     if (isLeft)
                     {
-                        StartCoroutine(insideCar.MoveToTarget(leftCarTargets[1]));
+                        StartCoroutine(insideCar.MoveToTarget(leftCarTargets[1], LaneType.First));
                         _leftCarPlaced[0] = false;
                         return;
                     }
@@ -182,19 +196,57 @@ namespace NomadsPlanet
                     bool isRight = _carDetector.GetCarOnPosition(RightCarPoints[0]);
                     if (isRight)
                     {
-                        StartCoroutine(insideCar.MoveToTarget(rightCarTargets[1]));
+                        StartCoroutine(insideCar.MoveToTarget(rightCarTargets[1], LaneType.Second));
                         _rightCarPlaced[0] = false;
                     }
+
                     break;
             }
+
+            _ArrangeCars(_carDetector.InsideCars);
         }
 
-        private void ArrangeCars(List<CarHandler> cars)
+        private void _ArrangeCars(IReadOnlyCollection<CarHandler> cars)
         {
-            // 여기 부분은 기본적으로 "탈출" 보다는 한칸 "전진" 개념이 적용된다.
-            for (int i = 0; i < LeftCarPoints.Count; i++)
+            // 왼쪽 차선 처리
+            _ProcessLane(_leftCarPlaced, cars.Where(car => car.CurLaneType == LaneType.First).ToList(), leftCarTargets);
+
+            // 오른쪽 차선 처리
+            _ProcessLane(_rightCarPlaced, cars.Where(car => car.CurLaneType == LaneType.Second).ToList(),
+                rightCarTargets);
+        }
+
+        // 처리를 위한 함수
+        private void _ProcessLane(IList<bool> lane, IReadOnlyList<CarHandler> cars, IReadOnlyList<Transform> targets)
+        {
+            List<int> emptyIndices = new List<int>();
+            List<int> carIndices = new List<int>();
+            for (int i = 0; i < lane.Count; i++)
             {
-                // todo: 나중에 해.
+                if (lane[i])
+                {
+                    carIndices.Add(i);
+                }
+                else
+                {
+                    emptyIndices.Add(i);
+                }
+            }
+
+            foreach (var index in emptyIndices)
+            {
+                if (carIndices.Count == 0 || index > carIndices[0])
+                {
+                    break;
+                }
+
+                int carIndex = carIndices[0];
+                carIndices.RemoveAt(0);
+
+                lane[index] = true;
+                lane[carIndex] = false;
+
+                StartCoroutine(cars[carIndex].MoveToTarget(targets[index], cars[carIndex].CurLaneType));
             }
         }
 
@@ -230,19 +282,12 @@ namespace NomadsPlanet
             return null;
         }
 
-        // LightController에서 횡단보도 타입을 정할 수 있도록 해준다.
-        public void SetLightAction(LightType type)
-        {
-            _curLightType = type;
-            _lightController.SetTrafficSign(type);
-        }
-
         // 여기서 필요한 멤버들을 초기화해준다.
         private void _InitGetters()
         {
             _carDetector = GetComponent<CarDetector>();
             _thisTrafficType = TrafficManager.GetTrafficType(tag);
-            _carDetector.InitSetup(OnCarEntranceMove, OnCarExitMove);
+            _carDetector.InitSetup(_OnCarEntranceMove, _OnCarExitMove);
             _lightController = transform.GetChildFromName<LightController>("TrafficLight");
 
             var leftParents = transform.GetChildFromName<Transform>("1");

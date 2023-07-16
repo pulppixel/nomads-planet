@@ -10,7 +10,7 @@ namespace NomadsPlanet
     {
         // FIFO
         [ShowInInspector, ReadOnly]
-        private List<CarHandler> _insideCars = new();
+        public List<CarHandler> InsideCars { get; private set; } = new();
 
         private UnityAction<CarHandler> _carEntranceMove; // 이거 존나 두루뭉실함
         private UnityAction<CarHandler> _carExitMove;
@@ -30,7 +30,7 @@ namespace NomadsPlanet
                 return;
             }
 
-            _insideCars.Add(car.CarHandler);
+            InsideCars.Add(car.CarHandler);
             _carEntranceMove.Invoke(car.CarHandler);
         }
 
@@ -43,15 +43,12 @@ namespace NomadsPlanet
             }
 
             _carExitMove.Invoke(car);
-            _insideCars.Remove(car); // 근데 꼭 0번이 맨 앞이 아닐 수도 있어.
+            InsideCars.Remove(car); // 근데 꼭 0번이 맨 앞이 아닐 수도 있어.
             
             // 어레인지 여기서 할까?
         }
-
-        // 현재 차량의 총 개수를 받아온다.
-        public int GetCarLength() => _insideCars.Count;
-
+        
         public CarHandler GetCarOnPosition(Transform target) =>
-            _insideCars.FirstOrDefault(car => Vector3.Distance(target.position, car.transform.position) < 1) ?? CarHandler.NullCar;
+            InsideCars.FirstOrDefault(car => Vector3.Distance(target.position, car.transform.position) < 1) ?? CarHandler.NullCar;
     }
 }
