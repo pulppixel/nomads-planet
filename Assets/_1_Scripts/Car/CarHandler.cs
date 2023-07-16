@@ -23,7 +23,7 @@ namespace NomadsPlanet
         }
 
 
-        public IEnumerator MoveToTarget(Transform targetPos, LaneType laneType, float speed = 10)
+        public IEnumerator MoveToTarget(Transform targetPos, LaneType laneType, float speed = 5)
         {
             CurLaneType = laneType;
 
@@ -44,7 +44,7 @@ namespace NomadsPlanet
             yield return carTween.WaitForCompletion();
         }
 
-        public IEnumerator MoveViaWaypoint(Transform targetPos, Transform wayPoint, float speed = 10)
+        public IEnumerator MoveViaWaypoint(Transform targetPos, Transform wayPoint, float speed = 5)
         {
             if (DOTween.IsTweening(this))
             {

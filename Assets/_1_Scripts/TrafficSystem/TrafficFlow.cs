@@ -40,6 +40,9 @@ namespace NomadsPlanet
 
         private LightController _lightController;
         private CarDetector _carDetector;
+        
+        private const int MaxCount = 2;
+        private int _yellowCount;
 
         private void Awake()
         {
@@ -51,9 +54,6 @@ namespace NomadsPlanet
         {
             _CarOnFirstLine();
         }
-
-        private const int MaxCount = 2;
-        private int _yellowCount;
 
         // LightController에서 횡단보도 타입을 정할 수 있도록 해준다.
         public void SetLightAction(LightType type)
@@ -109,7 +109,6 @@ namespace NomadsPlanet
             }
         }
 
-        // # 코드 잘 짰다. 이건 FIX 해도 좋을듯
         private void _OnCarEntranceMove(CarHandler insideCar)
         {
             // 처음 차가 들어갔을 때, 향해야할 목표 지점을 정해준다.
@@ -216,11 +215,10 @@ namespace NomadsPlanet
                 rightCarTargets);
         }
 
-        // 처리를 위한 함수
         private void _ProcessLane(IList<bool> lane, IReadOnlyList<CarHandler> cars, IReadOnlyList<Transform> targets)
         {
-            List<int> emptyIndices = new List<int>();
-            List<int> carIndices = new List<int>();
+            List<int> emptyIndices = new();
+            List<int> carIndices = new();
             for (int i = 0; i < lane.Count; i++)
             {
                 if (lane[i])

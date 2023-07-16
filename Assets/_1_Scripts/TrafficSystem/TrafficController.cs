@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using NomadsPlanet.Utils;
 using LightType = NomadsPlanet.Utils.LightType;
@@ -8,21 +9,13 @@ namespace NomadsPlanet
 {
     public class TrafficController : MonoBehaviour
     {
-        private const int SignDuration = 30;
+        private const int SignDuration = 10;
 
         private List<TrafficFlow> _trafficFlows;
 
         private void Awake()
         {
-            _trafficFlows = new List<TrafficFlow>();
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                if (transform.GetChild(i).TryGetComponent<TrafficFlow>(out var flow))
-                {
-                    _trafficFlows.Add(flow);
-                }
-            }
-
+            _trafficFlows = GetComponentsInChildren<TrafficFlow>().ToList();
             _trafficFlows.ShuffleList();
         }
 
@@ -42,23 +35,27 @@ namespace NomadsPlanet
         {
             while (gameObject)
             {
-                // todo: 대충 시간 은근 달라지게끔 해두기
                 int duration = Random.Range(SignDuration, SignDuration + 5);
-                for (int i = 0; i < _trafficFlows.Count; i++)
-                {
-                    for (int j = 0; j < _trafficFlows.Count; j++)
-                    {
-                        if (j == i) continue;
-                        StartCoroutine(SetTrafficSign(_trafficFlows[j], LightType.Red, duration));
-                    }
 
-                    yield return StartCoroutine(SetTrafficSign(_trafficFlows[i], LightType.Green, duration - 5));
-                    yield return StartCoroutine(SetTrafficSign(_trafficFlows[i], LightType.Yellow, 5));
+                foreach (var flow in _trafficFlows)
+                {
+                    yield return StartCoroutine(ChangeLightTo(flow, LightType.Green, duration - 5));
+                    yield return StartCoroutine(ChangeLightTo(flow, LightType.Yellow, 5));
+
+                    SetAllLightsTo(LightType.Red);
                 }
             }
         }
+        
+        private void SetAllLightsTo(LightType lightType)
+        {
+            foreach (var flow in _trafficFlows)
+            {
+                flow.SetLightAction(lightType);
+            }
+        }
 
-        private static IEnumerator SetTrafficSign(TrafficFlow trafficFlow, LightType lightType, int duration)
+        private static IEnumerator ChangeLightTo(TrafficFlow trafficFlow, LightType lightType, int duration)
         {
             trafficFlow.SetLightAction(lightType);
             yield return new WaitForSeconds(duration);
