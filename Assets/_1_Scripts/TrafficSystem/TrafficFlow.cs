@@ -32,17 +32,17 @@ namespace NomadsPlanet
 
         [ShowInInspector, ReadOnly]
         public List<Transform> RightCarPoints { get; private set; }
-        
+
         private readonly List<bool> _rightCarPlaced = new(6);
-        
+
         // 현재 내부에 들어있는 차량
-        private List<CarHandler> _insideCars = new(12);
+        private readonly List<CarHandler> _insideCars = new(12);
 
         private TrafficType _thisTrafficType;
         private LightType _curLightType;
 
         private LightController _lightController;
-        
+
         private const int MaxCount = 2;
         private int _yellowCount;
 
@@ -105,7 +105,7 @@ namespace NomadsPlanet
             }
         }
 
-        // todo: 6번 위치에 들어왔을 때..
+        // 6번 위치에 들어왔을 때.. 이동할 수 있도록 이벤트로 등록한다.
         private void _OnCarEntranceMove(CarHandler insideCar)
         {
             // 처음 차가 들어갔을 때, 향해야할 목표 지점을 정해준다.
@@ -161,6 +161,8 @@ namespace NomadsPlanet
                     break;
             }
 
+            _insideCars.Add(insideCar);
+
             // 최종적으로 결정된 해당 위치까지 차량을 출발시킨다.
             StartCoroutine(insideCar.MoveToTarget(targetPoint ? targetPoint : insideCar.transform, carLaneType));
         }
@@ -199,16 +201,18 @@ namespace NomadsPlanet
                     break;
             }
 
-            _ArrangeCars(_insideCars);
+            _insideCars.Remove(insideCar);
+            _ArrangeCars();
         }
 
-        private void _ArrangeCars(IReadOnlyCollection<CarHandler> cars)
+        private void _ArrangeCars()
         {
             // 왼쪽 차선 처리
-            _ProcessLane(_leftCarPlaced, cars.Where(car => car.CurLaneType == LaneType.First).ToList(), leftCarTargets);
+            _ProcessLane(_leftCarPlaced, _insideCars.Where(car => car.CurLaneType == LaneType.First).ToList(),
+                leftCarTargets);
 
             // 오른쪽 차선 처리
-            _ProcessLane(_rightCarPlaced, cars.Where(car => car.CurLaneType == LaneType.Second).ToList(),
+            _ProcessLane(_rightCarPlaced, _insideCars.Where(car => car.CurLaneType == LaneType.Second).ToList(),
                 rightCarTargets);
         }
 
@@ -276,9 +280,10 @@ namespace NomadsPlanet
 
             return null;
         }
-        
+
         private CarHandler _GetCarOnPosition(Transform target) =>
-            _insideCars.FirstOrDefault(car => Vector3.Distance(target.position, car.transform.position) < 1) ?? CarHandler.NullCar;
+            _insideCars.FirstOrDefault(car => Vector3.Distance(target.position, car.transform.position) < 1) ??
+            CarHandler.NullCar;
 
         // 여기서 필요한 멤버들을 초기화해준다.
         private void _InitGetters()
@@ -288,6 +293,13 @@ namespace NomadsPlanet
 
             var leftParents = transform.GetChildFromName<Transform>("1");
             var rightParents = transform.GetChildFromName<Transform>("2");
+
+            var lDetector = leftParents.GetChildFromName<CarDetector>("l6");
+            var rDetector = rightParents.GetChildFromName<CarDetector>("r6");
+            
+            lDetector.InitSetup(_OnCarEntranceMove);
+            rDetector.InitSetup(_OnCarEntranceMove);
+
             _leftWayPoint = leftParents.GetChildFromName<Transform>("waypoint") ?? transform;
             _rightWayPoint = rightParents.GetChildFromName<Transform>("waypoint") ?? transform;
 
@@ -298,15 +310,12 @@ namespace NomadsPlanet
                 LeftCarPoints.Add(leftParents.GetChild(i));
                 _leftCarPlaced.Add(false);
             }
-            
+
             for (int i = 0; i < rightParents.childCount - 1; i++)
             {
                 RightCarPoints.Add(rightParents.GetChild(i));
                 _rightCarPlaced.Add(false);
             }
-            
-            LeftCarPoints[^1].GetComponent<CarDetector>().InitSetup(_OnCarEntranceMove);
-            RightCarPoints[^1].GetComponent<CarDetector>().InitSetup(_OnCarEntranceMove);
         }
     }
 }

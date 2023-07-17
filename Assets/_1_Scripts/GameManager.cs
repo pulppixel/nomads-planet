@@ -1,8 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using NomadsPlanet;
 using UnityEngine;
+using NomadsPlanet;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +15,11 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             spawnPoint.Add(transform.GetChild(i));
-            GameObject.Instantiate(carPrefab, spawnPoint[i]);
+            
+            if (Random.Range(0f, 1f) < .4f)
+            {
+                Instantiate(carPrefab, spawnPoint[i]);
+            }
         }
     }
 }

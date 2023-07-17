@@ -14,9 +14,9 @@ namespace NomadsPlanet
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<CarHandler>(out var car))
+            if (other.TryGetComponent<CarColliderGetter>(out var car))
             {
-                _carEnterEvent(car);
+                _carEnterEvent(car.CarHandler);
             }
         }
     }
