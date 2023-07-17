@@ -1,12 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using NomadsPlanet.Utils;
-
-// todo: 차선 변경 ㅈ같음. 바로 옆으로 가고, 앞으로 나아가도록 하자
-// todo: 회전만 어떻게 잘 잡으면 될 것 같음. y축으로만 이동 시켜 DORotateY 같은 걸로
-// todo: Move 저거 굳이 SetParents 안해도 정상 동작하네
-// todo: 이동 급발진해. 저거 고쳐
 
 namespace NomadsPlanet
 {
@@ -28,7 +24,7 @@ namespace NomadsPlanet
         }
 
 
-        public IEnumerator MoveToTarget(Transform targetPos, LaneType laneType, float speed = 5)
+        public IEnumerator MoveToTarget(Transform targetPos, LaneType laneType, float speed = 5f)
         {
             CurLaneType = laneType;
 
@@ -36,46 +32,55 @@ namespace NomadsPlanet
             {
                 DOTween.Kill(this);
             }
-
-            // 타겟 오브젝트의 자식으로 들어가서 이동한다.
-            // _carTransform.SetParent(targetPos);
-
+            
             // Movement
             var position = targetPos.position;
-            var carTween = _carTransform.DOMove(new Vector3(position.x, _carTransform.position.y, position.z), speed)
+            var target = new Vector3(position.x, _carTransform.position.y, position.z);
+            var carTween = _carTransform.DOMove(target, speed)
                 .SetSpeedBased(true);
 
-            _carTransform.DOLocalRotate(targetPos.rotation.eulerAngles, 1f);
-
+            // 여기서는 회전 넣지 말까봐
             yield return carTween.WaitForCompletion();
         }
 
-        public IEnumerator MoveViaWaypoint(Transform targetPos, Transform wayPoint, float speed = 5)
+        public IEnumerator MoveViaWaypoint(Transform targetPos, Transform wayPoint, float speed = 5f)
         {
             if (DOTween.IsTweening(this))
             {
                 DOTween.Kill(this);
             }
 
-            var getQuaternion = _GetTurnQuaternion(targetPos);
-
-            // 타겟 좌표로
-            // _carTransform.SetParent(wayPoint);
-
             var position = wayPoint.position;
-            var carTween = _carTransform.DOMove(new Vector3(position.x, _carTransform.position.y, position.z), speed)
+            var target = new Vector3(position.x, _carTransform.position.y, position.z);
+            var carTween = _carTransform.DOMove(target, speed)
                 .SetSpeedBased(true);
-
-            _carTransform.DORotateQuaternion(getQuaternion, 1f);
+            
+            _carTransform.DORotate(_GetTurnQuaternion(), 1f);
 
             yield return carTween.WaitForCompletion();
             yield return MoveToTarget(targetPos, CurLaneType, speed);
         }
 
-        private Quaternion _GetTurnQuaternion(Transform targetPos)
+        private Vector3 _GetTurnQuaternion()
         {
-            Vector3 direction = (targetPos.position - _carTransform.position).normalized;
-            return Quaternion.LookRotation(new Vector3(0, direction.y, 0));
+            var curRotate = _carTransform.rotation.eulerAngles;
+            float targetRotateY;
+            
+            switch (TargetType)
+            {
+                case TrafficType.Left:
+                    targetRotateY = curRotate.y - 90f;
+                    break;
+                case TrafficType.Right:
+                    targetRotateY =  curRotate.y + 90f;
+                    break;
+                case TrafficType.Forward:
+                default:
+                    targetRotateY =  curRotate.y;
+                    break;
+            }
+
+            return new Vector3(curRotate.x, targetRotateY, curRotate.z);
         }
     }
 }

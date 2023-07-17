@@ -10,7 +10,7 @@ namespace NomadsPlanet
     {
         // FIFO
         [ShowInInspector, ReadOnly]
-        public List<CarHandler> InsideCars { get; private set; } = new();
+        public List<CarHandler> InsideCars { get; private set; } = new(12);
 
         private UnityAction<CarHandler> _carEntranceMove; // 이거 존나 두루뭉실함
         private UnityAction<CarHandler> _carExitMove;

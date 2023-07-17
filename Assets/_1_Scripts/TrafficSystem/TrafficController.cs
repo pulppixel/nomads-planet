@@ -11,7 +11,7 @@ namespace NomadsPlanet
     {
         private const int SignDuration = 10;
 
-        private List<TrafficFlow> _trafficFlows;
+        private List<TrafficFlow> _trafficFlows = new(4);
 
         private void Awake()
         {

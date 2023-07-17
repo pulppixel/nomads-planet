@@ -11,7 +11,7 @@ namespace NomadsPlanet
 
         private void Awake()
         {
-            _trafficSigns = new List<GameObject>();
+            _trafficSigns = new List<GameObject>(3);
             for (int i = 0; i < 3; i++)
             {
                 _trafficSigns.Add(transform.GetChild(i).gameObject);

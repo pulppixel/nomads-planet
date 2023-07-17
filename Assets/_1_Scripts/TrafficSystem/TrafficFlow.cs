@@ -28,12 +28,12 @@ namespace NomadsPlanet
         [ShowInInspector, ReadOnly]
         public List<Transform> LeftCarPoints { get; private set; } // 0번 인덱스가 가장 앞에 위치함
 
-        private readonly List<bool> _leftCarPlaced = new();
+        private readonly List<bool> _leftCarPlaced = new(6);
 
         [ShowInInspector, ReadOnly]
         public List<Transform> RightCarPoints { get; private set; }
 
-        private readonly List<bool> _rightCarPlaced = new();
+        private readonly List<bool> _rightCarPlaced = new(6);
 
         private TrafficType _thisTrafficType;
         private LightType _curLightType;
