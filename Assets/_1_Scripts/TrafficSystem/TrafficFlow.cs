@@ -32,28 +32,24 @@ namespace NomadsPlanet
 
         [ShowInInspector, ReadOnly]
         public List<Transform> RightCarPoints { get; private set; }
-
+        
         private readonly List<bool> _rightCarPlaced = new(6);
+        
+        // 현재 내부에 들어있는 차량
+        private List<CarHandler> _insideCars = new(12);
 
         private TrafficType _thisTrafficType;
         private LightType _curLightType;
 
         private LightController _lightController;
-        private CarDetector _carDetector;
         
         private const int MaxCount = 2;
         private int _yellowCount;
 
-        private void Awake()
-        {
-            _InitGetters();
-        }
+        private void Awake() => _InitGetters();
 
         // Index 0번에 도착했을 때 발생시킬 액션도 있어야해
-        private void Update()
-        {
-            _CarOnFirstLine();
-        }
+        private void Update() => _CarOnFirstLine();
 
         // LightController에서 횡단보도 타입을 정할 수 있도록 해준다.
         public void SetLightAction(LightType type)
@@ -78,15 +74,15 @@ namespace NomadsPlanet
             }
 
             // 차가 없을 때는 동작 x
-            bool hasCarOnRoad = _carDetector.InsideCars.Count > 0;
+            bool hasCarOnRoad = _insideCars.Count > 0;
             if (!hasCarOnRoad)
             {
                 return;
             }
 
             // 왼쪽이나 오른쪽에서 차가 젤 앞에 도달했는지 확인한다.
-            var leftCar = _carDetector.GetCarOnPosition(LeftCarPoints[0]);
-            var rightCar = _carDetector.GetCarOnPosition(RightCarPoints[0]);
+            var leftCar = _GetCarOnPosition(LeftCarPoints[0]);
+            var rightCar = _GetCarOnPosition(RightCarPoints[0]);
 
             bool ifCarOnForward = leftCar != CarHandler.NullCar || rightCar != CarHandler.NullCar;
             if (!ifCarOnForward)
@@ -95,20 +91,21 @@ namespace NomadsPlanet
             }
 
             // 만약 왼쪽차가 가장 앞에 정상적으로 도달했다면,
-            if (leftCar != CarHandler.NullCar && _carDetector.InsideCars.Contains(leftCar))
+            if (leftCar != CarHandler.NullCar && _insideCars.Contains(leftCar))
             {
                 // 왼쪽 차를 출발시킨다. (OnCarExitEvent 가 발생된다.)
-                _carDetector.ExitFirstCar(leftCar);
+                _OnCarExitMove(leftCar);
             }
 
             // 그리고 오른쪽 차도 가장 앞에 정상적으로 도달했다면,
-            if (rightCar != CarHandler.NullCar && _carDetector.InsideCars.Contains(rightCar))
+            if (rightCar != CarHandler.NullCar && _insideCars.Contains(rightCar))
             {
                 // 오른쪽 차도 출발시킨다.
-                _carDetector.ExitFirstCar(rightCar);
+                _OnCarExitMove(rightCar);
             }
         }
 
+        // todo: 6번 위치에 들어왔을 때..
         private void _OnCarEntranceMove(CarHandler insideCar)
         {
             // 처음 차가 들어갔을 때, 향해야할 목표 지점을 정해준다.
@@ -184,7 +181,7 @@ namespace NomadsPlanet
                     break;
                 case TrafficType.Forward:
                 default:
-                    bool isLeft = _carDetector.GetCarOnPosition(LeftCarPoints[0]);
+                    bool isLeft = _GetCarOnPosition(LeftCarPoints[0]);
                     if (isLeft)
                     {
                         StartCoroutine(insideCar.MoveToTarget(leftCarTargets[1], LaneType.First));
@@ -192,7 +189,7 @@ namespace NomadsPlanet
                         return;
                     }
 
-                    bool isRight = _carDetector.GetCarOnPosition(RightCarPoints[0]);
+                    bool isRight = _GetCarOnPosition(RightCarPoints[0]);
                     if (isRight)
                     {
                         StartCoroutine(insideCar.MoveToTarget(rightCarTargets[1], LaneType.Second));
@@ -202,7 +199,7 @@ namespace NomadsPlanet
                     break;
             }
 
-            _ArrangeCars(_carDetector.InsideCars);
+            _ArrangeCars(_insideCars);
         }
 
         private void _ArrangeCars(IReadOnlyCollection<CarHandler> cars)
@@ -279,13 +276,14 @@ namespace NomadsPlanet
 
             return null;
         }
+        
+        private CarHandler _GetCarOnPosition(Transform target) =>
+            _insideCars.FirstOrDefault(car => Vector3.Distance(target.position, car.transform.position) < 1) ?? CarHandler.NullCar;
 
         // 여기서 필요한 멤버들을 초기화해준다.
         private void _InitGetters()
         {
-            _carDetector = GetComponent<CarDetector>();
             _thisTrafficType = TrafficManager.GetTrafficType(tag);
-            _carDetector.InitSetup(_OnCarEntranceMove, _OnCarExitMove);
             _lightController = transform.GetChildFromName<LightController>("TrafficLight");
 
             var leftParents = transform.GetChildFromName<Transform>("1");
@@ -300,12 +298,15 @@ namespace NomadsPlanet
                 LeftCarPoints.Add(leftParents.GetChild(i));
                 _leftCarPlaced.Add(false);
             }
-
+            
             for (int i = 0; i < rightParents.childCount - 1; i++)
             {
                 RightCarPoints.Add(rightParents.GetChild(i));
                 _rightCarPlaced.Add(false);
             }
+            
+            LeftCarPoints[^1].GetComponent<CarDetector>().InitSetup(_OnCarEntranceMove);
+            RightCarPoints[^1].GetComponent<CarDetector>().InitSetup(_OnCarEntranceMove);
         }
     }
 }
