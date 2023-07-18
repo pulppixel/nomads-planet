@@ -9,7 +9,7 @@ namespace NomadsPlanet
     public class CarHandler : MonoBehaviour
     {
         // Null 체크 대용으로 쓰기 위함
-        public static CarHandler NullCar { get; } = null;
+        public static CarHandler NullCar => null;
 
         public TrafficType TargetType { get; private set; }
         public LaneType CurLaneType { get; private set; }
@@ -47,13 +47,13 @@ namespace NomadsPlanet
 
             // Movement
             var position = targetPos.position;
-            var target = new Vector3(position.x, _carTransform.position.y, position.z);
+            var target = new Vector3(position.x, -1f, position.z);
 
             Sequence s = DOTween.Sequence();
 
-            s.Append(_carTransform.DOMove(position, speed));
+            s.Append(_carTransform.DOMove(target, speed));
             s.Join(_carTransform.DOLookAt(target, speed * .5f));
-            s.SetSpeedBased(true).SetEase(Ease.Linear);
+            s.SetSpeedBased(true).SetEase(Ease.InOutSine);
 
             yield return s.WaitForCompletion();
             IsMoving = false;
@@ -63,12 +63,12 @@ namespace NomadsPlanet
         {
             IsMoving = true;
             var position = wayPoint.position;
-            var target = new Vector3(position.x, _carTransform.position.y, position.z);
+            var target = new Vector3(position.x, -1f, position.z);
 
             Sequence s = DOTween.Sequence();
 
-            s.Append(_carTransform.DOMoveX(position.x, speed).SetEase(Ease.OutSine));
-            s.Join(_carTransform.DOMoveZ(position.z, speed).SetEase(Ease.InSine));
+            s.Append(_carTransform.DOMoveX(target.x, speed).SetEase(Ease.OutSine));
+            s.Join(_carTransform.DOMoveZ(target.z, speed).SetEase(Ease.InSine));
             s.Join(_carTransform.DOLookAt(target, speed * .5f));
 
             s.SetSpeedBased(true);
@@ -77,12 +77,12 @@ namespace NomadsPlanet
 
             // Movement
             position = targetPos.position;
-            target = new Vector3(position.x, _carTransform.position.y, position.z);
+            target = new Vector3(position.x, -1f, position.z);
 
             s = DOTween.Sequence();
 
-            s.Append(_carTransform.DOMoveX(position.x, speed).SetEase(Ease.InSine));
-            s.Join(_carTransform.DOMoveZ(position.z, speed).SetEase(Ease.OutSine));
+            s.Append(_carTransform.DOMoveX(target.x, speed).SetEase(Ease.InSine));
+            s.Join(_carTransform.DOMoveZ(target.z, speed).SetEase(Ease.OutSine));
             s.Join(_carTransform.DOLookAt(target, speed * .75f));
 
             s.SetSpeedBased(true);
