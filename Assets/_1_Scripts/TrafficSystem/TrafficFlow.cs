@@ -3,6 +3,7 @@ using UnityEngine;
 using NomadsPlanet.Utils;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 using LightType = NomadsPlanet.Utils.LightType;
 
 namespace NomadsPlanet
@@ -165,20 +166,25 @@ namespace NomadsPlanet
             _insideCars.Add(insideCar);
 
             // 최종적으로 결정된 해당 위치까지 차량을 출발시킨다.
-            StartCoroutine(insideCar.MoveToTarget(targetPoint ? targetPoint : insideCar.transform, carLaneType));
+            insideCar.MoveToTarget(targetPoint ? targetPoint : insideCar.transform, carLaneType);
         }
 
         private void _OnCarExitMove(CarHandler insideCar)
         {
+            if (insideCar.IsMoving)
+            {
+                return;
+            }
+
             switch (insideCar.TargetType)
             {
                 case TrafficType.Left:
                     // 왼쪽 경유지를 들른 후, 다음으로 넘어갈 수 있도록 한다.
-                    StartCoroutine(insideCar.MoveViaWaypoint(leftCarTargets[0], _leftWayPoint));
+                    insideCar.MoveViaWaypoint(leftCarTargets[0], _leftWayPoint);
                     _leftCarPlaced[0] = false;
                     break;
                 case TrafficType.Right:
-                    StartCoroutine(insideCar.MoveViaWaypoint(rightCarTargets[0], _rightWayPoint));
+                    insideCar.MoveViaWaypoint(rightCarTargets[0], _rightWayPoint);
                     _rightCarPlaced[0] = false;
                     break;
                 case TrafficType.Forward:
@@ -186,7 +192,7 @@ namespace NomadsPlanet
                     bool isLeft = LeftCarDetectors[0].GetThisCar == insideCar;
                     if (isLeft)
                     {
-                        StartCoroutine(insideCar.MoveToTarget(leftCarTargets[1], LaneType.First));
+                        insideCar.MoveToTarget(leftCarTargets[1], LaneType.First);
                         _leftCarPlaced[0] = false;
                         return;
                     }
@@ -194,7 +200,7 @@ namespace NomadsPlanet
                     bool isRight = RightCarDetectors[0].GetThisCar == insideCar;
                     if (isRight)
                     {
-                        StartCoroutine(insideCar.MoveToTarget(rightCarTargets[1], LaneType.Second));
+                        insideCar.MoveToTarget(rightCarTargets[1], LaneType.Second);
                         _rightCarPlaced[0] = false;
                     }
 
@@ -245,7 +251,7 @@ namespace NomadsPlanet
                 lane[index] = true;
                 lane[carIndex] = false;
 
-                StartCoroutine(cars[carIndex].MoveToTarget(targets[index], cars[carIndex].CurLaneType));
+                cars[carIndex].MoveToTarget(targets[index], cars[carIndex].CurLaneType);
             }
         }
 
@@ -277,17 +283,27 @@ namespace NomadsPlanet
 
             LeftCarDetectors = new List<CarDetector>(6);
             RightCarDetectors = new List<CarDetector>(6);
-            for (int i = 0; i < leftParents.childCount - 1; i++)
+            for (int i = 0; i < leftParents.childCount; i++)
             {
-                var detector = leftParents.GetChild(i).GetComponent<CarDetector>();
+                bool isDetector = leftParents.GetChild(i).TryGetComponent<CarDetector>(out var detector);
+                if (!isDetector)
+                {
+                    continue;
+                }
+
                 detector.InitSetup(LaneType.First, i, _OnCarEntranceMove);
                 LeftCarDetectors.Add(detector);
                 _leftCarPlaced.Add(false);
             }
 
-            for (int i = 0; i < rightParents.childCount - 1; i++)
+            for (int i = 0; i < rightParents.childCount; i++)
             {
-                var detector = rightParents.GetChild(i).GetComponent<CarDetector>();
+                bool isDetector = rightParents.GetChild(i).TryGetComponent<CarDetector>(out var detector);
+                if (!isDetector)
+                {
+                    continue;
+                }
+
                 detector.InitSetup(LaneType.Second, i, _OnCarEntranceMove);
                 RightCarDetectors.Add(detector);
                 _rightCarPlaced.Add(false);

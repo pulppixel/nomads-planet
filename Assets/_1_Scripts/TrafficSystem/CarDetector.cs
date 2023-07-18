@@ -24,21 +24,25 @@ namespace NomadsPlanet
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == 6 && other.TryGetComponent<CarColliderGetter>(out var car))
+            if (other.gameObject.layer != 6 || !other.TryGetComponent<CarColliderGetter>(out var car))
             {
-                GetThisCar = car.CarHandler;
-                _carEnterEvent(car.CarHandler);
+                return;
             }
+
+            GetThisCar = car.CarHandler;
+            _carEnterEvent(GetThisCar);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.layer == 6 && other.TryGetComponent<CarColliderGetter>(out var car))
+            if (other.gameObject.layer != 6 || !other.TryGetComponent<CarColliderGetter>(out var car))
             {
-                if (car.CarHandler == GetThisCar)
-                {
-                    GetThisCar = CarHandler.NullCar;
-                }
+                return;
+            }
+
+            if (car.CarHandler == GetThisCar)
+            {
+                GetThisCar = CarHandler.NullCar;
             }
         }
     }
