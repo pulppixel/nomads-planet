@@ -1,97 +1,107 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 using NomadsPlanet.Utils;
-using UnityStandardAssets.Vehicles.Car;
 
 namespace NomadsPlanet
 {
-    // 차 속도는 최대 30km/h, 15km/h부터 줄이고, 거리가 10되면 멈추기
-    // 현재 도로를 가는데, 현재 도로의 정보를 얻어오고, 좌회전할지 우회전할지, 직진할 지 선택할 수 있게 하기
     public class CarHandler : MonoBehaviour
     {
-        private CarController _carController;
-        public LayerMask layerMask;
+        // Null 체크 대용으로 쓰기 위함
+        public static CarHandler NullCar => null;
 
-        private const float MaxDistance = 20f;
-        private const float SlowerDistance = 10f;
+        public TrafficType TargetType { get; private set; }
+        public LaneType CurLaneType { get; private set; }
 
-        private LaneType currentLane;
-        private LaneType targetLane;
-        private TrafficType targetTraffic;
-
-        internal enum CarState
-        {
-            Idle,       // 정지 상태
-            ChangeLane, // 차선 변경 상태
-            Drive,      // 드라이브 상태
-            Stopping,   // 브레이크 밟은 상태
-        }
+        public bool IsMoving { get; private set; }
         
+        private Coroutine _moveCoroutine;
+
+        public void SetTrafficTarget(TrafficType trafficType) => TargetType = trafficType;
+
+        private Transform _carTransform;
+
         private void Awake()
         {
-            _carController = GetComponent<CarController>();
+            _carTransform = GetComponent<Transform>();
+            IsMoving = false;
         }
 
-        private void Update()
+        public void MoveToTarget(Transform targetPos, LaneType laneType, float speed = 5f)
         {
-            CarMovement();
-            StoppingControl(DetectOtherCar());
+            _StopAll();
+            _moveCoroutine = StartCoroutine(_MoveToTarget(targetPos, laneType, speed));
         }
 
-        private void OnTriggerEnter(Collider other)
+        public void MoveViaWaypoint(Transform targetPos, Transform wayPoint, float speed = 2.5f)
         {
-            // 현재 달리고 있는 차선을 받아온다.
-            if (other.TryGetComponent<RoadController>(out var roadController))
+            _StopAll();
+            _moveCoroutine = StartCoroutine(_MoveViaWaypoint(targetPos, wayPoint, speed));
+        }
+
+        private IEnumerator _MoveToTarget(Transform targetPos, LaneType laneType, float speed = 4f)
+        {
+            IsMoving = true;
+            CurLaneType = laneType;
+
+            // Movement
+            var position = targetPos.position;
+            var target = new Vector3(position.x, -1f, position.z);
+
+            Sequence s = DOTween.Sequence();
+
+            s.Append(_carTransform.DOMove(target, speed));
+            s.Join(_carTransform.DOLookAt(target, speed * .5f));
+            s.SetSpeedBased(true).SetEase(Ease.InOutSine);
+
+            yield return s.WaitForCompletion();
+            IsMoving = false;
+        }
+
+        private IEnumerator _MoveViaWaypoint(Transform targetPos, Transform wayPoint, float speed = 2f)
+        {
+            IsMoving = true;
+            var position = wayPoint.position;
+            var target = new Vector3(position.x, -1f, position.z);
+
+            Sequence s = DOTween.Sequence();
+
+            s.Append(_carTransform.DOMoveX(target.x, speed).SetEase(Ease.OutSine));
+            s.Join(_carTransform.DOMoveZ(target.z, speed).SetEase(Ease.InSine));
+            s.Join(_carTransform.DOLookAt(target, speed * .5f));
+
+            s.SetSpeedBased(true);
+
+            yield return s.WaitForCompletion();
+
+            // Movement
+            position = targetPos.position;
+            target = new Vector3(position.x, -1f, position.z);
+
+            s = DOTween.Sequence();
+
+            s.Append(_carTransform.DOMoveX(target.x, speed).SetEase(Ease.InSine));
+            s.Join(_carTransform.DOMoveZ(target.z, speed).SetEase(Ease.OutSine));
+            s.Join(_carTransform.DOLookAt(target, speed * .75f));
+
+            s.SetSpeedBased(true);
+
+            yield return s.WaitForCompletion();
+            IsMoving = false;
+        }
+
+        private void _StopAll()
+        {   
+            if (_moveCoroutine != null)
             {
-                Debug.Log(roadController.LaneType.ToString());
+                StopCoroutine(_moveCoroutine);
             }
-
-            // 목표하고 있는 방향을 정한다.
-            if (other.TryGetComponent<TrafficFlow>(out var trafficFlow))
+            
+            if (DOTween.IsTweening(this))
             {
-                targetTraffic = trafficFlow.trafficType;
-                Debug.Log(trafficFlow.curLightType.ToString());
+                DOTween.Kill(this);
             }
-        }
-
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.TryGetComponent<TrafficFlow>(out var trafficFlow))
-            {
-                // Debug.Log(trafficFlow.currentLightType.ToString());
-            }
-        }
-
-        private float DetectOtherCar()
-        {
-            var tr = GetComponent<Transform>();
-            if (Physics.Raycast(tr.position, tr.forward, out var hit, MaxDistance, layerMask))
-            {
-                Debug.Log("Player Detected! Distance: " + hit.distance);
-
-                return hit.distance;
-            }
-
-            return 0f;
-
-        }
-
-        private static void StoppingControl(float distance)
-        {
-            if (!(Math.Abs(distance) > 0.001f)) return;
-
-            // 만약 거리가 너무 가까우면 속도를 줄이거나 정지하게 합니다.
-            if (distance < SlowerDistance)
-            {
-                Debug.Log("Too Close! Slowing down or stopping...");
-                // 여기에 차량의 속도를 조절하는 코드를 작성하세요.
-            }
-        }
-
-        private void CarMovement()
-        {
-            // todo: 점진적으로 0~1로 갈 수 있도록 하기
-            // _carController.Move(-.05f, .1f, .1f, 0);
         }
     }
 }

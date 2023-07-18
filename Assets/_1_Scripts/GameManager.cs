@@ -1,18 +1,25 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NomadsPlanet;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public CarHandler carPrefab;
+    private List<Transform> spawnPoint = new(10);
+    
+    // todo: 네트워크 완성되면, 그걸로 플레이어 생산할 수 있도록 해.
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            spawnPoint.Add(transform.GetChild(i));
+            
+            if (Random.Range(0f, 1f) < .8f)
+            {
+                Instantiate(carPrefab, spawnPoint[i]);
+            }
+        }
     }
 }

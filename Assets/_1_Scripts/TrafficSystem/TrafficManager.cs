@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 
 namespace NomadsPlanet
 {
+    // 사실 얘가 주도적으로 하는게... 너무 없네
     public class TrafficManager : MonoBehaviour
     {
         public static TrafficManager Instance { get; private set; }
