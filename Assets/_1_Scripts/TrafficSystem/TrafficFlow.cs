@@ -11,27 +11,23 @@ namespace NomadsPlanet
     // 좌회전이나 우회전만 가능한 차선에서는, 2차선 모두 이용이 가능하다.
     public class TrafficFlow : MonoBehaviour
     {
-        [InfoBox("해당 차선에서 갈 수 있는 곳들 목록")]
+        // "해당 차선에서 갈 수 있는 곳들 목록"
         [SerializeField, RequiredListLength(2)]
         private Transform[] leftCarTargets = new Transform[2]; // 좌회전, 직진
 
-        [ShowInInspector, ReadOnly]
         private Transform _leftWayPoint; // 왼쪽 좌회전 경유지, 곡선 이동 수학 지식 미숙
 
         [SerializeField, RequiredListLength(2)]
         private Transform[] rightCarTargets = new Transform[2]; // 우회전, 직진
 
-        [ShowInInspector, ReadOnly]
         private Transform _rightWayPoint; // 우회전 경유지
 
-        [InfoBox("현재 차선에서 차량이 위치할 수 있는 곳들 목록")]
-        [ShowInInspector, ReadOnly]
-        public List<Transform> LeftCarPoints { get; private set; } // 0번 인덱스가 가장 앞에 위치함
+        // "현재 차선에서 차량이 위치할 수 있는 곳들 목록"
+        private List<CarDetector> LeftCarDetectors { get; set; } // 0번 인덱스가 가장 앞에 위치함
 
         private readonly List<bool> _leftCarPlaced = new(6);
 
-        [ShowInInspector, ReadOnly]
-        public List<Transform> RightCarPoints { get; private set; }
+        private List<CarDetector> RightCarDetectors { get; set; } // 차량이 이동할 포지션들이다.
 
         private readonly List<bool> _rightCarPlaced = new(6);
 
@@ -81,8 +77,8 @@ namespace NomadsPlanet
             }
 
             // 왼쪽이나 오른쪽에서 차가 젤 앞에 도달했는지 확인한다.
-            var leftCar = _GetCarOnPosition(LeftCarPoints[0]);
-            var rightCar = _GetCarOnPosition(RightCarPoints[0]);
+            var leftCar = LeftCarDetectors[0].GetThisCar;
+            var rightCar = RightCarDetectors[0].GetThisCar;
 
             bool ifCarOnForward = leftCar != CarHandler.NullCar || rightCar != CarHandler.NullCar;
             if (!ifCarOnForward)
@@ -108,6 +104,11 @@ namespace NomadsPlanet
         // 6번 위치에 들어왔을 때.. 이동할 수 있도록 이벤트로 등록한다.
         private void _OnCarEntranceMove(CarHandler insideCar)
         {
+            if (_insideCars.Contains(insideCar))
+            {
+                return;
+            }
+
             // 처음 차가 들어갔을 때, 향해야할 목표 지점을 정해준다.
             var targetTrafficType = _thisTrafficType.GetRandomTrafficType();
             insideCar.SetTrafficTarget(targetTrafficType);
@@ -169,7 +170,6 @@ namespace NomadsPlanet
 
         private void _OnCarExitMove(CarHandler insideCar)
         {
-            // 차가 어디로 가야할 지 알려주고, 출발시킨다.
             switch (insideCar.TargetType)
             {
                 case TrafficType.Left:
@@ -183,7 +183,7 @@ namespace NomadsPlanet
                     break;
                 case TrafficType.Forward:
                 default:
-                    bool isLeft = _GetCarOnPosition(LeftCarPoints[0]);
+                    bool isLeft = LeftCarDetectors[0].GetThisCar == insideCar;
                     if (isLeft)
                     {
                         StartCoroutine(insideCar.MoveToTarget(leftCarTargets[1], LaneType.First));
@@ -191,7 +191,7 @@ namespace NomadsPlanet
                         return;
                     }
 
-                    bool isRight = _GetCarOnPosition(RightCarPoints[0]);
+                    bool isRight = RightCarDetectors[0].GetThisCar == insideCar;
                     if (isRight)
                     {
                         StartCoroutine(insideCar.MoveToTarget(rightCarTargets[1], LaneType.Second));
@@ -249,41 +249,19 @@ namespace NomadsPlanet
             }
         }
 
-        private Transform _GetLeftEmptyPoint()
-        {
-            for (int i = 0; i < LeftCarPoints.Count; i++)
-            {
-                if (_leftCarPlaced[i])
-                {
-                    continue;
-                }
+        private Transform _GetLeftEmptyPoint() =>
+        (
+            from t in LeftCarDetectors
+            where t.GetThisCar == CarHandler.NullCar
+            select t.GetComponent<Transform>()
+        ).FirstOrDefault();
 
-                _leftCarPlaced[i] = true; // 이 곳을 채워준다.
-                return LeftCarPoints[i];
-            }
-
-            return null;
-        }
-
-        private Transform _GetRightEmptyPoint()
-        {
-            for (int i = 0; i < RightCarPoints.Count; i++)
-            {
-                if (_rightCarPlaced[i])
-                {
-                    continue;
-                }
-
-                _rightCarPlaced[i] = true; // 이 곳을 채워준다.
-                return RightCarPoints[i];
-            }
-
-            return null;
-        }
-
-        private CarHandler _GetCarOnPosition(Transform target) =>
-            _insideCars.FirstOrDefault(car => Vector3.Distance(target.position, car.transform.position) < 1) ??
-            CarHandler.NullCar;
+        private Transform _GetRightEmptyPoint() =>
+        (
+            from t in RightCarDetectors
+            where t.GetThisCar == CarHandler.NullCar
+            select t.GetComponent<Transform>()
+        ).FirstOrDefault();
 
         // 여기서 필요한 멤버들을 초기화해준다.
         private void _InitGetters()
@@ -294,26 +272,24 @@ namespace NomadsPlanet
             var leftParents = transform.GetChildFromName<Transform>("1");
             var rightParents = transform.GetChildFromName<Transform>("2");
 
-            var lDetector = leftParents.GetChildFromName<CarDetector>("l6");
-            var rDetector = rightParents.GetChildFromName<CarDetector>("r6");
-            
-            lDetector.InitSetup(_OnCarEntranceMove);
-            rDetector.InitSetup(_OnCarEntranceMove);
-
             _leftWayPoint = leftParents.GetChildFromName<Transform>("waypoint") ?? transform;
             _rightWayPoint = rightParents.GetChildFromName<Transform>("waypoint") ?? transform;
 
-            LeftCarPoints = new List<Transform>();
-            RightCarPoints = new List<Transform>();
+            LeftCarDetectors = new List<CarDetector>(6);
+            RightCarDetectors = new List<CarDetector>(6);
             for (int i = 0; i < leftParents.childCount - 1; i++)
             {
-                LeftCarPoints.Add(leftParents.GetChild(i));
+                var detector = leftParents.GetChild(i).GetComponent<CarDetector>();
+                detector.InitSetup(LaneType.First, i, _OnCarEntranceMove);
+                LeftCarDetectors.Add(detector);
                 _leftCarPlaced.Add(false);
             }
 
             for (int i = 0; i < rightParents.childCount - 1; i++)
             {
-                RightCarPoints.Add(rightParents.GetChild(i));
+                var detector = rightParents.GetChild(i).GetComponent<CarDetector>();
+                detector.InitSetup(LaneType.Second, i, _OnCarEntranceMove);
+                RightCarDetectors.Add(detector);
                 _rightCarPlaced.Add(false);
             }
         }
