@@ -3,9 +3,13 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using NomadsPlanet.Utils;
+using Random = UnityEngine.Random;
 
 namespace NomadsPlanet
 {
+    // todo: changeValue (https://blog.naver.com/PostView.naver?blogId=dooya-log&logNo=221757539272&categoryNo=9&parentCategoryNo=0)
+    // todo: 위 기능 써서 타겟 방향만 업데이트해주면 될 것 같어. (아예 변수로 뺴고, 메소드는 반복해)
+    
     public class CarHandler : MonoBehaviour
     {
         // Null 체크 대용으로 쓰기 위함
@@ -67,9 +71,9 @@ namespace NomadsPlanet
 
             Sequence s = DOTween.Sequence();
 
-            s.Append(_carTransform.DOMoveX(target.x, speed).SetEase(Ease.OutSine));
-            s.Join(_carTransform.DOMoveZ(target.z, speed).SetEase(Ease.InSine));
-            s.Join(_carTransform.DOLookAt(target, speed * .5f));
+            s.Append(_carTransform.DOMoveX(target.x, speed).SetEase(Random.value < .5 ? Ease.OutQuad : Ease.InQuad));
+            s.Join(_carTransform.DOMoveZ(target.z, speed).SetEase(Random.value < .5 ? Ease.OutQuad : Ease.InQuad));
+            s.Join(_carTransform.DOLookAt(target, speed * .5f)).SetEase(Ease.InOutSine);
 
             s.SetSpeedBased(true);
 
@@ -81,9 +85,9 @@ namespace NomadsPlanet
 
             s = DOTween.Sequence();
 
-            s.Append(_carTransform.DOMoveX(target.x, speed).SetEase(Ease.InSine));
-            s.Join(_carTransform.DOMoveZ(target.z, speed).SetEase(Ease.OutSine));
-            s.Join(_carTransform.DOLookAt(target, speed * .75f));
+            s.Append(_carTransform.DOMoveX(target.x, speed).SetEase(Random.value < .5 ? Ease.OutQuad : Ease.InQuad));
+            s.Join(_carTransform.DOMoveZ(target.z, speed).SetEase(Random.value < .5 ? Ease.OutQuad : Ease.InQuad));
+            s.Join(_carTransform.DOLookAt(target, speed * .75f)).SetEase(Ease.InOutSine);
 
             s.SetSpeedBased(true);
 

@@ -46,7 +46,7 @@ namespace NomadsPlanet
         private void Awake() => _InitGetters();
 
         // Index 0번에 도착했을 때 발생시킬 액션도 있어야해
-        private void Update() => _CarOnFirstLine();
+        private void FixedUpdate() => _CarOnFirstLine();
 
         // LightController에서 횡단보도 타입을 정할 수 있도록 해준다.
         public void SetLightAction(LightType type)
@@ -105,6 +105,7 @@ namespace NomadsPlanet
         // 6번 위치에 들어왔을 때.. 이동할 수 있도록 이벤트로 등록한다.
         private void _OnCarEntranceMove(CarHandler insideCar)
         {
+            // 이미 들어와있는 애면, 또 옮겨줄 필요가 없다.
             if (_insideCars.Contains(insideCar))
             {
                 return;
@@ -122,6 +123,10 @@ namespace NomadsPlanet
             switch (targetTrafficType)
             {
                 case TrafficType.Left:
+                    targetPoint = _GetLeftEmptyPoint();
+                    carLaneType = LaneType.First; // 1차로
+                    break;
+                    
                     // 왼쪽 차선으로 가기. 그런데, 여기가 왼쪽밖에 없는 곳이라면?
                     bool ifOnlyLeft = !_thisTrafficType.HasFlag(TrafficType.Forward) &&
                                       !_thisTrafficType.HasFlag(TrafficType.Right);
@@ -140,6 +145,10 @@ namespace NomadsPlanet
                     targetPoint = isLeft ? _GetLeftEmptyPoint() : _GetRightEmptyPoint();
                     break;
                 case TrafficType.Right:
+                    targetPoint = _GetRightEmptyPoint();
+                    carLaneType = LaneType.Second;
+                    break;
+                    
                     bool ifOnlyRight = !_thisTrafficType.HasFlag(TrafficType.Forward) &&
                                        !_thisTrafficType.HasFlag(TrafficType.Left);
                     if (ifOnlyRight)
@@ -157,7 +166,7 @@ namespace NomadsPlanet
                 case TrafficType.Forward:
                 default:
                     // * 직진이 가능한 이상, 어느 차선이던 상관 없다.
-                    bool getLeftOrRight = Random.Range(0f, 1f) < 0.5f;
+                    bool getLeftOrRight = Random.value < 0.5f;
                     carLaneType = getLeftOrRight ? LaneType.First : LaneType.Second;
                     targetPoint = getLeftOrRight ? _GetLeftEmptyPoint() : _GetRightEmptyPoint();
                     break;
@@ -255,19 +264,31 @@ namespace NomadsPlanet
             }
         }
 
-        private Transform _GetLeftEmptyPoint() =>
-        (
-            from t in LeftCarDetectors
-            where t.GetThisCar == CarHandler.NullCar
-            select t.GetComponent<Transform>()
-        ).FirstOrDefault();
+        private Transform _GetLeftEmptyPoint()
+        {
+            var detector = (
+                from t in LeftCarDetectors
+                where t.GetThisCar == CarHandler.NullCar
+                select t
+            ).FirstOrDefault();
 
-        private Transform _GetRightEmptyPoint() =>
-        (
-            from t in RightCarDetectors
-            where t.GetThisCar == CarHandler.NullCar
-            select t.GetComponent<Transform>()
-        ).FirstOrDefault();
+            _leftCarPlaced[detector!.ThisIndex] = true;
+
+            return detector.GetComponent<Transform>();
+        }
+
+        private Transform _GetRightEmptyPoint()
+        {
+            var detector = (
+                from t in RightCarDetectors
+                where t.GetThisCar == CarHandler.NullCar
+                select t
+            ).FirstOrDefault();
+
+            _rightCarPlaced[detector!.ThisIndex] = true;
+
+            return detector.GetComponent<Transform>();
+        }
 
         // 여기서 필요한 멤버들을 초기화해준다.
         private void _InitGetters()

@@ -9,8 +9,8 @@ namespace NomadsPlanet
     {
         // 현재 올라와있는 차의 정보를 전할 수 있다.
         public CarHandler GetThisCar { get; private set; } = CarHandler.NullCar;
-        public LaneType ThisLane { get; private set; }
-        public int ThisIndex { get; private set; }
+        public LaneType ThisLane { get; private set; } // NOT USE ?
+        public int ThisIndex { get; private set; }     // NOT USE 2
 
         // 차량 들어왔을 때 진행시킬 이벤트
         private UnityAction<CarHandler> _carEnterEvent;
