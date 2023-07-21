@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
             var enu = Enumerable.Range(0, 7).ToList();
             var targets = obj.GetTargetValues();
 
-            for (int i = 0; i < Random.Range(0, 3); i++)
+            for (int i = 0; i < Random.Range(1, 5); i++)
             {
                 var car = Instantiate(carPrefab, transform);
                 var pos = targets[enu[i]].position;

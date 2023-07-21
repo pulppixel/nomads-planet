@@ -3,6 +3,7 @@ using UnityEngine;
 using NomadsPlanet.Utils;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Linq;
 using Random = UnityEngine.Random;
 using LightType = NomadsPlanet.Utils.LightType;
 
@@ -36,7 +37,16 @@ namespace NomadsPlanet
 
         private void Awake() => _Init();
 
-        private void FixedUpdate() => _OnCarUpdate();
+        private IEnumerator Start()
+        {
+            while (gameObject)
+            {
+                yield return StartCoroutine(WaitForAll(_OnLeftCarsUpdate(), _OnRightCarsUpdate()));
+            }
+        }
+
+        private IEnumerator WaitForAll(params IEnumerator[] routines) =>
+            routines.Select(StartCoroutine).GetEnumerator();
 
         // 차량이 들어왔다면,
         private void OnCarEnter(CarHandler car)
@@ -105,11 +115,11 @@ namespace NomadsPlanet
             }
         }
 
-        private void _OnCarUpdate()
+        private IEnumerator _OnLeftCarsUpdate()
         {
             if (_curLightType is LightType.Red or LightType.Yellow)
             {
-                return;
+                yield break;
             }
 
             // 맨 앞에 놈은 아예 다른 곳으로 가게 하기
@@ -123,7 +133,17 @@ namespace NomadsPlanet
                 bool isForward = _thisTrafficType.HasFlag(TrafficType.Forward);
 
                 StartCoroutine(DelayedRemove(LeftCarDetectors[0].TargetCat));
-                MoveToOtherLane(LeftCarDetectors, leftCarTargets, _leftWayPoint, isLeft, isForward);
+                yield return StartCoroutine(MoveToOtherLane(
+                    LeftCarDetectors, leftCarTargets, _leftWayPoint, isLeft, isForward)
+                );
+            }
+        }
+
+        private IEnumerator _OnRightCarsUpdate()
+        {
+            if (_curLightType is LightType.Red or LightType.Yellow)
+            {
+                yield break;
             }
 
             bool isRightOnCar = RightCarDetectors[0].TargetCat != CarHandler.NullCar &&
@@ -137,48 +157,52 @@ namespace NomadsPlanet
                 bool isForward = _thisTrafficType.HasFlag(TrafficType.Forward);
 
                 StartCoroutine(DelayedRemove(RightCarDetectors[0].TargetCat));
-                MoveToOtherLane(RightCarDetectors, rightCarTargets, _rightWayPoint, isRight, isForward);
+                yield return StartCoroutine(MoveToOtherLane(
+                    RightCarDetectors, rightCarTargets, _rightWayPoint, isRight, isForward)
+                );
             }
+        }
 
-            void MoveToOtherLane(IReadOnlyList<CarDetector> carDetectors, IReadOnlyList<Transform> carTargets,
-                IReadOnlyList<Transform> wayPoints, bool isCurved, bool isForward)
+        private static IEnumerator MoveToOtherLane(
+            IReadOnlyList<CarDetector> carDetectors, IReadOnlyList<Transform> carTargets,
+            IReadOnlyList<Transform> wayPoints, bool isCurved, bool isForward)
+        {
+            if (isCurved && isForward)
             {
-                if (isCurved && isForward)
-                {
-                    if (Random.value < .5f)
-                    {
-                        carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0].position,
-                            new[] { wayPoints[0].position, wayPoints[1].position },
-                            true
-                        );
-                    }
-                    else
-                    {
-                        carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position, true);
-                    }
-                }
-                else if (isCurved)
+                if (Random.value < .5f)
                 {
                     carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0].position,
                         new[] { wayPoints[0].position, wayPoints[1].position },
                         true
                     );
                 }
-                else if (isForward)
+                else
                 {
                     carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position, true);
                 }
+            }
+            else if (isCurved)
+            {
+                carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0].position,
+                    new[] { wayPoints[0].position, wayPoints[1].position },
+                    true
+                );
+            }
+            else if (isForward)
+            {
+                carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position, true);
+            }
 
-                carDetectors[0].TargetCat = CarHandler.NullCar;
+            carDetectors[0].TargetCat = CarHandler.NullCar;
 
-                for (int i = 1; i < carDetectors.Count; i++)
+            for (int i = 1; i < carDetectors.Count; i++)
+            {
+                if (carDetectors[i].TargetCat != CarHandler.NullCar)
                 {
-                    if (carDetectors[i].TargetCat != CarHandler.NullCar)
-                    {
-                        carDetectors[i].TargetCat.MoveToTarget(carDetectors[i - 1].transform.position, true);
-                        carDetectors[i - 1].TargetCat = carDetectors[i].TargetCat;
-                        carDetectors[i].TargetCat = CarHandler.NullCar;
-                    }
+                    yield return new WaitForSeconds(.5f);
+                    carDetectors[i].TargetCat.MoveToTarget(carDetectors[i - 1].transform.position, true);
+                    carDetectors[i - 1].TargetCat = carDetectors[i].TargetCat;
+                    carDetectors[i].TargetCat = CarHandler.NullCar;
                 }
             }
         }
