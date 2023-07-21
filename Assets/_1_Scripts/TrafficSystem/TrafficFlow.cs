@@ -128,41 +128,41 @@ namespace NomadsPlanet
                     break;
                     
                     // 왼쪽 차선으로 가기. 그런데, 여기가 왼쪽밖에 없는 곳이라면?
-                    bool ifOnlyLeft = !_thisTrafficType.HasFlag(TrafficType.Forward) &&
-                                      !_thisTrafficType.HasFlag(TrafficType.Right);
-
-                    if (!ifOnlyLeft)
-                    {
-                        targetPoint = _GetLeftEmptyPoint();
-                        carLaneType = LaneType.First; // 1차로
-                        break;
-                    }
-
-                    bool isLeft = Random.Range(0f, 1f) < 0.5f;
-
-                    // 왼쪽만 갈 수 있는 곳이라면, 양쪽 차선 전부 이용해도 큰 문제는 없다.
-                    carLaneType = isLeft ? LaneType.First : LaneType.Second;
-                    targetPoint = isLeft ? _GetLeftEmptyPoint() : _GetRightEmptyPoint();
-                    break;
+                    // bool ifOnlyLeft = !_thisTrafficType.HasFlag(TrafficType.Forward) &&
+                    //                   !_thisTrafficType.HasFlag(TrafficType.Right);
+                    //
+                    // if (!ifOnlyLeft)
+                    // {
+                    //     targetPoint = _GetLeftEmptyPoint();
+                    //     carLaneType = LaneType.First; // 1차로
+                    //     break;
+                    // }
+                    //
+                    // bool isLeft = Random.Range(0f, 1f) < 0.5f;
+                    //
+                    // // 왼쪽만 갈 수 있는 곳이라면, 양쪽 차선 전부 이용해도 큰 문제는 없다.
+                    // carLaneType = isLeft ? LaneType.First : LaneType.Second;
+                    // targetPoint = isLeft ? _GetLeftEmptyPoint() : _GetRightEmptyPoint();
+                    // break;
                 case TrafficType.Right:
                     targetPoint = _GetRightEmptyPoint();
                     carLaneType = LaneType.Second;
                     break;
                     
-                    bool ifOnlyRight = !_thisTrafficType.HasFlag(TrafficType.Forward) &&
-                                       !_thisTrafficType.HasFlag(TrafficType.Left);
-                    if (ifOnlyRight)
-                    {
-                        targetPoint = _GetRightEmptyPoint();
-                        carLaneType = LaneType.Second;
-                        break;
-                    }
-
-                    bool isRight = Random.Range(0f, 1f) < 0.5f;
-
-                    carLaneType = isRight ? LaneType.Second : LaneType.First;
-                    targetPoint = isRight ? _GetLeftEmptyPoint() : _GetRightEmptyPoint();
-                    break;
+                    // bool ifOnlyRight = !_thisTrafficType.HasFlag(TrafficType.Forward) &&
+                    //                    !_thisTrafficType.HasFlag(TrafficType.Left);
+                    // if (ifOnlyRight)
+                    // {
+                    //     targetPoint = _GetRightEmptyPoint();
+                    //     carLaneType = LaneType.Second;
+                    //     break;
+                    // }
+                    //
+                    // bool isRight = Random.Range(0f, 1f) < 0.5f;
+                    //
+                    // carLaneType = isRight ? LaneType.Second : LaneType.First;
+                    // targetPoint = isRight ? _GetLeftEmptyPoint() : _GetRightEmptyPoint();
+                    // break;
                 case TrafficType.Forward:
                 default:
                     // * 직진이 가능한 이상, 어느 차선이던 상관 없다.
@@ -180,11 +180,6 @@ namespace NomadsPlanet
 
         private void _OnCarExitMove(CarHandler insideCar)
         {
-            if (insideCar.IsMoving)
-            {
-                return;
-            }
-
             switch (insideCar.TargetType)
             {
                 case TrafficType.Left:

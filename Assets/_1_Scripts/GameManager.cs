@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using NomadsPlanet;
@@ -20,6 +21,24 @@ public class GameManager : MonoBehaviour
             {
                 Instantiate(carPrefab, spawnPoint[i]);
             }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Time.timeScale += 1f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            Time.timeScale -= 1f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Time.timeScale = 1f;
         }
     }
 }

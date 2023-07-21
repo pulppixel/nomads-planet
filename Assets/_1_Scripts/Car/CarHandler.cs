@@ -1,26 +1,31 @@
-using System;
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 using DG.Tweening;
 using NomadsPlanet.Utils;
-using Random = UnityEngine.Random;
 
 namespace NomadsPlanet
 {
-    // todo: changeValue (https://blog.naver.com/PostView.naver?blogId=dooya-log&logNo=221757539272&categoryNo=9&parentCategoryNo=0)
-    // todo: 위 기능 써서 타겟 방향만 업데이트해주면 될 것 같어. (아예 변수로 뺴고, 메소드는 반복해)
-    
     public class CarHandler : MonoBehaviour
     {
         // Null 체크 대용으로 쓰기 위함
         public static CarHandler NullCar => null;
 
+        // 차량 스피드
+        private const float Speed = .1f;
+        private Ease _ease = Ease.InOutQuad;
+
         public TrafficType TargetType { get; private set; }
         public LaneType CurLaneType { get; private set; }
 
-        public bool IsMoving { get; private set; }
-        
         private Coroutine _moveCoroutine;
+
+        // 이동에 필요한 Tween들
+        private Tweener _moveTween;
+        private Tweener _lookTween;
+
+        // 타겟 값
+        private Vector3 _oldPosition;
+        private Vector3 _targetPosition;
 
         public void SetTrafficTarget(TrafficType trafficType) => TargetType = trafficType;
 
@@ -29,82 +34,57 @@ namespace NomadsPlanet
         private void Awake()
         {
             _carTransform = GetComponent<Transform>();
-            IsMoving = false;
         }
 
-        public void MoveToTarget(Transform targetPos, LaneType laneType, float speed = 5f)
+        private void OnEnable()
         {
-            _StopAll();
-            _moveCoroutine = StartCoroutine(_MoveToTarget(targetPos, laneType, speed));
+            var position = _carTransform.position;
+            _targetPosition = new Vector3(position.x, -1f, position.z);
+            _oldPosition = _targetPosition;
+            _moveTween = _carTransform.DOMove(_targetPosition, 1f).SetAutoKill(false);
+            _lookTween = _carTransform.DOLookAt(_targetPosition, 1f).SetAutoKill(false);
         }
 
-        public void MoveViaWaypoint(Transform targetPos, Transform wayPoint, float speed = 2.5f)
+        private void Update()
         {
-            _StopAll();
-            _moveCoroutine = StartCoroutine(_MoveViaWaypoint(targetPos, wayPoint, speed));
-        }
-
-        private IEnumerator _MoveToTarget(Transform targetPos, LaneType laneType, float speed = 4f)
-        {
-            IsMoving = true;
-            CurLaneType = laneType;
-
-            // Movement
-            var position = targetPos.position;
-            var target = new Vector3(position.x, -1f, position.z);
-
-            Sequence s = DOTween.Sequence();
-
-            s.Append(_carTransform.DOMove(target, speed));
-            s.Join(_carTransform.DOLookAt(target, speed * .5f));
-            s.SetSpeedBased(true).SetEase(Ease.InOutSine);
-
-            yield return s.WaitForCompletion();
-            IsMoving = false;
-        }
-
-        private IEnumerator _MoveViaWaypoint(Transform targetPos, Transform wayPoint, float speed = 2f)
-        {
-            IsMoving = true;
-            var position = wayPoint.position;
-            var target = new Vector3(position.x, -1f, position.z);
-
-            Sequence s = DOTween.Sequence();
-
-            s.Append(_carTransform.DOMoveX(target.x, speed).SetEase(Random.value < .5 ? Ease.OutQuad : Ease.InQuad));
-            s.Join(_carTransform.DOMoveZ(target.z, speed).SetEase(Random.value < .5 ? Ease.OutQuad : Ease.InQuad));
-            s.Join(_carTransform.DOLookAt(target, speed * .5f)).SetEase(Ease.InOutSine);
-
-            s.SetSpeedBased(true);
-
-            yield return s.WaitForCompletion();
-
-            // Movement
-            position = targetPos.position;
-            target = new Vector3(position.x, -1f, position.z);
-
-            s = DOTween.Sequence();
-
-            s.Append(_carTransform.DOMoveX(target.x, speed).SetEase(Random.value < .5 ? Ease.OutQuad : Ease.InQuad));
-            s.Join(_carTransform.DOMoveZ(target.z, speed).SetEase(Random.value < .5 ? Ease.OutQuad : Ease.InQuad));
-            s.Join(_carTransform.DOLookAt(target, speed * .75f)).SetEase(Ease.InOutSine);
-
-            s.SetSpeedBased(true);
-
-            yield return s.WaitForCompletion();
-            IsMoving = false;
-        }
-
-        private void _StopAll()
-        {   
-            if (_moveCoroutine != null)
+            if (Vector3.Distance(_oldPosition, _targetPosition) > 1f)
             {
-                StopCoroutine(_moveCoroutine);
+                var position = _targetPosition;
+                _targetPosition = new Vector3(position.x, -1f, position.z);
+                _oldPosition = _targetPosition;
+
+                float duration = Vector3.Distance(_carTransform.position, _targetPosition) * Speed;
+
+                _moveTween.ChangeEndValue(_targetPosition, duration, true)
+                    .SetEase(_ease)
+                    .SetAutoKill(false)
+                    .Restart();
+
+                _lookTween.ChangeEndValue(_targetPosition, duration, true)
+                    .SetEase(Ease.Linear)
+                    .SetAutoKill(false)
+                    .Restart();
             }
-            
-            if (DOTween.IsTweening(this))
+        }
+
+        // 차선 내부에서 이동함
+        public void MoveToTarget(Transform targetPos, LaneType laneType)
+        {
+            CurLaneType = laneType;
+            _ease = Ease.OutSine;
+            _targetPosition = targetPos.position;
+        }
+
+        public void MoveViaWaypoint(Transform targetPos, Transform wayPoint)
+        {
+            _ease = Ease.Linear;
+            _targetPosition = wayPoint.position;
+            StartCoroutine(Move());
+
+            IEnumerator Move()
             {
-                DOTween.Kill(this);
+                yield return new WaitUntil(() => Vector3.Distance(_carTransform.position, wayPoint.position) < 1f);
+                _targetPosition = targetPos.position;
             }
         }
     }
