@@ -9,7 +9,7 @@ namespace NomadsPlanet
 {
     public class TrafficController : MonoBehaviour
     {
-        private const int SignDuration = 8;
+        private const int SignDuration = 10;
 
         private List<TrafficFlow> _trafficFlows = new(4);
 
@@ -39,7 +39,7 @@ namespace NomadsPlanet
 
                 foreach (var flow in _trafficFlows)
                 {
-                    yield return StartCoroutine(ChangeLightTo(flow, LightType.Green, duration - 3));
+                    yield return StartCoroutine(ChangeLightTo(flow, LightType.Green, duration));
                     yield return StartCoroutine(ChangeLightTo(flow, LightType.Yellow, 3));
 
                     SetAllLightsTo(LightType.Red);

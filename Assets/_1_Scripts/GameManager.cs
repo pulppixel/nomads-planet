@@ -1,44 +1,27 @@
-using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using NomadsPlanet;
-using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
     public CarHandler carPrefab;
-    private List<Transform> spawnPoint = new(10);
-    
-    // todo: 네트워크 완성되면, 그걸로 플레이어 생산할 수 있도록 해.
+    public List<TrafficFlow> TrafficFlows;
 
     private void Start()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        foreach (var obj in TrafficFlows)
         {
-            spawnPoint.Add(transform.GetChild(i));
-            
-            if (Random.Range(0f, 1f) < .8f)
+            // 각 2개씩 생성
+            var enu = Enumerable.Range(0, 7).ToList();
+            var targets = obj.GetTargetValues();
+
+            for (int i = 0; i < 2; i++)
             {
-                Instantiate(carPrefab, spawnPoint[i]);
+                var car = Instantiate(carPrefab, this.transform);
+                var pos = targets[enu[i]].position;
+                car.transform.position = new Vector3(pos.x, -1, pos.z);
             }
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            Time.timeScale += 1f;
-        }
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            Time.timeScale -= 1f;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Time.timeScale = 1f;
         }
     }
 }

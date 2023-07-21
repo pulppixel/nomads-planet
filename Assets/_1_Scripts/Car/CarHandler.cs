@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using DG.Tweening;
-using NomadsPlanet.Utils;
 
 namespace NomadsPlanet
 {
@@ -14,11 +13,6 @@ namespace NomadsPlanet
         private const float Speed = .1f;
         private Ease _ease = Ease.InOutQuad;
 
-        public TrafficType TargetType { get; private set; }
-        public LaneType CurLaneType { get; private set; }
-
-        private Coroutine _moveCoroutine;
-
         // 이동에 필요한 Tween들
         private Tweener _moveTween;
         private Tweener _lookTween;
@@ -26,8 +20,6 @@ namespace NomadsPlanet
         // 타겟 값
         private Vector3 _oldPosition;
         private Vector3 _targetPosition;
-
-        public void SetTrafficTarget(TrafficType trafficType) => TargetType = trafficType;
 
         private Transform _carTransform;
 
@@ -60,7 +52,7 @@ namespace NomadsPlanet
                     .SetAutoKill(false)
                     .Restart();
 
-                _lookTween.ChangeEndValue(_targetPosition, duration, true)
+                _lookTween.ChangeEndValue(_targetPosition, duration * .75f, true)
                     .SetEase(Ease.Linear)
                     .SetAutoKill(false)
                     .Restart();
@@ -68,9 +60,8 @@ namespace NomadsPlanet
         }
 
         // 차선 내부에서 이동함
-        public void MoveToTarget(Transform targetPos, LaneType laneType)
+        public void MoveToTarget(Transform targetPos)
         {
-            CurLaneType = laneType;
             _ease = Ease.OutSine;
             _targetPosition = targetPos.position;
         }
