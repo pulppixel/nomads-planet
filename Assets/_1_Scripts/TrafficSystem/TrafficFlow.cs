@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Collections;
 using UnityEngine;
 using NomadsPlanet.Utils;
 using Sirenix.OdinInspector;
@@ -12,24 +12,22 @@ namespace NomadsPlanet
     // 좌회전이나 우회전만 가능한 차선에서는, 2차선 모두 이용이 가능하다.
     public class TrafficFlow : MonoBehaviour
     {
-        public float rotateY;
-
         // "해당 차선에서 갈 수 있는 곳들 목록"
         [SerializeField, RequiredListLength(2)]
         private Transform[] leftCarTargets = new Transform[2]; // 좌회전, 직진
 
-        private Transform[] _leftWayPoint = new Transform[2]; // 왼쪽 좌회전 경유지
+        private readonly Transform[] _leftWayPoint = new Transform[2]; // 왼쪽 좌회전 경유지
 
         [SerializeField, RequiredListLength(2)]
         private Transform[] rightCarTargets = new Transform[2]; // 우회전, 직진
 
-        private Transform[] _rightWayPoint = new Transform[2]; // 우회전 경유지
+        private readonly Transform[] _rightWayPoint = new Transform[2]; // 우회전 경유지
 
         // "현재 차선에서 차량이 위치할 수 있는 곳들 목록"
         private List<CarDetector> LeftCarDetectors { get; set; }
         private List<CarDetector> RightCarDetectors { get; set; }
 
-        [ShowInInspector] private List<CarHandler> _insideCars = new(14);
+        private readonly List<CarHandler> _insideCars = new(14);
 
         // 이 아래는 클래스 성질을 나타내기 위함. 볼 필요 x
         private LightType _curLightType;
@@ -59,7 +57,22 @@ namespace NomadsPlanet
                     if (LeftCarDetectors[i].TargetCat == CarHandler.NullCar)
                     {
                         LeftCarDetectors[i].TargetCat = car;
-                        car.MoveToTarget(LeftCarDetectors[i].transform.position);
+
+                        if (i + 2 < LeftCarDetectors.Count)
+                        {
+                            car.MoveViaWaypoint(LeftCarDetectors[i].transform.position, new[]
+                                {
+                                    LeftCarDetectors[i + 2].transform.position,
+                                    LeftCarDetectors[i + 1].transform.position,
+                                },
+                                false
+                            );
+                        }
+                        else
+                        {
+                            car.MoveToTarget(LeftCarDetectors[i].transform.position, false);
+                        }
+
                         break;
                     }
                 }
@@ -68,7 +81,24 @@ namespace NomadsPlanet
                     if (RightCarDetectors[i].TargetCat == CarHandler.NullCar)
                     {
                         RightCarDetectors[i].TargetCat = car;
-                        car.MoveToTarget(RightCarDetectors[i].transform.position);
+
+                        if (i + 2 < RightCarDetectors.Count)
+                        {
+                            car.MoveViaWaypoint(RightCarDetectors[i].transform.position, new[]
+                                {
+                                    RightCarDetectors[i + 2].transform.position,
+                                    RightCarDetectors[i + 1].transform.position,
+                                },
+                                false
+                            );
+                        }
+                        else
+                        {
+                            car.MoveToTarget(RightCarDetectors[i].transform.position,
+                                false
+                            );
+                        }
+
                         break;
                     }
                 }
@@ -92,7 +122,7 @@ namespace NomadsPlanet
                 bool isLeft = _thisTrafficType.HasFlag(TrafficType.Left) || _thisTrafficType.HasFlag(TrafficType.Right);
                 bool isForward = _thisTrafficType.HasFlag(TrafficType.Forward);
 
-                _insideCars.Remove(LeftCarDetectors[0].TargetCat);
+                StartCoroutine(DelayedRemove(LeftCarDetectors[0].TargetCat));
                 MoveToOtherLane(LeftCarDetectors, leftCarTargets, _leftWayPoint, isLeft, isForward);
             }
 
@@ -102,10 +132,11 @@ namespace NomadsPlanet
 
             if (isRightOnCar)
             {
-                bool isRight = _thisTrafficType.HasFlag(TrafficType.Right) || _thisTrafficType.HasFlag(TrafficType.Left);
+                bool isRight = _thisTrafficType.HasFlag(TrafficType.Right) ||
+                               _thisTrafficType.HasFlag(TrafficType.Left);
                 bool isForward = _thisTrafficType.HasFlag(TrafficType.Forward);
 
-                _insideCars.Remove(RightCarDetectors[0].TargetCat);
+                StartCoroutine(DelayedRemove(RightCarDetectors[0].TargetCat));
                 MoveToOtherLane(RightCarDetectors, rightCarTargets, _rightWayPoint, isRight, isForward);
             }
 
@@ -117,30 +148,34 @@ namespace NomadsPlanet
                     if (Random.value < .5f)
                     {
                         carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0].position,
-                            new[] { wayPoints[0].position, wayPoints[1].position });
+                            new[] { wayPoints[0].position, wayPoints[1].position },
+                            true
+                        );
                     }
                     else
                     {
-                        carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position);
+                        carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position, true);
                     }
                 }
                 else if (isCurved)
                 {
                     carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0].position,
-                        new[] { wayPoints[0].position, wayPoints[1].position });
+                        new[] { wayPoints[0].position, wayPoints[1].position },
+                        true
+                    );
                 }
                 else if (isForward)
                 {
-                    carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position);
+                    carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position, true);
                 }
 
                 carDetectors[0].TargetCat = CarHandler.NullCar;
 
                 for (int i = 1; i < carDetectors.Count; i++)
                 {
-                    if (carDetectors[i].TargetCat != CarHandler.NullCar && carDetectors[i].CarOnThisPoint())
+                    if (carDetectors[i].TargetCat != CarHandler.NullCar)
                     {
-                        carDetectors[i].TargetCat.MoveToTarget(carDetectors[i - 1].transform.position);
+                        carDetectors[i].TargetCat.MoveToTarget(carDetectors[i - 1].transform.position, true);
                         carDetectors[i - 1].TargetCat = carDetectors[i].TargetCat;
                         carDetectors[i].TargetCat = CarHandler.NullCar;
                     }
@@ -193,9 +228,16 @@ namespace NomadsPlanet
         // 외부에서 쓸 애들
         public List<Transform> GetTargetValues()
         {
-            List<Transform> targets = new List<Transform>(12);
-            targets.AddRange(LeftCarDetectors.Select(obj => obj.transform));
-            targets.AddRange(RightCarDetectors.Select(obj => obj.transform));
+            List<Transform> targets = new List<Transform>(8);
+            for (int i = 3; i < LeftCarDetectors.Count; i++)
+            {
+                targets.Add(LeftCarDetectors[i].GetComponent<Transform>());
+            }
+
+            for (int i = 3; i < RightCarDetectors.Count; i++)
+            {
+                targets.Add(RightCarDetectors[i].GetComponent<Transform>());
+            }
 
             return targets;
         }
@@ -205,6 +247,16 @@ namespace NomadsPlanet
         {
             _curLightType = type;
             _lightController.SetTrafficSign(type);
+        }
+
+        private IEnumerator DelayedRemove(CarHandler car)
+        {
+            yield return new WaitForSeconds(3f);
+
+            if (_insideCars.Contains(car))
+            {
+                _insideCars.Remove(car);
+            }
         }
     }
 }

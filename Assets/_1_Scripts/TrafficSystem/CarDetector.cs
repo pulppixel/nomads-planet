@@ -29,7 +29,7 @@ namespace NomadsPlanet
                 return false;
             }
 
-            return Vector3.Distance(TargetCat.transform.position, transform.position) < 5f;
+            return Vector3.Distance(TargetCat.transform.position, transform.position) < 2f;
         }
 
         // update?

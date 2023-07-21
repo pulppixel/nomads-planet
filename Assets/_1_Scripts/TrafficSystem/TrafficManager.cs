@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using NomadsPlanet.Utils;
-using Unity.VisualScripting;
 
 namespace NomadsPlanet
 {

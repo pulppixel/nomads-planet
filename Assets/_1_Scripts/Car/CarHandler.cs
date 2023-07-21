@@ -7,9 +7,8 @@ namespace NomadsPlanet
     public class CarHandler : MonoBehaviour
     {
         // Null 체크 대용으로 쓰기 위함
-        public static CarHandler NullCar => null;
+        public static CarHandler NullCar => null; // ㅋㅋ
 
-        // 차량 스피드
         private const float Speed = .1f;
 
         private Transform _carTransform;
@@ -20,7 +19,7 @@ namespace NomadsPlanet
         }
 
         // 차선 내부에서 이동함
-        public void MoveToTarget(Vector3 targetPos)
+        public void MoveToTarget(Vector3 targetPos, bool isLinear)
         {
             if (DOTween.IsTweening(this))
             {
@@ -30,17 +29,17 @@ namespace NomadsPlanet
             float duration = Vector3.Distance(_carTransform.position, targetPos) * Speed;
             DOTween.Sequence()
                 .Append(_carTransform.DOMove(new Vector3(targetPos.x, -1, targetPos.z), duration))
-                .Join(_carTransform.DOLookAt(new Vector3(targetPos.x, -1, targetPos.z), duration * .8f));
+                .Join(_carTransform.DOLookAt(new Vector3(targetPos.x, -1, targetPos.z), duration * .8f))
+                .SetEase(isLinear ? Ease.Linear : Ease.OutQuad);
         }
 
-        public void MoveViaWaypoint(Vector3 targetPos, Vector3[] wayPoint)
+        public void MoveViaWaypoint(Vector3 targetPos, Vector3[] wayPoint, bool isLinear)
         {
             if (DOTween.IsTweening(this))
             {
                 DOTween.Kill(this);
             }
 
-            Debug.Log("CALL");
             float duration = Vector3.Distance(_carTransform.position, targetPos) * Speed * 1.5f;
             var path = new Vector3[]
             {
@@ -49,8 +48,8 @@ namespace NomadsPlanet
                 new(targetPos.x, -1, targetPos.z),
             };
 
-            _carTransform.DOPath(path, duration, PathType.CatmullRom)
-                .SetEase(Ease.Linear)
+            _carTransform.DOPath(path, duration, isLinear ? PathType.CatmullRom : PathType.Linear)
+                .SetEase(isLinear ? Ease.Linear : Ease.OutQuad)
                 .SetLookAt(.001f);
 
             // _carTransform.DOLookAt(new Vector3(targetPos.x, -1, targetPos.z), duration * .8f);
