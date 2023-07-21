@@ -1,5 +1,6 @@
 using System;
 using NomadsPlanet.Utils;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,6 +9,7 @@ namespace NomadsPlanet
     public class CarDetector : MonoBehaviour
     {
         // 앞으로 올 친구의 정보
+        [ShowInInspector]
         public CarHandler TargetCat { get; set; } = CarHandler.NullCar;
         public LaneType ThisLane { get; private set; }
 
@@ -27,7 +29,7 @@ namespace NomadsPlanet
                 return false;
             }
 
-            return Vector3.Distance(TargetCat.transform.position, this.transform.position) < 1f;
+            return Vector3.Distance(TargetCat.transform.position, transform.position) < 5f;
         }
 
         // update?

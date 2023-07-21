@@ -12,22 +12,24 @@ namespace NomadsPlanet
     // 좌회전이나 우회전만 가능한 차선에서는, 2차선 모두 이용이 가능하다.
     public class TrafficFlow : MonoBehaviour
     {
+        public float rotateY;
+
         // "해당 차선에서 갈 수 있는 곳들 목록"
         [SerializeField, RequiredListLength(2)]
         private Transform[] leftCarTargets = new Transform[2]; // 좌회전, 직진
 
-        private Transform _leftWayPoint; // 왼쪽 좌회전 경유지
+        private Transform[] _leftWayPoint = new Transform[2]; // 왼쪽 좌회전 경유지
 
         [SerializeField, RequiredListLength(2)]
         private Transform[] rightCarTargets = new Transform[2]; // 우회전, 직진
 
-        private Transform _rightWayPoint; // 우회전 경유지
+        private Transform[] _rightWayPoint = new Transform[2]; // 우회전 경유지
 
         // "현재 차선에서 차량이 위치할 수 있는 곳들 목록"
         private List<CarDetector> LeftCarDetectors { get; set; }
         private List<CarDetector> RightCarDetectors { get; set; }
 
-        private List<CarHandler> _insideCars = new(14);
+        [ShowInInspector] private List<CarHandler> _insideCars = new(14);
 
         // 이 아래는 클래스 성질을 나타내기 위함. 볼 필요 x
         private LightType _curLightType;
@@ -47,6 +49,7 @@ namespace NomadsPlanet
             }
 
             _insideCars.Add(car);
+
             // 맨 앞에서부터 탐색하고, 빈 곳이 있으면 거기로 보내
             // 한번 정해지면, 거기로만가
             for (int i = 0; i < LeftCarDetectors.Count; i++)
@@ -56,7 +59,7 @@ namespace NomadsPlanet
                     if (LeftCarDetectors[i].TargetCat == CarHandler.NullCar)
                     {
                         LeftCarDetectors[i].TargetCat = car;
-                        car.MoveToTarget(LeftCarDetectors[i].transform);
+                        car.MoveToTarget(LeftCarDetectors[i].transform.position);
                         break;
                     }
                 }
@@ -65,7 +68,7 @@ namespace NomadsPlanet
                     if (RightCarDetectors[i].TargetCat == CarHandler.NullCar)
                     {
                         RightCarDetectors[i].TargetCat = car;
-                        car.MoveToTarget(RightCarDetectors[i].transform);
+                        car.MoveToTarget(RightCarDetectors[i].transform.position);
                         break;
                     }
                 }
@@ -83,9 +86,10 @@ namespace NomadsPlanet
             bool isLeftOnCar = LeftCarDetectors[0].TargetCat != CarHandler.NullCar &&
                                LeftCarDetectors[0].CarOnThisPoint() &&
                                _insideCars.Contains(LeftCarDetectors[0].TargetCat);
+
             if (isLeftOnCar)
             {
-                bool isLeft = _thisTrafficType.HasFlag(TrafficType.Left);
+                bool isLeft = _thisTrafficType.HasFlag(TrafficType.Left) || _thisTrafficType.HasFlag(TrafficType.Right);
                 bool isForward = _thisTrafficType.HasFlag(TrafficType.Forward);
 
                 _insideCars.Remove(LeftCarDetectors[0].TargetCat);
@@ -95,9 +99,10 @@ namespace NomadsPlanet
             bool isRightOnCar = RightCarDetectors[0].TargetCat != CarHandler.NullCar &&
                                 RightCarDetectors[0].CarOnThisPoint() &&
                                 _insideCars.Contains(RightCarDetectors[0].TargetCat);
+
             if (isRightOnCar)
             {
-                bool isRight = _thisTrafficType.HasFlag(TrafficType.Right);
+                bool isRight = _thisTrafficType.HasFlag(TrafficType.Right) || _thisTrafficType.HasFlag(TrafficType.Left);
                 bool isForward = _thisTrafficType.HasFlag(TrafficType.Forward);
 
                 _insideCars.Remove(RightCarDetectors[0].TargetCat);
@@ -105,26 +110,28 @@ namespace NomadsPlanet
             }
 
             void MoveToOtherLane(IReadOnlyList<CarDetector> carDetectors, IReadOnlyList<Transform> carTargets,
-                Transform wayPoint, bool isCurved, bool isForward)
+                IReadOnlyList<Transform> wayPoints, bool isCurved, bool isForward)
             {
                 if (isCurved && isForward)
                 {
                     if (Random.value < .5f)
                     {
-                        carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0], wayPoint);
+                        carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0].position,
+                            new[] { wayPoints[0].position, wayPoints[1].position });
                     }
                     else
                     {
-                        carDetectors[0].TargetCat.MoveToTarget(carTargets[1]);
+                        carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position);
                     }
                 }
                 else if (isCurved)
                 {
-                    carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0], wayPoint);
+                    carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0].position,
+                        new[] { wayPoints[0].position, wayPoints[1].position });
                 }
                 else if (isForward)
                 {
-                    carDetectors[0].TargetCat.MoveToTarget(carTargets[1]);
+                    carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position);
                 }
 
                 carDetectors[0].TargetCat = CarHandler.NullCar;
@@ -133,7 +140,7 @@ namespace NomadsPlanet
                 {
                     if (carDetectors[i].TargetCat != CarHandler.NullCar && carDetectors[i].CarOnThisPoint())
                     {
-                        carDetectors[i].TargetCat.MoveToTarget(carDetectors[i - 1].transform);
+                        carDetectors[i].TargetCat.MoveToTarget(carDetectors[i - 1].transform.position);
                         carDetectors[i - 1].TargetCat = carDetectors[i].TargetCat;
                         carDetectors[i].TargetCat = CarHandler.NullCar;
                     }
@@ -149,8 +156,10 @@ namespace NomadsPlanet
             var leftParents = transform.GetChildFromName<Transform>("1");
             var rightParents = transform.GetChildFromName<Transform>("2");
 
-            _leftWayPoint = leftParents.GetChildFromName<Transform>("waypoint") ?? transform;
-            _rightWayPoint = rightParents.GetChildFromName<Transform>("waypoint") ?? transform;
+            _leftWayPoint[0] = leftParents.GetChildFromName<Transform>("waypoint") ?? transform;
+            _rightWayPoint[0] = rightParents.GetChildFromName<Transform>("waypoint") ?? transform;
+            _leftWayPoint[1] = leftParents.GetChildFromName<Transform>("waypoint (1)") ?? transform;
+            _rightWayPoint[1] = rightParents.GetChildFromName<Transform>("waypoint (1)") ?? transform;
 
             LeftCarDetectors = new(7);
             RightCarDetectors = new(7);

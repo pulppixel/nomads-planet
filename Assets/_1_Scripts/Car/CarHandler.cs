@@ -11,15 +11,6 @@ namespace NomadsPlanet
 
         // 차량 스피드
         private const float Speed = .1f;
-        private Ease _ease = Ease.InOutQuad;
-
-        // 이동에 필요한 Tween들
-        private Tweener _moveTween;
-        private Tweener _lookTween;
-
-        // 타겟 값
-        private Vector3 _oldPosition;
-        private Vector3 _targetPosition;
 
         private Transform _carTransform;
 
@@ -28,55 +19,41 @@ namespace NomadsPlanet
             _carTransform = GetComponent<Transform>();
         }
 
-        private void OnEnable()
-        {
-            var position = _carTransform.position;
-            _targetPosition = new Vector3(position.x, -1f, position.z);
-            _oldPosition = _targetPosition;
-            _moveTween = _carTransform.DOMove(_targetPosition, 1f).SetAutoKill(false);
-            _lookTween = _carTransform.DOLookAt(_targetPosition, 1f).SetAutoKill(false);
-        }
-
-        private void Update()
-        {
-            if (Vector3.Distance(_oldPosition, _targetPosition) > 1f)
-            {
-                var position = _targetPosition;
-                _targetPosition = new Vector3(position.x, -1f, position.z);
-                _oldPosition = _targetPosition;
-
-                float duration = Vector3.Distance(_carTransform.position, _targetPosition) * Speed;
-
-                _moveTween.ChangeEndValue(_targetPosition, duration, true)
-                    .SetEase(_ease)
-                    .SetAutoKill(false)
-                    .Restart();
-
-                _lookTween.ChangeEndValue(_targetPosition, duration * .75f, true)
-                    .SetEase(Ease.Linear)
-                    .SetAutoKill(false)
-                    .Restart();
-            }
-        }
-
         // 차선 내부에서 이동함
-        public void MoveToTarget(Transform targetPos)
+        public void MoveToTarget(Vector3 targetPos)
         {
-            _ease = Ease.OutSine;
-            _targetPosition = targetPos.position;
+            if (DOTween.IsTweening(this))
+            {
+                DOTween.Kill(this);
+            }
+
+            float duration = Vector3.Distance(_carTransform.position, targetPos) * Speed;
+            DOTween.Sequence()
+                .Append(_carTransform.DOMove(new Vector3(targetPos.x, -1, targetPos.z), duration))
+                .Join(_carTransform.DOLookAt(new Vector3(targetPos.x, -1, targetPos.z), duration * .8f));
         }
 
-        public void MoveViaWaypoint(Transform targetPos, Transform wayPoint)
+        public void MoveViaWaypoint(Vector3 targetPos, Vector3[] wayPoint)
         {
-            _ease = Ease.Linear;
-            _targetPosition = wayPoint.position;
-            StartCoroutine(Move());
-
-            IEnumerator Move()
+            if (DOTween.IsTweening(this))
             {
-                yield return new WaitUntil(() => Vector3.Distance(_carTransform.position, wayPoint.position) < 1f);
-                _targetPosition = targetPos.position;
+                DOTween.Kill(this);
             }
+
+            Debug.Log("CALL");
+            float duration = Vector3.Distance(_carTransform.position, targetPos) * Speed * 1.5f;
+            var path = new Vector3[]
+            {
+                new(wayPoint[0].x, -1, wayPoint[0].z),
+                new(wayPoint[1].x, -1, wayPoint[1].z),
+                new(targetPos.x, -1, targetPos.z),
+            };
+
+            _carTransform.DOPath(path, duration, PathType.CatmullRom)
+                .SetEase(Ease.Linear)
+                .SetLookAt(.001f);
+
+            // _carTransform.DOLookAt(new Vector3(targetPos.x, -1, targetPos.z), duration * .8f);
         }
     }
 }
