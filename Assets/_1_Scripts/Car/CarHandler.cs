@@ -9,7 +9,7 @@ namespace NomadsPlanet
         // Null 체크 대용으로 쓰기 위함
         public static CarHandler NullCar => null; // ㅋㅋ
 
-        private const float Speed = .1f;
+        private const float Speed = .125f;
 
         private Transform _carTransform;
 

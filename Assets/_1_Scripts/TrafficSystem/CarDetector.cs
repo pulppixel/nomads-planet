@@ -32,8 +32,8 @@ namespace NomadsPlanet
             return Vector3.Distance(TargetCat.transform.position, transform.position) < 2f;
         }
 
-        // update?
-        private void OnTriggerEnter(Collider other)
+        // update? - 무시되는 영역이 생기기도 하네
+        private void OnTriggerStay(Collider other)
         {
             if (other.gameObject.layer != 6 || !other.TryGetComponent<CarColliderGetter>(out var car))
             {

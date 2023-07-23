@@ -1,9 +1,8 @@
-using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using NomadsPlanet;
-using UnityEngine.Serialization;
+using NomadsPlanet.Utils;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -18,7 +17,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
-        
+
         Instance = this;
     }
 
@@ -30,7 +29,7 @@ public class GameManager : MonoBehaviour
             var enu = Enumerable.Range(0, 7).ToList();
             var targets = obj.GetTargetValues();
 
-            for (int i = 0; i < Random.Range(1, 5); i++)
+            for (int i = 0; i < Random.Range(2, 6); i++)
             {
                 var car = Instantiate(carPrefab, transform);
                 var pos = targets[enu[i]].position;

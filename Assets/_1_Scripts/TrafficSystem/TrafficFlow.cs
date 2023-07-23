@@ -28,6 +28,7 @@ namespace NomadsPlanet
         private List<CarDetector> LeftCarDetectors { get; set; }
         private List<CarDetector> RightCarDetectors { get; set; }
 
+        [ShowInInspector]
         private readonly List<CarHandler> _insideCars = new(14);
 
         // 이 아래는 클래스 성질을 나타내기 위함. 볼 필요 x
@@ -127,16 +128,18 @@ namespace NomadsPlanet
                                LeftCarDetectors[0].CarOnThisPoint() &&
                                _insideCars.Contains(LeftCarDetectors[0].TargetCat);
 
-            if (isLeftOnCar)
+            if (!isLeftOnCar)
             {
-                bool isLeft = _thisTrafficType.HasFlag(TrafficType.Left) || _thisTrafficType.HasFlag(TrafficType.Right);
-                bool isForward = _thisTrafficType.HasFlag(TrafficType.Forward);
-
-                StartCoroutine(DelayedRemove(LeftCarDetectors[0].TargetCat));
-                yield return StartCoroutine(MoveToOtherLane(
-                    LeftCarDetectors, leftCarTargets, _leftWayPoint, isLeft, isForward)
-                );
+                yield break;
             }
+
+            bool isLeft = _thisTrafficType.HasFlag(TrafficType.Left) || _thisTrafficType.HasFlag(TrafficType.Right);
+            bool isForward = _thisTrafficType.HasFlag(TrafficType.Forward);
+
+            StartCoroutine(DelayedRemove(LeftCarDetectors[0].TargetCat));
+            yield return StartCoroutine(MoveToOtherLane(
+                LeftCarDetectors, leftCarTargets, _leftWayPoint, isLeft, isForward)
+            );
         }
 
         private IEnumerator _OnRightCarsUpdate()
@@ -150,60 +153,74 @@ namespace NomadsPlanet
                                 RightCarDetectors[0].CarOnThisPoint() &&
                                 _insideCars.Contains(RightCarDetectors[0].TargetCat);
 
-            if (isRightOnCar)
+            if (!isRightOnCar)
             {
-                bool isRight = _thisTrafficType.HasFlag(TrafficType.Right) ||
-                               _thisTrafficType.HasFlag(TrafficType.Left);
-                bool isForward = _thisTrafficType.HasFlag(TrafficType.Forward);
-
-                StartCoroutine(DelayedRemove(RightCarDetectors[0].TargetCat));
-                yield return StartCoroutine(MoveToOtherLane(
-                    RightCarDetectors, rightCarTargets, _rightWayPoint, isRight, isForward)
-                );
+                yield break;
             }
+
+            bool isRight = _thisTrafficType.HasFlag(TrafficType.Right) ||
+                           _thisTrafficType.HasFlag(TrafficType.Left);
+            bool isForward = _thisTrafficType.HasFlag(TrafficType.Forward);
+
+            StartCoroutine(DelayedRemove(RightCarDetectors[0].TargetCat));
+            yield return StartCoroutine(MoveToOtherLane(
+                RightCarDetectors, rightCarTargets, _rightWayPoint, isRight, isForward)
+            );
         }
 
         private static IEnumerator MoveToOtherLane(
             IReadOnlyList<CarDetector> carDetectors, IReadOnlyList<Transform> carTargets,
             IReadOnlyList<Transform> wayPoints, bool isCurved, bool isForward)
         {
-            if (isCurved && isForward)
+            switch (isCurved)
             {
-                if (Random.value < .5f)
+                case true when isForward:
                 {
+                    // 직진까지 가능한 경우, Curve나 직진 중 하나를 골라서 갈 수 있도록 한다.
+                    if (Random.value < .5f)
+                    {
+                        carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0].position,
+                            new[] { wayPoints[0].position, wayPoints[1].position },
+                            true
+                        );
+                    }
+                    else
+                    {
+                        carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position, true);
+                    }
+
+                    break;
+                }
+                case true:
+                    // 커브만 가능한 경우, 커브를 돌 수 있도록 한다.
                     carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0].position,
                         new[] { wayPoints[0].position, wayPoints[1].position },
                         true
                     );
-                }
-                else
+                    break;
+                default:
                 {
+                    // 직진만 가능한 경우, 직진시켜준다.
                     carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position, true);
+                    break;
                 }
-            }
-            else if (isCurved)
-            {
-                carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0].position,
-                    new[] { wayPoints[0].position, wayPoints[1].position },
-                    true
-                );
-            }
-            else if (isForward)
-            {
-                carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position, true);
             }
 
             carDetectors[0].TargetCat = CarHandler.NullCar;
 
+            // 뒤에 대기하고 있는 나머지 차들을 재배열 시켜준다.
             for (int i = 1; i < carDetectors.Count; i++)
             {
-                if (carDetectors[i].TargetCat != CarHandler.NullCar)
+                if (carDetectors[i].TargetCat == CarHandler.NullCar)
                 {
-                    yield return new WaitForSeconds(.5f);
-                    carDetectors[i].TargetCat.MoveToTarget(carDetectors[i - 1].transform.position, true);
-                    carDetectors[i - 1].TargetCat = carDetectors[i].TargetCat;
-                    carDetectors[i].TargetCat = CarHandler.NullCar;
+                    continue;
                 }
+
+                // 각 차의 이동 딜레이는 0.5초
+                yield return new WaitForSeconds(.5f);
+                carDetectors[i].TargetCat.MoveToTarget(carDetectors[i - 1].transform.position, true);
+                carDetectors[i - 1].TargetCat = carDetectors[i].TargetCat;
+                carDetectors[i].TargetCat = CarHandler.NullCar;
             }
         }
 
@@ -275,7 +292,7 @@ namespace NomadsPlanet
 
         private IEnumerator DelayedRemove(CarHandler car)
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
 
             if (_insideCars.Contains(car))
             {
