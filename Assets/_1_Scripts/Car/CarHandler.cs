@@ -19,7 +19,7 @@ namespace NomadsPlanet
         }
 
         // 차선 내부에서 이동함
-        public void MoveToTarget(Vector3 targetPos, bool isLinear)
+        public void MoveToTarget(Vector3 targetPos, bool isLinear, float delay = 0f)
         {
             if (DOTween.IsTweening(this))
             {
@@ -30,17 +30,22 @@ namespace NomadsPlanet
             DOTween.Sequence()
                 .Append(_carTransform.DOMove(new Vector3(targetPos.x, -1, targetPos.z), duration))
                 .Join(_carTransform.DOLookAt(new Vector3(targetPos.x, -1, targetPos.z), duration * .8f))
-                .SetEase(isLinear ? Ease.Linear : Ease.OutQuad);
+                .SetEase(isLinear ? Ease.Linear : Ease.OutQuad)
+                .SetDelay(delay);
         }
 
-        public void MoveViaWaypoint(Vector3 targetPos, Vector3[] wayPoint, bool isLinear)
+        public void MoveViaWaypoint(Vector3 targetPos, Vector3[] wayPoint, bool isLinear, float delay = 0f)
         {
             if (DOTween.IsTweening(this))
             {
                 DOTween.Kill(this);
             }
 
-            float duration = Vector3.Distance(_carTransform.position, targetPos) * Speed * 1.5f;
+            float dis1 = Vector3.Distance(_carTransform.position, wayPoint[0]);
+            float dis2 = Vector3.Distance(wayPoint[0], wayPoint[1]);
+            float dis3 = Vector3.Distance(wayPoint[1], targetPos);
+
+            float duration = (dis1 + dis2 + dis3) * Speed * 1.5f;
             var path = new Vector3[]
             {
                 new(wayPoint[0].x, -1, wayPoint[0].z),
@@ -50,7 +55,8 @@ namespace NomadsPlanet
 
             _carTransform.DOPath(path, duration, isLinear ? PathType.CatmullRom : PathType.Linear)
                 .SetEase(isLinear ? Ease.Linear : Ease.OutQuad)
-                .SetLookAt(.001f);
+                .SetLookAt(.001f)
+                .SetDelay(delay);
 
             // _carTransform.DOLookAt(new Vector3(targetPos.x, -1, targetPos.z), duration * .8f);
         }

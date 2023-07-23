@@ -35,7 +35,7 @@ namespace NomadsPlanet
         // update? - 무시되는 영역이 생기기도 하네
         private void OnTriggerStay(Collider other)
         {
-            if (other.gameObject.layer != 6 || !other.TryGetComponent<CarColliderGetter>(out var car))
+            if (TargetCat != null && other.gameObject.layer != 6 || !other.TryGetComponent<CarColliderGetter>(out var car))
             {
                 return;
             }
