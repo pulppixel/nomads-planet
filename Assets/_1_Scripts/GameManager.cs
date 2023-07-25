@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
         foreach (var obj in trafficFlows)
         {
@@ -29,11 +30,12 @@ public class GameManager : MonoBehaviour
             var enu = Enumerable.Range(0, 7).ToList();
             var targets = obj.GetTargetValues();
 
-            for (int i = 0; i < Random.Range(2, 6); i++)
+            for (int i = 0; i < Random.Range(1, 4); i++)
             {
                 var car = Instantiate(carPrefab, transform);
                 var pos = targets[enu[i]].position;
                 car.transform.position = new Vector3(pos.x, -1, pos.z);
+                yield return new WaitForSeconds(.01f);
             }
         }
     }

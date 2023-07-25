@@ -9,7 +9,7 @@ namespace NomadsPlanet
         // Null 체크 대용으로 쓰기 위함
         public static CarHandler NullCar => null; // ㅋㅋ
 
-        private const float Speed = .125f;
+        private const float Speed = .14f;
 
         private Transform _carTransform;
 
@@ -45,7 +45,7 @@ namespace NomadsPlanet
             float dis2 = Vector3.Distance(wayPoint[0], wayPoint[1]);
             float dis3 = Vector3.Distance(wayPoint[1], targetPos);
 
-            float duration = (dis1 + dis2 + dis3) * Speed * 1.5f;
+            float duration = (dis1 + dis2 + dis3) * Speed;
             var path = new Vector3[]
             {
                 new(wayPoint[0].x, -1, wayPoint[0].z),
@@ -53,7 +53,7 @@ namespace NomadsPlanet
                 new(targetPos.x, -1, targetPos.z),
             };
 
-            _carTransform.DOPath(path, duration, isLinear ? PathType.CatmullRom : PathType.Linear)
+            _carTransform.DOPath(path, duration, PathType.CatmullRom)
                 .SetEase(isLinear ? Ease.Linear : Ease.OutQuad)
                 .SetLookAt(.001f)
                 .SetDelay(delay);

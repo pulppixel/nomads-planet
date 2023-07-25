@@ -37,7 +37,7 @@ namespace NomadsPlanet
 
         private void Awake() => _Init();
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (_curLightType is LightType.Red or LightType.Yellow)
             {
@@ -60,13 +60,14 @@ namespace NomadsPlanet
 
             // 맨 앞에서부터 탐색하고, 빈 곳이 있으면 거기로 보내
             // 한번 정해지면, 거기로만가
+            bool isLeft = Random.value < .5f;
             for (int i = 0; i < LeftCarDetectors.Count; i++)
             {
-                if (Random.value < .5f)
+                if (isLeft)
                 {
-                    if (LeftCarDetectors[i].TargetCat == CarHandler.NullCar)
+                    if (LeftCarDetectors[i].TargetCar == CarHandler.NullCar)
                     {
-                        LeftCarDetectors[i].TargetCat = car;
+                        LeftCarDetectors[i].TargetCar = car;
 
                         if (i + 2 < LeftCarDetectors.Count)
                         {
@@ -88,9 +89,9 @@ namespace NomadsPlanet
                 }
                 else
                 {
-                    if (RightCarDetectors[i].TargetCat == CarHandler.NullCar)
+                    if (RightCarDetectors[i].TargetCar == CarHandler.NullCar)
                     {
-                        RightCarDetectors[i].TargetCat = car;
+                        RightCarDetectors[i].TargetCar = car;
 
                         if (i + 2 < RightCarDetectors.Count)
                         {
@@ -118,9 +119,9 @@ namespace NomadsPlanet
         private void _OnLeftCarsUpdate()
         {
             // 맨 앞에 놈은 아예 다른 곳으로 가게 하기
-            bool isLeftOnCar = LeftCarDetectors[0].TargetCat != CarHandler.NullCar &&
+            bool isLeftOnCar = LeftCarDetectors[0].TargetCar != CarHandler.NullCar &&
                                LeftCarDetectors[0].CarOnThisPoint() &&
-                               _insideCars.Contains(LeftCarDetectors[0].TargetCat);
+                               _insideCars.Contains(LeftCarDetectors[0].TargetCar);
 
             if (!isLeftOnCar)
             {
@@ -130,15 +131,15 @@ namespace NomadsPlanet
             bool isLeft = _thisTrafficType.HasFlag(TrafficType.Left) || _thisTrafficType.HasFlag(TrafficType.Right);
             bool isForward = _thisTrafficType.HasFlag(TrafficType.Forward);
 
-            StartCoroutine(DelayedRemove(LeftCarDetectors[0].TargetCat));
+            StartCoroutine(DelayedRemove(LeftCarDetectors[0].TargetCar));
             MoveToOtherLane(LeftCarDetectors, leftCarTargets, _leftWayPoint, isLeft, isForward);
         }
 
         private void _OnRightCarsUpdate()
         {
-            bool isRightOnCar = RightCarDetectors[0].TargetCat != CarHandler.NullCar &&
+            bool isRightOnCar = RightCarDetectors[0].TargetCar != CarHandler.NullCar &&
                                 RightCarDetectors[0].CarOnThisPoint() &&
-                                _insideCars.Contains(RightCarDetectors[0].TargetCat);
+                                _insideCars.Contains(RightCarDetectors[0].TargetCar);
 
             if (!isRightOnCar)
             {
@@ -149,7 +150,7 @@ namespace NomadsPlanet
                            _thisTrafficType.HasFlag(TrafficType.Left);
             bool isForward = _thisTrafficType.HasFlag(TrafficType.Forward);
 
-            StartCoroutine(DelayedRemove(RightCarDetectors[0].TargetCat));
+            StartCoroutine(DelayedRemove(RightCarDetectors[0].TargetCar));
             MoveToOtherLane(RightCarDetectors, rightCarTargets, _rightWayPoint, isRight, isForward);
         }
 
@@ -164,21 +165,21 @@ namespace NomadsPlanet
                     // 직진까지 가능한 경우, Curve나 직진 중 하나를 골라서 갈 수 있도록 한다.
                     if (Random.value < .5f)
                     {
-                        carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0].position,
+                        carDetectors[0].TargetCar.MoveViaWaypoint(carTargets[0].position,
                             new[] { wayPoints[0].position, wayPoints[1].position },
                             true
                         );
                     }
                     else
                     {
-                        carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position, true);
+                        carDetectors[0].TargetCar.MoveToTarget(carTargets[1].position, true);
                     }
 
                     break;
                 }
                 case true:
                     // 커브만 가능한 경우, 커브를 돌 수 있도록 한다.
-                    carDetectors[0].TargetCat.MoveViaWaypoint(carTargets[0].position,
+                    carDetectors[0].TargetCar.MoveViaWaypoint(carTargets[0].position,
                         new[] { wayPoints[0].position, wayPoints[1].position },
                         true
                     );
@@ -186,27 +187,27 @@ namespace NomadsPlanet
                 default:
                 {
                     // 직진만 가능한 경우, 직진시켜준다.
-                    carDetectors[0].TargetCat.MoveToTarget(carTargets[1].position, true);
+                    carDetectors[0].TargetCar.MoveToTarget(carTargets[1].position, true);
                     break;
                 }
             }
 
-            carDetectors[0].TargetCat = CarHandler.NullCar;
+            carDetectors[0].TargetCar = CarHandler.NullCar;
 
             // 뒤에 대기하고 있는 나머지 차들을 재배열 시켜준다.
             for (int i = 1; i < carDetectors.Count; i++)
             {
-                if (carDetectors[i].TargetCat == CarHandler.NullCar)
+                if (carDetectors[i].TargetCar == CarHandler.NullCar)
                 {
                     continue;
                 }
 
                 // 각 차의 이동 딜레이는 0.5초
-                carDetectors[i].TargetCat.MoveToTarget(
-                    carDetectors[i - 1].transform.position, true, i * .3f
+                carDetectors[i].TargetCar.MoveToTarget(
+                    carDetectors[i - 1].transform.position, true, i * .75f
                 );
-                carDetectors[i - 1].TargetCat = carDetectors[i].TargetCat;
-                carDetectors[i].TargetCat = CarHandler.NullCar;
+                carDetectors[i - 1].TargetCar = carDetectors[i].TargetCar;
+                carDetectors[i].TargetCar = CarHandler.NullCar;
             }
         }
 
