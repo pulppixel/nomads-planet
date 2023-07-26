@@ -234,7 +234,7 @@ namespace NomadsPlanet
                     continue;
                 }
 
-                detector.InitSetup(LaneType.First, OnCarEnter);
+                detector.InitSetup(LaneType.First, i, OnCarEnter);
                 LeftCarDetectors.Add(detector);
             }
 
@@ -246,7 +246,7 @@ namespace NomadsPlanet
                     continue;
                 }
 
-                detector.InitSetup(LaneType.Second, OnCarEnter);
+                detector.InitSetup(LaneType.Second, i, OnCarEnter);
                 RightCarDetectors.Add(detector);
             }
         }

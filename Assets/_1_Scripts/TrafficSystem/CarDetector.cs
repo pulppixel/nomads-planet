@@ -11,13 +11,15 @@ namespace NomadsPlanet
         // 앞으로 올 친구의 정보
         [ShowInInspector] public CarHandler TargetCar { get; set; } = CarHandler.NullCar;
         public LaneType ThisLane { get; private set; }
+        public int Index { get; private set; }
 
         // 차량 들어왔을 때 진행시킬 이벤트
         private UnityAction<CarHandler> _carEnterEvent;
 
-        public void InitSetup(LaneType lane, UnityAction<CarHandler> carEnterEvent)
+        public void InitSetup(LaneType lane, int idx, UnityAction<CarHandler> carEnterEvent)
         {
             ThisLane = lane;
+            Index = idx;
             _carEnterEvent = carEnterEvent;
         }
 
@@ -41,6 +43,11 @@ namespace NomadsPlanet
         {
             if (TargetCar != null && other.gameObject.layer != 6 ||
                 !other.TryGetComponent<CarColliderGetter>(out var car))
+            {
+                return;
+            }
+
+            if (Index == 0)
             {
                 return;
             }
