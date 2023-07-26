@@ -48,7 +48,7 @@ namespace NomadsPlanet
             _OnRightCarsUpdate();
         }
 
-        // 차량이 들어왔다면,
+        // 차량이 들어왔다면, 바로바로 업데이트하기보다,, 텀을 두는 편이 낫지 않을까?
         private void OnCarEnter(CarHandler car)
         {
             if (_insideCars.Contains(car))
@@ -58,9 +58,8 @@ namespace NomadsPlanet
 
             _insideCars.Add(car);
 
-            // 맨 앞에서부터 탐색하고, 빈 곳이 있으면 거기로 보내
-            // 한번 정해지면, 거기로만가
             bool isLeft = Random.value < .5f;
+
             for (int i = 0; i < LeftCarDetectors.Count; i++)
             {
                 if (isLeft)
@@ -120,7 +119,7 @@ namespace NomadsPlanet
         {
             // 맨 앞에 놈은 아예 다른 곳으로 가게 하기
             bool isLeftOnCar = LeftCarDetectors[0].TargetCar != CarHandler.NullCar &&
-                               LeftCarDetectors[0].CarOnThisPoint() &&
+                               LeftCarDetectors[0].TargetCarOnThisPoint() &&
                                _insideCars.Contains(LeftCarDetectors[0].TargetCar);
 
             if (!isLeftOnCar)
@@ -138,7 +137,7 @@ namespace NomadsPlanet
         private void _OnRightCarsUpdate()
         {
             bool isRightOnCar = RightCarDetectors[0].TargetCar != CarHandler.NullCar &&
-                                RightCarDetectors[0].CarOnThisPoint() &&
+                                RightCarDetectors[0].TargetCarOnThisPoint() &&
                                 _insideCars.Contains(RightCarDetectors[0].TargetCar);
 
             if (!isRightOnCar)
@@ -280,6 +279,17 @@ namespace NomadsPlanet
         private IEnumerator DelayedRemove(CarHandler car)
         {
             yield return new WaitForSeconds(5f);
+
+            // 아직 나가지 못했다면,,
+            if (LeftCarDetectors[0].CarOnThisPoint(car) || RightCarDetectors[0].CarOnThisPoint(car))
+            {
+                yield break;
+            }
+
+            if (_curLightType is LightType.Red or LightType.Yellow)
+            {
+                yield break;
+            }
 
             if (_insideCars.Contains(car))
             {

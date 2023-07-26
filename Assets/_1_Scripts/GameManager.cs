@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
                 var car = Instantiate(carPrefab, transform);
                 var pos = targets[enu[i]].position;
                 car.transform.position = new Vector3(pos.x, -1, pos.z);
-                yield return new WaitForSeconds(.01f);
+                yield return null;
             }
         }
     }
