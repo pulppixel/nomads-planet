@@ -35,7 +35,7 @@ namespace NomadsPlanet
         {
             while (gameObject)
             {
-                int duration = Random.Range(SignDuration, SignDuration + 2);
+                int duration = Random.Range(SignDuration, SignDuration + 5);
 
                 foreach (var flow in _trafficFlows)
                 {
@@ -46,7 +46,7 @@ namespace NomadsPlanet
                 }
             }
         }
-        
+
         private void SetAllLightsTo(LightType lightType)
         {
             foreach (var flow in _trafficFlows)

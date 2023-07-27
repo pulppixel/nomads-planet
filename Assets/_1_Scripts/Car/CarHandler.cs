@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
 namespace NomadsPlanet
 {
@@ -9,7 +10,9 @@ namespace NomadsPlanet
         // Null 체크 대용으로 쓰기 위함
         public static CarHandler NullCar => null; // ㅋㅋ
 
-        private const float Speed = .14f;
+        private const float Speed = .15f;
+
+        [ShowInInspector] public bool IsMoving { get; private set; }
 
         private Transform _carTransform;
 
@@ -21,31 +24,32 @@ namespace NomadsPlanet
         // 차선 내부에서 이동함
         public void MoveToTarget(Vector3 targetPos, bool isLinear, float delay = 0f)
         {
-            if (DOTween.IsTweening(this))
-            {
-                DOTween.Kill(this);
-            }
+            IsMoving = true;
+            DOTween.Kill(this);
 
-            float duration = Vector3.Distance(_carTransform.position, targetPos) * Speed;
+            float duration = Vector3.Distance(_carTransform.position, targetPos) * Speed * Random.Range(1f, 1.2f);
             DOTween.Sequence()
                 .Append(_carTransform.DOMove(new Vector3(targetPos.x, -1, targetPos.z), duration))
                 .Join(_carTransform.DOLookAt(new Vector3(targetPos.x, -1, targetPos.z), duration * .8f))
                 .SetEase(isLinear ? Ease.Linear : Ease.OutQuad)
-                .SetDelay(delay);
+                .SetDelay(delay)
+                .OnComplete(() =>
+                {
+                    IsMoving = false;
+                    DOTween.Kill(this);
+                });
         }
 
         public void MoveViaWaypoint(Vector3 targetPos, Vector3[] wayPoint, bool isLinear, float delay = 0f)
         {
-            if (DOTween.IsTweening(this))
-            {
-                DOTween.Kill(this);
-            }
+            IsMoving = true;
+            DOTween.Kill(this);
 
             float dis1 = Vector3.Distance(_carTransform.position, wayPoint[0]);
             float dis2 = Vector3.Distance(wayPoint[0], wayPoint[1]);
             float dis3 = Vector3.Distance(wayPoint[1], targetPos);
 
-            float duration = (dis1 + dis2 + dis3) * Speed;
+            float duration = (dis1 + dis2 + dis3) * Speed * Random.Range(1f, 1.2f);
             var path = new Vector3[]
             {
                 new(wayPoint[0].x, -1, wayPoint[0].z),
@@ -53,10 +57,20 @@ namespace NomadsPlanet
                 new(targetPos.x, -1, targetPos.z),
             };
 
+            foreach (var p in path)
+            {
+                Debug.Log(p);
+            }
+
             _carTransform.DOPath(path, duration, PathType.CatmullRom)
                 .SetEase(isLinear ? Ease.Linear : Ease.OutQuad)
                 .SetLookAt(.001f)
-                .SetDelay(delay);
+                .SetDelay(delay)
+                .OnUpdate(() =>
+                {
+                    IsMoving = false;
+                    DOTween.Kill(this);
+                });
 
             // _carTransform.DOLookAt(new Vector3(targetPos.x, -1, targetPos.z), duration * .8f);
         }
