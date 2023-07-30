@@ -1,5 +1,7 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 #pragma warning disable 649
 namespace UnityStandardAssets.Vehicles.Car
@@ -17,7 +19,7 @@ namespace UnityStandardAssets.Vehicles.Car
         KPH
     }
 
-    public class CarController : MonoBehaviour
+    public class CarController : NetworkBehaviour
     {
         [SerializeField] private CarDriveType m_CarDriveType = CarDriveType.FourWheelDrive;
         [SerializeField] private WheelCollider[] m_WheelColliders = new WheelCollider[4];
@@ -42,6 +44,7 @@ namespace UnityStandardAssets.Vehicles.Car
         [SerializeField] private float m_RevRangeBoundary = 1f;
         [SerializeField] private float m_SlipLimit;
         [SerializeField] private float m_BrakeTorque;
+        [SerializeField] public float m_ForceMultiplier = 100f;
 
         private Quaternion[] m_WheelMeshLocalRotations;
         private Vector3 m_Prevpos, m_Pos;
@@ -80,6 +83,28 @@ namespace UnityStandardAssets.Vehicles.Car
 
             m_Rigidbody = GetComponent<Rigidbody>();
             m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl * m_FullTorqueOverAllWheels);
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (!other.gameObject.CompareTag("Player") || !IsOwner)
+            {
+                return;
+            }
+
+            if (NetworkObjectId >= other.gameObject.GetComponent<CarController>().NetworkObjectId)
+            {
+                return;
+            }
+
+            Vector3 forceDirection = other.transform.position - transform.position;
+            forceDirection.Normalize();
+
+            m_Rigidbody.AddForce(-forceDirection * m_ForceMultiplier, ForceMode.Impulse);
+            other.gameObject.GetComponent<Rigidbody>()
+                .AddForce(forceDirection * m_ForceMultiplier * 1.5f, ForceMode.Impulse);
+
+            Debug.Log("COLLISION!!");
         }
 
         private void GearChanging()
