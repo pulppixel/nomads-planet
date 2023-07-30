@@ -82,7 +82,6 @@ namespace UnityStandardAssets.Vehicles.Car
             m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl * m_FullTorqueOverAllWheels);
         }
 
-
         private void GearChanging()
         {
             float f = Mathf.Abs(CurrentSpeed / MaxSpeed);
