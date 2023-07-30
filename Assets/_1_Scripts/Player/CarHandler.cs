@@ -29,8 +29,8 @@ namespace NomadsPlanet
 
             float duration = Vector3.Distance(_transform.position, targetPos) * Speed * Random.Range(1f, 1.2f);
             DOTween.Sequence()
-                .Append(_transform.DOMove(new Vector3(targetPos.x, -1, targetPos.z), duration))
-                .Join(_transform.DOLookAt(new Vector3(targetPos.x, -1, targetPos.z), duration * .8f))
+                .Append(_transform.DOMove(new Vector3(targetPos.x, 0, targetPos.z), duration))
+                .Join(_transform.DOLookAt(new Vector3(targetPos.x, 0, targetPos.z), duration * .8f))
                 .SetEase(isLinear ? Ease.Linear : Ease.OutQuad)
                 .SetDelay(delay)
                 .OnComplete(() =>
@@ -52,9 +52,9 @@ namespace NomadsPlanet
             float duration = (dis1 + dis2 + dis3) * Speed * Random.Range(1f, 1.2f);
             var path = new Vector3[]
             {
-                new(wayPoint[0].x, -1, wayPoint[0].z),
-                new(wayPoint[1].x, -1, wayPoint[1].z),
-                new(targetPos.x, -1, targetPos.z),
+                new(wayPoint[0].x, 0, wayPoint[0].z),
+                new(wayPoint[1].x, 0, wayPoint[1].z),
+                new(targetPos.x, 0, targetPos.z),
             };
 
             foreach (var p in path)

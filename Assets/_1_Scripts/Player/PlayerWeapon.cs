@@ -32,24 +32,30 @@ namespace NomadsPlanet
                 return;
             }
 
-            if (other.TryGetComponent<CarColliderGetter>(out var carDetector))
+            // 상대방 몸통 박았을 경우
+            if (other.TryGetComponent<CarParentGetter>(out var enemy))
             {
-                var netObj = carDetector.CarHandler.GetComponent<NetworkObject>();
+                var netObj = enemy.PlayerScore.GetComponent<NetworkObject>();
 
                 if (_ownerClientId == netObj.OwnerClientId)
                 {
                     return;
                 }
 
-                var otherScore = carDetector.CarHandler.GetComponent<PlayerScore>();
-                otherScore.LostScore(Damage);
+                enemy.PlayerScore.LostScore(Damage);
+                _playerScore.GetScore(Damage);
+            }
+
+            // 상대방 정면 박았을 경우
+            if (other.TryGetComponent<PlayerWeapon>(out var weapon))
+            {
+                _playerScore.GetScore(Damage);
             }
 
             Vector3 forceDirection = other.transform.position - transform.position;
             forceDirection.Normalize();
 
             _rigidbody.AddForce(-forceDirection * ForceMultiplier, ForceMode.Impulse);
-            _playerScore.GetScore(Damage * 3);
         }
     }
 }

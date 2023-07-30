@@ -3147,7 +3147,7 @@ GameObject:
   - component: {fileID: 800860662460557830}
   m_Layer: 0
   m_Name: Weapon
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3198,7 +3198,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.5, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2572331160961143853
 GameObject:
@@ -7052,7 +7052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &953351597963577359
 Transform:
   m_ObjectHideFlags: 0
@@ -7658,6 +7658,7 @@ GameObject:
   - component: {fileID: 1838613888422001491}
   - component: {fileID: 1718451983505342161}
   - component: {fileID: 2880793677214011781}
+  - component: {fileID: 39874577324125353}
   m_Layer: 0
   m_Name: ColliderBody
   m_TagString: Player
@@ -7744,6 +7745,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: c329764c8521fb34bbf30020ca05bc7b, type: 3}
+--- !u!114 &39874577324125353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5711703006409831162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad65c5e8ed8745a0b23c1524e8bac020, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5724037867501520036
 GameObject:
   m_ObjectHideFlags: 0
