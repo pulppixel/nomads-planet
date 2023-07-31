@@ -5,7 +5,7 @@ namespace NomadsPlanet
 {
     public abstract class Coin : NetworkBehaviour
     {
-        protected int coinValue;
+        protected int coinValue = 10;
         protected bool alreadyCollected;
 
         public abstract int Collect();

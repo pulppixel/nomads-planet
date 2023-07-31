@@ -57,11 +57,6 @@ namespace NomadsPlanet
                 new(targetPos.x, 0, targetPos.z),
             };
 
-            foreach (var p in path)
-            {
-                Debug.Log(p);
-            }
-
             _transform.DOPath(path, duration, PathType.CatmullRom)
                 .SetEase(isLinear ? Ease.Linear : Ease.OutQuad)
                 .SetLookAt(.001f)
