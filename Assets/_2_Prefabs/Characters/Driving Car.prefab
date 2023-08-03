@@ -4808,8 +4808,8 @@ GameObject:
   - component: {fileID: 8850297710679569454}
   - component: {fileID: 913451162130132231}
   - component: {fileID: 7266383622953160581}
-  - component: {fileID: 3540681002535233151}
   - component: {fileID: 3381912026950292940}
+  - component: {fileID: 3540681002535233151}
   - component: {fileID: 7748507406274966898}
   m_Layer: 0
   m_Name: Driving Car
@@ -4998,6 +4998,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3381912026950292940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4221770887502304591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c7f7aa15c34ae5987aed2e63559df5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TotalCoins:
+    m_InternalValue: 0
 --- !u!54 &3540681002535233151
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5025,20 +5039,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &3381912026950292940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4221770887502304591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01c7f7aa15c34ae5987aed2e63559df5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalCoins:
-    m_InternalValue: 0
 --- !u!95 &7748507406274966898
 Animator:
   serializedVersion: 5
@@ -13516,7 +13516,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: c617e7cbee0d2344a9b5e53116c43a2c, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
