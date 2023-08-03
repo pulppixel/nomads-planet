@@ -35,7 +35,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.981, y: 180.264, z: -101.936}
+        value: {x: -163.242, y: -2.9240112, z: 87.712}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -84,7 +84,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 2.266, y: -4.705, z: 101.641}
+        value: {x: -5.04, y: 2.403, z: 45.656}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -467,6 +467,23 @@ AnimationClip:
       m_RotationOrder: 4
     path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001
       Spine1/Bip001 Spine2/Bip001 Neck
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: 10.805, y: 0.537, z: -5.605}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh/Bip001
+      L Calf/Bip001 L Foot
   m_PositionCurves:
   - curve:
       serializedVersion: 2
@@ -737,6 +754,15 @@ AnimationClip:
       isPPtrCurve: 0
       isIntCurve: 0
       isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 174684641
+      attribute: 4
+      script: {fileID: 0}
+      typeID: 4
+      customType: 4
+      isPPtrCurve: 0
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -748,7 +774,7 @@ AnimationClip:
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 0
+    m_LoopTime: 1
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0
@@ -891,7 +917,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.981
+        value: -163.242
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -912,7 +938,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 180.264
+        value: -2.9240112
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -933,7 +959,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -101.936
+        value: 87.712
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1083,7 +1109,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 2.266
+        value: -5.04
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1105,7 +1131,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -4.705
+        value: 2.403
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1127,7 +1153,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 101.641
+        value: 45.656
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -2571,6 +2597,72 @@ AnimationClip:
     classID: 4
     script: {fileID: 0}
     flags: 16
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 10.805
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.x
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh/Bip001
+      L Calf/Bip001 L Foot
+    classID: 4
+    script: {fileID: 0}
+    flags: 16
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.537
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.y
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh/Bip001
+      L Calf/Bip001 L Foot
+    classID: 4
+    script: {fileID: 0}
+    flags: 16
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -5.605
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: localEulerAnglesRaw.z
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh/Bip001
+      L Calf/Bip001 L Foot
+    classID: 4
+    script: {fileID: 0}
+    flags: 16
   m_EulerEditorCurves:
   - serializedVersion: 2
     curve:
@@ -2658,7 +2750,9 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001
+      Spine1/Bip001 Spine2/Bip001 R Clavicle/Bip001 R UpperArm/Bip001 R Forearm/Bip001
+      R Hand/Bip001 R Finger0/Bip001 R Finger01
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -2670,7 +2764,9 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001
+      Spine1/Bip001 Spine2/Bip001 R Clavicle/Bip001 R UpperArm/Bip001 R Forearm/Bip001
+      R Hand/Bip001 R Finger0/Bip001 R Finger01
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -2682,7 +2778,9 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001
+      Spine1/Bip001 Spine2/Bip001 R Clavicle/Bip001 R UpperArm/Bip001 R Forearm/Bip001
+      R Hand/Bip001 R Finger0/Bip001 R Finger01
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -2732,9 +2830,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh/Bip001
-      L Calf
+    attribute: m_LocalEulerAngles.z
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -2746,8 +2843,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh/Bip001
-      L Calf
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -2758,9 +2854,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh/Bip001
-      L Calf
+    attribute: m_LocalEulerAngles.x
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -3585,9 +3680,8 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001
-      Spine1/Bip001 Spine2/Bip001 R Clavicle/Bip001 R UpperArm/Bip001 R Forearm/Bip001
-      R Hand/Bip001 R Finger0/Bip001 R Finger01
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh/Bip001
+      L Calf
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -3599,9 +3693,8 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001
-      Spine1/Bip001 Spine2/Bip001 R Clavicle/Bip001 R UpperArm/Bip001 R Forearm/Bip001
-      R Hand/Bip001 R Finger0/Bip001 R Finger01
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh/Bip001
+      L Calf
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -3613,9 +3706,47 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 Spine/Bip001
-      Spine1/Bip001 Spine2/Bip001 R Clavicle/Bip001 R UpperArm/Bip001 R Forearm/Bip001
-      R Hand/Bip001 R Finger0/Bip001 R Finger01
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh/Bip001
+      L Calf
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh/Bip001
+      L Calf/Bip001 L Foot
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh/Bip001
+      L Calf/Bip001 L Foot
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Player_Model/KekosCharacter/Skeleton/Bip001/Bip001 Pelvis/Bip001 L Thigh/Bip001
+      L Calf/Bip001 L Foot
     classID: 4
     script: {fileID: 0}
     flags: 0
