@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -9,10 +10,16 @@ namespace NomadsPlanet
         [field: SerializeField] public int MaxScore { get; private set; } = 100;
 
         public NetworkVariable<int> CurrentScore = new();
+        public GameObject hitVfx;
 
         private bool _isScoreMax;
 
         public Action<PlayerScore> OnWin;
+
+        private void Start()
+        {
+            hitVfx.SetActive(false);
+        }
 
         public override void OnNetworkSpawn()
         {
@@ -42,6 +49,7 @@ namespace NomadsPlanet
                 return;
             }
 
+            hitVfx.SetActive(false);
             int newScore = CurrentScore.Value + value;
             CurrentScore.Value = Mathf.Clamp(newScore, 0, MaxScore);
 
@@ -50,8 +58,8 @@ namespace NomadsPlanet
                 OnWin?.Invoke(this);
                 _isScoreMax = true;
             }
-            
-            Debug.Log("SCORE GET!!");
+
+            hitVfx.SetActive(true);
         }
     }
 }
