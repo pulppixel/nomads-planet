@@ -1,5 +1,7 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 #pragma warning disable 649
 namespace UnityStandardAssets.Vehicles.Car
@@ -17,7 +19,7 @@ namespace UnityStandardAssets.Vehicles.Car
         KPH
     }
 
-    public class CarController : MonoBehaviour
+    public class CarController : NetworkBehaviour
     {
         [SerializeField] private CarDriveType m_CarDriveType = CarDriveType.FourWheelDrive;
         [SerializeField] private WheelCollider[] m_WheelColliders = new WheelCollider[4];
@@ -81,7 +83,6 @@ namespace UnityStandardAssets.Vehicles.Car
             m_Rigidbody = GetComponent<Rigidbody>();
             m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl * m_FullTorqueOverAllWheels);
         }
-
 
         private void GearChanging()
         {

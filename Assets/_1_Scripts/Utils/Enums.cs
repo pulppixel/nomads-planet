@@ -22,5 +22,17 @@ namespace NomadsPlanet.Utils
         Right = 2,
         Forward = 4,
     }
+
+    public enum CharacterType
+    {
+        Aqua,
+        Cute,
+        Green,
+        Idol,
+        Mint,
+        Orange,
+        Pink,
+        Red,
+    }
     
 }
