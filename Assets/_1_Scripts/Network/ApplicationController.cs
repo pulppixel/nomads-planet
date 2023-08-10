@@ -25,12 +25,15 @@ namespace NomadsPlanet
             else
             {
                 ClientSingleton clientSingleton = Instantiate(clientPrefab);
-                await clientSingleton.CreateClient();
+                bool authenticated = await clientSingleton.CreateClient();
 
                 HostSingleton hostSingleton = Instantiate(hostPrefab);
                 hostPrefab.CreateHost();
-                
-                // 메인 메뉴로
+
+                if (authenticated)
+                {
+                    clientSingleton.GameManager.GoToMenu();
+                }
             }
         }
     }

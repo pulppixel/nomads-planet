@@ -14,7 +14,7 @@ namespace NomadsPlanet.Utils
         First,
         Second,
     }
-    
+
     [Flags]
     public enum TrafficType
     {
@@ -34,5 +34,13 @@ namespace NomadsPlanet.Utils
         Pink,
         Red,
     }
-    
+
+    public enum AuthState
+    {
+        NotAuthenticated,
+        Authenticating,
+        Authenticated,
+        Error,
+        TimeOut,
+    }
 }

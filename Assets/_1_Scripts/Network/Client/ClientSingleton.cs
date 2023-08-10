@@ -8,7 +8,7 @@ namespace NomadsPlanet.Client
     {
         private static ClientSingleton instance;
 
-        private ClientGameManager _gameManager;
+        public ClientGameManager GameManager { get; private set; }
 
         public static ClientSingleton Instance => instance;
 
@@ -27,11 +27,11 @@ namespace NomadsPlanet.Client
             DontDestroyOnLoad(gameObject);
         }
 
-        public async Task CreateClient()
+        public async Task<bool> CreateClient()
         {
-            _gameManager = new ClientGameManager();
+            GameManager = new ClientGameManager();
 
-            await _gameManager.InitAsync();
+            return await GameManager.InitAsync();
         }
     }
 }
