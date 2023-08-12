@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using NomadsPlanet.Utils;
 using Unity.Netcode;
@@ -9,6 +10,7 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace NomadsPlanet
 {
@@ -47,6 +49,17 @@ namespace NomadsPlanet
 
             RelayServerData relayServerData = new RelayServerData(_allocation, NetworkSetup.ConnectType);
             transport.SetRelayServerData(relayServerData);
+
+            UserData userData = new UserData
+            {
+                userName = ES3.LoadString(PrefsKey.PlayerNameKey, "Missing Name"),
+                userAvatarType = ES3.Load(PrefsKey.PlayerAvatarKey, Random.Range(0, 8)),
+            };
+
+            string payload = JsonUtility.ToJson(userData);
+            byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
+
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
 
             NetworkManager.Singleton.StartClient();
         }

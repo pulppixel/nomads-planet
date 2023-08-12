@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using NomadsPlanet.Utils;
 using Unity.Netcode;
@@ -12,6 +13,7 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = Unity.Mathematics.Random;
 
 namespace NomadsPlanet
 {
@@ -20,6 +22,8 @@ namespace NomadsPlanet
         private Allocation _allocation;
         private string _joinCode;
         private string _lobbyId;
+
+        private NetworkServer _networkServer;
 
         public async Task StartHostAsync()
         {
@@ -63,8 +67,10 @@ namespace NomadsPlanet
                         )
                     }
                 };
+
+                string playerName = ES3.LoadString(PrefsKey.PlayerNameKey, "Unknown");
                 Lobby lobby = await Lobbies.Instance.CreateLobbyAsync(
-                    NetworkSetup.LobbyName,
+                    $"{playerName}'s Lobby",
                     NetworkSetup.MaxConnections,
                     lobbyOptions
                 );
@@ -78,6 +84,20 @@ namespace NomadsPlanet
                 Debug.LogError(lobbyServiceException);
                 return;
             }
+
+            _networkServer = new NetworkServer(NetworkManager.Singleton);
+
+            UserData userData = new UserData
+            {
+                userName = ES3.LoadString(PrefsKey.PlayerNameKey, "Missing Name"),
+                userAvatarType = ES3.Load(PrefsKey.PlayerAvatarKey, UnityEngine.Random.Range(0, 8)),
+            };
+
+            string payload = JsonUtility.ToJson(userData);
+            byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
+
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
+
 
             NetworkManager.Singleton.StartHost();
 

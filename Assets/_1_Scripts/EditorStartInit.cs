@@ -1,10 +1,9 @@
-﻿#if UNITY_EDITOR
-using UnityEditor;
-using UnityEditor.SceneManagement;
+﻿using UnityEditor;
 using NomadsPlanet.Utils;
+using UnityEditor.SceneManagement;
 
 [InitializeOnLoad]
-public class EditorPlayModeStartScene
+public static class EditorPlayModeStartScene
 {
     static EditorPlayModeStartScene()
     {
@@ -21,4 +20,3 @@ public class EditorPlayModeStartScene
         EditorSceneManager.OpenScene(SceneName.BootStrap);
     }
 }
-#endif

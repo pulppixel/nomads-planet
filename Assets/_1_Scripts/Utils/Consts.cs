@@ -21,5 +21,6 @@
     public struct PrefsKey
     {
         public const string PlayerNameKey = "PlayerName";
+        public const string PlayerAvatarKey = "PlayerAvatar";
     }
 }
