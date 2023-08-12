@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using Unity.Netcode;
 
 namespace NomadsPlanet
 {
     public class CoinWallet : NetworkBehaviour
     {
-        public NetworkVariable<int> TotalCoins = new();
+        // 플레이어가 갖고 있는 전체 동전의 수
+        public NetworkVariable<int> totalCoins = new();
         public GameObject vfx;
 
         private void Start()
@@ -23,6 +22,7 @@ namespace NomadsPlanet
             }
 
             vfx.SetActive(false);
+            vfx.SetActive(true);
             int coinValue = coin.Collect();
 
             if (!IsServer)
@@ -30,8 +30,7 @@ namespace NomadsPlanet
                 return;
             }
 
-            vfx.SetActive(true);
-            TotalCoins.Value += coinValue;
+            totalCoins.Value += coinValue;
         }
     }
 }

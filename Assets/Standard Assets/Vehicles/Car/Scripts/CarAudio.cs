@@ -1,10 +1,12 @@
+using System;
+using Unity.Netcode;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace UnityStandardAssets.Vehicles.Car
 {
     [RequireComponent(typeof(CarController))]
-    public class CarAudio : MonoBehaviour
+    public class CarAudio : NetworkBehaviour
     {
         // 이 스크립트는 자동차의 현재 속성을 읽고 그에 따라 사운드를 재생합니다.
         // 엔진 사운드는 루프 및 피치되는 단순한 단일 클립이거나
@@ -21,6 +23,13 @@ namespace UnityStandardAssets.Vehicles.Car
 
         // 적절한 크로스 페이딩을 위해 클립 피치는 모두 일치해야 하며, 저음과 고음 사이에 옥타브 오프셋이 있어야 합니다.
 
+        private void Start()
+        {
+            if (!IsLocalPlayer)
+            {
+                this.enabled = false;
+            }
+        }
 
         public enum EngineAudioOptions // Options for the engine audio
         {

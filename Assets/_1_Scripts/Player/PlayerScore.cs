@@ -33,6 +33,8 @@ namespace NomadsPlanet
 
         public void GetScore(int scoreValue)
         {
+            hitVfx.SetActive(false);
+            hitVfx.SetActive(true);
             ModifyScoreServerRpc(scoreValue);
         }
 
@@ -49,7 +51,6 @@ namespace NomadsPlanet
                 return;
             }
 
-            hitVfx.SetActive(false);
             int newScore = CurrentScore.Value + value;
             CurrentScore.Value = Mathf.Clamp(newScore, 0, MaxScore);
 
@@ -58,8 +59,6 @@ namespace NomadsPlanet
                 OnWin?.Invoke(this);
                 _isScoreMax = true;
             }
-
-            hitVfx.SetActive(true);
         }
     }
 }

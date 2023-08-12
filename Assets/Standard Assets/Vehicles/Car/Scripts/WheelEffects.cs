@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityStandardAssets.Vehicles.Car
 {
-    [RequireComponent(typeof (AudioSource))]
+    [RequireComponent(typeof(AudioSource))]
     public class WheelEffects : MonoBehaviour
     {
         public Transform SkidTrailPrefab;
@@ -44,7 +44,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
         public void EmitTyreSmoke()
         {
-            skidParticles.transform.position = transform.position - transform.up*m_WheelCollider.radius;
+            skidParticles.transform.position = transform.position - transform.up * m_WheelCollider.radius;
             skidParticles.Emit(1);
             if (!skidding)
             {
@@ -70,13 +70,16 @@ namespace UnityStandardAssets.Vehicles.Car
         public IEnumerator StartSkidTrail()
         {
             skidding = true;
-            m_SkidTrail = Instantiate(SkidTrailPrefab);
-            while (m_SkidTrail == null)
-            {
-                yield return null;
-            }
-            m_SkidTrail.parent = transform;
-            m_SkidTrail.localPosition = -Vector3.up*m_WheelCollider.radius;
+            yield break;
+            // m_SkidTrail = Instantiate(SkidTrailPrefab, transform, true);
+            // Debug.Log(transform.name);
+            //
+            // while (m_SkidTrail == null)
+            // {
+            //     yield return null;
+            // }
+            //
+            // m_SkidTrail.localPosition = -Vector3.up * m_WheelCollider.radius;
         }
 
 
@@ -86,9 +89,10 @@ namespace UnityStandardAssets.Vehicles.Car
             {
                 return;
             }
+
             skidding = false;
-            m_SkidTrail.parent = skidTrailsDetachedParent;
-            Destroy(m_SkidTrail.gameObject, 10);
+            // m_SkidTrail.parent = skidTrailsDetachedParent;
+            // Destroy(m_SkidTrail.gameObject, 10);
         }
     }
 }
