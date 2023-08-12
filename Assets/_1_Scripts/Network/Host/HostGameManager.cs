@@ -56,14 +56,15 @@ namespace NomadsPlanet
                 lobbyOptions.Data = new Dictionary<string, DataObject>()
                 {
                     {
-                        "JoinCode", new DataObject(
+                        NetworkSetup.JoinCode,
+                        new DataObject(
                             visibility: DataObject.VisibilityOptions.Member,
                             value: _joinCode
                         )
                     }
                 };
                 Lobby lobby = await Lobbies.Instance.CreateLobbyAsync(
-                    "My Lobby",
+                    NetworkSetup.LobbyName,
                     NetworkSetup.MaxConnections,
                     lobbyOptions
                 );

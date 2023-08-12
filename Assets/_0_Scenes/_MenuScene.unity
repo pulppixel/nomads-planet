@@ -1525,6 +1525,7 @@ GameObject:
   - component: {fileID: 836571590}
   - component: {fileID: 836571592}
   - component: {fileID: 836571591}
+  - component: {fileID: 836571593}
   m_Layer: 0
   m_Name: LobbiesBackground
   m_TagString: Untagged
@@ -1593,6 +1594,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836571589}
   m_CullTransparentMesh: 1
+--- !u!114 &836571593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836571589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6419e79307b4864b20c6931ddaebf5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lobbyItemParent: {fileID: 691803000}
+  lobbyItemPrefab: {fileID: 2283828331827594581, guid: ea75a594f09defb45bc9def052990dd0,
+    type: 3}
 --- !u!1 &868078846
 GameObject:
   m_ObjectHideFlags: 0
@@ -2847,7 +2863,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2128047966}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 836571593}
+        m_TargetAssemblyTypeName: NomadsPlanet.LobbiesList, Assembly-CSharp
+        m_MethodName: RefreshList
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2128047966
 MonoBehaviour:
   m_ObjectHideFlags: 0

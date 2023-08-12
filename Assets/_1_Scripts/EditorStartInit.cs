@@ -18,7 +18,7 @@ public class EditorPlayModeStartScene
             return;
         }
 
-        EditorSceneManager.OpenScene(SceneName.NetBootStrap);
+        EditorSceneManager.OpenScene(SceneName.BootStrap);
     }
 }
 #endif
