@@ -57,14 +57,14 @@ namespace NomadsPlanet
                         break;
                     }
                 }
-                catch (AuthenticationException ex)
+                catch (AuthenticationException authException)
                 {
-                    Debug.LogError(ex);
+                    Debug.LogError(authException);
                     AuthState = AuthState.Error;
                 }
-                catch (RequestFailedException ex)
+                catch (RequestFailedException requestException)
                 {
-                    Debug.LogError(ex);
+                    Debug.LogError(requestException);
                     AuthState = AuthState.Error;
                 }
 

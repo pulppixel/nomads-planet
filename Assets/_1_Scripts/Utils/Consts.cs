@@ -8,4 +8,10 @@
         public const string MenuScene = "_MenuScene";
         public const string NetBootStrap = "_NetBootStrap";
     }
+
+    public struct NetworkSetup
+    {
+        public const int MaxConnections = 20;
+        public const string ConnectType = "dtls"; // "udp";
+    }
 }

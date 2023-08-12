@@ -7,18 +7,27 @@ namespace NomadsPlanet
     {
         private static HostSingleton instance;
 
-        private HostGameManager _gameManager;
+        public HostGameManager GameManager { get; private set; }
 
-        public static HostSingleton Instance => instance;
-
-        private void Awake()
+        public static HostSingleton Instance
         {
-            if (instance != null && instance != this)
+            get
             {
-                Destroy(gameObject);
-            }
+                if (instance != null)
+                {
+                    return instance;
+                }
 
-            instance = this;
+                instance = FindObjectOfType<HostSingleton>();
+
+                if (instance != null)
+                {
+                    return instance;
+                }
+
+                Debug.LogError("HostSingleton이 씬에 없습니다!");
+                return null;
+            }
         }
 
         private void Start()
@@ -28,7 +37,7 @@ namespace NomadsPlanet
 
         public void CreateHost()
         {
-            _gameManager = new HostGameManager();
+            GameManager = new HostGameManager();
         }
     }
 }

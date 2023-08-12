@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using NomadsPlanet.Client;
+﻿using System.Threading.Tasks;
 using UnityEngine;
 
 namespace NomadsPlanet
@@ -24,11 +22,11 @@ namespace NomadsPlanet
             }
             else
             {
+                HostSingleton hostSingleton = Instantiate(hostPrefab);
+                hostSingleton.CreateHost();
+
                 ClientSingleton clientSingleton = Instantiate(clientPrefab);
                 bool authenticated = await clientSingleton.CreateClient();
-
-                HostSingleton hostSingleton = Instantiate(hostPrefab);
-                hostPrefab.CreateHost();
 
                 if (authenticated)
                 {

@@ -10,9 +10,7 @@ namespace NomadsPlanet
     public class PlayerSetter : NetworkBehaviour
     {
         public List<GameObject> playerPrefabs;
-
         public CharacterType setCharacterType;
-
         private Animator _animator;
 
         private void Awake()
@@ -20,14 +18,28 @@ namespace NomadsPlanet
             _animator = GetComponent<Animator>();
         }
 
-        private void Start()
-        {
-            setCharacterType = (CharacterType)Random.Range(0, 8);
-        }
-
         public override void OnNetworkSpawn()
         {
-            var character = Instantiate(playerPrefabs[(int)setCharacterType], this.transform);
+            if (IsServer)
+            {
+                SetCharacterServerRpc();
+            }
+        }
+
+        [ServerRpc]
+        private void SetCharacterServerRpc()
+        {
+            setCharacterType = (CharacterType)Random.Range(0, 8);
+            PropagateCharacterToClientsClientRpc((int)setCharacterType);
+        }
+
+        [ClientRpc]
+        private void PropagateCharacterToClientsClientRpc(int characterIndex)
+        {
+            if (playerPrefabs == null || characterIndex < 0 || characterIndex >= playerPrefabs.Count)
+                return;
+
+            var character = Instantiate(playerPrefabs[characterIndex], this.transform);
             character.transform.SetSiblingIndex(2);
             character.gameObject.name = "Player_Model";
             _animator.Rebind();

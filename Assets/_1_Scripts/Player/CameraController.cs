@@ -27,6 +27,11 @@ namespace NomadsPlanet
             _horizontalRotation = rotation.y;
             _verticalRotation = rotation.x;
             _yawRotation = rotation.z;
+
+            if (!IsLocalPlayer)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         private void Update()

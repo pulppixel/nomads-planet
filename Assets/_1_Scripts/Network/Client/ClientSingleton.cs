@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace NomadsPlanet.Client
+namespace NomadsPlanet
 {
     public class ClientSingleton : MonoBehaviour
     {
