@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using NomadsPlanet.Utils;
 using Unity.Netcode;
@@ -10,8 +9,10 @@ namespace NomadsPlanet
     public class PlayerSetter : NetworkBehaviour
     {
         public CharacterType setCharacterType;
+
         private Animator _animator;
-        private List<GameObject> _playerPrefabs = new();
+        private readonly List<GameObject> _playerPrefabs = new();
+        private readonly NetworkVariable<CharacterType> _playerType = new();
 
         private void Awake()
         {
@@ -25,9 +26,27 @@ namespace NomadsPlanet
 
         public override void OnNetworkSpawn()
         {
-            Debug.Log("OnNetworkSpawn called on client.");
+            if (IsServer)
+            {
+                SetPlayerTypeOnServerRpc();
+            }
+            else
+            {
+                UpdateCharacter(_playerType.Value);
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SetPlayerTypeOnServerRpc()
+        {
             setCharacterType = (CharacterType)Random.Range(0, 8);
-            int idx = (int)setCharacterType;
+            _playerType.Value = setCharacterType;
+            UpdateCharacter(setCharacterType);
+        }
+
+        private void UpdateCharacter(CharacterType newValue)
+        {
+            int idx = (int)newValue;
             _playerPrefabs[idx].transform.SetParent(transform);
             _playerPrefabs[idx].transform.SetSiblingIndex(2);
             _playerPrefabs[idx].gameObject.name = "Player_Model";
