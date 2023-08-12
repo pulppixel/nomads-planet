@@ -9,39 +9,29 @@ namespace NomadsPlanet
 {
     public class PlayerSetter : NetworkBehaviour
     {
-        public List<GameObject> playerPrefabs;
         public CharacterType setCharacterType;
         private Animator _animator;
+        private List<GameObject> _playerPrefabs = new();
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+            var parent = transform.GetChildFromName<Transform>("CharacterPrefabs");
+            for (int i = 0; i < parent.childCount; i++)
+            {
+                _playerPrefabs.Add(parent.GetChild(i).gameObject);
+            }
         }
 
         public override void OnNetworkSpawn()
         {
-            if (IsServer)
-            {
-                SetCharacterServerRpc();
-            }
-        }
-
-        [ServerRpc]
-        private void SetCharacterServerRpc()
-        {
+            Debug.Log("OnNetworkSpawn called on client.");
             setCharacterType = (CharacterType)Random.Range(0, 8);
-            PropagateCharacterToClientsClientRpc((int)setCharacterType);
-        }
-
-        [ClientRpc]
-        private void PropagateCharacterToClientsClientRpc(int characterIndex)
-        {
-            if (playerPrefabs == null || characterIndex < 0 || characterIndex >= playerPrefabs.Count)
-                return;
-
-            var character = Instantiate(playerPrefabs[characterIndex], this.transform);
-            character.transform.SetSiblingIndex(2);
-            character.gameObject.name = "Player_Model";
+            int idx = (int)setCharacterType;
+            _playerPrefabs[idx].transform.SetParent(transform);
+            _playerPrefabs[idx].transform.SetSiblingIndex(2);
+            _playerPrefabs[idx].gameObject.name = "Player_Model";
+            _playerPrefabs[idx].gameObject.SetActive(true);
             _animator.Rebind();
         }
     }
