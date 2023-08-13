@@ -82,7 +82,9 @@ namespace NomadsPlanet
 
                     break;
                 case NetworkListEvent<LeaderboardEntityState>.EventType.Remove:
-                    var displayToRemove = _entityDisplays.FirstOrDefault(x => x.ClientId == changeEvent.Value.ClientId);
+                    var displayToRemove = _entityDisplays.FirstOrDefault(x =>
+                        x.ClientId == changeEvent.Value.ClientId
+                    );
 
                     if (displayToRemove != null)
                     {
@@ -93,7 +95,9 @@ namespace NomadsPlanet
 
                     break;
                 case NetworkListEvent<LeaderboardEntityState>.EventType.Value:
-                    var displayToUpdate = _entityDisplays.FirstOrDefault(x => x.ClientId == changeEvent.Value.ClientId);
+                    var displayToUpdate = _entityDisplays.FirstOrDefault(x =>
+                        x.ClientId == changeEvent.Value.ClientId
+                    );
 
                     if (displayToUpdate != null)
                     {
@@ -103,7 +107,9 @@ namespace NomadsPlanet
                     break;
             }
 
-            _entityDisplays.Sort((x, y) => y.Coins.CompareTo(x.Coins));
+            _entityDisplays.Sort((x, y) =>
+                y.Coins.CompareTo(x.Coins)
+            );
 
             for (int i = 0; i < _entityDisplays.Count; i++)
             {
@@ -119,7 +125,7 @@ namespace NomadsPlanet
 
             if (myDisplay != null)
             {
-                if (myDisplay.transform.GetSiblingIndex () >= entitiesToDisplay)
+                if (myDisplay.transform.GetSiblingIndex() >= entitiesToDisplay)
                 {
                     leaderboardEntityHolder.GetChild(entitiesToDisplay - 1).gameObject.SetActive(false);
                     myDisplay.gameObject.SetActive(true);

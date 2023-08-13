@@ -3084,6 +3084,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c7f7aa15c34ae5987aed2e63559df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinPrefab: {fileID: 435440546844667398, guid: 3b358ef1e7c34314aa8b3974745bba11,
+    type: 3}
+  coinSpread: 3
+  bountyCoinCount: 3
+  minBountyCoinValue: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
   playerScore: {fileID: 8743659074130710298}
   totalCoins:
     m_InternalValue: 0
@@ -19472,6 +19480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxScore>k__BackingField: 100
+  playerWeapon: {fileID: 3611111295080902949}
   currentScore:
     m_InternalValue: 0
   hitVfx: {fileID: 5291823125730354476}

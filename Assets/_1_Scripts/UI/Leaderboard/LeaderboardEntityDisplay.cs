@@ -1,10 +1,9 @@
-﻿using NomadsPlanet.Utils;
-using TMPro;
+﻿using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
+using NomadsPlanet.Utils;
 
 namespace NomadsPlanet
 {
@@ -47,7 +46,6 @@ namespace NomadsPlanet
         {
             displayThumb.sprite = thumbs[(int)_characterType];
             displayText.text =
-                $"{transform.GetSiblingIndex() + 1}. " +
                 $"{_playerName.ToString().TruncateString(9)} " +
                 $"({Coins})";
         }

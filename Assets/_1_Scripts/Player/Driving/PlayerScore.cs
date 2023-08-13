@@ -10,11 +10,11 @@ namespace NomadsPlanet
     {
         [field: SerializeField] public int MaxScore { get; private set; } = 100;
 
+        public PlayerWeapon playerWeapon;
         public NetworkVariable<int> currentScore = new();
         public GameObject hitVfx;
 
         private bool _isScoreMax;
-
         public Action<PlayerScore> OnWin;
 
         private void Start()
@@ -42,6 +42,14 @@ namespace NomadsPlanet
         public void LostScore(int scoreValue)
         {
             ModifyScoreServerRpc(-scoreValue);
+            StartCoroutine(AttackedLogic());
+        }
+
+        private IEnumerator AttackedLogic()
+        {
+            playerWeapon.enabled = false;
+            yield return new WaitForSeconds(3f);
+            playerWeapon.enabled = true;
         }
 
         [ServerRpc(RequireOwnership = false)]

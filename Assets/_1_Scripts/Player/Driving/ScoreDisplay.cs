@@ -1,8 +1,5 @@
-﻿using System;
-using NomadsPlanet.Utils;
-using TMPro;
+﻿using TMPro;
 using Unity.Netcode;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace NomadsPlanet
