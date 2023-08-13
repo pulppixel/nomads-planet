@@ -1,10 +1,11 @@
-﻿using Unity.Netcode;
+﻿using System;
+using Unity.Netcode;
 using UnityEngine.SceneManagement;
 using NomadsPlanet.Utils;
 
 namespace NomadsPlanet
 {
-    public class NetworkClient
+    public class NetworkClient : IDisposable
     {
         private readonly NetworkManager _networkManager;
 
@@ -30,6 +31,14 @@ namespace NomadsPlanet
             if (_networkManager.IsConnectedClient)
             {
                 _networkManager.Shutdown();
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_networkManager != null)
+            {
+                _networkManager.OnClientDisconnectCallback -= OnClientDisconnect;
             }
         }
     }

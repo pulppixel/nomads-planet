@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace NomadsPlanet
@@ -38,6 +39,11 @@ namespace NomadsPlanet
         public void CreateHost()
         {
             GameManager = new HostGameManager();
+        }
+
+        private void OnDestroy()
+        {
+            GameManager?.Dispose();
         }
     }
 }

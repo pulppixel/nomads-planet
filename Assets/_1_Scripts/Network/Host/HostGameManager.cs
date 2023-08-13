@@ -14,11 +14,10 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = Unity.Mathematics.Random;
 
 namespace NomadsPlanet
 {
-    public class HostGameManager
+    public class HostGameManager : IDisposable
     {
         private Allocation _allocation;
         private string _joinCode;
@@ -113,6 +112,27 @@ namespace NomadsPlanet
                 Lobbies.Instance.SendHeartbeatPingAsync(_lobbyId);
                 yield return delay;
             }
+        }
+
+        public async void Dispose()
+        {
+            HostSingleton.Instance.StopCoroutine(nameof(HeartbeatLobby));
+
+            if (string.IsNullOrEmpty(_lobbyId))
+            {
+                try
+                {
+                    await Lobbies.Instance.DeleteLobbyAsync(_lobbyId);
+                }
+                catch (LobbyServiceException lobbyServiceException)
+                {
+                    Debug.LogError(lobbyServiceException);
+                }
+
+                _lobbyId = string.Empty;
+            }
+            
+            _networkServer?.Dispose();
         }
     }
 }
