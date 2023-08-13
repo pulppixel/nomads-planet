@@ -31,6 +31,8 @@ namespace NomadsPlanet
             _authIdToUserData[userData.userAuthId] = userData;
 
             response.Approved = true;
+            response.Position = SpawnPoint.GetRandomSpawnPos();
+            response.Rotation = Quaternion.identity;
             response.CreatePlayerObject = true;
         }
 
@@ -62,7 +64,7 @@ namespace NomadsPlanet
 
             return null;
         }
-
+        
         public void Dispose()
         {
             if (_networkManager == null)
