@@ -1,6 +1,7 @@
 ﻿using NomadsPlanet.Utils;
 using TMPro;
 using Unity.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ namespace NomadsPlanet
 
         [SerializeField] private Image displayThumb;
         [SerializeField] private TMP_Text displayText;
+        [SerializeField] private Color myColor;
 
         public ulong ClientId { get; private set; }
         public int Coins { get; private set; }
@@ -27,6 +29,11 @@ namespace NomadsPlanet
             _playerName = playerName;
             _characterType = characterType;
 
+            if (clientId == NetworkManager.Singleton.LocalClientId)
+            {
+                displayText.color = myColor;
+            }
+
             UpdateCoins(Coins);
         }
 
@@ -36,10 +43,13 @@ namespace NomadsPlanet
             UpdateDisplays();
         }
 
-        private void UpdateDisplays()
+        public void UpdateDisplays()
         {
             displayThumb.sprite = thumbs[(int)_characterType];
-            displayText.text = $"1. {_playerName} ({Coins})";
+            displayText.text =
+                $"{transform.GetSiblingIndex() + 1}. " +
+                $"{_playerName.ToString().TruncateString(9)} " +
+                $"({Coins})";
         }
     }
 }

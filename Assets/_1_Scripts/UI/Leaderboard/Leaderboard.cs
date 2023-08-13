@@ -10,6 +10,7 @@ namespace NomadsPlanet
     {
         [SerializeField] private Transform leaderboardEntityHolder;
         [SerializeField] private LeaderboardEntityDisplay leaderboardEntityPrefab;
+        [SerializeField] private int entitiesToDisplay = 8;
 
         private NetworkList<LeaderboardEntityState> _leaderboardEntities;
         private List<LeaderboardEntityDisplay> _entityDisplays = new();
@@ -100,6 +101,29 @@ namespace NomadsPlanet
                     }
 
                     break;
+            }
+
+            _entityDisplays.Sort((x, y) => y.Coins.CompareTo(x.Coins));
+
+            for (int i = 0; i < _entityDisplays.Count; i++)
+            {
+                _entityDisplays[i].transform.SetSiblingIndex(i);
+                _entityDisplays[i].UpdateDisplays();
+                // should show
+                _entityDisplays[i].gameObject.SetActive(i <= entitiesToDisplay - 1);
+            }
+
+            LeaderboardEntityDisplay myDisplay = _entityDisplays.FirstOrDefault(x =>
+                x.ClientId == NetworkManager.Singleton.LocalClientId
+            );
+
+            if (myDisplay != null)
+            {
+                if (myDisplay.transform.GetSiblingIndex () >= entitiesToDisplay)
+                {
+                    leaderboardEntityHolder.GetChild(entitiesToDisplay - 1).gameObject.SetActive(false);
+                    myDisplay.gameObject.SetActive(true);
+                }
             }
         }
 
