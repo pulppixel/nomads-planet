@@ -6,6 +6,8 @@ namespace NomadsPlanet
     public class CoinWallet : NetworkBehaviour
     {
         // 플레이어가 갖고 있는 전체 동전의 수
+        public PlayerScore playerScore;
+
         public NetworkVariable<int> totalCoins = new();
         public GameObject vfx;
 
@@ -31,6 +33,7 @@ namespace NomadsPlanet
             }
 
             totalCoins.Value += coinValue;
+            playerScore.GetScore(coinValue);
         }
     }
 }

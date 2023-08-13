@@ -23,7 +23,7 @@ namespace NomadsPlanet
         private string _joinCode;
         private string _lobbyId;
 
-        private NetworkServer _networkServer;
+        public NetworkServer NetworkServer { get; private set; }
 
         public async Task StartHostAsync()
         {
@@ -85,7 +85,7 @@ namespace NomadsPlanet
                 return;
             }
 
-            _networkServer = new NetworkServer(NetworkManager.Singleton);
+            NetworkServer = new NetworkServer(NetworkManager.Singleton);
 
             UserData userData = new UserData
             {
@@ -132,7 +132,7 @@ namespace NomadsPlanet
                 _lobbyId = string.Empty;
             }
             
-            _networkServer?.Dispose();
+            NetworkServer?.Dispose();
         }
     }
 }
