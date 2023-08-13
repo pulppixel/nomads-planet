@@ -1,21 +1,26 @@
+using System;
 using System.Collections.Generic;
-using NomadsPlanet.Utils;
-using Unity.Collections;
-using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
+using Unity.Netcode;
+using Unity.Collections;
+using NomadsPlanet.Utils;
 
 namespace NomadsPlanet
 {
-    public class PlayerSetter : NetworkBehaviour
+    public class DrivingPlayer : NetworkBehaviour
     {
-        public NetworkVariable<FixedString32Bytes> playerName = new();
         public new Collider collider;
+        
+        [field: SerializeField] public CoinWallet Wallet { get; private set; }
+
+        public NetworkVariable<FixedString32Bytes> playerName = new();
+        public NetworkVariable<CharacterType> characterType = new();
 
         private Animator _animator;
         private readonly List<GameObject> _playerPrefabs = new();
-        private readonly NetworkVariable<CharacterType> _playerType = new();
+
+        public static event Action<DrivingPlayer> OnPlayerSpawned;
+        public static event Action<DrivingPlayer> OnPlayerDespawned;
 
         private void Awake()
         {
@@ -35,10 +40,20 @@ namespace NomadsPlanet
                 var userData = HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
 
                 playerName.Value = userData.userName;
-                _playerType.Value = (CharacterType)userData.userAvatarType;
+                characterType.Value = (CharacterType)userData.userAvatarType;
+
+                OnPlayerSpawned?.Invoke(this);
             }
 
-            UpdateCharacter(_playerType.Value);
+            UpdateCharacter(characterType.Value);
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            if (IsServer)
+            {
+                OnPlayerDespawned?.Invoke(this);
+            }
         }
 
         private void UpdateCharacter(CharacterType newValue)

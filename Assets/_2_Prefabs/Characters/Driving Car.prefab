@@ -1497,7 +1497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3177f8f0b814b37aaca655fd9dee25c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 8130937700549291816}
+  drivingPlayer: {fileID: 8130937700549291816}
   playerNameText: {fileID: 6208844071850446916}
 --- !u!1 &1141769373849641324
 GameObject:
@@ -1974,7 +1974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3177f8f0b814b37aaca655fd9dee25c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 8130937700549291816}
+  drivingPlayer: {fileID: 8130937700549291816}
   playerNameText: {fileID: 3758688499785974313}
 --- !u!1 &1482964950849616281
 GameObject:
@@ -3039,7 +3039,7 @@ GameObject:
   - component: {fileID: 4412865264229775725}
   - component: {fileID: 800860662460557830}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: Weapon & Wallet
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19420,6 +19420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e54aefb8c67443a9f788688a80e4c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collider: {fileID: 2880793677214011781}
+  <Wallet>k__BackingField: {fileID: 4412865264229775725}
   playerName:
     m_InternalValue:
       utf8LengthInBytes: 0
@@ -19455,7 +19457,8 @@ MonoBehaviour:
         byte0027: 0
         byte0028: 0
         byte0029: 0
-  collider: {fileID: 2880793677214011781}
+  characterType:
+    m_InternalValue: 0
 --- !u!114 &8743659074130710298
 MonoBehaviour:
   m_ObjectHideFlags: 0

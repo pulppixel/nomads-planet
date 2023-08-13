@@ -6,13 +6,13 @@ namespace NomadsPlanet
 {
     public class PlayerNameDisplay : MonoBehaviour
     {
-        [SerializeField] private PlayerSetter player;
+        [SerializeField] private DrivingPlayer drivingPlayer;
         [SerializeField] private TMP_Text playerNameText;
 
         private void Start()
         {
-            HandlePlayerNameChanged(string.Empty, player.playerName.Value);
-            player.playerName.OnValueChanged += HandlePlayerNameChanged;
+            HandlePlayerNameChanged(string.Empty, drivingPlayer.playerName.Value);
+            drivingPlayer.playerName.OnValueChanged += HandlePlayerNameChanged;
         }
 
         private void HandlePlayerNameChanged(FixedString32Bytes oldName, FixedString32Bytes newName)
@@ -22,7 +22,7 @@ namespace NomadsPlanet
 
         private void OnDestroy()
         {
-            player.playerName.OnValueChanged -= HandlePlayerNameChanged;
+            drivingPlayer.playerName.OnValueChanged -= HandlePlayerNameChanged;
         }
     }
 }
