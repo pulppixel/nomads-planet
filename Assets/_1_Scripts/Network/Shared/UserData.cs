@@ -6,6 +6,7 @@ namespace NomadsPlanet
     public class UserData
     {
         public string userName;
+        public string userAuthId;
         public int userAvatarType;
     }
 }

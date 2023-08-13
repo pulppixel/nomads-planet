@@ -46,7 +46,7 @@ namespace NomadsPlanet.Utils
 
             return null;
         }
-
+        
         /// <summary>
         /// 갖고 있는 트래픽 리스트들 중 하나를 얻어올 수 있다.
         /// </summary>

@@ -7,6 +7,7 @@ using NomadsPlanet.Utils;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
+using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Relay;
@@ -90,6 +91,7 @@ namespace NomadsPlanet
             UserData userData = new UserData
             {
                 userName = ES3.LoadString(PrefsKey.PlayerNameKey, "Missing Name"),
+                userAuthId = AuthenticationService.Instance.PlayerId,
                 userAvatarType = ES3.Load(PrefsKey.PlayerAvatarKey, UnityEngine.Random.Range(0, 8)),
             };
 
@@ -97,8 +99,6 @@ namespace NomadsPlanet
             byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
 
             NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
-
-
             NetworkManager.Singleton.StartHost();
 
             NetworkManager.Singleton.SceneManager.LoadScene(SceneName.GameScene, LoadSceneMode.Single);
