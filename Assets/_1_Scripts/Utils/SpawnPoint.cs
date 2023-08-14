@@ -23,7 +23,7 @@ namespace NomadsPlanet
         {
             if (spawnPoints.Count == 0)
             {
-                return new Vector3(Random.value < .5f ? -25f : 25f, 1f, Random.value < .5f ? -25f : 25f);
+                return new Vector3(Random.value < .5f ? -25f : 25f, 2f, Random.value < .5f ? -25f : 25f);
             }
 
             return spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position;

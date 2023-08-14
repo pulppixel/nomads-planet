@@ -4,14 +4,20 @@ using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
 using NomadsPlanet.Utils;
+using UnityStandardAssets.Vehicles.Car;
 
 namespace NomadsPlanet
 {
     public class DrivingPlayer : NetworkBehaviour
     {
         public new Collider collider;
-        
+
         [field: SerializeField] public CoinWallet Wallet { get; private set; }
+        [field: SerializeField] public CarController CarController { get; private set; }
+
+        [SerializeField] private MeshRenderer minimapIconRenderer;
+        [SerializeField] private Camera minimapCamera;
+        [SerializeField] private Color ownercolor;
 
         public NetworkVariable<FixedString32Bytes> playerName = new();
         public NetworkVariable<CharacterType> characterType = new();
@@ -35,6 +41,11 @@ namespace NomadsPlanet
 
         public override void OnNetworkSpawn()
         {
+            if (!IsLocalPlayer)
+            {
+                minimapCamera.gameObject.SetActive(false);
+            }
+
             if (IsServer)
             {
                 var userData = HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
@@ -43,6 +54,11 @@ namespace NomadsPlanet
                 characterType.Value = (CharacterType)userData.userAvatarType;
 
                 OnPlayerSpawned?.Invoke(this);
+            }
+
+            if (IsOwner)
+            {
+                minimapIconRenderer.materials[0].color = ownercolor;
             }
 
             UpdateCharacter(characterType.Value);
