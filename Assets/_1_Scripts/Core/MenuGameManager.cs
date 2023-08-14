@@ -144,6 +144,8 @@ namespace NomadsPlanet
                 _characterPrefabs[i].gameObject.SetActive(i == _currentCharacter);
                 _characterPrefabs[i].localRotation = Quaternion.identity;
             }
+
+            virtualCamera.Follow = _characterPrefabs[_currentCharacter];
         }
     }
 }

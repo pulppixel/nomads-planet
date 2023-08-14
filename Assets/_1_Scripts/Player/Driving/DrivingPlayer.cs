@@ -101,6 +101,7 @@ namespace NomadsPlanet
 
             _animator.Rebind();
             collider.enabled = true;
+            CarController.Init(_carPrefabs[idx].transform);
         }
     }
 }

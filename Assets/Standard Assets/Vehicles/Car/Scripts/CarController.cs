@@ -69,9 +69,18 @@ namespace UnityStandardAssets.Vehicles.Car
         public float AccelInput { get; private set; }
 
         // Use this for initialization
-        private void Start()
+        public void Init(Transform parent)
         {
             m_WheelMeshLocalRotations = new Quaternion[4];
+
+            m_WheelMeshes = new GameObject[4]
+            {
+                parent.GetChild(7).gameObject,
+                parent.GetChild(6).gameObject,
+                parent.GetChild(9).gameObject,
+                parent.GetChild(8).gameObject,
+            };
+            
             for (int i = 0; i < 4; i++)
             {
                 m_WheelMeshLocalRotations[i] = m_WheelMeshes[i].transform.localRotation;
