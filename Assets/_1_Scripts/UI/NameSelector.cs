@@ -1,9 +1,10 @@
-﻿using NomadsPlanet.Utils;
+﻿using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using NomadsPlanet.Utils;
 
 namespace NomadsPlanet
 {
@@ -28,6 +29,11 @@ namespace NomadsPlanet
 
         public void HandleNameChanged()
         {
+            nameField.text = Regex.Replace(
+                nameField.text,
+                "[a-zA-Z]", match => match.Value.ToUpperInvariant()
+            );
+
             connectButton.interactable =
                 nameField.text.Length > minNameLength &&
                 nameField.text.Length <= maxNameLength;

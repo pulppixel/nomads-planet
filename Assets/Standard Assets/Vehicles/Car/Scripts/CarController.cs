@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -82,6 +83,37 @@ namespace UnityStandardAssets.Vehicles.Car
 
             m_Rigidbody = GetComponent<Rigidbody>();
             m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl * m_FullTorqueOverAllWheels);
+        }
+
+        private const float BoostDuration = 5.0f;
+        private bool _isBoosting = false;
+        private float _originalTorque;
+        private float _originalSteerAngle;
+        private float _originalTopspeed;
+
+        public void StartBoost()
+        {
+            if (_isBoosting) return;
+            _originalTorque = m_FullTorqueOverAllWheels;
+            m_FullTorqueOverAllWheels *= 10;
+
+            _originalTopspeed = m_Topspeed;
+            m_Topspeed *= 5f;
+
+            _originalSteerAngle = m_MaximumSteerAngle;
+            m_MaximumSteerAngle *= 0.5f;
+
+            _isBoosting = true;
+            StartCoroutine(BoostCooldown());
+        }
+
+        private IEnumerator BoostCooldown()
+        {
+            yield return new WaitForSeconds(BoostDuration);
+            m_FullTorqueOverAllWheels = _originalTorque;
+            m_MaximumSteerAngle = _originalSteerAngle;
+            m_Topspeed = _originalTopspeed;
+            _isBoosting = false;
         }
 
         private void GearChanging()
@@ -188,19 +220,26 @@ namespace UnityStandardAssets.Vehicles.Car
         private void CapSpeed()
         {
             float speed = m_Rigidbody.velocity.magnitude;
+
             switch (m_SpeedType)
             {
                 case SpeedType.MPH:
 
                     speed *= 2.23693629f;
                     if (speed > m_Topspeed)
+                    {
                         m_Rigidbody.velocity = (m_Topspeed / 2.23693629f) * m_Rigidbody.velocity.normalized;
+                    }
+
                     break;
 
                 case SpeedType.KPH:
                     speed *= 3.6f;
                     if (speed > m_Topspeed)
+                    {
                         m_Rigidbody.velocity = (m_Topspeed / 3.6f) * m_Rigidbody.velocity.normalized;
+                    }
+
                     break;
             }
         }

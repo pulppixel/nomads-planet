@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -7,6 +8,9 @@ namespace NomadsPlanet
     {
         private const float ForceMultiplier = 5000f;
         private const int Damage = 5;
+
+        public event Action<PlayerWeapon> OnAttack;
+        public event Action<PlayerWeapon> OnDamaged;
 
         private PlayerScore _playerScore;
 
@@ -42,13 +46,16 @@ namespace NomadsPlanet
                     return;
                 }
 
-                enemy.PlayerScore.LostScore(Damage);
                 _playerScore.GetScore(Damage);
+                enemy.PlayerScore.LostScore(Damage);
+                enemy.PlayerScore.playerWeapon.OnDamaged?.Invoke(enemy.PlayerScore.playerWeapon);
+                OnAttack?.Invoke(this);
             }
 
             // 상대방 정면 박았을 경우
             if (other.TryGetComponent<PlayerWeapon>(out var weapon))
             {
+                OnAttack?.Invoke(this);
                 _playerScore.GetScore(Damage);
             }
 

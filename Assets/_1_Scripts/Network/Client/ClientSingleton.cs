@@ -33,5 +33,10 @@ namespace NomadsPlanet
 
             return await GameManager.InitAsync();
         }
+
+        private void OnDestroy()
+        {
+            GameManager?.Dispose();
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace NomadsPlanet.Utils
 
             return null;
         }
-
+        
         /// <summary>
         /// 갖고 있는 트래픽 리스트들 중 하나를 얻어올 수 있다.
         /// </summary>
@@ -72,6 +72,20 @@ namespace NomadsPlanet.Utils
             }
 
             return result[Random.Range(0, result.Count)];
+        }
+        
+        /// <summary>
+        /// 너무 글자가 길어지면 뒤는 자른다. (예: 환기는 아주 긴...)
+        /// </summary>
+        /// <param name="original">체크할 텍스트</param>
+        /// <param name="maxLength">최종 길이</param>
+        /// <returns>최종 결과물</returns>
+        public static string TruncateString(this string original, int maxLength)
+        {
+            if (string.IsNullOrEmpty(original)) return original;
+            if (original.Length <= maxLength) return original;
+
+            return original[..(maxLength - 3)] + "...";
         }
     }
 }

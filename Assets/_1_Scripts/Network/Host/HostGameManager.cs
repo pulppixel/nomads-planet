@@ -7,23 +7,23 @@ using NomadsPlanet.Utils;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
+using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = Unity.Mathematics.Random;
 
 namespace NomadsPlanet
 {
-    public class HostGameManager
+    public class HostGameManager : IDisposable
     {
         private Allocation _allocation;
         private string _joinCode;
         private string _lobbyId;
 
-        private NetworkServer _networkServer;
+        public NetworkServer NetworkServer { get; private set; }
 
         public async Task StartHostAsync()
         {
@@ -85,11 +85,12 @@ namespace NomadsPlanet
                 return;
             }
 
-            _networkServer = new NetworkServer(NetworkManager.Singleton);
+            NetworkServer = new NetworkServer(NetworkManager.Singleton);
 
             UserData userData = new UserData
             {
                 userName = ES3.LoadString(PrefsKey.PlayerNameKey, "Missing Name"),
+                userAuthId = AuthenticationService.Instance.PlayerId,
                 userAvatarType = ES3.Load(PrefsKey.PlayerAvatarKey, UnityEngine.Random.Range(0, 8)),
             };
 
@@ -97,9 +98,9 @@ namespace NomadsPlanet
             byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
 
             NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
-
-
             NetworkManager.Singleton.StartHost();
+
+            NetworkServer.OnClientLeft += HandleClientLeft;
 
             NetworkManager.Singleton.SceneManager.LoadScene(SceneName.GameScene, LoadSceneMode.Single);
         }
@@ -113,6 +114,46 @@ namespace NomadsPlanet
                 Lobbies.Instance.SendHeartbeatPingAsync(_lobbyId);
                 yield return delay;
             }
+        }
+        
+        private async void HandleClientLeft(string authId)
+        {
+            try
+            {
+                await LobbyService.Instance.RemovePlayerAsync(_lobbyId, authId);
+            }
+            catch (LobbyServiceException lobbyServiceException)
+            {
+                Debug.LogError(lobbyServiceException);
+                return;
+            }
+        }
+
+        public void Dispose()
+        {
+            Shutdown();
+        }
+
+        public async void Shutdown()
+        {
+            HostSingleton.Instance.StopCoroutine(nameof(HeartbeatLobby));
+
+            if (!string.IsNullOrEmpty(_lobbyId))
+            {
+                try
+                {
+                    await Lobbies.Instance.DeleteLobbyAsync(_lobbyId);
+                }
+                catch (LobbyServiceException lobbyServiceException)
+                {
+                    Debug.LogError(lobbyServiceException);
+                }
+
+                _lobbyId = string.Empty;
+            }
+
+            NetworkServer.OnClientLeft -= HandleClientLeft;
+            NetworkServer?.Dispose();
         }
     }
 }

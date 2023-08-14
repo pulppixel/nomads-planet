@@ -5,6 +5,7 @@ using NomadsPlanet.Utils;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
+using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
@@ -14,14 +15,17 @@ using Random = UnityEngine.Random;
 
 namespace NomadsPlanet
 {
-    public class ClientGameManager
+    public class ClientGameManager : IDisposable
     {
         private JoinAllocation _allocation;
+        private NetworkClient _networkClient;
 
         public async Task<bool> InitAsync()
         {
             // Authenticate Player
             await UnityServices.InitializeAsync();
+
+            _networkClient = new NetworkClient(NetworkManager.Singleton);
 
             AuthState authState = await AuthenticationWrapper.DoAuth();
 
@@ -53,6 +57,7 @@ namespace NomadsPlanet
             UserData userData = new UserData
             {
                 userName = ES3.LoadString(PrefsKey.PlayerNameKey, "Missing Name"),
+                userAuthId = AuthenticationService.Instance.PlayerId,
                 userAvatarType = ES3.Load(PrefsKey.PlayerAvatarKey, Random.Range(0, 8)),
             };
 
@@ -60,8 +65,18 @@ namespace NomadsPlanet
             byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
 
             NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
-
             NetworkManager.Singleton.StartClient();
         }
+        
+        public void Disconnect()
+        {
+            _networkClient.Disconnect();
+        }
+
+        public void Dispose()
+        {
+            _networkClient?.Dispose();
+        }
+
     }
 }

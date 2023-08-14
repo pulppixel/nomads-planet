@@ -20,7 +20,12 @@
 
     public struct PrefsKey
     {
+#if UNITY_EDITOR
+        public const string PlayerNameKey = "_PlayerName";
+        public const string PlayerAvatarKey = "_PlayerAvatar";
+#else
         public const string PlayerNameKey = "PlayerName";
         public const string PlayerAvatarKey = "PlayerAvatar";
+#endif
     }
 }
