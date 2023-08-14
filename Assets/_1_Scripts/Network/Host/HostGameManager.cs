@@ -100,6 +100,8 @@ namespace NomadsPlanet
             NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
             NetworkManager.Singleton.StartHost();
 
+            NetworkServer.OnClientLeft += HandleClientLeft;
+
             NetworkManager.Singleton.SceneManager.LoadScene(SceneName.GameScene, LoadSceneMode.Single);
         }
 
@@ -113,12 +115,30 @@ namespace NomadsPlanet
                 yield return delay;
             }
         }
+        
+        private async void HandleClientLeft(string authId)
+        {
+            try
+            {
+                await LobbyService.Instance.RemovePlayerAsync(_lobbyId, authId);
+            }
+            catch (LobbyServiceException lobbyServiceException)
+            {
+                Debug.LogError(lobbyServiceException);
+                return;
+            }
+        }
 
-        public async void Dispose()
+        public void Dispose()
+        {
+            Shutdown();
+        }
+
+        public async void Shutdown()
         {
             HostSingleton.Instance.StopCoroutine(nameof(HeartbeatLobby));
 
-            if (string.IsNullOrEmpty(_lobbyId))
+            if (!string.IsNullOrEmpty(_lobbyId))
             {
                 try
                 {
@@ -131,7 +151,8 @@ namespace NomadsPlanet
 
                 _lobbyId = string.Empty;
             }
-            
+
+            NetworkServer.OnClientLeft -= HandleClientLeft;
             NetworkServer?.Dispose();
         }
     }

@@ -23,6 +23,11 @@ namespace NomadsPlanet
                 return;
             }
 
+            Disconnect();
+        }
+        
+        public void Disconnect()
+        {
             if (SceneManager.GetActiveScene().name != SceneName.MenuScene)
             {
                 SceneManager.LoadScene(SceneName.MenuScene);
@@ -41,5 +46,6 @@ namespace NomadsPlanet
                 _networkManager.OnClientDisconnectCallback -= OnClientDisconnect;
             }
         }
+
     }
 }

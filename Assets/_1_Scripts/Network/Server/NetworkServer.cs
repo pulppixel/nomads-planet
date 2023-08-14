@@ -8,6 +8,7 @@ namespace NomadsPlanet
     public class NetworkServer : IDisposable
     {
         private readonly NetworkManager _networkManager;
+        public Action<string> OnClientLeft;
 
         private readonly Dictionary<ulong, string> _clientIdToAuth = new Dictionary<ulong, string>();
         private readonly Dictionary<string, UserData> _authIdToUserData = new Dictionary<string, UserData>();
@@ -47,6 +48,8 @@ namespace NomadsPlanet
             {
                 _clientIdToAuth.Remove(clientId);
                 _authIdToUserData.Remove(authId);
+
+                OnClientLeft?.Invoke(authId);
             }
         }
 
