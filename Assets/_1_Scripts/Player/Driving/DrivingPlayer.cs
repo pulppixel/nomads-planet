@@ -60,7 +60,9 @@ namespace NomadsPlanet
 
             if (IsServer)
             {
-                var userData = HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
+                var userData = IsHost
+                    ? HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId)
+                    : ServerSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
 
                 playerName.Value = userData.userName;
                 characterType.Value = userData.userAvatarType;

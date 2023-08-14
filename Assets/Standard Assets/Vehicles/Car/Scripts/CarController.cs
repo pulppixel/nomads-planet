@@ -111,6 +111,9 @@ namespace UnityStandardAssets.Vehicles.Car
 
             _originalSteerAngle = m_MaximumSteerAngle;
             m_MaximumSteerAngle *= 0.5f;
+            
+            m_Rigidbody.drag = 0.1f;
+            m_Rigidbody.angularDrag = 0.1f;
 
             _isBoosting = true;
             StartCoroutine(BoostCooldown());
@@ -122,6 +125,8 @@ namespace UnityStandardAssets.Vehicles.Car
             m_FullTorqueOverAllWheels = _originalTorque;
             m_MaximumSteerAngle = _originalSteerAngle;
             m_Topspeed = _originalTopspeed;
+            m_Rigidbody.drag = 0.5f;
+            m_Rigidbody.angularDrag = 0.25f;
             _isBoosting = false;
         }
 

@@ -14,7 +14,7 @@ namespace NomadsPlanet
         private readonly int _serverPort;
         private readonly int _queryPort;
         private MatchplayBackfiller _backfiller;
-        private readonly NetworkServer _networkServer;
+        public NetworkServer NetworkServer { get; private set; }
         private readonly MultiplayAllocationService _multiplayAllocationService;
 
         public ServerGameManager(string serverIP, int serverPort, int queryPort, NetworkManager manager)
@@ -22,7 +22,7 @@ namespace NomadsPlanet
             _serverIP = serverIP;
             _serverPort = serverPort;
             _queryPort = queryPort;
-            _networkServer = new NetworkServer(manager);
+            NetworkServer = new NetworkServer(manager);
             _multiplayAllocationService = new MultiplayAllocationService();
         }
 
@@ -37,8 +37,8 @@ namespace NomadsPlanet
                 if (matchmakerPayload != null)
                 {
                     await StartBackfill(matchmakerPayload);
-                    _networkServer.OnUserJoined += UserJoined;
-                    _networkServer.OnUserLeft += UserLeft;
+                    NetworkServer.OnUserJoined += UserJoined;
+                    NetworkServer.OnUserLeft += UserLeft;
                 }
                 else
                 {
@@ -51,7 +51,7 @@ namespace NomadsPlanet
                 return;
             }
 
-            if (!_networkServer.OpenConnection(_serverIP, _serverPort))
+            if (!NetworkServer.OpenConnection(_serverIP, _serverPort))
             {
                 Debug.LogError("네트워크 서버가 예상대로 시작되지 않았습니다.");
                 return;
@@ -125,12 +125,12 @@ namespace NomadsPlanet
 
         public void Dispose()
         {
-            _networkServer.OnUserJoined -= UserJoined;
-            _networkServer.OnUserLeft -= UserLeft;
+            NetworkServer.OnUserJoined -= UserJoined;
+            NetworkServer.OnUserLeft -= UserLeft;
 
             _backfiller?.Dispose();
             _multiplayAllocationService?.Dispose();
-            _networkServer?.Dispose();
+            NetworkServer?.Dispose();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 namespace NomadsPlanet
 {
@@ -62,8 +63,8 @@ namespace NomadsPlanet
 
         private Vector3 GetInputDirection()
         {
-            float horizontal = Input.GetAxisRaw("Horizontal");
-            float vertical = Input.GetAxisRaw("Vertical");
+            float horizontal = CrossPlatformInputManager.GetAxisRaw("Horizontal");
+            float vertical = CrossPlatformInputManager.GetAxisRaw("Vertical");
             return new Vector3(horizontal, 0f, vertical).normalized;
         }
 
@@ -79,7 +80,7 @@ namespace NomadsPlanet
 
         private void HandleJump()
         {
-            if (Input.GetButtonDown("Jump") && _controller.isGrounded)
+            if (CrossPlatformInputManager.GetButtonDown("Jump") && _controller.isGrounded)
             {
                 Jump();
                 SetAnimationStates(false, true);

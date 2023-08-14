@@ -9,6 +9,8 @@ namespace NomadsPlanet
         [SerializeField] private HostSingleton hostPrefab;
         [SerializeField] private ServerSingleton serverPrefab;
 
+        private ApplicationData _appData;
+
         private async void Start()
         {
             DontDestroyOnLoad(gameObject);
@@ -20,6 +22,8 @@ namespace NomadsPlanet
         {
             if (isDedicatedServer)
             {
+                _appData = new ApplicationData();
+
                 ServerSingleton serverSingleton = Instantiate(serverPrefab);
                 await serverSingleton.CreateServer();
 
