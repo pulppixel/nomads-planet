@@ -43,4 +43,14 @@ namespace NomadsPlanet.Utils
         Error,
         TimeOut,
     }
+
+    public enum Map
+    {
+        Default,
+    }
+
+    public enum GameMode
+    {
+        Default,
+    }
 }

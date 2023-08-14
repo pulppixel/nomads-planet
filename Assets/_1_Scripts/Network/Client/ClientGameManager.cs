@@ -58,7 +58,7 @@ namespace NomadsPlanet
             {
                 userName = ES3.LoadString(PrefsKey.PlayerNameKey, "Missing Name"),
                 userAuthId = AuthenticationService.Instance.PlayerId,
-                userAvatarType = ES3.Load(PrefsKey.PlayerAvatarKey, Random.Range(0, 8)),
+                userAvatarType = ES3.Load(PrefsKey.PlayerAvatarKey, (CharacterType)Random.Range(0, 8)),
             };
 
             string payload = JsonUtility.ToJson(userData);
@@ -67,7 +67,7 @@ namespace NomadsPlanet
             NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
             NetworkManager.Singleton.StartClient();
         }
-        
+
         public void Disconnect()
         {
             _networkClient.Disconnect();
@@ -77,6 +77,5 @@ namespace NomadsPlanet
         {
             _networkClient?.Dispose();
         }
-
     }
 }

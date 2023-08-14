@@ -91,7 +91,7 @@ namespace NomadsPlanet
             {
                 userName = ES3.LoadString(PrefsKey.PlayerNameKey, "Missing Name"),
                 userAuthId = AuthenticationService.Instance.PlayerId,
-                userAvatarType = ES3.Load(PrefsKey.PlayerAvatarKey, UnityEngine.Random.Range(0, 8)),
+                userAvatarType = ES3.Load(PrefsKey.PlayerAvatarKey, (CharacterType)UnityEngine.Random.Range(0, 8)),
             };
 
             string payload = JsonUtility.ToJson(userData);
@@ -115,7 +115,7 @@ namespace NomadsPlanet
                 yield return delay;
             }
         }
-        
+
         private async void HandleClientLeft(string authId)
         {
             try
