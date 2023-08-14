@@ -7,6 +7,7 @@ namespace NomadsPlanet
     {
         [SerializeField] private ClientSingleton clientPrefab;
         [SerializeField] private HostSingleton hostPrefab;
+        [SerializeField] private ServerSingleton serverPrefab;
 
         private async void Start()
         {
@@ -19,6 +20,10 @@ namespace NomadsPlanet
         {
             if (isDedicatedServer)
             {
+                ServerSingleton serverSingleton = Instantiate(serverPrefab);
+                await serverSingleton.CreateServer();
+
+                await serverSingleton.GameManager.StartGameServerAsync();
             }
             else
             {

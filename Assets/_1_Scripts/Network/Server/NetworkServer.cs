@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 
 namespace NomadsPlanet
@@ -19,6 +20,13 @@ namespace NomadsPlanet
 
             _networkManager.ConnectionApprovalCallback += ApprovalCheck;
             _networkManager.OnServerStarted += OnNetworkReady;
+        }
+
+        public bool OpenConnection(string ip, int port)
+        {
+            UnityTransport transport = _networkManager.gameObject.GetComponent<UnityTransport>();
+            transport.SetConnectionData(ip, (ushort)port);
+            return _networkManager.StartServer();
         }
 
         private void ApprovalCheck(

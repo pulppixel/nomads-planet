@@ -23,9 +23,13 @@
 #if UNITY_EDITOR
         public const string PlayerNameKey = "_PlayerName";
         public const string PlayerAvatarKey = "_PlayerAvatar";
+        public const string PlayerCarKey = "_PlayerCar";
+        public const string PlayerCoinKey = "_PlayerCoin";
 #else
         public const string PlayerNameKey = "PlayerName";
         public const string PlayerAvatarKey = "PlayerAvatar";
+        public const string PlayerCarKey = "PlayerCar";
+        public const string PlayerCoinKey = "PlayerCoin";
 #endif
     }
 }

@@ -25,6 +25,7 @@ namespace NomadsPlanet.Utils
 
     public enum CharacterType
     {
+        Null = -1,
         Aqua,
         Cute,
         Green,
@@ -33,6 +34,19 @@ namespace NomadsPlanet.Utils
         Orange,
         Pink,
         Red,
+    }
+
+    public enum CarType
+    {
+        Null = -1,
+        Black,
+        Blue,
+        Carrot,
+        Grey,
+        Orange,
+        Red,
+        Sports,
+        White,
     }
 
     public enum AuthState
