@@ -20,17 +20,17 @@ public class ApplicationData
 
     public static string IP()
     {
-        return PlayerPrefs.GetString(k_IPCmd);
+        return ES3.Load<string>(k_IPCmd);
     }
 
     public static int Port()
     {
-        return PlayerPrefs.GetInt(k_PortCmd);
+        return ES3.Load<int>(k_PortCmd);
     }
 
     public static int QPort()
     {
-        return PlayerPrefs.GetInt(k_QueryPortCmd);
+        return ES3.Load<int>(k_QueryPortCmd);
     }
 
     //Ensure this gets instantiated Early on
@@ -86,14 +86,14 @@ public class ApplicationData
 
     void SetIP(string ipArgument)
     {
-        PlayerPrefs.SetString(k_IPCmd, ipArgument);
+        ES3.Save(k_IPCmd, ipArgument);
     }
 
     void SetPort(string portArgument)
     {
         if (int.TryParse(portArgument, out int parsedPort))
         {
-            PlayerPrefs.SetInt(k_PortCmd, parsedPort);
+            ES3.Save(k_PortCmd, parsedPort);
         }
         else
         {
@@ -105,7 +105,7 @@ public class ApplicationData
     {
         if (int.TryParse(qPortArgument, out int parsedQPort))
         {
-            PlayerPrefs.SetInt(k_QueryPortCmd, parsedQPort);
+            ES3.Save(k_QueryPortCmd, parsedQPort);
         }
         else
         {

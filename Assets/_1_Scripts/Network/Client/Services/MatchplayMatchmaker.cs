@@ -18,10 +18,10 @@ public enum MatchmakerPollingResult
 
 public class MatchmakingResult
 {
-    public string ip;
-    public int port;
-    public MatchmakerPollingResult result;
-    public string resultMessage;
+    public string IP;
+    public int Port;
+    public MatchmakerPollingResult Result;
+    public string ResultMessage;
 }
 
 public class MatchplayMatchmaker : IDisposable
@@ -122,24 +122,24 @@ public class MatchplayMatchmaker : IDisposable
             {
                 return new MatchmakingResult
                 {
-                    result = MatchmakerPollingResult.MatchAssignmentError,
-                    resultMessage = $"Port missing? - {assignment.Port}\n-{assignment.Message}"
+                    Result = MatchmakerPollingResult.MatchAssignmentError,
+                    ResultMessage = $"Port missing? - {assignment.Port}\n-{assignment.Message}"
                 };
             }
 
             return new MatchmakingResult
             {
-                result = MatchmakerPollingResult.Success,
-                ip = parsedIp,
-                port = (int)parsedPort,
-                resultMessage = assignment.Message
+                Result = MatchmakerPollingResult.Success,
+                IP = parsedIp,
+                Port = (int)parsedPort,
+                ResultMessage = assignment.Message
             };
         }
 
         return new MatchmakingResult
         {
-            result = resultErrorType,
-            resultMessage = message
+            Result = resultErrorType,
+            ResultMessage = message
         };
     }
 
