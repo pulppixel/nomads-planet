@@ -1,4 +1,5 @@
-﻿using Unity.Mathematics;
+﻿using NomadsPlanet.Utils;
+using Unity.Mathematics;
 using UnityEngine;
 using Unity.Netcode;
 using Random = UnityEngine.Random;
@@ -27,6 +28,7 @@ namespace NomadsPlanet
 
         private void Start()
         {
+            ES3.Save(PrefsKey.LocalCoinKey, 0);
             vfx.SetActive(false);
         }
 
@@ -64,6 +66,7 @@ namespace NomadsPlanet
                 }
 
                 totalCoins.Value += coinValue;
+                ES3.Save(PrefsKey.LocalCoinKey, totalCoins.Value);
                 playerScore.GetScore(coinValue);
             }
         }

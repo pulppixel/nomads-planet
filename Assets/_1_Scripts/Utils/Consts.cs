@@ -25,11 +25,13 @@
         public const string PlayerAvatarKey = "_PlayerAvatar";
         public const string PlayerCarKey = "_PlayerCar";
         public const string PlayerCoinKey = "_PlayerCoin";
+        public const string LocalCoinKey = "_LocalCoin";
 #else
         public const string PlayerNameKey = "PlayerName";
         public const string PlayerAvatarKey = "PlayerAvatar";
         public const string PlayerCarKey = "PlayerCar";
         public const string PlayerCoinKey = "PlayerCoin";
+        public const string LocalCoinKey = "LocalCoin";
 #endif
     }
 }

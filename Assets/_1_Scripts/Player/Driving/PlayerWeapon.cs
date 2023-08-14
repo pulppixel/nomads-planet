@@ -46,7 +46,7 @@ namespace NomadsPlanet
                     return;
                 }
 
-                _playerScore.GetScore(Damage);
+                // _playerScore.GetScore(Damage);
                 enemy.PlayerScore.LostScore(Damage);
                 enemy.PlayerScore.playerWeapon.OnDamaged?.Invoke(enemy.PlayerScore.playerWeapon);
                 OnAttack?.Invoke(this);
@@ -56,7 +56,7 @@ namespace NomadsPlanet
             if (other.TryGetComponent<PlayerWeapon>(out var weapon))
             {
                 OnAttack?.Invoke(this);
-                _playerScore.GetScore(Damage);
+                // _playerScore.GetScore(Damage);
             }
 
             Vector3 forceDirection = other.transform.position - transform.position;

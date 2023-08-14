@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using NomadsPlanet.Utils;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.Serialization;
@@ -42,6 +43,8 @@ namespace NomadsPlanet
         public void LostScore(int scoreValue)
         {
             ModifyScoreServerRpc(-scoreValue);
+            int currentCoin = ES3.Load(PrefsKey.LocalCoinKey, 0);
+            ES3.Save(PrefsKey.LocalCoinKey, Mathf.Max(currentCoin - scoreValue, 0));
             StartCoroutine(AttackedLogic());
         }
 
