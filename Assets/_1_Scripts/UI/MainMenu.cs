@@ -15,6 +15,7 @@ namespace NomadsPlanet.UI
 
         private bool _isMatchmaking;
         private bool _isCancelling;
+        private float _timeInQueue;
 
         private void Start()
         {
@@ -26,6 +27,14 @@ namespace NomadsPlanet.UI
             queueBoard.SetActive(false);
             queueStatusText.text = string.Empty;
             queueTimerText.text = string.Empty;
+        }
+
+        private void Update()
+        {
+            if (_isMatchmaking)
+            {
+                _timeInQueue += Time.deltaTime;
+            }
         }
 
         public async void FindMatchPressed()
