@@ -28,7 +28,7 @@ namespace NomadsPlanet
             board.rectTransform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBack);
 
             int resultCoin = ES3.Load(PrefsKey.LocalCoinKey, 0);
-            coinText.DOText(resultCoin.ToString("N0"), 1f)
+            coinText.DOText(resultCoin.ToString("N0"), 1f, scrambleMode: ScrambleMode.Numerals)
                 .SetDelay(1f);
 
             okButton.image.rectTransform.DOScale(Vector3.one, 1f)

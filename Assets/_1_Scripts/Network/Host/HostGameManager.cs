@@ -137,23 +137,26 @@ namespace NomadsPlanet
 
         public async void Shutdown()
         {
-            HostSingleton.Instance.StopCoroutine(nameof(HeartbeatLobby));
-
-            if (!string.IsNullOrEmpty(_lobbyId))
+            if (string.IsNullOrEmpty(_lobbyId))
             {
-                try
-                {
-                    await Lobbies.Instance.DeleteLobbyAsync(_lobbyId);
-                }
-                catch (LobbyServiceException lobbyServiceException)
-                {
-                    Debug.LogError(lobbyServiceException);
-                }
-
-                _lobbyId = string.Empty;
+                return;
             }
 
+            HostSingleton.Instance.StopCoroutine(nameof(HeartbeatLobby));
+
+            try
+            {
+                await Lobbies.Instance.DeleteLobbyAsync(_lobbyId);
+            }
+            catch (LobbyServiceException lobbyServiceException)
+            {
+                Debug.LogError(lobbyServiceException);
+            }
+
+            _lobbyId = string.Empty;
+
             NetworkServer.OnClientLeft -= HandleClientLeft;
+
             NetworkServer?.Dispose();
         }
     }

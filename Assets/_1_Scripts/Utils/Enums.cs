@@ -67,4 +67,10 @@ namespace NomadsPlanet.Utils
     {
         Default,
     }
+
+    public enum GameQueue
+    {
+        Solo,
+        Team,
+    }
 }

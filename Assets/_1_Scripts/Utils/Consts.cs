@@ -15,7 +15,8 @@
         public const int MaxConnections = 20;
         public const string ConnectType = "dtls"; // "udp";
         public const string JoinCode = "JoinCode";
-        public const string LobbyName = "My Lobby";
+        public const string SoloQueue = "solo-queue";
+        public const string TeamQueue = "team-queue";
     }
 
     public struct PrefsKey

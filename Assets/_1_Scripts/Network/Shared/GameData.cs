@@ -10,7 +10,7 @@ namespace NomadsPlanet
         public string userAuthId;
         public CarType userCarType;
         public CharacterType userAvatarType;
-        public GameInfo userGamePreferences;
+        public GameInfo userGamePreferences = new();
     }
 
     [Serializable]
@@ -18,10 +18,16 @@ namespace NomadsPlanet
     {
         public Map map;
         public GameMode gameMode;
+        public GameQueue gameQueue;
 
         public string ToMultiplayQueue()
         {
-            return "";
+            return gameQueue switch
+            {
+                GameQueue.Solo => NetworkSetup.SoloQueue,
+                GameQueue.Team => NetworkSetup.TeamQueue,
+                _ => NetworkSetup.SoloQueue,
+            };
         }
     }
 }

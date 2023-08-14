@@ -1131,7 +1131,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -10, y: 0}
-  m_SizeDelta: {x: 54, y: 82}
+  m_SizeDelta: {x: 43.2, y: 65.6}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &274664546
 MonoBehaviour:
@@ -1997,6 +1997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc1c6d1552b4e0d84212f79c78c69cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  queueBoard: {fileID: 128113524}
   queueStatusText: {fileID: 1394970057}
   queueTimerText: {fileID: 1633901105}
   joinCodeField: {fileID: 421838224}
@@ -2319,7 +2320,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: 54, y: 82}
+  m_SizeDelta: {x: 43.2, y: 65.6}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &649347426
 MonoBehaviour:
@@ -5194,7 +5195,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 549762522}
         m_TargetAssemblyTypeName: NomadsPlanet.UI.MainMenu, Assembly-CSharp
-        m_MethodName: StartHost
+        m_MethodName: FindMatchPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5356,7 +5357,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -10, y: 0}
-  m_SizeDelta: {x: 54, y: 82}
+  m_SizeDelta: {x: 43.2, y: 65.6}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1481760072
 MonoBehaviour:
@@ -5509,7 +5510,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: USer Name
+  m_text: User Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 95a7c1d20574142058e8672e3b70fc9a, type: 2}
   m_sharedMaterial: {fileID: -4530280522099584986, guid: 95a7c1d20574142058e8672e3b70fc9a,
@@ -7740,7 +7741,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: 54, y: 82}
+  m_SizeDelta: {x: 43.2, y: 65.6}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1983537367
 MonoBehaviour:
