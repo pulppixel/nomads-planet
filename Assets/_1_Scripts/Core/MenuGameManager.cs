@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using NomadsPlanet.Utils;
@@ -9,13 +11,15 @@ namespace NomadsPlanet
 {
     public class MenuGameManager : MonoBehaviour
     {
-        public Transform carParent;
-        public Transform characterParent;
+        [SerializeField] private Transform carParent;
+        [SerializeField] private Transform characterParent;
 
-        public TMP_Text userNameText;
-        public TMP_Text coinValueText;
+        [SerializeField] private TMP_Text userNameText;
+        [SerializeField] private TMP_Text coinValueText;
 
-        public CinemachineVirtualCamera virtualCamera;
+        [SerializeField] private CinemachineVirtualCamera virtualCamera;
+        [SerializeField] private AudioSource bgmSource;
+        [SerializeField] private LoadingFaderController faderController;
 
         private readonly List<Transform> _carPrefabs = new();
         private readonly List<Transform> _characterPrefabs = new();
@@ -36,9 +40,15 @@ namespace NomadsPlanet
             }
         }
 
-        private void Start()
+        private IEnumerator Start()
         {
             InitSetup();
+
+            yield return new WaitForSeconds(.1f);
+
+            bgmSource.volume = 0f;
+            bgmSource.DOFade(1f, .5f);
+            StartCoroutine(faderController.FadeOut());
         }
 
         public void SetLeftCarClick()

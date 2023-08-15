@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -6,11 +6,14 @@ namespace NomadsPlanet
 {
     public class GameHUD : MonoBehaviour
     {
+        [SerializeField] private LoadingFaderController faderController;
         [SerializeField] private ResultBoard resultBoard;
 
-        private void Start()
+        private IEnumerator Start()
         {
             Cursor.visible = false;
+            yield return new WaitForSeconds(.25f);
+            StartCoroutine(faderController.FadeOut());
         }
 
         public void OpenResultBoard()
@@ -22,7 +25,14 @@ namespace NomadsPlanet
 
         public void LeaveGame()
         {
-            // todo: 게임 결과창 띄우기
+            StartCoroutine(LeaveLogic());
+        }
+
+        private IEnumerator LeaveLogic()
+        {
+            yield return StartCoroutine(faderController.FadeOut());
+            yield return new WaitForSeconds(.2f);
+
             if (NetworkManager.Singleton.IsHost)
             {
                 HostSingleton.Instance.GameManager.Shutdown();

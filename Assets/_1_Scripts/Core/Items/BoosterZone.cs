@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-using DG.Tweening;
 
 namespace NomadsPlanet
 {
     public class BoosterZone : NetworkBehaviour
     {
-        [SerializeField] private Light[] pointLight;
-
         private const float MaxBoostPower = 10f;
         private const float BoosterCooldown = 60f;
         private const float BoosterTickRate = 5f;
@@ -129,18 +126,6 @@ namespace NomadsPlanet
         private void HandleBoosterPowerChanged(float oldBoostPower, float newBoostPower)
         {
             float difference = Mathf.Clamp01(newBoostPower - oldBoostPower);
-            Color targetColor = Color.Lerp(Color.black, new Color(0.33f, 1f, 0.9f), difference);
-
-            _SetAllLightColors(targetColor);
-        }
-
-        private void _SetAllLightColors(Color targetColor)
-        {
-            foreach (var light1 in pointLight)
-            {
-                DOTween.Kill(light1);
-                light1.DOColor(targetColor, 1f);
-            }
         }
     }
 }

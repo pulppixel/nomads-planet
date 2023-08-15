@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
 
 namespace NomadsPlanet
 {
     public class MenuCharacterController : MonoBehaviour
     {
+        public AudioSource sfxAudioSource;
+        public AudioClip leftFoot;
+        public AudioClip rightFoot;
+
         private const float SpeedSmoothTime = 0.1f;
         private const float WalkSpeed = 3f;
         private const float RunSpeed = 6f;
         private const float TurnSmoothTime = 0.1f;
-        private const float JumpHeight = 1f;
+        private const float JumpHeight = 2.5f;
         private const float Gravity = -9.81f;
         private const float DanceTriggerTime = 5f;
 
@@ -21,6 +24,12 @@ namespace NomadsPlanet
 
         private CharacterController _controller;
         private Animator _animator;
+
+        private bool _isMoving = false;
+        private bool _isLeftFoot = true;
+        private float _footstepCounter = 0f;
+        private const float WalkStepInterval = 0.5f; // 걷는 발걸음 소리 간격
+        private const float RunStepInterval = 0.3f;
 
         private static readonly int Run = Animator.StringToHash("Run");
         private static readonly int Dance = Animator.StringToHash("Dance");
@@ -35,10 +44,11 @@ namespace NomadsPlanet
 
         private void Update()
         {
-            HandleMovementAndRun();
             HandleJump();
-            HandleDance();
             ApplyGravity();
+            HandleMovementAndRun();
+            HandleDance();
+            HandleFootsteps();
             FinalizeMovement();
         }
 
@@ -63,8 +73,8 @@ namespace NomadsPlanet
 
         private Vector3 GetInputDirection()
         {
-            float horizontal = CrossPlatformInputManager.GetAxisRaw("Horizontal");
-            float vertical = CrossPlatformInputManager.GetAxisRaw("Vertical");
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
             return new Vector3(horizontal, 0f, vertical).normalized;
         }
 
@@ -80,7 +90,7 @@ namespace NomadsPlanet
 
         private void HandleJump()
         {
-            if (CrossPlatformInputManager.GetButtonDown("Jump") && _controller.isGrounded)
+            if (Input.GetButtonDown("Jump") && _controller.isGrounded)
             {
                 Jump();
                 SetAnimationStates(false, true);
@@ -129,6 +139,45 @@ namespace NomadsPlanet
         private void AccumulateIdleTime()
         {
             _idleTime += Time.deltaTime;
+        }
+
+        private void HandleFootsteps()
+        {
+            bool isWalking = _animator.GetBool(Walk);
+            bool isRunning = _animator.GetBool(Run);
+            bool isJumping = _animator.GetCurrentAnimatorStateInfo(0).IsName("Jump");
+            bool currentlyMoving = (isWalking || isRunning) && !isJumping;
+
+            if (currentlyMoving)
+            {
+                if (!_isMoving)
+                {
+                    PlayFootstepSound();
+                    _footstepCounter = 0f;
+                    _isMoving = true;
+                }
+
+                float stepInterval = isRunning ? RunStepInterval : WalkStepInterval;
+                _footstepCounter += Time.deltaTime;
+
+                if (_footstepCounter >= stepInterval)
+                {
+                    PlayFootstepSound();
+                    _footstepCounter = 0f;
+                }
+            }
+            else
+            {
+                _footstepCounter = 0f;
+                _isMoving = false;
+            }
+        }
+
+        private void PlayFootstepSound()
+        {
+            AudioClip clip = _isLeftFoot ? leftFoot : rightFoot;
+            sfxAudioSource.PlayOneShot(clip);
+            _isLeftFoot = !_isLeftFoot;
         }
 
         private void SetAnimationStates(bool walk, bool jump)

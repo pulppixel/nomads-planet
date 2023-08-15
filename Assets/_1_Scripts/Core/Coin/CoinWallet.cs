@@ -54,6 +54,11 @@ namespace NomadsPlanet
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!IsLocalPlayer)
+            {
+                return;
+            }
+
             if (other.TryGetComponent(out Coin coin))
             {
                 vfx.SetActive(false);
@@ -65,6 +70,7 @@ namespace NomadsPlanet
                     return;
                 }
 
+                SoundManager.Instance.PlayCoinGetSfx();
                 totalCoins.Value += coinValue;
                 ES3.Save(PrefsKey.LocalCoinKey, totalCoins.Value);
                 playerScore.GetScore(coinValue);

@@ -33,7 +33,7 @@ namespace NomadsPlanet
         {
             bgmSource.clip = inGameBgm;
             bgmSource.volume = 0f;
-            bgmSource.DOFade(1f, .5f);
+            bgmSource.DOFade(.75f, .5f);
         }
 
         public void PlayCoinGetSfx()
@@ -41,17 +41,17 @@ namespace NomadsPlanet
             sfxSource.PlayOneShot(coinGetSfx);
         }
 
-        public void HitSoundSfx()
+        public void PlayHitSoundSfx()
         {
             sfxSource.PlayOneShot(hitCarSfx);
         }
 
-        public void BoosterSfx()
+        public void PlayBoosterSfx()
         {
             sfxSource.PlayOneShot(boosterSfx);
         }
 
-        public void ChangeBgm()
+        public void PlayChangeBgm()
         {
             bgmSource.DOFade(0f, 1f);
             bgmSource.clip = resultBgm;

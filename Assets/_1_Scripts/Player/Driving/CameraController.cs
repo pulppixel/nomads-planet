@@ -1,6 +1,5 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
 
 namespace NomadsPlanet
 {
@@ -41,8 +40,8 @@ namespace NomadsPlanet
                 return;
             }
 
-            float mouseX = CrossPlatformInputManager.GetAxis("Mouse X");
-            float mouseY = -CrossPlatformInputManager.GetAxis("Mouse Y");
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = -Input.GetAxis("Mouse Y");
 
             _horizontalRotation += AdjustSensitivity(
                 mouseX * Sensitivity * Time.deltaTime,

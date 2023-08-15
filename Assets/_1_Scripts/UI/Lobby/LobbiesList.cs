@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using NomadsPlanet.Utils;
+﻿using System.Collections.Generic;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
@@ -9,10 +7,10 @@ namespace NomadsPlanet
 {
     public class LobbiesList : MonoBehaviour
     {
+        [SerializeField] private MainMenu mainMenu;
         [SerializeField] private Transform lobbyItemParent;
         [SerializeField] private LobbyItem lobbyItemPrefab;
 
-        private bool _isJoining;
         private bool _isRefreshing;
 
         private void OnEnable()
@@ -69,28 +67,10 @@ namespace NomadsPlanet
             _isRefreshing = false;
         }
 
-        public async void JoinAsync(Lobby lobby)
+
+        public void JoinAsync(Lobby lobby)
         {
-            if (_isJoining)
-            {
-                return;
-            }
-
-            _isJoining = true;
-
-            try
-            {
-                Lobby joiningLobby = await Lobbies.Instance.JoinLobbyByIdAsync(lobby.Id);
-                string joinCode = joiningLobby.Data[NetworkSetup.JoinCode].Value;
-
-                await ClientSingleton.Instance.GameManager.StartClientAsync(joinCode);
-            }
-            catch (LobbyServiceException lobbyServiceException)
-            {
-                Debug.LogError(lobbyServiceException);
-            }
-
-            _isJoining = false;
+            mainMenu.JoinAsync(lobby);
         }
     }
 }

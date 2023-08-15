@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace NomadsPlanet
+﻿namespace NomadsPlanet
 {
     public class BountyCoin : Coin
     {
@@ -19,6 +17,7 @@ namespace NomadsPlanet
 
             alreadyCollected = true;
 
+            SoundManager.Instance.PlayBoosterSfx();
             Destroy(gameObject);
 
             return coinValue;
