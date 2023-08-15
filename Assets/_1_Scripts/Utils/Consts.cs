@@ -15,7 +15,8 @@
         public const int MaxConnections = 20;
         public const string ConnectType = "dtls"; // "udp";
         public const string JoinCode = "JoinCode";
-        public const string LobbyName = "My Lobby";
+        public const string SoloQueue = "solo-queue";
+        public const string TeamQueue = "team-queue";
     }
 
     public struct PrefsKey
@@ -23,9 +24,15 @@
 #if UNITY_EDITOR
         public const string PlayerNameKey = "_PlayerName";
         public const string PlayerAvatarKey = "_PlayerAvatar";
+        public const string PlayerCarKey = "_PlayerCar";
+        public const string PlayerCoinKey = "_PlayerCoin";
+        public const string LocalCoinKey = "_LocalCoin";
 #else
         public const string PlayerNameKey = "PlayerName";
         public const string PlayerAvatarKey = "PlayerAvatar";
+        public const string PlayerCarKey = "PlayerCar";
+        public const string PlayerCoinKey = "PlayerCoin";
+        public const string LocalCoinKey = "LocalCoin";
 #endif
     }
 }

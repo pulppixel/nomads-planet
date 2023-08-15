@@ -1,14 +1,13 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
 
 namespace NomadsPlanet
 {
     public class CameraController : NetworkBehaviour
     {
-        public float sensitivity = 100.0f; // 마우스 감도
-        public float clampAngleVertical = 80.0f; // 수직 마우스 움직임 제한 각도
-        public float clampAngleHorizontal = 80.0f; // 수평 마우스 움직임 제한 각도
+        private const float Sensitivity = 270.0f;
+        private const float ClampAngleVertical = 45.0f;
+        private const float ClampAngleHorizontal = 60.0f;
 
         private float _verticalRotation;
         private float _horizontalRotation;
@@ -41,18 +40,38 @@ namespace NomadsPlanet
                 return;
             }
 
-            float mouseX = CrossPlatformInputManager.GetAxis("Mouse X");
-            float mouseY = -CrossPlatformInputManager.GetAxis("Mouse Y");
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = -Input.GetAxis("Mouse Y");
 
-            _horizontalRotation += mouseX * sensitivity * Time.deltaTime;
-            _verticalRotation += mouseY * sensitivity * Time.deltaTime;
+            _horizontalRotation += AdjustSensitivity(
+                mouseX * Sensitivity * Time.deltaTime,
+                _horizontalRotation,
+                -ClampAngleHorizontal,
+                ClampAngleHorizontal
+            );
 
-            _verticalRotation = Mathf.Clamp(_verticalRotation, -clampAngleVertical, clampAngleVertical);
-            _horizontalRotation = Mathf.Clamp(_horizontalRotation, -clampAngleHorizontal, clampAngleHorizontal);
+            _verticalRotation += AdjustSensitivity(
+                mouseY * Sensitivity * Time.deltaTime,
+                _verticalRotation,
+                -ClampAngleVertical,
+                ClampAngleVertical
+            );
+
+            _verticalRotation = Mathf.Clamp(_verticalRotation, -ClampAngleVertical, ClampAngleVertical);
+            _horizontalRotation = Mathf.Clamp(_horizontalRotation, -ClampAngleHorizontal, ClampAngleHorizontal);
 
             Quaternion targetRotation = _transform.parent.rotation *
                                         Quaternion.Euler(_verticalRotation, _horizontalRotation, _yawRotation);
             _transform.rotation = targetRotation;
+        }
+
+        private static float AdjustSensitivity(float input, float currentRotation, float minAngle, float maxAngle)
+        {
+            float distanceToLowerBound = Mathf.Abs(currentRotation - minAngle);
+            float distanceToUpperBound = Mathf.Abs(currentRotation - maxAngle);
+
+            float factor = Mathf.Min(distanceToLowerBound, distanceToUpperBound) / (maxAngle - minAngle);
+            return input * Mathf.SmoothStep(0.5f, 1f, factor);
         }
     }
 }

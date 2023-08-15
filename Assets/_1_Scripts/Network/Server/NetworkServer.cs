@@ -1,24 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Unity.Mathematics;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace NomadsPlanet
 {
     public class NetworkServer : IDisposable
     {
         private readonly NetworkManager _networkManager;
+        private readonly NetworkObject _playerPrefab;
+
+        public Action<UserData> OnUserJoined;
+        public Action<UserData> OnUserLeft;
+
         public Action<string> OnClientLeft;
 
-        private readonly Dictionary<ulong, string> _clientIdToAuth = new Dictionary<ulong, string>();
-        private readonly Dictionary<string, UserData> _authIdToUserData = new Dictionary<string, UserData>();
+        private readonly Dictionary<ulong, string> _clientIdToAuth = new();
+        private readonly Dictionary<string, UserData> _authIdToUserData = new();
 
-        public NetworkServer(NetworkManager networkManager)
+        public NetworkServer(NetworkManager networkManager, NetworkObject playerPrefab)
         {
             _networkManager = networkManager;
+            _playerPrefab = playerPrefab;
 
             _networkManager.ConnectionApprovalCallback += ApprovalCheck;
             _networkManager.OnServerStarted += OnNetworkReady;
+        }
+
+        public bool OpenConnection(string ip, int port)
+        {
+            UnityTransport transport = _networkManager.gameObject.GetComponent<UnityTransport>();
+            transport.SetConnectionData(ip, (ushort)port);
+            return _networkManager.StartServer();
         }
 
         private void ApprovalCheck(
@@ -30,11 +47,22 @@ namespace NomadsPlanet
 
             _clientIdToAuth[request.ClientNetworkId] = userData.userAuthId;
             _authIdToUserData[userData.userAuthId] = userData;
+            OnUserJoined?.Invoke(userData);
+
+            _ = SpawnPlayerDelayed(request.ClientNetworkId);
 
             response.Approved = true;
-            response.Position = SpawnPoint.GetRandomSpawnPos();
-            response.Rotation = Quaternion.identity;
-            response.CreatePlayerObject = true;
+            response.CreatePlayerObject = false;
+        }
+
+        private async Task SpawnPlayerDelayed(ulong clientId)
+        {
+            await Task.Delay(1000);
+
+            NetworkObject playerInstance =
+                Object.Instantiate(_playerPrefab, SpawnPoint.GetRandomSpawnPos(), quaternion.identity);
+
+            playerInstance.SpawnAsPlayerObject(clientId);
         }
 
         private void OnNetworkReady()
@@ -47,8 +75,8 @@ namespace NomadsPlanet
             if (_clientIdToAuth.TryGetValue(clientId, out string authId))
             {
                 _clientIdToAuth.Remove(clientId);
+                OnUserLeft?.Invoke(_authIdToUserData[authId]);
                 _authIdToUserData.Remove(authId);
-
                 OnClientLeft?.Invoke(authId);
             }
         }
@@ -67,7 +95,7 @@ namespace NomadsPlanet
 
             return null;
         }
-        
+
         public void Dispose()
         {
             if (_networkManager == null)

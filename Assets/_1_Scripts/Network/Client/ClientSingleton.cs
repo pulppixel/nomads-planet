@@ -6,20 +6,18 @@ namespace NomadsPlanet
 {
     public class ClientSingleton : MonoBehaviour
     {
-        private static ClientSingleton instance;
+        public static ClientSingleton Instance { get; private set; }
 
         public ClientGameManager GameManager { get; private set; }
 
-        public static ClientSingleton Instance => instance;
-
         private void Awake()
         {
-            if (instance != null && instance != this)
+            if (Instance != null && Instance != this)
             {
                 Destroy(gameObject);
             }
 
-            instance = this;
+            Instance = this;
         }
 
         private void Start()

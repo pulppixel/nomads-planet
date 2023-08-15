@@ -20,10 +20,17 @@ namespace NomadsPlanet
     public class HostGameManager : IDisposable
     {
         private Allocation _allocation;
+        private readonly NetworkObject _playerPrefab;
+
         private string _joinCode;
         private string _lobbyId;
 
         public NetworkServer NetworkServer { get; private set; }
+
+        public HostGameManager(NetworkObject playerPrefab)
+        {
+            _playerPrefab = playerPrefab;
+        }
 
         public async Task StartHostAsync()
         {
@@ -85,13 +92,14 @@ namespace NomadsPlanet
                 return;
             }
 
-            NetworkServer = new NetworkServer(NetworkManager.Singleton);
+            NetworkServer = new NetworkServer(NetworkManager.Singleton, _playerPrefab);
 
             UserData userData = new UserData
             {
                 userName = ES3.LoadString(PrefsKey.PlayerNameKey, "Missing Name"),
                 userAuthId = AuthenticationService.Instance.PlayerId,
-                userAvatarType = ES3.Load(PrefsKey.PlayerAvatarKey, UnityEngine.Random.Range(0, 8)),
+                userCarType = ES3.Load(PrefsKey.PlayerCarKey, (CarType)UnityEngine.Random.Range(0, 8)),
+                userAvatarType = ES3.Load(PrefsKey.PlayerAvatarKey, (CharacterType)UnityEngine.Random.Range(0, 8)),
             };
 
             string payload = JsonUtility.ToJson(userData);
@@ -115,7 +123,7 @@ namespace NomadsPlanet
                 yield return delay;
             }
         }
-        
+
         private async void HandleClientLeft(string authId)
         {
             try
@@ -136,23 +144,26 @@ namespace NomadsPlanet
 
         public async void Shutdown()
         {
-            HostSingleton.Instance.StopCoroutine(nameof(HeartbeatLobby));
-
-            if (!string.IsNullOrEmpty(_lobbyId))
+            if (string.IsNullOrEmpty(_lobbyId))
             {
-                try
-                {
-                    await Lobbies.Instance.DeleteLobbyAsync(_lobbyId);
-                }
-                catch (LobbyServiceException lobbyServiceException)
-                {
-                    Debug.LogError(lobbyServiceException);
-                }
-
-                _lobbyId = string.Empty;
+                return;
             }
 
+            HostSingleton.Instance.StopCoroutine(nameof(HeartbeatLobby));
+
+            try
+            {
+                await Lobbies.Instance.DeleteLobbyAsync(_lobbyId);
+            }
+            catch (LobbyServiceException lobbyServiceException)
+            {
+                Debug.LogError(lobbyServiceException);
+            }
+
+            _lobbyId = string.Empty;
+
             NetworkServer.OnClientLeft -= HandleClientLeft;
+
             NetworkServer?.Dispose();
         }
     }

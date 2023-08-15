@@ -66,6 +66,11 @@ namespace NomadsPlanet
 
         private void HandleLeaderboardEntitiesChanged(NetworkListEvent<LeaderboardEntityState> changeEvent)
         {
+            if (!gameObject.scene.isLoaded)
+            {
+                return;
+            }
+            
             switch (changeEvent.Type)
             {
                 case NetworkListEvent<LeaderboardEntityState>.EventType.Add:

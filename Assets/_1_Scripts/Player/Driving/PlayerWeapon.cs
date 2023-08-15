@@ -4,18 +4,17 @@ using Unity.Netcode;
 
 namespace NomadsPlanet
 {
-    public class PlayerWeapon : MonoBehaviour
+    public class PlayerWeapon : NetworkBehaviour
     {
         private const float ForceMultiplier = 5000f;
         private const int Damage = 5;
+        private float _lastAttackTime = -3.0f;
+        private const float AttackCooldown = 3.0f;
 
         public event Action<PlayerWeapon> OnAttack;
         public event Action<PlayerWeapon> OnDamaged;
-
         private PlayerScore _playerScore;
-
         private ulong _ownerClientId;
-
         private Rigidbody _rigidbody;
 
         private void Awake()
@@ -31,10 +30,23 @@ namespace NomadsPlanet
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!IsLocalPlayer)
+            {
+                return;
+            }
+
+            if (Time.time - _lastAttackTime < AttackCooldown)
+            {
+                return;
+            }
+
             if (other.attachedRigidbody == null || !other.gameObject.CompareTag("Player"))
             {
                 return;
             }
+
+            _lastAttackTime = Time.time;
+            SoundManager.Instance.PlayHitSoundSfx();
 
             // 상대방 몸통 박았을 경우
             if (other.TryGetComponent<CarParentGetter>(out var enemy))
@@ -46,7 +58,7 @@ namespace NomadsPlanet
                     return;
                 }
 
-                _playerScore.GetScore(Damage);
+                // _playerScore.GetScore(Damage);
                 enemy.PlayerScore.LostScore(Damage);
                 enemy.PlayerScore.playerWeapon.OnDamaged?.Invoke(enemy.PlayerScore.playerWeapon);
                 OnAttack?.Invoke(this);
@@ -56,7 +68,7 @@ namespace NomadsPlanet
             if (other.TryGetComponent<PlayerWeapon>(out var weapon))
             {
                 OnAttack?.Invoke(this);
-                _playerScore.GetScore(Damage);
+                // _playerScore.GetScore(Damage);
             }
 
             Vector3 forceDirection = other.transform.position - transform.position;

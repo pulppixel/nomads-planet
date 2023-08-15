@@ -1,34 +1,24 @@
 ﻿using System;
-using System.Threading.Tasks;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace NomadsPlanet
 {
     public class HostSingleton : MonoBehaviour
     {
-        private static HostSingleton instance;
+        public static HostSingleton Instance { get; private set; }
 
         public HostGameManager GameManager { get; private set; }
 
-        public static HostSingleton Instance
+        private void Awake()
         {
-            get
+            if (Instance != null && Instance != this)
             {
-                if (instance != null)
-                {
-                    return instance;
-                }
-
-                instance = FindObjectOfType<HostSingleton>();
-
-                if (instance != null)
-                {
-                    return instance;
-                }
-
-                Debug.LogError("HostSingleton이 씬에 없습니다!");
-                return null;
+                Destroy(gameObject);
+                return;
             }
+
+            Instance = this;
         }
 
         private void Start()
@@ -36,9 +26,9 @@ namespace NomadsPlanet
             DontDestroyOnLoad(gameObject);
         }
 
-        public void CreateHost()
+        public void CreateHost(NetworkObject playerPrefab)
         {
-            GameManager = new HostGameManager();
+            GameManager = new HostGameManager(playerPrefab);
         }
 
         private void OnDestroy()

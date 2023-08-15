@@ -69,9 +69,18 @@ namespace UnityStandardAssets.Vehicles.Car
         public float AccelInput { get; private set; }
 
         // Use this for initialization
-        private void Start()
+        public void Init(Transform parent)
         {
             m_WheelMeshLocalRotations = new Quaternion[4];
+
+            m_WheelMeshes = new GameObject[4]
+            {
+                parent.GetChild(7).gameObject,
+                parent.GetChild(6).gameObject,
+                parent.GetChild(9).gameObject,
+                parent.GetChild(8).gameObject,
+            };
+            
             for (int i = 0; i < 4; i++)
             {
                 m_WheelMeshLocalRotations[i] = m_WheelMeshes[i].transform.localRotation;
@@ -95,13 +104,16 @@ namespace UnityStandardAssets.Vehicles.Car
         {
             if (_isBoosting) return;
             _originalTorque = m_FullTorqueOverAllWheels;
-            m_FullTorqueOverAllWheels *= 10;
+            m_FullTorqueOverAllWheels *= 5;
 
             _originalTopspeed = m_Topspeed;
-            m_Topspeed *= 5f;
+            m_Topspeed *= 3f;
 
             _originalSteerAngle = m_MaximumSteerAngle;
             m_MaximumSteerAngle *= 0.5f;
+            
+            m_Rigidbody.drag = 0.25f;
+            m_Rigidbody.angularDrag = 0.125f;
 
             _isBoosting = true;
             StartCoroutine(BoostCooldown());
@@ -113,6 +125,8 @@ namespace UnityStandardAssets.Vehicles.Car
             m_FullTorqueOverAllWheels = _originalTorque;
             m_MaximumSteerAngle = _originalSteerAngle;
             m_Topspeed = _originalTopspeed;
+            m_Rigidbody.drag = 0.5f;
+            m_Rigidbody.angularDrag = 0.25f;
             _isBoosting = false;
         }
 
