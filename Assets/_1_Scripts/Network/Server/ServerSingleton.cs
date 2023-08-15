@@ -8,19 +8,20 @@ namespace NomadsPlanet
 {
     public class ServerSingleton : MonoBehaviour
     {
-        public static ServerSingleton Instance { get; private set; }
+        private static ServerSingleton _instance;
 
         public ServerGameManager GameManager { get; private set; }
-
-        private void Awake()
+        
+        public static ServerSingleton Instance
         {
-            if (Instance != null && Instance != this)
+            get
             {
-                Destroy(gameObject);
-                return;
-            }
+                if (_instance != null) { return _instance; }
 
-            Instance = this;
+                _instance = FindObjectOfType<ServerSingleton>();
+
+                return _instance == null ? null : _instance;
+            }
         }
 
         private void Start()
