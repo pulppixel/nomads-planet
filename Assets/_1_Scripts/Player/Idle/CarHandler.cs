@@ -1,6 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using Sirenix.OdinInspector;
 
 namespace NomadsPlanet
 {
@@ -11,7 +10,7 @@ namespace NomadsPlanet
 
         private const float Speed = .15f;
 
-        [ShowInInspector] public bool IsMoving { get; private set; }
+        public bool IsMoving { get; private set; }
 
         private Transform _transform;
 

@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using NomadsPlanet.Utils;
-using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using LightType = NomadsPlanet.Utils.LightType;
@@ -13,12 +12,12 @@ namespace NomadsPlanet
     public class TrafficFlow : MonoBehaviour
     {
         // "해당 차선에서 갈 수 있는 곳들 목록"
-        [SerializeField, RequiredListLength(2)]
+        [SerializeField]
         private Transform[] leftCarTargets = new Transform[2]; // 좌회전, 직진
 
         private readonly Transform[] _leftWayPoint = new Transform[2]; // 왼쪽 좌회전 경유지
 
-        [SerializeField, RequiredListLength(2)]
+        [SerializeField]
         private Transform[] rightCarTargets = new Transform[2]; // 우회전, 직진
 
         private readonly Transform[] _rightWayPoint = new Transform[2]; // 우회전 경유지
@@ -27,7 +26,7 @@ namespace NomadsPlanet
         private List<CarDetector> LeftCarDetectors { get; set; }
         private List<CarDetector> RightCarDetectors { get; set; }
 
-        [ShowInInspector] private readonly List<CarHandler> _insideCars = new(14);
+        private readonly List<CarHandler> _insideCars = new(14);
 
         // 이 아래는 클래스 성질을 나타내기 위함. 볼 필요 x
         private LightType _curLightType;
