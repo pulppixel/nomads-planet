@@ -8,7 +8,6 @@ using UnityEngine;
 using NomadsPlanet;
 using NomadsPlanet.Utils;
 
-
 namespace NomadsPlanet
 {
     public enum MatchmakerPollingResult

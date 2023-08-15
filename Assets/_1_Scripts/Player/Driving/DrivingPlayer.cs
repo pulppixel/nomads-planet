@@ -61,13 +61,10 @@ namespace NomadsPlanet
 
             if (IsServer)
             {
-#if UNITY_SERVER || UNITY_EDITOR
                 var userData = IsHost
                     ? HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId)
                     : ServerSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
-#else
-                var userData = HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
-#endif
+
                 playerName.Value = userData.userName;
                 characterType.Value = userData.userAvatarType;
                 carType.Value = userData.userCarType;
@@ -107,11 +104,12 @@ namespace NomadsPlanet
 
             _animator.Rebind();
             CarController.Init(_carPrefabs[idx].transform);
+            Invoke(nameof(ColliderActive), 1f);
         }
 
         public void ColliderActive()
         {
             collider.enabled = true;
-        } 
+        }
     }
 }

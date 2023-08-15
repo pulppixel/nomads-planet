@@ -1,5 +1,4 @@
-﻿#if UNITY_SERVER || UNITY_EDITOR
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
@@ -133,4 +132,3 @@ namespace NomadsPlanet
         }
     }
 }
-#endif
