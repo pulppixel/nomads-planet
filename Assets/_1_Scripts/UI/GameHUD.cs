@@ -19,6 +19,7 @@ namespace NomadsPlanet
         public void OpenResultBoard()
         {
             Cursor.visible = true;
+            SoundManager.Instance.PlayChangeBgm();
             resultBoard.gameObject.SetActive(true);
             resultBoard.Entrance();
         }
@@ -30,7 +31,7 @@ namespace NomadsPlanet
 
         private IEnumerator LeaveLogic()
         {
-            yield return StartCoroutine(faderController.FadeOut());
+            yield return StartCoroutine(faderController.FadeIn());
             yield return new WaitForSeconds(.2f);
 
             if (NetworkManager.Singleton.IsHost)
