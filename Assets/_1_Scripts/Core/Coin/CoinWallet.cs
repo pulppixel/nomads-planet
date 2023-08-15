@@ -54,7 +54,7 @@ namespace NomadsPlanet
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!IsLocalPlayer)
+            if (!IsOwner)
             {
                 return;
             }

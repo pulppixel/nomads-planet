@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
@@ -102,8 +103,12 @@ namespace NomadsPlanet
             _carPrefabs[idx].gameObject.SetActive(true);
 
             _animator.Rebind();
-            collider.enabled = true;
             CarController.Init(_carPrefabs[idx].transform);
         }
+
+        public void ColliderActive()
+        {
+            collider.enabled = true;
+        } 
     }
 }

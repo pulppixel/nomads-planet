@@ -65,6 +65,7 @@ namespace NomadsPlanet
                 SpawnPoint.GetRandomSpawnPos(),
                 quaternion.identity
             );
+            playerInstance.GetComponent<DrivingPlayer>().ColliderActive();
 
             CustomFunc.ConsoleLog($"생성된 플레이어: {playerInstance}, 위치: {playerInstance.transform.position}");
             playerInstance.SpawnAsPlayerObject(clientId);

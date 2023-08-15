@@ -11,14 +11,12 @@ namespace NomadsPlanet
 
         private IEnumerator Start()
         {
-            Cursor.visible = false;
             yield return new WaitForSeconds(.25f);
             StartCoroutine(faderController.FadeOut());
         }
 
         public void OpenResultBoard()
         {
-            Cursor.visible = true;
             SoundManager.Instance.PlayChangeBgm();
             resultBoard.gameObject.SetActive(true);
             resultBoard.Entrance();
