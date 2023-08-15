@@ -3,7 +3,6 @@ using System.Collections;
 using NomadsPlanet.Utils;
 using UnityEngine;
 using Unity.Netcode;
-using UnityEngine.Serialization;
 
 namespace NomadsPlanet
 {

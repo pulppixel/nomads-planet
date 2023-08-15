@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using NomadsPlanet.Utils;
 using UnityEngine;
 
 /// <summary>
@@ -65,7 +66,7 @@ public class ApplicationData
             }
         }
 
-        Debug.Log(sb);
+        CustomFunc.ConsoleLog(sb);
     }
 
     /// <summary>
@@ -97,7 +98,7 @@ public class ApplicationData
         }
         else
         {
-            Debug.LogError($"{portArgument} does not contain a parseable port!");
+            CustomFunc.ConsoleLog($"{portArgument} does not contain a parseable port!");
         }
     }
 
@@ -109,7 +110,7 @@ public class ApplicationData
         }
         else
         {
-            Debug.LogError($"{qPortArgument} does not contain a parseable query port!");
+            CustomFunc.ConsoleLog($"{qPortArgument} does not contain a parseable query port!");
         }
     }
 

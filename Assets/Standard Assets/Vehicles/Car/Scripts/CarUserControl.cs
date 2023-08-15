@@ -1,4 +1,3 @@
-using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
@@ -25,14 +24,19 @@ namespace UnityStandardAssets.Vehicles.Car
             }
 
             // pass the input to the car!
-            float h = CrossPlatformInputManager.GetAxis("Horizontal");
-            float v = CrossPlatformInputManager.GetAxis("Vertical");
+#if UNITY_ANDROID || UNITY_IOS
+            float horizontal = MobileInputController.Instance.InputValue.y;
+            float vertical = MobileInputController.Instance.InputValue.x;
+#else
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+#endif
 
-            m_Animatior.SetBool("TurnLeft", h < -.1f);
-            m_Animatior.SetBool("TurnRight", h > .1f);
+            m_Animatior.SetBool("TurnLeft", vertical < -.1f);
+            m_Animatior.SetBool("TurnRight", vertical > .1f);
 #if !MOBILE_INPUT
             float handbrake = CrossPlatformInputManager.GetAxis("Jump");
-            m_Car.Move(h, v, v, handbrake);
+            m_Car.Move(vertical, horizontal, horizontal, handbrake);
 #else
             m_Car.Move(h, v, v, 0f);
 #endif

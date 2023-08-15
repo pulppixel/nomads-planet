@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using NomadsPlanet.Utils;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
@@ -20,7 +19,7 @@ namespace NomadsPlanet
 
             if (AuthState == AuthState.Authenticating)
             {
-                Debug.LogWarning("이미 인증되었습니다!!");
+                CustomFunc.ConsoleLog("이미 인증되었습니다!!");
                 await Authenticating();
                 return AuthState;
             }
@@ -59,12 +58,12 @@ namespace NomadsPlanet
                 }
                 catch (AuthenticationException authException)
                 {
-                    Debug.LogError(authException);
+                    CustomFunc.ConsoleLog(authException, true);
                     AuthState = AuthState.Error;
                 }
                 catch (RequestFailedException requestException)
                 {
-                    Debug.LogError(requestException);
+                    CustomFunc.ConsoleLog(requestException, true);
                     AuthState = AuthState.Error;
                 }
 
@@ -74,7 +73,7 @@ namespace NomadsPlanet
 
             if (AuthState != AuthState.Authenticated)
             {
-                Debug.LogWarning($"플레이어가 제대로 로그인하지 못했습니다. {retries} 회 시도");
+                CustomFunc.ConsoleLog($"플레이어가 제대로 로그인하지 못했습니다. {retries} 회 시도");
                 AuthState = AuthState.TimeOut;
             }
         }

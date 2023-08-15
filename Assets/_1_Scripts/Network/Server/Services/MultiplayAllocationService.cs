@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using NomadsPlanet.Utils;
 using Unity.Services.Matchmaker.Models;
 using Unity.Services.Multiplay;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class MultiplayAllocationService : IDisposable
         }
         catch (Exception ex)
         {
-            Debug.LogWarning($"Error creating Multiplay allocation service.\n{ex}");
+            CustomFunc.ConsoleLog($"Error creating Multiplay allocation service.\n{ex}");
         }
     }
 
@@ -49,12 +50,12 @@ public class MultiplayAllocationService : IDisposable
     private async Task<string> AwaitAllocationID()
     {
         ServerConfig config = _multiplayService.ServerConfig;
-        Debug.Log($"Awaiting Allocation. Server Config is:\n" +
-                  $"-ServerID: {config.ServerId}\n" +
-                  $"-AllocationID: {config.AllocationId}\n" +
-                  $"-Port: {config.Port}\n" +
-                  $"-QPort: {config.QueryPort}\n" +
-                  $"-logs: {config.ServerLogDirectory}");
+        CustomFunc.ConsoleLog($"Awaiting Allocation. Server Config is:\n" +
+                              $"-ServerID: {config.ServerId}\n" +
+                              $"-AllocationID: {config.AllocationId}\n" +
+                              $"-Port: {config.Port}\n" +
+                              $"-QPort: {config.QueryPort}\n" +
+                              $"-logs: {config.ServerLogDirectory}");
 
         while (string.IsNullOrEmpty(_allocationId))
         {
@@ -62,7 +63,7 @@ public class MultiplayAllocationService : IDisposable
 
             if (!string.IsNullOrEmpty(configID) && string.IsNullOrEmpty(_allocationId))
             {
-                Debug.Log($"Config had AllocationID: {configID}");
+                CustomFunc.ConsoleLog($"Config had AllocationID: {configID}");
                 _allocationId = configID;
             }
 
@@ -77,13 +78,13 @@ public class MultiplayAllocationService : IDisposable
         MatchmakingResults payloadAllocation =
             await MultiplayService.Instance.GetPayloadAllocationFromJsonAs<MatchmakingResults>();
         string modelAsJson = JsonConvert.SerializeObject(payloadAllocation, Formatting.Indented);
-        Debug.Log(nameof(GetMatchmakerAllocationPayloadAsync) + ":" + Environment.NewLine + modelAsJson);
+        CustomFunc.ConsoleLog(nameof(GetMatchmakerAllocationPayloadAsync) + ":" + Environment.NewLine + modelAsJson);
         return payloadAllocation;
     }
 
     private void OnMultiplayAllocation(MultiplayAllocation allocation)
     {
-        Debug.Log($"OnAllocation: {allocation.AllocationId}");
+        CustomFunc.ConsoleLog($"OnAllocation: {allocation.AllocationId}");
 
         if (string.IsNullOrEmpty(allocation.AllocationId))
         {
@@ -151,13 +152,13 @@ public class MultiplayAllocationService : IDisposable
 
     private void OnMultiplayDeAllocation(MultiplayDeallocation deallocation)
     {
-        Debug.Log(
+        CustomFunc.ConsoleLog(
             $"Multiplay Deallocated : ID: {deallocation.AllocationId}\nEvent: {deallocation.EventId}\nServer{deallocation.ServerId}");
     }
 
     private void OnMultiplayError(MultiplayError error)
     {
-        Debug.Log($"MultiplayError : {error.Reason}\n{error.Detail}");
+        CustomFunc.ConsoleLog($"MultiplayError : {error.Reason}\n{error.Detail}");
     }
 
     public void Dispose()

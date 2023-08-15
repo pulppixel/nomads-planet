@@ -83,7 +83,7 @@ namespace NomadsPlanet
         {
             if (IsServer)
             {
-                OnPlayerDespawned?.Invoke(this);
+                // OnPlayerDespawned?.Invoke(this);
             }
         }
 

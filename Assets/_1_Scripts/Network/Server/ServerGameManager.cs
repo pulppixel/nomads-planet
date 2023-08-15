@@ -42,18 +42,18 @@ namespace NomadsPlanet
                 }
                 else
                 {
-                    Debug.LogWarning("매치메이커 페이로드 시간이 초과되었습니다.");
+                    CustomFunc.ConsoleLog("매치메이커 페이로드 시간이 초과되었습니다.");
                 }
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
+                CustomFunc.ConsoleLog(e);
                 return;
             }
 
             if (!NetworkServer.OpenConnection(_serverIP, _serverPort))
             {
-                Debug.LogError("네트워크 서버가 예상대로 시작되지 않았습니다.");
+                CustomFunc.ConsoleLog("네트워크 서버가 예상대로 시작되지 않았습니다.");
                 return;
             }
         }

@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using Unity.Netcode.Components;
+﻿using Unity.Netcode.Components;
 
 namespace NomadsPlanet
 {

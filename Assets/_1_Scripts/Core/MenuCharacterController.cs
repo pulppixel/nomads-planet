@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DigitalRubyShared;
+using UnityEngine;
 
 namespace NomadsPlanet
 {
@@ -55,7 +56,12 @@ namespace NomadsPlanet
         private void HandleMovementAndRun()
         {
             Vector3 direction = GetInputDirection();
+
+#if UNITY_ANDROID || UNITY_IOS
+            bool isRunning = FingersJoystickScript.Instance.CurrentAmount.magnitude > .8f;
+#else
             bool isRunning = Input.GetKey(KeyCode.LeftShift);
+#endif
             SetRunning(isRunning);
 
             if (direction.magnitude >= 0.1f)
@@ -73,8 +79,13 @@ namespace NomadsPlanet
 
         private Vector3 GetInputDirection()
         {
+#if UNITY_ANDROID || UNITY_IOS
+            float horizontal = FingersJoystickScript.Instance.CurrentAmount.x;
+            float vertical = FingersJoystickScript.Instance.CurrentAmount.y;
+#else
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
+#endif
             return new Vector3(horizontal, 0f, vertical).normalized;
         }
 

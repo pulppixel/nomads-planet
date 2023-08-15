@@ -40,18 +40,18 @@ namespace NomadsPlanet
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
+                CustomFunc.ConsoleLog(e, true);
                 return;
             }
 
             try
             {
                 _joinCode = await Relay.Instance.GetJoinCodeAsync(_allocation.AllocationId);
-                Debug.Log(_joinCode);
+                CustomFunc.ConsoleLog(_joinCode);
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
+                CustomFunc.ConsoleLog(e, true);
                 return;
             }
 
@@ -88,7 +88,7 @@ namespace NomadsPlanet
             }
             catch (LobbyServiceException lobbyServiceException)
             {
-                Debug.LogError(lobbyServiceException);
+                CustomFunc.ConsoleLog(lobbyServiceException, true);
                 return;
             }
 
@@ -132,7 +132,7 @@ namespace NomadsPlanet
             }
             catch (LobbyServiceException lobbyServiceException)
             {
-                Debug.LogError(lobbyServiceException);
+                CustomFunc.ConsoleLog(lobbyServiceException, true);
                 return;
             }
         }
@@ -157,7 +157,7 @@ namespace NomadsPlanet
             }
             catch (LobbyServiceException lobbyServiceException)
             {
-                Debug.LogError(lobbyServiceException);
+                CustomFunc.ConsoleLog(lobbyServiceException, true);
             }
 
             _lobbyId = string.Empty;

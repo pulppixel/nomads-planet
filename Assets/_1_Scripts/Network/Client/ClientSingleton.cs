@@ -1,23 +1,24 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UnityEngine;
 
 namespace NomadsPlanet
 {
     public class ClientSingleton : MonoBehaviour
     {
-        public static ClientSingleton Instance { get; private set; }
+        private static ClientSingleton _instance;
 
         public ClientGameManager GameManager { get; private set; }
-
-        private void Awake()
+        
+        public static ClientSingleton Instance
         {
-            if (Instance != null && Instance != this)
+            get
             {
-                Destroy(gameObject);
-            }
+                if (_instance != null) { return _instance; }
 
-            Instance = this;
+                _instance = FindObjectOfType<ClientSingleton>();
+
+                return _instance == null ? null : _instance;
+            }
         }
 
         private void Start()

@@ -1,24 +1,24 @@
-﻿using System;
-using Unity.Netcode;
+﻿using Unity.Netcode;
 using UnityEngine;
 
 namespace NomadsPlanet
 {
     public class HostSingleton : MonoBehaviour
     {
-        public static HostSingleton Instance { get; private set; }
+        private static HostSingleton _instance;
 
         public HostGameManager GameManager { get; private set; }
-
-        private void Awake()
+        
+        public static HostSingleton Instance
         {
-            if (Instance != null && Instance != this)
+            get
             {
-                Destroy(gameObject);
-                return;
-            }
+                if (_instance != null) { return _instance; }
 
-            Instance = this;
+                _instance = FindObjectOfType<HostSingleton>();
+
+                return _instance == null ? null : _instance;
+            }
         }
 
         private void Start()
