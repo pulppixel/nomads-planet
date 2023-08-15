@@ -1,4 +1,3 @@
-using DigitalRubyShared;
 using Unity.Netcode;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
@@ -25,9 +24,9 @@ namespace UnityStandardAssets.Vehicles.Car
             }
 
             // pass the input to the car!
-#if UNITY_EDITOR || UNITY_ANDROID || UNITY_IOS
-            float horizontal = FingersJoystickScript.Instance.CurrentAmount.x;
-            float vertical = FingersJoystickScript.Instance.CurrentAmount.y;
+#if UNITY_ANDROID || UNITY_IOS
+            float horizontal = MobileInputController.Instance.InputValue.y;
+            float vertical = MobileInputController.Instance.InputValue.x;
 #else
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");

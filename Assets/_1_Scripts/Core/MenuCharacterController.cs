@@ -57,7 +57,7 @@ namespace NomadsPlanet
         {
             Vector3 direction = GetInputDirection();
 
-#if UNITY_EDITOR || UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANDROID || UNITY_IOS
             bool isRunning = FingersJoystickScript.Instance.CurrentAmount.magnitude > .8f;
 #else
             bool isRunning = Input.GetKey(KeyCode.LeftShift);
@@ -79,7 +79,7 @@ namespace NomadsPlanet
 
         private Vector3 GetInputDirection()
         {
-#if UNITY_EDITOR || UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANDROID || UNITY_IOS
             float horizontal = FingersJoystickScript.Instance.CurrentAmount.x;
             float vertical = FingersJoystickScript.Instance.CurrentAmount.y;
 #else

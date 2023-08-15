@@ -1,4 +1,5 @@
-﻿using Unity.Netcode;
+﻿using DigitalRubyShared;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace NomadsPlanet
@@ -40,8 +41,13 @@ namespace NomadsPlanet
                 return;
             }
 
+#if UNITY_ANDROID || UNITY_IOS
+            float mouseX = FingersJoystickScript.Instance.CurrentAmount.x;
+            float mouseY = -FingersJoystickScript.Instance.CurrentAmount.y;
+#else
             float mouseX = Input.GetAxis("Mouse X");
             float mouseY = -Input.GetAxis("Mouse Y");
+#endif
 
             _horizontalRotation += AdjustSensitivity(
                 mouseX * Sensitivity * Time.deltaTime,
