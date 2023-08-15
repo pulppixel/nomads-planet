@@ -1,5 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections;
+using System.Threading.Tasks;
+using NomadsPlanet.Utils;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace NomadsPlanet
 {
@@ -8,6 +12,7 @@ namespace NomadsPlanet
         [SerializeField] private ClientSingleton clientPrefab;
         [SerializeField] private HostSingleton hostPrefab;
         [SerializeField] private ServerSingleton serverPrefab;
+        [SerializeField] private NetworkObject playerPrefab;
 
         private ApplicationData _appData;
 
@@ -22,17 +27,18 @@ namespace NomadsPlanet
         {
             if (isDedicatedServer)
             {
+                Application.targetFrameRate = 60;
+
                 _appData = new ApplicationData();
 
                 ServerSingleton serverSingleton = Instantiate(serverPrefab);
-                await serverSingleton.CreateServer();
 
-                await serverSingleton.GameManager.StartGameServerAsync();
+                StartCoroutine(LoadGameSceneAsync(serverSingleton));
             }
             else
             {
                 HostSingleton hostSingleton = Instantiate(hostPrefab);
-                hostSingleton.CreateHost();
+                hostSingleton.CreateHost(playerPrefab);
 
                 ClientSingleton clientSingleton = Instantiate(clientPrefab);
                 bool authenticated = await clientSingleton.CreateClient();
@@ -42,6 +48,22 @@ namespace NomadsPlanet
                     clientSingleton.GameManager.GoToMenu();
                 }
             }
+        }
+
+        private IEnumerator LoadGameSceneAsync(ServerSingleton serverSingleton)
+        {
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneName.GameScene);
+
+            while (!asyncOperation.isDone)
+            {
+                yield return null;
+            }
+
+            Task createServerTask = serverSingleton.CreateServer(playerPrefab);
+            yield return new WaitUntil(() => createServerTask.IsCompleted);
+
+            Task startServerTask = serverSingleton.GameManager.StartGameServerAsync();
+            yield return new WaitUntil(() => startServerTask.IsCompleted);
         }
     }
 }

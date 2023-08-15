@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Unity.Mathematics;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -9,18 +11,20 @@ namespace NomadsPlanet
     public class NetworkServer : IDisposable
     {
         private readonly NetworkManager _networkManager;
+        private readonly NetworkObject _playerPrefab;
 
         public Action<UserData> OnUserJoined;
         public Action<UserData> OnUserLeft;
 
         public Action<string> OnClientLeft;
 
-        private readonly Dictionary<ulong, string> _clientIdToAuth = new Dictionary<ulong, string>();
-        private readonly Dictionary<string, UserData> _authIdToUserData = new Dictionary<string, UserData>();
+        private readonly Dictionary<ulong, string> _clientIdToAuth = new();
+        private readonly Dictionary<string, UserData> _authIdToUserData = new();
 
-        public NetworkServer(NetworkManager networkManager)
+        public NetworkServer(NetworkManager networkManager, NetworkObject playerPrefab)
         {
             _networkManager = networkManager;
+            _playerPrefab = playerPrefab;
 
             _networkManager.ConnectionApprovalCallback += ApprovalCheck;
             _networkManager.OnServerStarted += OnNetworkReady;
@@ -44,10 +48,22 @@ namespace NomadsPlanet
             _authIdToUserData[userData.userAuthId] = userData;
             OnUserJoined?.Invoke(userData);
 
+            _ = SpawnPlayerDelayed(request.ClientNetworkId);
+
             response.Approved = true;
-            response.Position = SpawnPoint.GetRandomSpawnPos();
-            response.Rotation = Quaternion.identity;
-            response.CreatePlayerObject = true;
+            response.CreatePlayerObject = false;
+        }
+
+        private async Task SpawnPlayerDelayed(ulong clientId)
+        {
+            Debug.Log("딜레이 시작");
+            await Task.Delay(1000);
+
+            NetworkObject playerInstance =
+                GameObject.Instantiate(_playerPrefab, SpawnPoint.GetRandomSpawnPos(), quaternion.identity);
+
+            Debug.Log($"Player가 생성됨: {playerInstance.gameObject.name}, {playerInstance.gameObject.transform.position}");
+            playerInstance.SpawnAsPlayerObject(clientId);
         }
 
         private void OnNetworkReady()

@@ -156,8 +156,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 143340113}
-    PlayerPrefab: {fileID: 4221770887502304591, guid: 7cf71736d451d4b47a54ca46e4f8615f,
-      type: 3}
+    PlayerPrefab: {fileID: 0}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: 29c2d9cb1cc22424b9669043c9ba7ef0, type: 2}
@@ -414,6 +413,8 @@ MonoBehaviour:
   hostPrefab: {fileID: 4678076296080468538, guid: f5e3333fe5db4e8428234c5e38a8be57,
     type: 3}
   serverPrefab: {fileID: 8660748756414125226, guid: 9216da7c07cd7294eb9285749eeddb4d,
+    type: 3}
+  playerPrefab: {fileID: 8850297710679569454, guid: 7cf71736d451d4b47a54ca46e4f8615f,
     type: 3}
 --- !u!4 &940310416
 Transform:

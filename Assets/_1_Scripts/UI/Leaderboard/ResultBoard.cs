@@ -29,10 +29,11 @@ namespace NomadsPlanet
 
             int resultCoin = ES3.Load(PrefsKey.LocalCoinKey, 0);
             coinText.DOText(resultCoin.ToString("N0"), 1f, scrambleMode: ScrambleMode.Numerals)
-                .SetDelay(1f);
+                .SetDelay(.5f);
 
-            okButton.image.rectTransform.DOScale(Vector3.one, 1f)
-                .SetDelay(1.5f);
+            okButton.image.rectTransform.DOScale(Vector3.one, .5f)
+                .SetDelay(1f)
+                .SetEase(Ease.OutBack);
 
             int coinValues = ES3.Load(PrefsKey.PlayerCoinKey, 0);
             ES3.Save(PrefsKey.PlayerCoinKey, coinValues + resultCoin);

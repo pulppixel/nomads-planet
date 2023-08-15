@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using NomadsPlanet.Utils;
 
 namespace NomadsPlanet
@@ -17,12 +16,13 @@ namespace NomadsPlanet
         public NetworkServer NetworkServer { get; private set; }
         private readonly MultiplayAllocationService _multiplayAllocationService;
 
-        public ServerGameManager(string serverIP, int serverPort, int queryPort, NetworkManager manager)
+        public ServerGameManager(string serverIP, int serverPort,
+            int queryPort, NetworkManager manager, NetworkObject playerPrefab)
         {
             _serverIP = serverIP;
             _serverPort = serverPort;
             _queryPort = queryPort;
-            NetworkServer = new NetworkServer(manager);
+            NetworkServer = new NetworkServer(manager, playerPrefab);
             _multiplayAllocationService = new MultiplayAllocationService();
         }
 
@@ -56,8 +56,6 @@ namespace NomadsPlanet
                 Debug.LogError("네트워크 서버가 예상대로 시작되지 않았습니다.");
                 return;
             }
-
-            NetworkManager.Singleton.SceneManager.LoadScene(SceneName.GameScene, LoadSceneMode.Single);
         }
 
         private async Task<MatchmakingResults> GetMatchmakerPayload()

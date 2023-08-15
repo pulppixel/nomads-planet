@@ -100,7 +100,7 @@ public class MultiplayAllocationService : IDisposable
             return;
         }
 
-        _serverCheckManager = await _multiplayService.StartServerQueryHandlerAsync((ushort)20, "", "", "0", "");
+        _serverCheckManager = await _multiplayService.StartServerQueryHandlerAsync((ushort)20, "ServerName", "", "0", "");
 
         ServerCheckLoop(_serverCheckCancel.Token);
     }

@@ -20,10 +20,17 @@ namespace NomadsPlanet
     public class HostGameManager : IDisposable
     {
         private Allocation _allocation;
+        private readonly NetworkObject _playerPrefab;
+
         private string _joinCode;
         private string _lobbyId;
 
         public NetworkServer NetworkServer { get; private set; }
+
+        public HostGameManager(NetworkObject playerPrefab)
+        {
+            _playerPrefab = playerPrefab;
+        }
 
         public async Task StartHostAsync()
         {
@@ -85,7 +92,7 @@ namespace NomadsPlanet
                 return;
             }
 
-            NetworkServer = new NetworkServer(NetworkManager.Singleton);
+            NetworkServer = new NetworkServer(NetworkManager.Singleton, _playerPrefab);
 
             UserData userData = new UserData
             {
