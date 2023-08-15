@@ -53,9 +53,11 @@ namespace NomadsPlanet
 
         public void PlayChangeBgm()
         {
-            bgmSource.DOFade(0f, 1f);
+            bgmSource.DOFade(0f, .5f);
+            bgmSource.Stop();
             bgmSource.clip = resultBgm;
-            bgmSource.DOFade(1f, 1f)
+            bgmSource.Play();
+            bgmSource.DOFade(1f, .5f)
                 .SetDelay(1f);
         }
     }

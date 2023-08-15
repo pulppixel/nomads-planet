@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Services.Core;
@@ -7,29 +8,19 @@ namespace NomadsPlanet
 {
     public class ServerSingleton : MonoBehaviour
     {
-        private static ServerSingleton instance;
+        public static ServerSingleton Instance { get; private set; }
 
         public ServerGameManager GameManager { get; private set; }
 
-        public static ServerSingleton Instance
+        private void Awake()
         {
-            get
+            if (Instance != null && Instance != this)
             {
-                if (instance != null)
-                {
-                    return instance;
-                }
-
-                instance = FindObjectOfType<ServerSingleton>();
-
-                if (instance != null)
-                {
-                    return instance;
-                }
-
-                Debug.LogError("ServerSingleton이 씬에 없습니다!");
-                return null;
+                Destroy(gameObject);
+                return;
             }
+
+            Instance = this;
         }
 
         private void Start()
