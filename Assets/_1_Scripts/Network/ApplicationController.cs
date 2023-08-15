@@ -11,8 +11,10 @@ namespace NomadsPlanet
     {
         [SerializeField] private ClientSingleton clientPrefab;
         [SerializeField] private HostSingleton hostPrefab;
-        [SerializeField] private ServerSingleton serverPrefab;
         [SerializeField] private NetworkObject playerPrefab;
+#if UNITY_SERVER || UNITY_EDITOR
+        [SerializeField] private ServerSingleton serverPrefab;
+#endif
 
         private ApplicationData _appData;
 
@@ -31,9 +33,10 @@ namespace NomadsPlanet
 
                 _appData = new ApplicationData();
 
+#if UNITY_SERVER || UNITY_EDITOR
                 ServerSingleton serverSingleton = Instantiate(serverPrefab);
-
                 StartCoroutine(LoadGameSceneAsync(serverSingleton));
+#endif
             }
             else
             {
@@ -50,6 +53,7 @@ namespace NomadsPlanet
             }
         }
 
+#if UNITY_SERVER || UNITY_EDITOR
         private IEnumerator LoadGameSceneAsync(ServerSingleton serverSingleton)
         {
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneName.GameScene);
@@ -65,5 +69,6 @@ namespace NomadsPlanet
             Task startServerTask = serverSingleton.GameManager.StartGameServerAsync();
             yield return new WaitUntil(() => startServerTask.IsCompleted);
         }
+#endif
     }
 }
