@@ -21,6 +21,20 @@ namespace NomadsPlanet.Utils
             }
         }
 
+        public static void ConsoleLog(object obj, bool isError = false)
+        {
+#if UNITY_EDITOR
+            if (isError)
+            {
+                Debug.LogError(obj);
+            }
+            else
+            {
+                Debug.Log(obj);
+            }
+#endif
+        }
+
         /// <summary>
         /// 이름으로 자식 객체를 찾아주는 메소드 (재귀 호출)
         /// </summary>
@@ -46,7 +60,7 @@ namespace NomadsPlanet.Utils
 
             return null;
         }
-        
+
         /// <summary>
         /// 갖고 있는 트래픽 리스트들 중 하나를 얻어올 수 있다.
         /// </summary>
@@ -73,7 +87,7 @@ namespace NomadsPlanet.Utils
 
             return result[Random.Range(0, result.Count)];
         }
-        
+
         /// <summary>
         /// 너무 글자가 길어지면 뒤는 자른다. (예: 환기는 아주 긴...)
         /// </summary>

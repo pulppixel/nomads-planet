@@ -6,6 +6,7 @@ using Unity.Services.Matchmaker;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 using NomadsPlanet;
+using NomadsPlanet.Utils;
 
 public enum MatchmakerPollingResult
 {
@@ -39,7 +40,7 @@ public class MatchplayMatchmaker : IDisposable
 
         string queueName = data.userGamePreferences.ToMultiplayQueue();
         CreateTicketOptions createTicketOptions = new CreateTicketOptions(queueName);
-        Debug.Log(createTicketOptions.QueueName);
+        CustomFunc.ConsoleLog(createTicketOptions.QueueName);
 
         List<Player> players = new List<Player>
         {
@@ -73,7 +74,7 @@ public class MatchplayMatchmaker : IDisposable
                             return ReturnMatchResult(MatchmakerPollingResult.MatchAssignmentError,
                                 $"Ticket: {_lastUsedTicket} - {matchAssignment.Status} - {matchAssignment.Message}", null);
                         }
-                        Debug.Log($"Polled Ticket: {_lastUsedTicket} Status: {matchAssignment.Status} ");
+                        CustomFunc.ConsoleLog($"Polled Ticket: {_lastUsedTicket} Status: {matchAssignment.Status} ");
                     }
 
                     await Task.Delay(TicketCooldown);
@@ -105,7 +106,7 @@ public class MatchplayMatchmaker : IDisposable
 
         if (string.IsNullOrEmpty(_lastUsedTicket)) { return; }
 
-        Debug.Log($"Cancelling {_lastUsedTicket}");
+        CustomFunc.ConsoleLog($"Cancelling {_lastUsedTicket}");
 
         await MatchmakerService.Instance.DeleteTicketAsync(_lastUsedTicket);
     }

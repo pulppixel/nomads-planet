@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using NomadsPlanet;
+using NomadsPlanet.Utils;
 using Unity.Services.Matchmaker;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
@@ -42,11 +43,11 @@ public class MatchplayBackfiller : IDisposable
     {
         if (IsBackfilling)
         {
-            Debug.LogWarning("Already backfilling, no need to start another.");
+            CustomFunc.ConsoleLog("Already backfilling, no need to start another.");
             return;
         }
 
-        Debug.Log($"Starting backfill Server: {MatchPlayerCount}/{_maxPlayers}");
+        CustomFunc.ConsoleLog($"Starting backfill Server: {MatchPlayerCount}/{_maxPlayers}");
 
         if (string.IsNullOrEmpty(_localBackfillTicket.Id))
         {
@@ -63,16 +64,17 @@ public class MatchplayBackfiller : IDisposable
     {
         if (!IsBackfilling)
         {
-            Debug.LogWarning("Can't add users to the backfill ticket before it's been created");
+            CustomFunc.ConsoleLog("Can't add users to the backfill ticket before it's been created");
             return;
         }
 
         if (GetPlayerById(userData.userAuthId) != null)
         {
+#if UNITY_EDITOR
             Debug.LogWarningFormat("User: {0} - {1} already in Match. Ignoring add.",
                 userData.userName,
                 userData.userAuthId);
-
+#endif
             return;
         }
 
@@ -88,7 +90,7 @@ public class MatchplayBackfiller : IDisposable
         Player playerToRemove = GetPlayerById(userId);
         if (playerToRemove == null)
         {
-            Debug.LogWarning($"No user by the ID: {userId} in local backfill Data.");
+            CustomFunc.ConsoleLog($"No user by the ID: {userId} in local backfill Data.");
             return MatchPlayerCount;
         }
 
@@ -114,7 +116,7 @@ public class MatchplayBackfiller : IDisposable
     {
         if (!IsBackfilling)
         {
-            Debug.LogError("Can't stop backfilling before we start.");
+            CustomFunc.ConsoleLog("Can't stop backfilling before we start.");
             return;
         }
 

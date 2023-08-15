@@ -57,8 +57,7 @@ namespace NomadsPlanet
         {
             UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
             transport.SetConnectionData(ip, (ushort)port);
-
-
+            
             ConnectClient();
         }
 
@@ -70,7 +69,7 @@ namespace NomadsPlanet
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
+                CustomFunc.ConsoleLog(e, true);
                 return;
             }
 

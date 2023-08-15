@@ -1,5 +1,4 @@
-﻿using System;
-using NomadsPlanet.Utils;
+﻿using NomadsPlanet.Utils;
 using TMPro;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;

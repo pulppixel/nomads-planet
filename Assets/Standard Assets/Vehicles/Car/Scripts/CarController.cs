@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 #pragma warning disable 649
 namespace UnityStandardAssets.Vehicles.Car
