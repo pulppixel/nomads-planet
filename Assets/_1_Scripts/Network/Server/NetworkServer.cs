@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NomadsPlanet.Utils;
 using Unity.Mathematics;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -57,11 +58,15 @@ namespace NomadsPlanet
 
         private async Task SpawnPlayerDelayed(ulong clientId)
         {
-            await Task.Delay(1000);
+            await Task.Delay(1500);
 
-            NetworkObject playerInstance =
-                Object.Instantiate(_playerPrefab, SpawnPoint.GetRandomSpawnPos(), quaternion.identity);
+            NetworkObject playerInstance = Object.Instantiate(
+                _playerPrefab,
+                SpawnPoint.GetRandomSpawnPos(),
+                quaternion.identity
+            );
 
+            CustomFunc.ConsoleLog($"생성된 플레이어: {playerInstance}, 위치: {playerInstance.transform.position}");
             playerInstance.SpawnAsPlayerObject(clientId);
         }
 
