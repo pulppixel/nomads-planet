@@ -25,21 +25,19 @@ namespace UnityStandardAssets.Vehicles.Car
 
             // pass the input to the car!
 #if UNITY_ANDROID || UNITY_IOS
-            float horizontal = MobileInputController.Instance.InputValue.y;
-            float vertical = MobileInputController.Instance.InputValue.x;
+            float horizontal = MobileInputController.Instance.InputValue.x;
+            float vertical = MobileInputController.Instance.InputValue.y;
+            float handbrake = 0f;
 #else
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
+            float handbrake = CrossPlatformInputManager.GetAxis("Jump");
 #endif
 
-            m_Animatior.SetBool("TurnLeft", vertical < -.1f);
-            m_Animatior.SetBool("TurnRight", vertical > .1f);
-#if !MOBILE_INPUT
-            float handbrake = CrossPlatformInputManager.GetAxis("Jump");
-            m_Car.Move(vertical, horizontal, horizontal, handbrake);
-#else
-            m_Car.Move(h, v, v, 0f);
-#endif
+            m_Animatior.SetBool("TurnLeft", horizontal < -.1f);
+            m_Animatior.SetBool("TurnRight", horizontal > .1f);
+
+            m_Car.Move(horizontal, vertical, vertical, handbrake);
         }
     }
 }
