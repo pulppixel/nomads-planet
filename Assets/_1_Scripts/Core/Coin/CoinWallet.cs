@@ -54,11 +54,6 @@ namespace NomadsPlanet
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!IsOwner)
-            {
-                return;
-            }
-
             if (other.TryGetComponent(out Coin coin))
             {
                 vfx.SetActive(false);

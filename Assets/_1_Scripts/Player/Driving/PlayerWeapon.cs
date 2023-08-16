@@ -30,11 +30,6 @@ namespace NomadsPlanet
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!IsOwner)
-            {
-                return;
-            }
-
             if (Time.time - _lastAttackTime < AttackCooldown)
             {
                 return;
