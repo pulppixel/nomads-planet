@@ -1,6 +1,8 @@
 ### 1차 개발 완료
 
-영상 링크: [유튜브](https://youtu.be/-EbxSsmGjmI)
+영상 링크: [Youtube](https://youtu.be/-EbxSsmGjmI)
+
+링크드인: [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7097378120881590272)
 
 ---
 
