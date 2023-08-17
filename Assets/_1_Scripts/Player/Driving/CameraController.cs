@@ -41,7 +41,7 @@ namespace NomadsPlanet
                 return;
             }
 
-#if UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR
             float mouseX = FingersJoystickScript.Instance.CurrentAmount.x;
             float mouseY = -FingersJoystickScript.Instance.CurrentAmount.y;
 #else

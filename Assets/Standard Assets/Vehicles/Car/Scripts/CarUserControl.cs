@@ -24,7 +24,7 @@ namespace UnityStandardAssets.Vehicles.Car
             }
 
             // pass the input to the car!
-#if UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR
             float horizontal = MobileInputController.Instance.InputValue.x;
             float vertical = MobileInputController.Instance.InputValue.y;
             float handbrake = 0f;
