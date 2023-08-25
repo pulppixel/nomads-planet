@@ -28,8 +28,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void Start()
         {
-#if UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR
-
+#if UNITY_ANDROID || UNITY_IOS
 #else
             gameObject.SetActive(false);
             inputController.SetActive(false);

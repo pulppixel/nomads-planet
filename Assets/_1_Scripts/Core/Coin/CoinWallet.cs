@@ -59,6 +59,7 @@ namespace NomadsPlanet
                 vfx.SetActive(false);
                 vfx.SetActive(true);
                 int coinValue = coin.Collect();
+                ES3.Save(PrefsKey.LocalCoinKey, totalCoins.Value);
 
                 if (!IsServer)
                 {
@@ -67,7 +68,6 @@ namespace NomadsPlanet
 
                 SoundManager.Instance.PlayCoinGetSfx();
                 totalCoins.Value += coinValue;
-                ES3.Save(PrefsKey.LocalCoinKey, totalCoins.Value);
                 playerScore.GetScore(coinValue);
             }
         }

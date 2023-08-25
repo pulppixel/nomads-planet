@@ -1,5 +1,8 @@
-﻿using DigitalRubyShared;
-using UnityEngine;
+﻿using UnityEngine;
+
+#if UNITY_ANDROID || UNITY_IOS
+using DigitalRubyShared;
+#endif
 
 namespace NomadsPlanet
 {
@@ -57,7 +60,7 @@ namespace NomadsPlanet
         {
             Vector3 direction = GetInputDirection();
 
-#if UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR
+#if UNITY_ANDROID || UNITY_IOS
             bool isRunning = FingersJoystickScript.Instance.CurrentAmount.magnitude > .8f;
 #else
             bool isRunning = Input.GetKey(KeyCode.LeftShift);
@@ -79,7 +82,7 @@ namespace NomadsPlanet
 
         private Vector3 GetInputDirection()
         {
-#if UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR
+#if UNITY_ANDROID || UNITY_IOS
             float horizontal = FingersJoystickScript.Instance.CurrentAmount.x;
             float vertical = FingersJoystickScript.Instance.CurrentAmount.y;
 #else

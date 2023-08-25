@@ -26,6 +26,7 @@ namespace NomadsPlanet
         private string _lobbyId;
 
         public NetworkServer NetworkServer { get; private set; }
+        public string JoinCode => _joinCode;
 
         public HostGameManager(NetworkObject playerPrefab)
         {
