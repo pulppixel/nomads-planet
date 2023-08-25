@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
@@ -11,14 +10,12 @@ namespace NomadsPlanet
 {
     public class DrivingPlayer : NetworkBehaviour
     {
-        public new Collider collider;
-
         [field: SerializeField] public CoinWallet Wallet { get; private set; }
         [field: SerializeField] public CarController CarController { get; private set; }
 
         [SerializeField] private MeshRenderer minimapIconRenderer;
         [SerializeField] private Camera minimapCamera;
-        [SerializeField] private Color ownercolor;
+        [SerializeField] private Color ownerColor;
 
         public NetworkVariable<FixedString32Bytes> playerName = new();
         public NetworkVariable<CharacterType> characterType = new();
@@ -34,7 +31,6 @@ namespace NomadsPlanet
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            collider.enabled = false;
             var parent = transform.GetChildFromName<Transform>("CharacterPrefabs");
             for (int i = 0; i < parent.childCount; i++)
             {
@@ -74,7 +70,7 @@ namespace NomadsPlanet
 
             if (IsOwner)
             {
-                minimapIconRenderer.materials[0].color = ownercolor;
+                minimapIconRenderer.materials[0].color = ownerColor;
             }
 
             UpdateCharacter(characterType.Value, carType.Value);
@@ -104,12 +100,6 @@ namespace NomadsPlanet
 
             _animator.Rebind();
             CarController.Init(_carPrefabs[idx].transform);
-            Invoke(nameof(ColliderActive), 1f);
-        }
-
-        public void ColliderActive()
-        {
-            collider.enabled = true;
         }
     }
 }
