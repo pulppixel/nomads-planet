@@ -4,8 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Unity.Services.Matchmaker;
 using Unity.Services.Matchmaker.Models;
-using UnityEngine;
-using NomadsPlanet;
 using NomadsPlanet.Utils;
 
 namespace NomadsPlanet
@@ -32,7 +30,7 @@ namespace NomadsPlanet
         private string _lastUsedTicket;
         private CancellationTokenSource _cancelToken;
 
-        private const int TicketCooldown = 1000;
+        private const int TicketCooldown = 1500;
 
         public bool IsMatchmaking { get; private set; }
 
@@ -46,7 +44,7 @@ namespace NomadsPlanet
 
             List<Player> players = new List<Player>
             {
-                new Player(data.userAuthId, data.userGamePreferences)
+                new(data.userAuthId, data.userGamePreferences)
             };
 
             try

@@ -4,17 +4,21 @@ using System.Threading.Tasks;
 using NomadsPlanet.Utils;
 using Unity.Services.Matchmaker;
 using Unity.Services.Matchmaker.Models;
+
+#if UNITY_EDITOR
 using UnityEngine;
+#endif
 
 namespace NomadsPlanet
 {
     public class MatchplayBackfiller : IDisposable
     {
-        private CreateBackfillTicketOptions _createBackfillOptions;
         private BackfillTicket _localBackfillTicket;
-        private bool _localDataDirty;
-        private int _maxPlayers;
+        private readonly CreateBackfillTicketOptions _createBackfillOptions;
+
         private const int TicketCheckMs = 1000;
+        private bool _localDataDirty;
+        private readonly int _maxPlayers;
 
         private int MatchPlayerCount => _localBackfillTicket?.Properties.MatchProperties.Players.Count ?? 0;
 
@@ -24,7 +28,7 @@ namespace NomadsPlanet
         public MatchplayBackfiller(string connection, string queueName, MatchProperties matchmakerPayloadProperties,
             int maxPlayers)
         {
-            this._maxPlayers = maxPlayers;
+            _maxPlayers = maxPlayers;
             BackfillTicketProperties backfillProperties = new BackfillTicketProperties(matchmakerPayloadProperties);
             _localBackfillTicket = new BackfillTicket
             {
@@ -71,7 +75,6 @@ namespace NomadsPlanet
 
             if (GetPlayerById(userData.userAuthId) != null)
             {
-                
 #if UNITY_EDITOR
                 Debug.LogWarningFormat("User: {0} - {1} already in Match. Ignoring add.",
                     userData.userName,

@@ -1,12 +1,15 @@
-﻿using DigitalRubyShared;
+﻿using UnityEngine;
 using Unity.Netcode;
-using UnityEngine;
+
+#if UNITY_ANDROID || UNITY_IOS
+using DigitalRubyShared;
+#endif
 
 namespace NomadsPlanet
 {
     public class CameraController : NetworkBehaviour
     {
-        private const float Sensitivity = 270.0f;
+        private const float Sensitivity = 200.0f;
         private const float ClampAngleVertical = 45.0f;
         private const float ClampAngleHorizontal = 60.0f;
 
@@ -41,7 +44,7 @@ namespace NomadsPlanet
                 return;
             }
 
-#if UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR
+#if UNITY_ANDROID || UNITY_IOS
             float mouseX = FingersJoystickScript.Instance.CurrentAmount.x;
             float mouseY = -FingersJoystickScript.Instance.CurrentAmount.y;
 #else

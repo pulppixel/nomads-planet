@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_ANDROID || UNITY_IOS
+#else
+using System;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
@@ -132,3 +134,4 @@ namespace NomadsPlanet
         }
     }
 }
+#endif

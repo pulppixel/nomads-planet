@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NomadsPlanet.Utils;
-using UnityEngine;
 
 /// <summary>
 /// Basic launch command processor (Multiplay prefers passing IP and port along)
@@ -13,25 +12,25 @@ public class ApplicationData
     /// Commands Dictionary
     /// Supports flags and single variable args (eg. '-argument', '-variableArg variable')
     /// </summary>
-    Dictionary<string, Action<string>> m_CommandDictionary = new Dictionary<string, Action<string>>();
+    private readonly Dictionary<string, Action<string>> _commandDictionary = new();
 
-    const string k_IPCmd = "ip";
-    const string k_PortCmd = "port";
-    const string k_QueryPortCmd = "queryPort";
+    private const string IPCmdKey = "k_ip";
+    private const string PortCmdKey = "k_port";
+    private const string QueryPortCmdKey = "k_queryPort";
 
     public static string IP()
     {
-        return ES3.Load<string>(k_IPCmd);
+        return ES3.LoadString(IPCmdKey, "127.0.0.1");
     }
 
     public static int Port()
     {
-        return ES3.Load<int>(k_PortCmd);
+        return ES3.Load(PortCmdKey, 7777);
     }
 
     public static int QPort()
     {
-        return ES3.Load<int>(k_QueryPortCmd);
+        return ES3.Load(QueryPortCmdKey, 7787);
     }
 
     //Ensure this gets instantiated Early on
@@ -40,13 +39,13 @@ public class ApplicationData
         SetIP("127.0.0.1");
         SetPort("7777");
         SetQueryPort("7787");
-        m_CommandDictionary["-" + k_IPCmd] = SetIP;
-        m_CommandDictionary["-" + k_PortCmd] = SetPort;
-        m_CommandDictionary["-" + k_QueryPortCmd] = SetQueryPort;
+        _commandDictionary["-" + IPCmdKey] = SetIP;
+        _commandDictionary["-" + PortCmdKey] = SetPort;
+        _commandDictionary["-" + QueryPortCmdKey] = SetQueryPort;
         ProcessCommandLinearguments(Environment.GetCommandLineArgs());
     }
 
-    void ProcessCommandLinearguments(string[] args)
+    private void ProcessCommandLinearguments(string[] args)
     {
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("Launch Args: ");
@@ -54,8 +53,11 @@ public class ApplicationData
         {
             var arg = args[i];
             var nextArg = "";
+
             if (i + 1 < args.Length) // if we are evaluating the last item in the array, it must be a flag
+            {
                 nextArg = args[i + 1];
+            }
 
             if (EvaluatedArgs(arg, nextArg))
             {
@@ -72,29 +74,32 @@ public class ApplicationData
     /// <summary>
     /// Commands and values come in the args array in pairs, so we
     /// </summary>
-    bool EvaluatedArgs(string arg, string nextArg)
+    private bool EvaluatedArgs(string arg, string nextArg)
     {
         if (!IsCommand(arg))
+        {
             return false;
+        }
+        
         if (IsCommand(nextArg)) // If you have need for flags, make a separate dict for those.
         {
             return false;
         }
 
-        m_CommandDictionary[arg].Invoke(nextArg);
+        _commandDictionary[arg].Invoke(nextArg);
         return true;
     }
 
-    void SetIP(string ipArgument)
+    private static void SetIP(string ipArgument)
     {
-        ES3.Save(k_IPCmd, ipArgument);
+        ES3.Save(IPCmdKey, ipArgument);
     }
 
-    void SetPort(string portArgument)
+    private static void SetPort(string portArgument)
     {
         if (int.TryParse(portArgument, out int parsedPort))
         {
-            ES3.Save(k_PortCmd, parsedPort);
+            ES3.Save(PortCmdKey, parsedPort);
         }
         else
         {
@@ -102,11 +107,11 @@ public class ApplicationData
         }
     }
 
-    void SetQueryPort(string qPortArgument)
+    private static void SetQueryPort(string qPortArgument)
     {
         if (int.TryParse(qPortArgument, out int parsedQPort))
         {
-            ES3.Save(k_QueryPortCmd, parsedQPort);
+            ES3.Save(QueryPortCmdKey, parsedQPort);
         }
         else
         {
@@ -114,8 +119,8 @@ public class ApplicationData
         }
     }
 
-    bool IsCommand(string arg)
+    private bool IsCommand(string arg)
     {
-        return !string.IsNullOrEmpty(arg) && m_CommandDictionary.ContainsKey(arg) && arg.StartsWith("-");
+        return !string.IsNullOrEmpty(arg) && _commandDictionary.ContainsKey(arg) && arg.StartsWith("-");
     }
 }

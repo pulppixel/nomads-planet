@@ -58,14 +58,13 @@ namespace NomadsPlanet
 
         private async Task SpawnPlayerDelayed(ulong clientId)
         {
-            await Task.Delay(2000);
+            await Task.Delay(2500);
 
             NetworkObject playerInstance = Object.Instantiate(
                 _playerPrefab,
                 SpawnPoint.GetRandomSpawnPos(),
                 quaternion.identity
             );
-            playerInstance.GetComponent<DrivingPlayer>().ColliderActive();
 
             CustomFunc.ConsoleLog($"생성된 플레이어: {playerInstance}, 위치: {playerInstance.transform.position}");
             playerInstance.SpawnAsPlayerObject(clientId);
