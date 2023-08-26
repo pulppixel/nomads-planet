@@ -9,7 +9,7 @@ namespace NomadsPlanet
 {
     public class CameraController : NetworkBehaviour
     {
-        private const float Sensitivity = 270.0f;
+        private const float Sensitivity = 200.0f;
         private const float ClampAngleVertical = 45.0f;
         private const float ClampAngleHorizontal = 60.0f;
 

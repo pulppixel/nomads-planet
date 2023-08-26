@@ -58,7 +58,7 @@ namespace NomadsPlanet
 
         private async Task SpawnPlayerDelayed(ulong clientId)
         {
-            await Task.Delay(3000);
+            await Task.Delay(2500);
 
             NetworkObject playerInstance = Object.Instantiate(
                 _playerPrefab,

@@ -2,7 +2,6 @@
 using NomadsPlanet.Utils;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
-using UnityEngine;
 
 namespace NomadsPlanet
 {
@@ -10,7 +9,7 @@ namespace NomadsPlanet
     {
         public static AuthState AuthState { get; private set; } = AuthState.NotAuthenticated;
 
-        public static async Task<AuthState> DoAuth(int maxTries = 5)
+        public static async Task<AuthState> DoAuth(int maxTries = 10)
         {
             if (AuthState == AuthState.Authenticated)
             {
@@ -29,14 +28,12 @@ namespace NomadsPlanet
             return AuthState;
         }
 
-        private static async Task<AuthState> Authenticating()
+        private static async Task Authenticating()
         {
             while (AuthState is AuthState.Authenticating or AuthState.NotAuthenticated)
             {
-                await Task.Delay(200);
+                await Task.Delay(250);
             }
-
-            return AuthState;
         }
 
         private static async Task SignInAnonymouslyAsync(int maxRetries)
@@ -68,7 +65,7 @@ namespace NomadsPlanet
                 }
 
                 retries++;
-                await Task.Delay(1000);
+                await Task.Delay(1500);
             }
 
             if (AuthState != AuthState.Authenticated)
