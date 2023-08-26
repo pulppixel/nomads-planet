@@ -4,7 +4,7 @@ namespace UnityStandardAssets.Vehicles.Car
 {
     public class MobileInputController : MonoBehaviour
     {
-        public static MobileInputController Instance { get; private set; }
+        private static MobileInputController _instance;
         [SerializeField] private GameObject inputController;
 
         [SerializeField] private ButtonState leftButton;
@@ -15,20 +15,26 @@ namespace UnityStandardAssets.Vehicles.Car
         public Vector2 InputValue { get; private set; }
         private const float Speed = 1.5f;
 
-        private void Awake()
+        public static MobileInputController Instance
         {
-            if (Instance != null && Instance != this)
+            get
             {
-                Destroy(gameObject);
-                return;
-            }
+                if (_instance != null)
+                {
+                    return _instance;
+                }
 
-            Instance = this;
+                _instance = FindObjectOfType<MobileInputController>();
+
+                return _instance == null ? null : _instance;
+            }
         }
 
         private void Start()
         {
 #if UNITY_ANDROID || UNITY_IOS
+            gameObject.SetActive(true);
+            inputController.SetActive(true);
 #else
             gameObject.SetActive(false);
             inputController.SetActive(false);
