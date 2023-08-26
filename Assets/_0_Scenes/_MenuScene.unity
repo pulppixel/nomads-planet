@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.047254696, g: 0.049788278, b: 0.051313896, a: 1}
+  m_IndirectSpecularColor: {r: 0.15158603, g: 0.15147693, b: 0.1951764, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1658,6 +1658,7 @@ GameObject:
   - component: {fileID: 421838226}
   - component: {fileID: 421838225}
   - component: {fileID: 421838224}
+  - component: {fileID: 421838227}
   m_Layer: 0
   m_Name: JoinCodeInputField
   m_TagString: Untagged
@@ -1764,7 +1765,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 421838227}
+        m_TargetAssemblyTypeName: NomadsPlanet.InputFieldTextToCapital, Assembly-CSharp
+        m_MethodName: UpdateInputField
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1821,6 +1834,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421838222}
   m_CullTransparentMesh: 1
+--- !u!114 &421838227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421838222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07374070e54defe4986cc0952b31a143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &422368423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2235,7 +2260,7 @@ Transform:
   m_GameObject: {fileID: 570398963}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.25, y: 0, z: 4.6046}
+  m_LocalPosition: {x: -18.5, y: 0, z: 4.6046}
   m_LocalScale: {x: 1, y: 20, z: 19.949934}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4850,8 +4875,8 @@ Transform:
   m_GameObject: {fileID: 1163767642}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.48917627, z: -0, w: -0.872185}
-  m_LocalPosition: {x: -14.89, y: 0, z: -5.77}
-  m_LocalScale: {x: 1, y: 20, z: 6.6}
+  m_LocalPosition: {x: -15, y: 0, z: -7}
+  m_LocalScale: {x: 1, y: 20, z: 12.5301}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 441319523}
@@ -5328,7 +5353,7 @@ Transform:
   m_GameObject: {fileID: 1320528215}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.2588186, z: -0, w: 0.965926}
-  m_LocalPosition: {x: -16.25, y: 0, z: 15.604599}
+  m_LocalPosition: {x: -15.5, y: 0, z: 15}
   m_LocalScale: {x: 1, y: 20, z: 19.949934}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6478,7 +6503,7 @@ Transform:
   m_GameObject: {fileID: 1591037690}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.8667605, z: -0, w: -0.49872467}
-  m_LocalPosition: {x: -0.4, y: 0, z: -1.23}
+  m_LocalPosition: {x: -0.0000003874302, y: 0, z: -2.0000002}
   m_LocalScale: {x: 1, y: 20, z: 31.219997}
   m_ConstrainProportionsScale: 0
   m_Children: []
