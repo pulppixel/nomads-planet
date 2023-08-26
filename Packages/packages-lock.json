@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.unity.adaptiveperformance": {
+      "version": "5.0.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.profiling.core": "1.0.2"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.burst": {
       "version": "1.8.7",
       "depth": 1,
@@ -79,6 +88,13 @@
     },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.2.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.profiling.core": {
+      "version": "1.0.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
