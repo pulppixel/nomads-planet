@@ -1,3 +1,5 @@
+#if UNITY_ANDROID || UNITY_IOS
+#else
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -5,7 +7,6 @@ using Newtonsoft.Json;
 using NomadsPlanet.Utils;
 using Unity.Services.Matchmaker.Models;
 using Unity.Services.Multiplay;
-using UnityEngine;
 
 namespace NomadsPlanet
 {
@@ -183,3 +184,4 @@ namespace NomadsPlanet
         }
     }
 }
+#endif

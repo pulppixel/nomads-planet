@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿#if UNITY_ANDROID || UNITY_IOS
+#else
+using System.Threading.Tasks;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Services.Core;
@@ -47,3 +49,4 @@ namespace NomadsPlanet
         }
     }
 }
+#endif
