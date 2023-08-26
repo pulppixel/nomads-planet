@@ -13,6 +13,7 @@ namespace NomadsPlanet
 
         public event Action<PlayerWeapon> OnAttack;
         public event Action<PlayerWeapon> OnDamaged;
+
         private PlayerScore _playerScore;
         private ulong _ownerClientId;
         private Rigidbody _rigidbody;
@@ -25,7 +26,7 @@ namespace NomadsPlanet
 
         private void Start()
         {
-            this._ownerClientId = _playerScore.OwnerClientId;
+            _ownerClientId = _playerScore.OwnerClientId;
         }
 
         private void OnTriggerEnter(Collider other)

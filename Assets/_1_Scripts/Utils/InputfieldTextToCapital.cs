@@ -1,22 +1,22 @@
-using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 namespace NomadsPlanet
 {
     public class InputFieldTextToCapital : MonoBehaviour
     {
-        private TMP_InputField _inputField;
+        public TMP_InputField inputField;
 
-        private void Awake()
+        private void Start()
         {
-            _inputField.GetComponent<TMP_InputField>();
+            inputField.onValueChanged.AddListener((_) => UpdateInputField());
         }
 
-        public void UpdateInputField()
+        private void UpdateInputField()
         {
-            _inputField.text = Regex.Replace(
-                _inputField.text,
+            inputField.text = Regex.Replace(
+                inputField.text,
                 "[a-zA-Z]", match => match.Value.ToUpperInvariant()
             );
         }

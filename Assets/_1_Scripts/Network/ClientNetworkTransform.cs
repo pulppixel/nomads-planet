@@ -15,11 +15,15 @@ namespace NomadsPlanet
             CanCommitToTransform = IsOwner;
             base.Update();
 
-            if (NetworkManager == null) return;
-            if (!NetworkManager.IsConnectedClient && !NetworkManager.IsListening) return;
-            if (CanCommitToTransform)
+            if (NetworkManager != null)
             {
-                TryCommitTransformToServer(transform, NetworkManager.LocalTime.Time);
+                if (NetworkManager.IsConnectedClient || NetworkManager.IsListening)
+                {
+                    if (CanCommitToTransform)
+                    {
+                        TryCommitTransformToServer(transform, NetworkManager.LocalTime.Time);
+                    }
+                }
             }
         }
 

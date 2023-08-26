@@ -12,11 +12,12 @@ namespace NomadsPlanet
 {
     public class MultiplayAllocationService : IDisposable
     {
-        private IMultiplayService _multiplayService;
         private MultiplayEventCallbacks _serverCallbacks;
         private IServerQueryHandler _serverCheckManager;
         private IServerEvents _serverEvents;
-        private CancellationTokenSource _serverCheckCancel;
+
+        private readonly IMultiplayService _multiplayService;
+        private readonly CancellationTokenSource _serverCheckCancel;
         private string _allocationId;
 
         public MultiplayAllocationService()
@@ -70,7 +71,7 @@ namespace NomadsPlanet
                     _allocationId = configID;
                 }
 
-                await Task.Delay(100);
+                await Task.Delay(150);
             }
 
             return _allocationId;
@@ -106,7 +107,7 @@ namespace NomadsPlanet
             }
 
             _serverCheckManager =
-                await _multiplayService.StartServerQueryHandlerAsync((ushort)20, "ServerName", "", "0", "");
+                await _multiplayService.StartServerQueryHandlerAsync(20, "ServerName", "", "0", "");
 
             ServerCheckLoop(_serverCheckCancel.Token);
         }
@@ -151,7 +152,7 @@ namespace NomadsPlanet
             while (!cancellationToken.IsCancellationRequested)
             {
                 _serverCheckManager.UpdateServerCheck();
-                await Task.Delay(100);
+                await Task.Delay(150, cancellationToken);
             }
         }
 
