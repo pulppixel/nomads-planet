@@ -66,8 +66,6 @@ namespace NomadsPlanet
 #endif
 
                 playerName.Value = userData.userName;
-                characterType.Value = userData.userAvatarType;
-                carType.Value = userData.userCarType;
 
                 OnPlayerSpawned?.Invoke(this);
             }
@@ -77,6 +75,8 @@ namespace NomadsPlanet
                 minimapIconRenderer.materials[0].color = ownerColor;
             }
 
+            characterType.Value = ES3.Load<CharacterType>(PrefsKey.PlayerAvatarKey);
+            carType.Value = ES3.Load<CarType>(PrefsKey.PlayerCarKey);
             UpdateCharacter(characterType.Value, carType.Value);
         }
 

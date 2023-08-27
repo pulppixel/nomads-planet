@@ -71,7 +71,7 @@ namespace NomadsPlanet
                     _allocationId = configID;
                 }
 
-                await Task.Delay(150);
+                await Task.Delay(100);
             }
 
             return _allocationId;
@@ -107,7 +107,7 @@ namespace NomadsPlanet
             }
 
             _serverCheckManager =
-                await _multiplayService.StartServerQueryHandlerAsync(20, "ServerName", "", "0", "");
+                await _multiplayService.StartServerQueryHandlerAsync((ushort)20, "ServerName", "", "0", "");
 
             ServerCheckLoop(_serverCheckCancel.Token);
         }
@@ -152,7 +152,7 @@ namespace NomadsPlanet
             while (!cancellationToken.IsCancellationRequested)
             {
                 _serverCheckManager.UpdateServerCheck();
-                await Task.Delay(150, cancellationToken);
+                await Task.Delay(100);
             }
         }
 

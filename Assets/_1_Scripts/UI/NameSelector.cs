@@ -11,6 +11,8 @@ namespace NomadsPlanet
 {
     public class NameSelector : MonoBehaviour
     {
+        [SerializeField] private AddressableManager addressableManager;
+        
         [SerializeField] private LoadingFaderController loadingFader;
         [SerializeField] private TMP_InputField nameField;
         [SerializeField] private Button connectButton;
@@ -49,6 +51,7 @@ namespace NomadsPlanet
 
         private IEnumerator ConnectLogic()
         {
+            yield return StartCoroutine(addressableManager.DownloadAllAssets());
             yield return StartCoroutine(loadingFader.FadeIn());
             yield return new WaitForSeconds(.2f);
 

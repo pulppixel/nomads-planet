@@ -30,7 +30,7 @@ namespace NomadsPlanet
         private string _lastUsedTicket;
         private CancellationTokenSource _cancelToken;
 
-        private const int TicketCooldown = 1500;
+        private const int TicketCooldown = 1000;
 
         public bool IsMatchmaking { get; private set; }
 
@@ -71,8 +71,8 @@ namespace NomadsPlanet
                                 return ReturnMatchResult(MatchmakerPollingResult.Success, "", matchAssignment);
                             }
 
-                            if (matchAssignment.Status == MultiplayAssignment.StatusOptions.Timeout ||
-                                matchAssignment.Status == MultiplayAssignment.StatusOptions.Failed)
+                            if (matchAssignment.Status is MultiplayAssignment.StatusOptions.Timeout
+                                or MultiplayAssignment.StatusOptions.Failed)
                             {
                                 return ReturnMatchResult(MatchmakerPollingResult.MatchAssignmentError,
                                     $"Ticket: {_lastUsedTicket} - {matchAssignment.Status} - {matchAssignment.Message}",
