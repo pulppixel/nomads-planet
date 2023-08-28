@@ -5,6 +5,7 @@ using Unity.Netcode;
 using Unity.Collections;
 using NomadsPlanet.Utils;
 using UnityStandardAssets.Vehicles.Car;
+using Random = UnityEngine.Random;
 
 namespace NomadsPlanet
 {
@@ -18,8 +19,8 @@ namespace NomadsPlanet
         [SerializeField] private Color ownerColor;
 
         public NetworkVariable<FixedString32Bytes> playerName = new();
-        public NetworkVariable<CharacterType> characterType = new();
-        public NetworkVariable<CarType> carType = new();
+        public NetworkVariable<FixedString32Bytes> characterType = new();
+        public NetworkVariable<FixedString32Bytes> carType = new();
 
         private Animator _animator;
         private readonly List<GameObject> _playerPrefabs = new();
@@ -66,9 +67,8 @@ namespace NomadsPlanet
 #endif
 
                 playerName.Value = userData.userName;
-
-                characterType.Value = ES3.Load<CharacterType>(PrefsKey.PlayerAvatarKey);
-                carType.Value = ES3.Load<CarType>(PrefsKey.PlayerCarKey);
+                characterType.Value = ES3.LoadString(PrefsKey.PlayerCarKey, ((CarType)Random.Range(0, 8)).ToString());
+                carType.Value = ES3.LoadString(PrefsKey.PlayerAvatarKey, ((CharacterType)Random.Range(0, 8)).ToString());
                 OnPlayerSpawned?.Invoke(this);
             }
 
@@ -90,8 +90,8 @@ namespace NomadsPlanet
 
         private void UpdateCharacter()
         {
-            CharacterType character = ES3.Load<CharacterType>(PrefsKey.PlayerAvatarKey);
-            CarType car = ES3.Load<CarType>(PrefsKey.PlayerCarKey);
+            CharacterType character = (CharacterType)Enum.Parse(typeof(CharacterType), characterType.Value.ToString());
+            CarType car = (CarType)Enum.Parse(typeof(CarType), carType.Value.ToString());
 
             int idx = (int)character;
             _playerPrefabs[idx].transform.SetParent(transform);
