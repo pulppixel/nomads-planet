@@ -77,7 +77,7 @@ namespace NomadsPlanet
                     }
                 };
 
-                string playerName = ES3.LoadString(PrefsKey.PlayerNameKey, "Unknown");
+                string playerName = ES3.LoadString(PrefsKey.NameKey, "Unknown");
                 Lobby lobby = await Lobbies.Instance.CreateLobbyAsync(
                     $"{playerName}'s Lobby",
                     NetworkSetup.MaxConnections,
@@ -98,10 +98,10 @@ namespace NomadsPlanet
 
             UserData userData = new UserData
             {
-                userName = ES3.LoadString(PrefsKey.PlayerNameKey, "Missing Name"),
+                userName = ES3.LoadString(PrefsKey.NameKey, "Missing Name"),
                 userAuthId = AuthenticationService.Instance.PlayerId,
-                userCarType = ES3.LoadString(PrefsKey.PlayerCarKey, ((CarType)Random.Range(0, 8)).ToString()),
-                userAvatarType = ES3.LoadString(PrefsKey.PlayerAvatarKey, ((CharacterType)Random.Range(0, 8)).ToString()),
+                userCarType = ES3.LoadString(PrefsKey.CarKey, ((CarType)Random.Range(0, 8)).ToString()),
+                userAvatarType = ES3.LoadString(PrefsKey.AvatarKey, ((CharacterType)Random.Range(0, 8)).ToString()),
             };
 
             string payload = JsonUtility.ToJson(userData);

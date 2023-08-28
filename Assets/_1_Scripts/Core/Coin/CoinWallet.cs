@@ -28,7 +28,6 @@ namespace NomadsPlanet
 
         private void Start()
         {
-            ES3.Save(PrefsKey.LocalCoinKey, 0);
             vfx.SetActive(false);
         }
 
@@ -39,6 +38,7 @@ namespace NomadsPlanet
                 return;
             }
 
+            ES3.Save(PrefsKey.InGameCoinKey, 0);
             playerScore.playerWeapon.OnAttack += HandleAttack;
         }
 
@@ -49,6 +49,7 @@ namespace NomadsPlanet
                 return;
             }
 
+            ES3.Save(PrefsKey.InGameCoinKey, 0);
             playerScore.playerWeapon.OnAttack -= HandleAttack;
         }
 
@@ -59,7 +60,7 @@ namespace NomadsPlanet
                 vfx.SetActive(false);
                 vfx.SetActive(true);
                 int coinValue = coin.Collect();
-                ES3.Save(PrefsKey.LocalCoinKey, totalCoins.Value);
+                ES3.Save(PrefsKey.InGameCoinKey, totalCoins.Value);
 
                 if (!IsServer)
                 {
