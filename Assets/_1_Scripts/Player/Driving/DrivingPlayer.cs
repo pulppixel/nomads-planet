@@ -70,14 +70,13 @@ namespace NomadsPlanet
                 characterType.Value = ES3.LoadString(PrefsKey.AvatarKey, ((CharacterType)Random.Range(0, 8)).ToString());
                 carType.Value = ES3.LoadString(PrefsKey.CarKey, ((CarType)Random.Range(0, 8)).ToString());
                 OnPlayerSpawned?.Invoke(this);
+                UpdateCharacter();
             }
 
             if (IsOwner)
             {
                 minimapIconRenderer.materials[0].color = ownerColor;
             }
-
-            UpdateCharacter();
         }
 
         public override void OnNetworkDespawn()
