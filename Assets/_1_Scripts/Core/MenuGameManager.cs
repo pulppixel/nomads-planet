@@ -133,12 +133,14 @@ namespace NomadsPlanet
 
             if (carData == string.Empty)
             {
-                ES3.Save(PrefsKey.CarKey, ((CarType)Random.Range(0, 8)).ToString());
+                carData = ((CarType)Random.Range(0, 8)).ToString();
+                ES3.Save(PrefsKey.CarKey, carData);
             }
 
             if (characterData == string.Empty)
             {
-                ES3.Save(PrefsKey.AvatarKey, ((CharacterType)Random.Range(0, 8)).ToString());
+                characterData = ((CharacterType)Random.Range(0, 8)).ToString();
+                ES3.Save(PrefsKey.AvatarKey, characterData);
             }
 
             CarType carEnum = (CarType)Enum.Parse(typeof(CarType), carData);
