@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
 using NomadsPlanet.Utils;
+using UnityEngine.Serialization;
 using UnityStandardAssets.Vehicles.Car;
 using Random = UnityEngine.Random;
 
@@ -18,42 +19,33 @@ namespace NomadsPlanet
         [SerializeField] private Camera minimapCamera;
         [SerializeField] private Color ownerColor;
 
+        [SerializeField] private GameObject[] playerPrefabs;
+        [SerializeField] private GameObject[] carPrefabs;
+
         public NetworkVariable<FixedString32Bytes> playerName = new();
         public NetworkVariable<int> characterType = new();
         public NetworkVariable<int> carType = new();
 
         private Animator _animator;
-        private readonly List<GameObject> _playerPrefabs = new();
-        private readonly List<GameObject> _carPrefabs = new();
 
         public static event Action<DrivingPlayer> OnPlayerSpawned;
         public static event Action<DrivingPlayer> OnPlayerDespawned;
-
-        private void Awake()
-        {
-            _animator = GetComponent<Animator>();
-            var parent = transform.GetChildFromName<Transform>("CharacterPrefabs");
-            for (int i = 0; i < parent.childCount; i++)
-            {
-                var obj = parent.GetChild(i).gameObject;
-                obj.SetActive(false);
-                _playerPrefabs.Add(obj);
-            }
-
-            parent = transform.GetChildFromName<Transform>("CarPrefabs");
-            for (int i = 0; i < parent.childCount; i++)
-            {
-                var obj = parent.GetChild(i).gameObject;
-                obj.SetActive(false);
-                _carPrefabs.Add(obj);
-            }
-        }
-
+        
         public override void OnNetworkSpawn()
         {
             if (!IsLocalPlayer)
             {
                 minimapCamera.gameObject.SetActive(false);
+
+                foreach (var prefab in playerPrefabs)
+                {
+                    prefab.SetActive(false);
+                }
+
+                foreach (var prefab in carPrefabs)
+                {
+                    prefab.SetActive(false);
+                }
             }
 
             if (IsServer)
@@ -69,8 +61,9 @@ namespace NomadsPlanet
                 playerName.Value = userData.userName;
                 characterType.Value = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8));
                 carType.Value = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8));
-                OnPlayerSpawned?.Invoke(this);
                 UpdateCharacter();
+
+                OnPlayerSpawned?.Invoke(this);
             }
 
             if (IsOwner)
@@ -90,19 +83,19 @@ namespace NomadsPlanet
         private void UpdateCharacter()
         {
             int idx = characterType.Value;
-            _playerPrefabs[idx].transform.SetParent(transform);
-            _playerPrefabs[idx].transform.SetSiblingIndex(2);
-            _playerPrefabs[idx].gameObject.name = "Player_Model";
-            _playerPrefabs[idx].gameObject.SetActive(true);
+            playerPrefabs[idx].transform.SetParent(transform);
+            playerPrefabs[idx].transform.SetSiblingIndex(2);
+            playerPrefabs[idx].gameObject.name = "Player_Model";
+            playerPrefabs[idx].gameObject.SetActive(true);
 
             idx = carType.Value;
-            _carPrefabs[idx].transform.SetParent(transform);
-            _carPrefabs[idx].transform.SetSiblingIndex(3);
-            _carPrefabs[idx].gameObject.name = "Player_Car";
-            _carPrefabs[idx].gameObject.SetActive(true);
+            carPrefabs[idx].transform.SetParent(transform);
+            carPrefabs[idx].transform.SetSiblingIndex(3);
+            carPrefabs[idx].gameObject.name = "Player_Car";
+            carPrefabs[idx].gameObject.SetActive(true);
 
             _animator.Rebind();
-            CarController.Init(_carPrefabs[idx].transform);
+            CarController.Init(carPrefabs[idx].transform);
         }
     }
 }
