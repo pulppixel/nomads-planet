@@ -78,10 +78,11 @@ namespace NomadsPlanet
                     if (_entityDisplays.All(x => x.ClientId != changeEvent.Value.ClientId))
                     {
                         var leaderboardEntity = Instantiate(leaderboardEntityPrefab, leaderboardEntityHolder);
+                        var characterType = (CharacterType)Enum.Parse(typeof(CharacterType), changeEvent.Value.CharacterType.ToString());
+                        
                         leaderboardEntity.Initialize(changeEvent.Value.ClientId,
                             changeEvent.Value.PlayerName,
-                            (CharacterType)Enum.Parse(typeof(CharacterType),
-                                changeEvent.Value.CharacterType.ToString()),
+                            characterType,
                             changeEvent.Value.Coins
                         );
                         _entityDisplays.Add(leaderboardEntity);
@@ -189,6 +190,7 @@ namespace NomadsPlanet
                 {
                     ClientId = _leaderboardEntities[i].ClientId,
                     PlayerName = _leaderboardEntities[i].PlayerName,
+                    CharacterType = _leaderboardEntities[i].CharacterType,
                     Coins = newCoins,
                 };
 
