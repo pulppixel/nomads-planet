@@ -26,26 +26,14 @@ namespace NomadsPlanet
         public NetworkVariable<int> characterType = new();
         public NetworkVariable<int> carType = new();
 
-        private Animator _animator;
-
         public static event Action<DrivingPlayer> OnPlayerSpawned;
         public static event Action<DrivingPlayer> OnPlayerDespawned;
-        
+
         public override void OnNetworkSpawn()
         {
             if (!IsLocalPlayer)
             {
                 minimapCamera.gameObject.SetActive(false);
-
-                foreach (var prefab in playerPrefabs)
-                {
-                    prefab.SetActive(false);
-                }
-
-                foreach (var prefab in carPrefabs)
-                {
-                    prefab.SetActive(false);
-                }
             }
 
             if (IsServer)
@@ -61,7 +49,6 @@ namespace NomadsPlanet
                 playerName.Value = userData.userName;
                 characterType.Value = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8));
                 carType.Value = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8));
-                UpdateCharacter();
 
                 OnPlayerSpawned?.Invoke(this);
             }
@@ -70,6 +57,12 @@ namespace NomadsPlanet
             {
                 minimapIconRenderer.materials[0].color = ownerColor;
             }
+
+            CloseAllPrefabs();
+            UpdateCharacter(
+                ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8)),
+                ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8))
+            );
         }
 
         public override void OnNetworkDespawn()
@@ -80,22 +73,33 @@ namespace NomadsPlanet
             }
         }
 
-        private void UpdateCharacter()
+        private void UpdateCharacter(int charIdx, int catIdx)
         {
-            int idx = characterType.Value;
-            playerPrefabs[idx].transform.SetParent(transform);
-            playerPrefabs[idx].transform.SetSiblingIndex(2);
-            playerPrefabs[idx].gameObject.name = "Player_Model";
-            playerPrefabs[idx].gameObject.SetActive(true);
+            playerPrefabs[charIdx].gameObject.SetActive(true);
+            playerPrefabs[charIdx].transform.SetParent(transform);
+            playerPrefabs[charIdx].transform.SetSiblingIndex(2);
+            playerPrefabs[charIdx].gameObject.name = "Player_Model";
 
-            idx = carType.Value;
-            carPrefabs[idx].transform.SetParent(transform);
-            carPrefabs[idx].transform.SetSiblingIndex(3);
-            carPrefabs[idx].gameObject.name = "Player_Car";
-            carPrefabs[idx].gameObject.SetActive(true);
+            carPrefabs[catIdx].gameObject.SetActive(true);
+            carPrefabs[catIdx].transform.SetParent(transform);
+            carPrefabs[catIdx].transform.SetSiblingIndex(3);
+            carPrefabs[catIdx].gameObject.name = "Player_Car";
 
-            _animator.Rebind();
-            CarController.Init(carPrefabs[idx].transform);
+            GetComponent<Animator>().Rebind();
+            CarController.Init(carPrefabs[catIdx].transform);
+        }
+
+        private void CloseAllPrefabs()
+        {
+            foreach (var prefab in playerPrefabs)
+            {
+                prefab.SetActive(false);
+            }
+
+            foreach (var prefab in carPrefabs)
+            {
+                prefab.SetActive(false);
+            }
         }
     }
 }
