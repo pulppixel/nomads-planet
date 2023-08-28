@@ -8318,8 +8318,8 @@ RectTransform:
   - {fileID: 101087374}
   - {fileID: 1948779046}
   - {fileID: 513244168895060978}
-  - {fileID: 620256672}
   - {fileID: 1409319328}
+  - {fileID: 620256672}
   - {fileID: 3091564129839569130}
   - {fileID: 326970676}
   - {fileID: 232669226}
@@ -23716,11 +23716,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114317734903710598, guid: 621e3826a3af91d469707cf580fc75bb,
         type: 3}
-      propertyPath: RestrictJoystickPositionTo
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114317734903710598, guid: 621e3826a3af91d469707cf580fc75bb,
-        type: 3}
       propertyPath: JoystickBackgroundSpriteIdle
       value: 
       objectReference: {fileID: 21300000, guid: fa60a8ac4426c4b7baa8bc999489c6af,
@@ -23752,6 +23747,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 224234543700334706, guid: 621e3826a3af91d469707cf580fc75bb,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 224234543700334706, guid: 621e3826a3af91d469707cf580fc75bb,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 224311580566312476, guid: 621e3826a3af91d469707cf580fc75bb,
         type: 3}
