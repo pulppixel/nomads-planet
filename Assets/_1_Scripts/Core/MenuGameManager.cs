@@ -6,6 +6,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using NomadsPlanet.Utils;
+using Random = UnityEngine.Random;
 
 namespace NomadsPlanet
 {
@@ -127,8 +128,18 @@ namespace NomadsPlanet
 
         private void InitSetup()
         {
-            var carData = ES3.LoadString(PrefsKey.CarKey, CarType.Null.ToString());
-            var characterData = ES3.LoadString(PrefsKey.AvatarKey, CharacterType.Null.ToString());
+            var carData = ES3.LoadString(PrefsKey.CarKey, string.Empty);
+            var characterData = ES3.LoadString(PrefsKey.AvatarKey, string.Empty);
+
+            if (carData == string.Empty)
+            {
+                ES3.Save(PrefsKey.CarKey, ((CarType)Random.Range(0, 8)).ToString());
+            }
+
+            if (characterData == string.Empty)
+            {
+                ES3.Save(PrefsKey.AvatarKey, ((CharacterType)Random.Range(0, 8)).ToString());
+            }
 
             CarType carEnum = (CarType)Enum.Parse(typeof(CarType), carData);
             CharacterType characterEnum = (CharacterType)Enum.Parse(typeof(CharacterType), characterData);
