@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: com.envybros
-  productName: "\uB178\uB9C8\uC988 \uD50C\uB77C\uB137"
+  companyName: envybros
+  productName: Nomads Planet
   defaultCursor: {fileID: 2800000, guid: 7ed0bf73b0adc4d89b35fd3708dec02c, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -133,7 +133,7 @@ PlayerSettings:
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
-  bundleVersion: 1.01
+  bundleVersion: 0.1.1
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -154,14 +154,15 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.envy.bros
-    Standalone: com.DefaultCompany.com.unity.template.vr
+    Android: com.envybros.NomadsPlanet
+    Standalone: com.envybros.Nomads-Planet
+    iPhone: com.envybros.Nomads-Planet
   buildNumber:
     Standalone: 0
     VisionOS: 0
-    iPhone: 0
+    iPhone: 1
     tvOS: 0
-  overrideDefaultApplicationIdentifier: 1
+  overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 29
   AndroidTargetSdkVersion: 0
@@ -832,7 +833,7 @@ PlayerSettings:
     QNX: UNITY_VISUAL_SCRIPTING
     Server: 
     Stadia: UNITY_VISUAL_SCRIPTING;PHOTON_UNITY_NETWORKING;PUN_2_0_OR_NEWER;PUN_2_OR_NEWER;PUN_2_19_OR_NEWER
-    Standalone: UNITY_VISUAL_SCRIPTING;USE_INPUT_SYSTEM_POSE_CONTROL;CROSS_PLATFORM_INPUT;UNITY_CCU
+    Standalone: USE_INPUT_SYSTEM_POSE_CONTROL;CROSS_PLATFORM_INPUT;UNITY_CCU
     VisionOS: UNITY_VISUAL_SCRIPTING
     WebGL: UNITY_VISUAL_SCRIPTING;PHOTON_UNITY_NETWORKING;PUN_2_0_OR_NEWER;PUN_2_OR_NEWER;PUN_2_19_OR_NEWER
     Windows Store Apps: UNITY_VISUAL_SCRIPTING;USE_INPUT_SYSTEM_POSE_CONTROL;PHOTON_UNITY_NETWORKING;PUN_2_0_OR_NEWER;PUN_2_OR_NEWER;PUN_2_19_OR_NEWER
