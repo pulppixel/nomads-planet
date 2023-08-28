@@ -8,8 +8,8 @@ namespace NomadsPlanet
     {
         public string userName;
         public string userAuthId;
-        public string userCarType;
-        public string userAvatarType;
+        public int userCarType;
+        public int userAvatarType;
         public GameInfo userGamePreferences = new();
     }
 

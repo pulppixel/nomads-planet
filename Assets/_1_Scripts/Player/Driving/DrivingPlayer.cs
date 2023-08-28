@@ -19,8 +19,8 @@ namespace NomadsPlanet
         [SerializeField] private Color ownerColor;
 
         public NetworkVariable<FixedString32Bytes> playerName = new();
-        public NetworkVariable<FixedString32Bytes> characterType = new();
-        public NetworkVariable<FixedString32Bytes> carType = new();
+        public NetworkVariable<int> characterType = new();
+        public NetworkVariable<int> carType = new();
 
         private Animator _animator;
         private readonly List<GameObject> _playerPrefabs = new();
@@ -67,8 +67,8 @@ namespace NomadsPlanet
 #endif
 
                 playerName.Value = userData.userName;
-                characterType.Value = ES3.LoadString(PrefsKey.AvatarKey, ((CharacterType)Random.Range(0, 8)).ToString());
-                carType.Value = ES3.LoadString(PrefsKey.CarKey, ((CarType)Random.Range(0, 8)).ToString());
+                characterType.Value = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8));
+                carType.Value = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8));
                 OnPlayerSpawned?.Invoke(this);
                 UpdateCharacter();
             }
@@ -89,16 +89,13 @@ namespace NomadsPlanet
 
         private void UpdateCharacter()
         {
-            CharacterType character = (CharacterType)Enum.Parse(typeof(CharacterType), characterType.Value.ToString());
-            CarType car = (CarType)Enum.Parse(typeof(CarType), carType.Value.ToString());
-
-            int idx = (int)character;
+            int idx = characterType.Value;
             _playerPrefabs[idx].transform.SetParent(transform);
             _playerPrefabs[idx].transform.SetSiblingIndex(2);
             _playerPrefabs[idx].gameObject.name = "Player_Model";
             _playerPrefabs[idx].gameObject.SetActive(true);
 
-            idx = (int)car;
+            idx = carType.Value;
             _carPrefabs[idx].transform.SetParent(transform);
             _carPrefabs[idx].transform.SetSiblingIndex(3);
             _carPrefabs[idx].gameObject.name = "Player_Car";

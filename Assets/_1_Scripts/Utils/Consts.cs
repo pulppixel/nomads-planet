@@ -21,14 +21,14 @@
     {
 #if UNITY_EDITOR
         public const string NameKey = "_Name_Key_2";
-        public const string AvatarKey = "_Avatar_Key_2";
-        public const string CarKey = "_Car_Key_2";
+        public const string AvatarTypeKey = "_Avatar_Key_2";
+        public const string CarTypeKey = "_Car_Key_2";
         public const string CoinKey = "_Coin_Key_2";
         public const string InGameCoinKey = "_In_Game_Coin_Key_2";
 #else
         public const string NameKey = "Name_Key_2";
-        public const string AvatarKey = "Avatar_Key_2";
-        public const string CarKey = "Car_Key_2";
+        public const string AvatarTypeKey = "Avatar_Key_2";
+        public const string CarTypeKey = "Car_Key_2";
         public const string CoinKey = "Coin_Key_2";
         public const string InGameCoinKey = "In_Game_Coin_Key_2";
 #endif

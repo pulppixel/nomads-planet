@@ -9,7 +9,7 @@ namespace NomadsPlanet
     {
         public ulong ClientId;
         public FixedString32Bytes PlayerName;
-        public FixedString32Bytes CharacterType;
+        public int CharacterType;
         public int Coins;
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
