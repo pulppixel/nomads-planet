@@ -27,16 +27,16 @@ namespace NomadsPlanet
             background.DOColor(Color.white, 1f);
             board.rectTransform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBack);
 
-            int resultCoin = ES3.Load(PrefsKey.LocalCoinKey, 0);
+            int resultCoin = ES3.Load(PrefsKey.InGameCoinKey, 0);
+            int coinValues = ES3.Load(PrefsKey.CoinKey, 0);
+            ES3.Save(PrefsKey.CoinKey, coinValues + resultCoin);
+
             coinText.DOText(resultCoin.ToString("N0"), 1f, scrambleMode: ScrambleMode.Numerals)
                 .SetDelay(.5f);
 
             okButton.image.rectTransform.DOScale(Vector3.one, .5f)
                 .SetDelay(1f)
                 .SetEase(Ease.OutBack);
-
-            int coinValues = ES3.Load(PrefsKey.PlayerCoinKey, 0);
-            ES3.Save(PrefsKey.PlayerCoinKey, coinValues + resultCoin);
         }
     }
 }

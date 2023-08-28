@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -63,7 +64,7 @@ namespace NomadsPlanet
                 _carPrefabs[i].gameObject.SetActive(i == _currentCar);
             }
 
-            ES3.Save(PrefsKey.PlayerCarKey, (CarType)_currentCar);
+            ES3.Save(PrefsKey.CarKey, ((CarType)_currentCar).ToString());
         }
 
         public void SetRightCarClick()
@@ -78,7 +79,7 @@ namespace NomadsPlanet
                 _carPrefabs[i].gameObject.SetActive(i == _currentCar);
             }
 
-            ES3.Save(PrefsKey.PlayerCarKey, (CarType)_currentCar);
+            ES3.Save(PrefsKey.CarKey, ((CarType)_currentCar).ToString());
         }
 
         public void SetLeftCharacterClick()
@@ -94,7 +95,7 @@ namespace NomadsPlanet
             }
 
             virtualCamera.Follow = _characterPrefabs[_currentCharacter];
-            ES3.Save(PrefsKey.PlayerAvatarKey, (CharacterType)_currentCharacter);
+            ES3.Save(PrefsKey.AvatarKey, ((CharacterType)_currentCharacter).ToString());
             AllCharacterDefaultPosition();
         }
 
@@ -111,7 +112,7 @@ namespace NomadsPlanet
             }
 
             virtualCamera.Follow = _characterPrefabs[_currentCharacter];
-            ES3.Save(PrefsKey.PlayerAvatarKey, (CharacterType)_currentCharacter);
+            ES3.Save(PrefsKey.AvatarKey, ((CharacterType)_currentCharacter).ToString());
             AllCharacterDefaultPosition();
         }
 
@@ -127,22 +128,29 @@ namespace NomadsPlanet
 
         private void InitSetup()
         {
-            _currentCar = (int)ES3.Load(PrefsKey.PlayerCarKey, CarType.Null);
-            _currentCharacter = (int)ES3.Load(PrefsKey.PlayerAvatarKey, CharacterType.Null);
-            userNameText.text = ES3.Load<string>(PrefsKey.PlayerNameKey);
-            coinValueText.text = ES3.Load(PrefsKey.PlayerCoinKey, 0).ToString("N0");
+            var carData = ES3.LoadString(PrefsKey.CarKey, string.Empty);
+            var characterData = ES3.LoadString(PrefsKey.AvatarKey, string.Empty);
 
-            if (_currentCar == -1)
+            if (carData == string.Empty)
             {
-                _currentCar = Random.Range(0, 8);
-                ES3.Save(PrefsKey.PlayerCarKey, (CarType)_currentCar);
+                carData = ((CarType)Random.Range(0, 8)).ToString();
+                ES3.Save(PrefsKey.CarKey, carData);
             }
 
-            if (_currentCharacter == -1)
+            if (characterData == string.Empty)
             {
-                _currentCharacter = Random.Range(0, 8);
-                ES3.Save(PrefsKey.PlayerAvatarKey, (CharacterType)_currentCharacter);
+                characterData = ((CharacterType)Random.Range(0, 8)).ToString();
+                ES3.Save(PrefsKey.AvatarKey, characterData);
             }
+
+            CarType carEnum = (CarType)Enum.Parse(typeof(CarType), carData);
+            CharacterType characterEnum = (CharacterType)Enum.Parse(typeof(CharacterType), characterData);
+
+            _currentCar = (int)carEnum;
+            _currentCharacter = (int)characterEnum;
+
+            userNameText.text = ES3.LoadString(PrefsKey.NameKey, "Unknown");
+            coinValueText.text = ES3.Load(PrefsKey.CoinKey, 0).ToString("N0");
 
             for (int i = 0; i < _carPrefabs.Count; i++)
             {

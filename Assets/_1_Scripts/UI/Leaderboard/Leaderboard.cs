@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using NomadsPlanet.Utils;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -69,7 +71,7 @@ namespace NomadsPlanet
             {
                 return;
             }
-            
+
             switch (changeEvent.Type)
             {
                 case NetworkListEvent<LeaderboardEntityState>.EventType.Add:
@@ -78,7 +80,8 @@ namespace NomadsPlanet
                         var leaderboardEntity = Instantiate(leaderboardEntityPrefab, leaderboardEntityHolder);
                         leaderboardEntity.Initialize(changeEvent.Value.ClientId,
                             changeEvent.Value.PlayerName,
-                            changeEvent.Value.CharacterType,
+                            (CharacterType)Enum.Parse(typeof(CharacterType),
+                                changeEvent.Value.CharacterType.ToString()),
                             changeEvent.Value.Coins
                         );
                         _entityDisplays.Add(leaderboardEntity);

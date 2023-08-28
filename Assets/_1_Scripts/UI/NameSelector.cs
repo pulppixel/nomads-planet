@@ -27,7 +27,7 @@ namespace NomadsPlanet
                 return;
             }
 
-            nameField.text = ES3.LoadString(PrefsKey.PlayerNameKey, string.Empty);
+            nameField.text = ES3.LoadString(PrefsKey.NameKey, string.Empty);
             HandleNameChanged();
         }
 
@@ -55,7 +55,7 @@ namespace NomadsPlanet
             yield return StartCoroutine(loadingFader.FadeIn());
             yield return new WaitForSeconds(.2f);
 
-            ES3.Save(PrefsKey.PlayerNameKey, nameField.text);
+            ES3.Save(PrefsKey.NameKey, nameField.text);
             SceneManager.LoadScene(SceneName.NetBootStrap);
         }
     }

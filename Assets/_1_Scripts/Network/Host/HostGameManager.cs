@@ -14,6 +14,7 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace NomadsPlanet
 {
@@ -76,7 +77,7 @@ namespace NomadsPlanet
                     }
                 };
 
-                string playerName = ES3.LoadString(PrefsKey.PlayerNameKey, "Unknown");
+                string playerName = ES3.LoadString(PrefsKey.NameKey, "Unknown");
                 Lobby lobby = await Lobbies.Instance.CreateLobbyAsync(
                     $"{playerName}'s Lobby",
                     NetworkSetup.MaxConnections,
@@ -97,10 +98,10 @@ namespace NomadsPlanet
 
             UserData userData = new UserData
             {
-                userName = ES3.LoadString(PrefsKey.PlayerNameKey, "Missing Name"),
+                userName = ES3.LoadString(PrefsKey.NameKey, "Missing Name"),
                 userAuthId = AuthenticationService.Instance.PlayerId,
-                userCarType = ES3.Load(PrefsKey.PlayerCarKey, (CarType)UnityEngine.Random.Range(0, 8)),
-                userAvatarType = ES3.Load(PrefsKey.PlayerAvatarKey, (CharacterType)UnityEngine.Random.Range(0, 8)),
+                userCarType = ES3.LoadString(PrefsKey.CarKey, ((CarType)Random.Range(0, 8)).ToString()),
+                userAvatarType = ES3.LoadString(PrefsKey.AvatarKey, ((CharacterType)Random.Range(0, 8)).ToString()),
             };
 
             string payload = JsonUtility.ToJson(userData);

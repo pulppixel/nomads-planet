@@ -20,17 +20,17 @@
     public struct PrefsKey
     {
 #if UNITY_EDITOR
-        public const string PlayerNameKey = "_PlayerName";
-        public const string PlayerAvatarKey = "_PlayerAvatar";
-        public const string PlayerCarKey = "_PlayerCar";
-        public const string PlayerCoinKey = "_PlayerCoin";
-        public const string LocalCoinKey = "_LocalCoin";
+        public const string NameKey = "_NameKey3";
+        public const string AvatarKey = "_AvatarKey3";
+        public const string CarKey = "_CarKey3";
+        public const string CoinKey = "_CoinKey3";
+        public const string InGameCoinKey = "_InGameCoinKey3";
 #else
-        public const string PlayerNameKey = "PlayerName";
-        public const string PlayerAvatarKey = "PlayerAvatar";
-        public const string PlayerCarKey = "PlayerCar";
-        public const string PlayerCoinKey = "PlayerCoin";
-        public const string LocalCoinKey = "LocalCoin";
+        public const string NameKey = "NameKey3";
+        public const string AvatarKey = "AvatarKey3";
+        public const string CarKey = "CarKey3";
+        public const string CoinKey = "CoinKey3";
+        public const string InGameCoinKey = "InGameCoinKey3";
 #endif
     }
 }
