@@ -122,9 +122,7 @@ namespace NomadsPlanet
                 _entityDisplays[i].gameObject.SetActive(i <= entitiesToDisplay - 1);
             }
 
-            LeaderboardEntityDisplay myDisplay = _entityDisplays.FirstOrDefault(x =>
-                x.ClientId == NetworkManager.Singleton.LocalClientId
-            );
+            LeaderboardEntityDisplay myDisplay = GetClientDisplay();
 
             if (myDisplay != null)
             {
@@ -134,6 +132,13 @@ namespace NomadsPlanet
                     myDisplay.gameObject.SetActive(true);
                 }
             }
+        }
+
+        public LeaderboardEntityDisplay GetClientDisplay()
+        {
+            return _entityDisplays.FirstOrDefault(x =>
+                x.ClientId == NetworkManager.Singleton.LocalClientId
+            );
         }
 
         private void HandlePlayerSpawned(DrivingPlayer drivingPlayer)

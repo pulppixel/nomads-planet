@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using Unity.Netcode;
 using Unity.Mathematics;
-using NomadsPlanet.Utils;
 using Random = UnityEngine.Random;
 
 namespace NomadsPlanet
@@ -38,7 +37,6 @@ namespace NomadsPlanet
                 return;
             }
 
-            ES3.Save(PrefsKey.InGameCoinKey, 0);
             playerScore.playerWeapon.OnAttack += HandleAttack;
         }
 
@@ -49,7 +47,6 @@ namespace NomadsPlanet
                 return;
             }
 
-            ES3.Save(PrefsKey.InGameCoinKey, 0);
             playerScore.playerWeapon.OnAttack -= HandleAttack;
         }
 
@@ -57,21 +54,18 @@ namespace NomadsPlanet
         {
             if (other.TryGetComponent(out Coin coin))
             {
-                if (!IsServer)
-                {
-                    return;
-                }
-
-                // Get Coin Logic
-                int coinValue = coin.Collect();
-                totalCoins.Value += coinValue;
-                playerScore.GetScore(coinValue);
-                ES3.Save(PrefsKey.InGameCoinKey, totalCoins.Value);
-
                 // Vfx
                 vfx.SetActive(false);
                 vfx.SetActive(true);
                 SoundManager.Instance.PlayCoinGetSfx();
+
+                if (IsServer)
+                {
+                    // Get Coin Logic
+                    int coinValue = coin.Collect();
+                    totalCoins.Value += coinValue;
+                    playerScore.GetScore(coinValue);
+                }
             }
         }
 

@@ -50,13 +50,13 @@ namespace NomadsPlanet
                 playerName.Value = userData.userName;
                 avatarType.Value = userData.userAvatarType;
                 carType.Value = userData.userCarType;
-                UpdateCharacterClientRpc(avatarType.Value, carType.Value);
+                UpdateCharacterServerRpc(avatarType.Value, carType.Value);
                 OnPlayerSpawned?.Invoke(this);
             }
         }
 
-        [ClientRpc]
-        private void UpdateCharacterClientRpc(int avatarIdx, int catIdx)
+        [ServerRpc(RequireOwnership = false)]
+        private void UpdateCharacterServerRpc(int avatarIdx, int catIdx)
         {
             CloseAllPrefabs();
             var avatar = playerPrefabs[avatarIdx].gameObject;
