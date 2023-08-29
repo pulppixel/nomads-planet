@@ -111,8 +111,7 @@ namespace NomadsPlanet
                     break;
             }
 
-            _entityDisplays.Sort((x, y) =>
-                y.Coins.CompareTo(x.Coins)
+            _entityDisplays.Sort((x, y) => y.Coins.CompareTo(x.Coins)
             );
 
             for (int i = 0; i < _entityDisplays.Count; i++)
