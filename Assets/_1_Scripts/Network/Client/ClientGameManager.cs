@@ -18,10 +18,10 @@ namespace NomadsPlanet
 {
     public class ClientGameManager : IDisposable
     {
-        private JoinAllocation allocation;
+        private JoinAllocation _allocation;
 
-        private NetworkClient networkClient;
-        private MatchplayMatchmaker matchmaker;
+        private NetworkClient _networkClient;
+        private MatchplayMatchmaker _matchmaker;
 
         public UserData UserData { get; private set; }
 
@@ -29,8 +29,8 @@ namespace NomadsPlanet
         {
             await UnityServices.InitializeAsync();
 
-            networkClient = new NetworkClient(NetworkManager.Singleton);
-            matchmaker = new MatchplayMatchmaker();
+            _networkClient = new NetworkClient(NetworkManager.Singleton);
+            _matchmaker = new MatchplayMatchmaker();
 
             AuthState authState = await AuthenticationWrapper.DoAuth();
 
@@ -39,6 +39,8 @@ namespace NomadsPlanet
                 UserData = new UserData
                 {
                     userName = ES3.LoadString(PrefsKey.NameKey, "Missing Name"),
+                    userCarType = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8)),
+                    userAvatarType = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8)),
                     userAuthId = AuthenticationService.Instance.PlayerId
                 };
                 return true;
@@ -74,7 +76,7 @@ namespace NomadsPlanet
         {
             try
             {
-                allocation = await Relay.Instance.JoinAllocationAsync(joinCode);
+                _allocation = await Relay.Instance.JoinAllocationAsync(joinCode);
             }
             catch (Exception e)
             {
@@ -84,7 +86,7 @@ namespace NomadsPlanet
 
             UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
 
-            RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
+            RelayServerData relayServerData = new RelayServerData(_allocation, NetworkSetup.ConnectType);
             transport.SetRelayServerData(relayServerData);
 
             ConnectClient();
@@ -102,7 +104,7 @@ namespace NomadsPlanet
 
         public async void MatchmakeAsync(Action<MatchmakerPollingResult> onMatchmakeResponse)
         {
-            if (matchmaker.IsMatchmaking)
+            if (_matchmaker.IsMatchmaking)
             {
                 return;
             }
@@ -114,7 +116,7 @@ namespace NomadsPlanet
 
         private async Task<MatchmakerPollingResult> GetMatchAsync()
         {
-            MatchmakingResult matchmakingResult = await matchmaker.Matchmake(UserData);
+            MatchmakingResult matchmakingResult = await _matchmaker.Matchmake(UserData);
 
             if (matchmakingResult.Result == MatchmakerPollingResult.Success)
             {
@@ -126,17 +128,17 @@ namespace NomadsPlanet
 
         public async Task CancelMatchmaking()
         {
-            await matchmaker.CancelMatchmaking();
+            await _matchmaker.CancelMatchmaking();
         }
 
         public void Disconnect()
         {
-            networkClient.Disconnect();
+            _networkClient.Disconnect();
         }
 
         public void Dispose()
         {
-            networkClient?.Dispose();
+            _networkClient?.Dispose();
         }
     }
 }
