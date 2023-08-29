@@ -18,13 +18,14 @@ namespace NomadsPlanet
     public class ClientGameManager : IDisposable
     {
         private JoinAllocation _allocation;
+
         private NetworkClient _networkClient;
         private MatchplayMatchmaker _matchmaker;
-        private UserData _userData;
+
+        public UserData UserData { get; private set; }
 
         public async Task<bool> InitAsync()
         {
-            // Authenticate Player
             await UnityServices.InitializeAsync();
 
             _networkClient = new NetworkClient(NetworkManager.Singleton);
@@ -34,21 +35,20 @@ namespace NomadsPlanet
 
             if (authState == AuthState.Authenticated)
             {
-                _userData = new UserData
+                UserData = new UserData
                 {
                     userName = ES3.LoadString(PrefsKey.NameKey, "Missing Name"),
-                    userAuthId = AuthenticationService.Instance.PlayerId,
                     userCarType = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8)),
                     userAvatarType = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8)),
+                    userAuthId = AuthenticationService.Instance.PlayerId
                 };
-
                 return true;
             }
 
             return false;
         }
 
-        public void GoToMenu()
+        public static void GoToMenu()
         {
             SceneManager.LoadScene(SceneName.MenuScene);
         }
@@ -57,8 +57,18 @@ namespace NomadsPlanet
         {
             UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
             transport.SetConnectionData(ip, (ushort)port);
-            
             ConnectClient();
+        }
+        
+        public void UpdateUserData(string userName = "", int userCarType = -1, int userAvatarType = -1)
+        {
+            UserData.userName = userName == "" ? UserData.userName : userName;
+            UserData.userCarType = userCarType == -1 ? UserData.userCarType : userCarType;
+            UserData.userAvatarType = userAvatarType == -1 ? UserData.userAvatarType : userAvatarType;
+
+            string payload = JsonUtility.ToJson(UserData);
+            byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
         }
 
         public async Task StartClientAsync(string joinCode)
@@ -69,7 +79,7 @@ namespace NomadsPlanet
             }
             catch (Exception e)
             {
-                CustomFunc.ConsoleLog(e, true);
+                CustomFunc.ConsoleLog(e);
                 return;
             }
 
@@ -83,31 +93,32 @@ namespace NomadsPlanet
 
         private void ConnectClient()
         {
-            string payload = JsonUtility.ToJson(_userData);
+            string payload = JsonUtility.ToJson(UserData);
             byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
 
             NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
+
             NetworkManager.Singleton.StartClient();
         }
 
-        public async void MatchmakeAsync(Action<MatchmakerPollingResult> onMatchMakeResponse)
+        public async void MatchmakeAsync(Action<MatchmakerPollingResult> onMatchmakeResponse)
         {
             if (_matchmaker.IsMatchmaking)
             {
                 return;
             }
 
+            UserData.userGamePreferences.gameQueue = GameQueue.Solo;
             MatchmakerPollingResult matchResult = await GetMatchAsync();
-            onMatchMakeResponse?.Invoke(matchResult);
+            onMatchmakeResponse?.Invoke(matchResult);
         }
 
         private async Task<MatchmakerPollingResult> GetMatchAsync()
         {
-            MatchmakingResult matchmakingResult = await _matchmaker.Matchmake(_userData);
+            MatchmakingResult matchmakingResult = await _matchmaker.Matchmake(UserData);
 
             if (matchmakingResult.Result == MatchmakerPollingResult.Success)
             {
-                // 서버에 연결
                 StartClient(matchmakingResult.IP, matchmakingResult.Port);
             }
 

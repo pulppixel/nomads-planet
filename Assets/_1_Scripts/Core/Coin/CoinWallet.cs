@@ -1,7 +1,6 @@
-﻿using NomadsPlanet.Utils;
-using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
 using Unity.Netcode;
+using Unity.Mathematics;
 using Random = UnityEngine.Random;
 
 namespace NomadsPlanet
@@ -38,7 +37,6 @@ namespace NomadsPlanet
                 return;
             }
 
-            ES3.Save(PrefsKey.InGameCoinKey, 0);
             playerScore.playerWeapon.OnAttack += HandleAttack;
         }
 
@@ -49,7 +47,6 @@ namespace NomadsPlanet
                 return;
             }
 
-            ES3.Save(PrefsKey.InGameCoinKey, 0);
             playerScore.playerWeapon.OnAttack -= HandleAttack;
         }
 
@@ -57,26 +54,26 @@ namespace NomadsPlanet
         {
             if (other.TryGetComponent(out Coin coin))
             {
+                // Vfx
                 vfx.SetActive(false);
                 vfx.SetActive(true);
-                int coinValue = coin.Collect();
-                ES3.Save(PrefsKey.InGameCoinKey, totalCoins.Value);
-
-                if (!IsServer)
-                {
-                    return;
-                }
-
                 SoundManager.Instance.PlayCoinGetSfx();
-                totalCoins.Value += coinValue;
-                playerScore.GetScore(coinValue);
+
+                int coinValue = coin.Collect();
+
+                if (IsServer)
+                {
+                    // Get Coin Logic
+                    totalCoins.Value += coinValue;
+                    playerScore.GetScore(coinValue);
+                }
             }
         }
 
         private void HandleAttack(PlayerWeapon weapon)
         {
-            int bountyValue = (int)(totalCoins.Value * .2f);
-            int bountyCoinValue = bountyValue / BountyCoinCount;
+            const int bountyValue = 3;
+            const int bountyCoinValue = bountyValue / BountyCoinCount;
 
             for (int i = 0; i < BountyCoinCount; i++)
             {

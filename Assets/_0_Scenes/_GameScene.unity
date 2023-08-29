@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.047299743, g: 0.049807783, b: 0.051382367, a: 1}
+  m_IndirectSpecularColor: {r: 0.15158603, g: 0.15147693, b: 0.1951764, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8057,6 +8057,7 @@ MonoBehaviour:
   board: {fileID: 1004809576}
   coinText: {fileID: 1944895305}
   okButton: {fileID: 7014488339916748087}
+  leaderboard: {fileID: 415755732}
 --- !u!1001 &232831499
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51384,7 +51385,7 @@ Camera:
   m_GameObject: {fileID: 1292358799}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2

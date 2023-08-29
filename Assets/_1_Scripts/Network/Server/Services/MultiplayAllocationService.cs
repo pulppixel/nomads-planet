@@ -43,6 +43,8 @@ namespace NomadsPlanet
             _allocationId = null;
             _serverCallbacks = new MultiplayEventCallbacks();
             _serverCallbacks.Allocate += OnMultiplayAllocation;
+            _serverCallbacks.Deallocate += OnMultiplayDeAllocation;
+            _serverCallbacks.Error += OnMultiplayError;
             _serverEvents = await _multiplayService.SubscribeToServerEventsAsync(_serverCallbacks);
 
             string allocationID = await AwaitAllocationID();
@@ -79,11 +81,9 @@ namespace NomadsPlanet
 
         private async Task<MatchmakingResults> GetMatchmakerAllocationPayloadAsync()
         {
-            MatchmakingResults payloadAllocation =
-                await MultiplayService.Instance.GetPayloadAllocationFromJsonAs<MatchmakingResults>();
+            MatchmakingResults payloadAllocation = await MultiplayService.Instance.GetPayloadAllocationFromJsonAs<MatchmakingResults>();
             string modelAsJson = JsonConvert.SerializeObject(payloadAllocation, Formatting.Indented);
-            CustomFunc.ConsoleLog(nameof(GetMatchmakerAllocationPayloadAsync) + ":" + Environment.NewLine +
-                                  modelAsJson);
+            CustomFunc.ConsoleLog(nameof(GetMatchmakerAllocationPayloadAsync) + ":" + Environment.NewLine + modelAsJson);
             return payloadAllocation;
         }
 
@@ -109,7 +109,7 @@ namespace NomadsPlanet
             _serverCheckManager =
                 await _multiplayService.StartServerQueryHandlerAsync((ushort)20, "ServerName", "", "0", "");
 
-            ServerCheckLoop(_serverCheckCancel.Token);
+            _ = ServerCheckLoop(_serverCheckCancel.Token);
         }
 
         public void SetServerName(string name)
@@ -147,7 +147,7 @@ namespace NomadsPlanet
             _serverCheckManager.GameType = mode;
         }
 
-        private async void ServerCheckLoop(CancellationToken cancellationToken)
+        private async Task ServerCheckLoop(CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
             {

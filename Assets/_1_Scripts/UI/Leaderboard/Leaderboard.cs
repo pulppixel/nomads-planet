@@ -111,8 +111,7 @@ namespace NomadsPlanet
                     break;
             }
 
-            _entityDisplays.Sort((x, y) =>
-                y.Coins.CompareTo(x.Coins)
+            _entityDisplays.Sort((x, y) => y.Coins.CompareTo(x.Coins)
             );
 
             for (int i = 0; i < _entityDisplays.Count; i++)
@@ -123,9 +122,7 @@ namespace NomadsPlanet
                 _entityDisplays[i].gameObject.SetActive(i <= entitiesToDisplay - 1);
             }
 
-            LeaderboardEntityDisplay myDisplay = _entityDisplays.FirstOrDefault(x =>
-                x.ClientId == NetworkManager.Singleton.LocalClientId
-            );
+            LeaderboardEntityDisplay myDisplay = GetClientDisplay();
 
             if (myDisplay != null)
             {
@@ -137,13 +134,20 @@ namespace NomadsPlanet
             }
         }
 
+        public LeaderboardEntityDisplay GetClientDisplay()
+        {
+            return _entityDisplays.FirstOrDefault(x =>
+                x.ClientId == NetworkManager.Singleton.LocalClientId
+            );
+        }
+
         private void HandlePlayerSpawned(DrivingPlayer drivingPlayer)
         {
             _leaderboardEntities.Add(new LeaderboardEntityState
             {
                 ClientId = drivingPlayer.OwnerClientId,
                 PlayerName = drivingPlayer.playerName.Value,
-                CharacterType = drivingPlayer.characterType.Value,
+                CharacterType = drivingPlayer.avatarType.Value,
                 Coins = 0,
             });
 

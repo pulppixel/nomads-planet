@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NomadsPlanet.Utils;
 using Unity.Mathematics;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -58,7 +57,7 @@ namespace NomadsPlanet
 
         private async Task SpawnPlayerDelayed(ulong clientId)
         {
-            await Task.Delay(2500);
+            await Task.Delay(2000);
 
             NetworkObject playerInstance = Object.Instantiate(
                 _playerPrefab,
@@ -66,7 +65,6 @@ namespace NomadsPlanet
                 quaternion.identity
             );
 
-            var player = playerInstance.GetComponent<DrivingPlayer>();
             playerInstance.SpawnAsPlayerObject(clientId);
         }
 

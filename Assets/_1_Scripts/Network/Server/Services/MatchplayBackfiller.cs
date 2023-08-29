@@ -25,8 +25,7 @@ namespace NomadsPlanet
         private MatchProperties MatchProperties => _localBackfillTicket.Properties.MatchProperties;
         public bool IsBackfilling { get; private set; }
 
-        public MatchplayBackfiller(string connection, string queueName, MatchProperties matchmakerPayloadProperties,
-            int maxPlayers)
+        public MatchplayBackfiller(string connection, string queueName, MatchProperties matchmakerPayloadProperties, int maxPlayers)
         {
             _maxPlayers = maxPlayers;
             BackfillTicketProperties backfillProperties = new BackfillTicketProperties(matchmakerPayloadProperties);
@@ -56,13 +55,11 @@ namespace NomadsPlanet
 
             if (string.IsNullOrEmpty(_localBackfillTicket.Id))
             {
-                _localBackfillTicket.Id =
-                    await MatchmakerService.Instance.CreateBackfillTicketAsync(_createBackfillOptions);
+                _localBackfillTicket.Id = await MatchmakerService.Instance.CreateBackfillTicketAsync(_createBackfillOptions);
             }
 
             IsBackfilling = true;
-
-            BackfillLoop();
+            _ = BackfillLoop();
         }
 
         public void AddPlayerToMatch(UserData userData)
@@ -130,20 +127,18 @@ namespace NomadsPlanet
             _localBackfillTicket.Id = null;
         }
 
-        private async void BackfillLoop()
+        private async Task BackfillLoop()
         {
             while (IsBackfilling)
             {
                 if (_localDataDirty)
                 {
-                    await MatchmakerService.Instance.UpdateBackfillTicketAsync(_localBackfillTicket.Id,
-                        _localBackfillTicket);
+                    await MatchmakerService.Instance.UpdateBackfillTicketAsync(_localBackfillTicket.Id, _localBackfillTicket);
                     _localDataDirty = false;
                 }
                 else
                 {
-                    _localBackfillTicket =
-                        await MatchmakerService.Instance.ApproveBackfillTicketAsync(_localBackfillTicket.Id);
+                    _localBackfillTicket = await MatchmakerService.Instance.ApproveBackfillTicketAsync(_localBackfillTicket.Id);
                 }
 
                 if (!NeedsPlayers())

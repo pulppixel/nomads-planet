@@ -67208,6 +67208,7 @@ GameObject:
   - component: {fileID: 7266383622953160581}
   - component: {fileID: 3540681002535233151}
   - component: {fileID: 7748507406274966898}
+  - component: {fileID: 2280893676575923619}
   m_Layer: 0
   m_Name: Driving Car
   m_TagString: Player
@@ -67315,7 +67316,7 @@ MonoBehaviour:
         byte0027: 0
         byte0028: 0
         byte0029: 0
-  characterType:
+  avatarType:
     m_InternalValue: 0
   carType:
     m_InternalValue: 0
@@ -67331,7 +67332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a6558e713c24b4da92df692721d443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxScore>k__BackingField: 100
+  maxScore: 1000
   playerWeapon: {fileID: 3611111295080902949}
   currentScore:
     m_InternalValue: 0
@@ -67520,6 +67521,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2280893676575923619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4221770887502304591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 7748507406274966898}
 --- !u!1 &4226516740007215151
 GameObject:
   m_ObjectHideFlags: 0
@@ -82689,7 +82704,7 @@ Transform:
   m_GameObject: {fileID: 5234932622688273992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4, y: 1.35, z: -0.0368}
+  m_LocalPosition: {x: -0.4, y: 1.35, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -82734,7 +82749,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1527
+    m_Bits: 3575
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

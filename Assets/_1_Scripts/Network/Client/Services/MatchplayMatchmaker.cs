@@ -44,7 +44,7 @@ namespace NomadsPlanet
 
             List<Player> players = new List<Player>
             {
-                new(data.userAuthId, data.userGamePreferences)
+                new Player(data.userAuthId, data.userGamePreferences)
             };
 
             try
@@ -71,16 +71,14 @@ namespace NomadsPlanet
                                 return ReturnMatchResult(MatchmakerPollingResult.Success, "", matchAssignment);
                             }
 
-                            if (matchAssignment.Status is MultiplayAssignment.StatusOptions.Timeout
-                                or MultiplayAssignment.StatusOptions.Failed)
+                            if (matchAssignment.Status is MultiplayAssignment.StatusOptions.Timeout or MultiplayAssignment.StatusOptions.Failed)
                             {
                                 return ReturnMatchResult(MatchmakerPollingResult.MatchAssignmentError,
                                     $"Ticket: {_lastUsedTicket} - {matchAssignment.Status} - {matchAssignment.Message}",
                                     null);
                             }
 
-                            CustomFunc.ConsoleLog(
-                                $"Polled Ticket: {_lastUsedTicket} Status: {matchAssignment.Status} ");
+                            CustomFunc.ConsoleLog($"Polled Ticket: {_lastUsedTicket} Status: {matchAssignment.Status} ");
                         }
 
                         await Task.Delay(TicketCooldown);
@@ -123,8 +121,7 @@ namespace NomadsPlanet
             await MatchmakerService.Instance.DeleteTicketAsync(_lastUsedTicket);
         }
 
-        private MatchmakingResult ReturnMatchResult(MatchmakerPollingResult resultErrorType, string message,
-            MultiplayAssignment assignment)
+        private MatchmakingResult ReturnMatchResult(MatchmakerPollingResult resultErrorType, string message, MultiplayAssignment assignment)
         {
             IsMatchmaking = false;
 

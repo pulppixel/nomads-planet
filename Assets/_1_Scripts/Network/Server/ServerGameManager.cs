@@ -6,6 +6,7 @@ using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 using NomadsPlanet.Utils;
+using UnityEngine.SceneManagement;
 
 namespace NomadsPlanet
 {
@@ -58,6 +59,8 @@ namespace NomadsPlanet
                 CustomFunc.ConsoleLog("네트워크 서버가 예상대로 시작되지 않았습니다.");
                 return;
             }
+            
+            NetworkManager.Singleton.SceneManager.LoadScene(SceneName.GameScene, LoadSceneMode.Single);
         }
 
         private async Task<MatchmakingResults> GetMatchmakerPayload()

@@ -8,11 +8,12 @@ namespace NomadsPlanet
 {
     public class ResultBoard : MonoBehaviour
     {
-        public Image background;
-        public Image board;
-        public TMP_Text coinText;
+        [SerializeField] private Image background;
+        [SerializeField] private Image board;
+        [SerializeField] private TMP_Text coinText;
+        [SerializeField] private Button okButton;
 
-        public Button okButton;
+        [SerializeField] private Leaderboard leaderboard;
 
         private void Start()
         {
@@ -27,11 +28,14 @@ namespace NomadsPlanet
             background.DOColor(Color.white, 1f);
             board.rectTransform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBack);
 
-            int resultCoin = ES3.Load(PrefsKey.InGameCoinKey, 0);
             int coinValues = ES3.Load(PrefsKey.CoinKey, 0);
-            ES3.Save(PrefsKey.CoinKey, coinValues + resultCoin);
+            ES3.Save(PrefsKey.CoinKey, coinValues + leaderboard.GetClientDisplay().Coins);
 
-            coinText.DOText(resultCoin.ToString("N0"), 1f, scrambleMode: ScrambleMode.Numerals)
+            coinText.DOText(
+                    leaderboard.GetClientDisplay().Coins.ToString("N0"),
+                    1f,
+                    scrambleMode: ScrambleMode.Numerals
+                )
                 .SetDelay(.5f);
 
             okButton.image.rectTransform.DOScale(Vector3.one, .5f)
