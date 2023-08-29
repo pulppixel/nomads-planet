@@ -56,8 +56,6 @@ namespace NomadsPlanet
         private async Task<string> AwaitAllocationID()
         {
             ServerConfig config = _multiplayService.ServerConfig;
-            int timeoutCount = 0;
-
             CustomFunc.ConsoleLog($"Awaiting Allocation. Server Config is:\n" +
                                   $"-ServerID: {config.ServerId}\n" +
                                   $"-AllocationID: {config.AllocationId}\n" +
@@ -65,7 +63,7 @@ namespace NomadsPlanet
                                   $"-QPort: {config.QueryPort}\n" +
                                   $"-logs: {config.ServerLogDirectory}");
 
-            while (string.IsNullOrEmpty(_allocationId) && timeoutCount < 100)
+            while (string.IsNullOrEmpty(_allocationId))
             {
                 string configID = config.AllocationId;
 
@@ -76,7 +74,6 @@ namespace NomadsPlanet
                 }
 
                 await Task.Delay(100);
-                ++timeoutCount;
             }
 
             return _allocationId;
@@ -84,11 +81,9 @@ namespace NomadsPlanet
 
         private async Task<MatchmakingResults> GetMatchmakerAllocationPayloadAsync()
         {
-            MatchmakingResults payloadAllocation =
-                await MultiplayService.Instance.GetPayloadAllocationFromJsonAs<MatchmakingResults>();
+            MatchmakingResults payloadAllocation = await MultiplayService.Instance.GetPayloadAllocationFromJsonAs<MatchmakingResults>();
             string modelAsJson = JsonConvert.SerializeObject(payloadAllocation, Formatting.Indented);
-            CustomFunc.ConsoleLog(nameof(GetMatchmakerAllocationPayloadAsync) + ":" + Environment.NewLine +
-                                  modelAsJson);
+            CustomFunc.ConsoleLog(nameof(GetMatchmakerAllocationPayloadAsync) + ":" + Environment.NewLine + modelAsJson);
             return payloadAllocation;
         }
 
@@ -112,13 +107,7 @@ namespace NomadsPlanet
             }
 
             _serverCheckManager =
-                await _multiplayService.StartServerQueryHandlerAsync(
-                    (ushort)20,
-                    "ServerName",
-                    "",
-                    "0",
-                    ""
-                );
+                await _multiplayService.StartServerQueryHandlerAsync((ushort)20, "ServerName", "", "0", "");
 
             _ = ServerCheckLoop(_serverCheckCancel.Token);
         }
@@ -162,15 +151,8 @@ namespace NomadsPlanet
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                try
-                {
-                    _serverCheckManager.UpdateServerCheck();
-                    await Task.Delay(100, cancellationToken);
-                }
-                catch (Exception ex)
-                {
-                    CustomFunc.ConsoleLog($"Error during server check: {ex}");
-                }
+                _serverCheckManager.UpdateServerCheck();
+                await Task.Delay(100);
             }
         }
 
@@ -194,7 +176,11 @@ namespace NomadsPlanet
                 _serverCallbacks.Error -= OnMultiplayError;
             }
 
-            _serverCheckCancel?.Cancel();
+            if (_serverCheckCancel != null)
+            {
+                _serverCheckCancel.Cancel();
+            }
+
             _serverEvents?.UnsubscribeAsync();
         }
     }

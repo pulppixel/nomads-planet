@@ -106,7 +106,6 @@ namespace NomadsPlanet
             if (transform.GetChildFromName<Transform>("Player_Model") == null)
             {
                 UpdateCharacter();
-                CustomFunc.ConsoleLog($"{playerName.Value} 설정됨!");
             }
         }
     }

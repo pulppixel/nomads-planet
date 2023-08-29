@@ -55,8 +55,7 @@ namespace NomadsPlanet
 
             if (string.IsNullOrEmpty(_localBackfillTicket.Id))
             {
-                _localBackfillTicket.Id =
-                    await MatchmakerService.Instance.CreateBackfillTicketAsync(_createBackfillOptions);
+                _localBackfillTicket.Id = await MatchmakerService.Instance.CreateBackfillTicketAsync(_createBackfillOptions);
             }
 
             IsBackfilling = true;
@@ -134,14 +133,12 @@ namespace NomadsPlanet
             {
                 if (_localDataDirty)
                 {
-                    await MatchmakerService.Instance.UpdateBackfillTicketAsync(_localBackfillTicket.Id,
-                        _localBackfillTicket);
+                    await MatchmakerService.Instance.UpdateBackfillTicketAsync(_localBackfillTicket.Id, _localBackfillTicket);
                     _localDataDirty = false;
                 }
                 else
                 {
-                    _localBackfillTicket =
-                        await MatchmakerService.Instance.ApproveBackfillTicketAsync(_localBackfillTicket.Id);
+                    _localBackfillTicket = await MatchmakerService.Instance.ApproveBackfillTicketAsync(_localBackfillTicket.Id);
                 }
 
                 if (!NeedsPlayers())

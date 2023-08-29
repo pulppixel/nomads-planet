@@ -32,7 +32,7 @@ namespace NomadsPlanet
         {
             while (AuthState is AuthState.Authenticating or AuthState.NotAuthenticated)
             {
-                await Task.Delay(250);
+                await Task.Delay(200);
             }
         }
 
@@ -65,7 +65,7 @@ namespace NomadsPlanet
                 }
 
                 retries++;
-                await Task.Delay(1500);
+                await Task.Delay(1000);
             }
 
             if (AuthState != AuthState.Authenticated)

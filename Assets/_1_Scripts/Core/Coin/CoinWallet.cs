@@ -72,8 +72,8 @@ namespace NomadsPlanet
 
         private void HandleAttack(PlayerWeapon weapon)
         {
-            int bountyValue = (int)(totalCoins.Value * .2f);
-            int bountyCoinValue = bountyValue / BountyCoinCount;
+            const int bountyValue = 3;
+            const int bountyCoinValue = bountyValue / BountyCoinCount;
 
             for (int i = 0; i < BountyCoinCount; i++)
             {

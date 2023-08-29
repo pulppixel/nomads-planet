@@ -18,18 +18,19 @@ namespace NomadsPlanet
 {
     public class ClientGameManager : IDisposable
     {
+        private JoinAllocation allocation;
+
+        private NetworkClient networkClient;
+        private MatchplayMatchmaker matchmaker;
+
         public UserData UserData { get; private set; }
-        private JoinAllocation _allocation;
-        private NetworkClient _networkClient;
-        private MatchplayMatchmaker _matchmaker;
 
         public async Task<bool> InitAsync()
         {
-            // Authenticate Player
             await UnityServices.InitializeAsync();
 
-            _networkClient = new NetworkClient(NetworkManager.Singleton);
-            _matchmaker = new MatchplayMatchmaker();
+            networkClient = new NetworkClient(NetworkManager.Singleton);
+            matchmaker = new MatchplayMatchmaker();
 
             AuthState authState = await AuthenticationWrapper.DoAuth();
 
@@ -38,11 +39,8 @@ namespace NomadsPlanet
                 UserData = new UserData
                 {
                     userName = ES3.LoadString(PrefsKey.NameKey, "Missing Name"),
-                    userAuthId = AuthenticationService.Instance.PlayerId,
-                    userCarType = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8)),
-                    userAvatarType = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8)),
+                    userAuthId = AuthenticationService.Instance.PlayerId
                 };
-
                 return true;
             }
 
@@ -54,6 +52,13 @@ namespace NomadsPlanet
             SceneManager.LoadScene(SceneName.MenuScene);
         }
 
+        public void StartClient(string ip, int port)
+        {
+            UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+            transport.SetConnectionData(ip, (ushort)port);
+            ConnectClient();
+        }
+        
         public void UpdateUserData(string userName = "", int userCarType = -1, int userAvatarType = -1)
         {
             UserData.userName = userName == "" ? UserData.userName : userName;
@@ -65,28 +70,21 @@ namespace NomadsPlanet
             NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
         }
 
-        private void StartClient(string ip, int port)
-        {
-            UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-            transport.SetConnectionData(ip, (ushort)port);
-
-            ConnectClient();
-        }
-
         public async Task StartClientAsync(string joinCode)
         {
             try
             {
-                _allocation = await Relay.Instance.JoinAllocationAsync(joinCode);
+                allocation = await Relay.Instance.JoinAllocationAsync(joinCode);
             }
             catch (Exception e)
             {
-                CustomFunc.ConsoleLog(e, true);
+                CustomFunc.ConsoleLog(e);
                 return;
             }
 
             UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-            RelayServerData relayServerData = new RelayServerData(_allocation, NetworkSetup.ConnectType);
+
+            RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
             transport.SetRelayServerData(relayServerData);
 
             ConnectClient();
@@ -98,27 +96,28 @@ namespace NomadsPlanet
             byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
 
             NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
+
             NetworkManager.Singleton.StartClient();
         }
 
-        public async void MatchmakeAsync(Action<MatchmakerPollingResult> onMatchMakeResponse)
+        public async void MatchmakeAsync(Action<MatchmakerPollingResult> onMatchmakeResponse)
         {
-            if (_matchmaker.IsMatchmaking)
+            if (matchmaker.IsMatchmaking)
             {
                 return;
             }
 
+            UserData.userGamePreferences.gameQueue = GameQueue.Solo;
             MatchmakerPollingResult matchResult = await GetMatchAsync();
-            onMatchMakeResponse?.Invoke(matchResult);
+            onMatchmakeResponse?.Invoke(matchResult);
         }
 
         private async Task<MatchmakerPollingResult> GetMatchAsync()
         {
-            MatchmakingResult matchmakingResult = await _matchmaker.Matchmake(UserData);
+            MatchmakingResult matchmakingResult = await matchmaker.Matchmake(UserData);
 
             if (matchmakingResult.Result == MatchmakerPollingResult.Success)
             {
-                // 서버에 연결
                 StartClient(matchmakingResult.IP, matchmakingResult.Port);
             }
 
@@ -127,17 +126,17 @@ namespace NomadsPlanet
 
         public async Task CancelMatchmaking()
         {
-            await _matchmaker.CancelMatchmaking();
+            await matchmaker.CancelMatchmaking();
         }
 
         public void Disconnect()
         {
-            _networkClient.Disconnect();
+            networkClient.Disconnect();
         }
 
         public void Dispose()
         {
-            _networkClient?.Dispose();
+            networkClient?.Dispose();
         }
     }
 }
