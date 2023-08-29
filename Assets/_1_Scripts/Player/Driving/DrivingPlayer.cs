@@ -47,9 +47,11 @@ namespace NomadsPlanet
 #endif
 
                 playerName.Value = userData.userName;
-                characterType.Value = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8));
-                carType.Value = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8));
+                int charIdx = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8));
+                int carIdx = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8));
 
+                CloseAllPrefabs();
+                SetCharacterAndCarTypeServerRpc(charIdx, carIdx);
                 OnPlayerSpawned?.Invoke(this);
             }
 
@@ -57,12 +59,6 @@ namespace NomadsPlanet
             {
                 minimapIconRenderer.materials[0].color = ownerColor;
             }
-
-            CloseAllPrefabs();
-            UpdateCharacter(
-                ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8)),
-                ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8))
-            );
         }
 
         public override void OnNetworkDespawn()
@@ -71,6 +67,14 @@ namespace NomadsPlanet
             {
                 OnPlayerDespawned?.Invoke(this);
             }
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        private void SetCharacterAndCarTypeServerRpc(int charIdx, int carIdx)
+        {
+            characterType.Value = charIdx;
+            carType.Value = carIdx;
+            UpdateCharacter(charIdx, carIdx);
         }
 
         private void UpdateCharacter(int charIdx, int catIdx)
