@@ -59,10 +59,11 @@ namespace NomadsPlanet
                 vfx.SetActive(true);
                 SoundManager.Instance.PlayCoinGetSfx();
 
+                int coinValue = coin.Collect();
+
                 if (IsServer)
                 {
                     // Get Coin Logic
-                    int coinValue = coin.Collect();
                     totalCoins.Value += coinValue;
                     playerScore.GetScore(coinValue);
                 }
