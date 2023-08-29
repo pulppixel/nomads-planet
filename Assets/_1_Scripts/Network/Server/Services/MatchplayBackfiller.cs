@@ -25,8 +25,7 @@ namespace NomadsPlanet
         private MatchProperties MatchProperties => _localBackfillTicket.Properties.MatchProperties;
         public bool IsBackfilling { get; private set; }
 
-        public MatchplayBackfiller(string connection, string queueName, MatchProperties matchmakerPayloadProperties,
-            int maxPlayers)
+        public MatchplayBackfiller(string connection, string queueName, MatchProperties matchmakerPayloadProperties, int maxPlayers)
         {
             _maxPlayers = maxPlayers;
             BackfillTicketProperties backfillProperties = new BackfillTicketProperties(matchmakerPayloadProperties);
@@ -61,8 +60,7 @@ namespace NomadsPlanet
             }
 
             IsBackfilling = true;
-
-            BackfillLoop();
+            _ = BackfillLoop();
         }
 
         public void AddPlayerToMatch(UserData userData)
@@ -130,7 +128,7 @@ namespace NomadsPlanet
             _localBackfillTicket.Id = null;
         }
 
-        private async void BackfillLoop()
+        private async Task BackfillLoop()
         {
             while (IsBackfilling)
             {

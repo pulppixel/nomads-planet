@@ -43,6 +43,8 @@ namespace NomadsPlanet
             _allocationId = null;
             _serverCallbacks = new MultiplayEventCallbacks();
             _serverCallbacks.Allocate += OnMultiplayAllocation;
+            _serverCallbacks.Deallocate += OnMultiplayDeAllocation;
+            _serverCallbacks.Error += OnMultiplayError;
             _serverEvents = await _multiplayService.SubscribeToServerEventsAsync(_serverCallbacks);
 
             string allocationID = await AwaitAllocationID();
@@ -54,6 +56,8 @@ namespace NomadsPlanet
         private async Task<string> AwaitAllocationID()
         {
             ServerConfig config = _multiplayService.ServerConfig;
+            int timeoutCount = 0;
+            
             CustomFunc.ConsoleLog($"Awaiting Allocation. Server Config is:\n" +
                                   $"-ServerID: {config.ServerId}\n" +
                                   $"-AllocationID: {config.AllocationId}\n" +
@@ -61,7 +65,7 @@ namespace NomadsPlanet
                                   $"-QPort: {config.QueryPort}\n" +
                                   $"-logs: {config.ServerLogDirectory}");
 
-            while (string.IsNullOrEmpty(_allocationId))
+            while (string.IsNullOrEmpty(_allocationId) && timeoutCount < 100)
             {
                 string configID = config.AllocationId;
 
@@ -72,6 +76,7 @@ namespace NomadsPlanet
                 }
 
                 await Task.Delay(100);
+                ++timeoutCount;
             }
 
             return _allocationId;
@@ -107,9 +112,9 @@ namespace NomadsPlanet
             }
 
             _serverCheckManager =
-                await _multiplayService.StartServerQueryHandlerAsync((ushort)20, "ServerName", "", "0", "");
+                await _multiplayService.StartServerQueryHandlerAsync(20, "ServerName", "", "0", "");
 
-            ServerCheckLoop(_serverCheckCancel.Token);
+            _ = ServerCheckLoop(_serverCheckCancel.Token);
         }
 
         public void SetServerName(string name)
@@ -147,12 +152,19 @@ namespace NomadsPlanet
             _serverCheckManager.GameType = mode;
         }
 
-        private async void ServerCheckLoop(CancellationToken cancellationToken)
+        private async Task ServerCheckLoop(CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                _serverCheckManager.UpdateServerCheck();
-                await Task.Delay(100);
+                try
+                {
+                    _serverCheckManager.UpdateServerCheck();
+                    await Task.Delay(100, cancellationToken);
+                }
+                catch(Exception ex)
+                {
+                    CustomFunc.ConsoleLog($"Error during server check: {ex}");
+                }
             }
         }
 
@@ -176,11 +188,7 @@ namespace NomadsPlanet
                 _serverCallbacks.Error -= OnMultiplayError;
             }
 
-            if (_serverCheckCancel != null)
-            {
-                _serverCheckCancel.Cancel();
-            }
-
+            _serverCheckCancel?.Cancel();
             _serverEvents?.UnsubscribeAsync();
         }
     }
