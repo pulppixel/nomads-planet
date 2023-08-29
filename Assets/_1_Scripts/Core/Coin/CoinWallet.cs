@@ -72,8 +72,7 @@ namespace NomadsPlanet
 
         private void HandleAttack(PlayerWeapon weapon)
         {
-            const int bountyValue = 3;
-            const int bountyCoinValue = bountyValue / BountyCoinCount;
+            const int bountyCoinValue = 3;
 
             for (int i = 0; i < BountyCoinCount; i++)
             {
