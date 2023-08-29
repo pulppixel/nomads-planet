@@ -55,7 +55,7 @@ namespace NomadsPlanet
 
                 if (authenticated)
                 {
-                    clientSingleton.GameManager.GoToMenu();
+                    ClientGameManager.GoToMenu();
                 }
             }
         }

@@ -11,26 +11,26 @@
     public struct NetworkSetup
     {
         public const int MaxConnections = 20;
-        public const string ConnectType = "udp"; // "dtls";
+        public const string ConnectType = "dtls"; // "udp";
         public const string JoinCode = "JoinCode";
         public const string SoloQueue = "solo-queue";
-        // public const string TeamQueue = "team-queue";
+        public const string TeamQueue = "team-queue";
     }
 
     public struct PrefsKey
     {
 #if UNITY_EDITOR
-        public const string NameKey = "_Name_Key_2";
-        public const string AvatarTypeKey = "_Avatar_Key_2";
-        public const string CarTypeKey = "_Car_Key_2";
-        public const string CoinKey = "_Coin_Key_2";
-        public const string InGameCoinKey = "_In_Game_Coin_Key_2";
+        public const string NameKey = "_Name_Key_3";
+        public const string AvatarTypeKey = "_Avatar_Key_3";
+        public const string CarTypeKey = "_Car_Key_3";
+        public const string CoinKey = "_Coin_Key_3";
+        public const string InGameCoinKey = "_In_Game_Coin_Key_3";
 #else
-        public const string NameKey = "Name_Key_2";
-        public const string AvatarTypeKey = "Avatar_Key_2";
-        public const string CarTypeKey = "Car_Key_2";
-        public const string CoinKey = "Coin_Key_2";
-        public const string InGameCoinKey = "In_Game_Coin_Key_2";
+        public const string NameKey = "Name_Key_3";
+        public const string AvatarTypeKey = "Avatar_Key_3";
+        public const string CarTypeKey = "Car_Key_3";
+        public const string CoinKey = "Coin_Key_3";
+        public const string InGameCoinKey = "In_Game_Coin_Key_3";
 #endif
     }
 }

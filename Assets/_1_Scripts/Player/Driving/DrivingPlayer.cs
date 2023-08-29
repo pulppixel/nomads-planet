@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
-using NomadsPlanet.Utils;
 using UnityStandardAssets.Vehicles.Car;
-using Random = UnityEngine.Random;
 
 namespace NomadsPlanet
 {
@@ -34,7 +31,7 @@ namespace NomadsPlanet
             {
                 minimapCamera.gameObject.SetActive(false);
             }
-            
+
             if (IsOwner)
             {
                 minimapIconRenderer.materials[0].color = ownerColor;
@@ -51,14 +48,11 @@ namespace NomadsPlanet
 #endif
 
                 playerName.Value = userData.userName;
-                int charIdx = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8));
-                int carIdx = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8));
-
-                SyncSetupClientRpc(charIdx, carIdx);
+                SyncSetupClientRpc(userData.userCarType, userData.userAvatarType);
                 OnPlayerSpawned?.Invoke(this);
             }
         }
-        
+
         [ClientRpc]
         private void SyncSetupClientRpc(int charIdx, int carIdx)
         {
@@ -98,7 +92,7 @@ namespace NomadsPlanet
                 prefab.SetActive(false);
             }
         }
-        
+
         public override void OnNetworkDespawn()
         {
             if (IsServer)

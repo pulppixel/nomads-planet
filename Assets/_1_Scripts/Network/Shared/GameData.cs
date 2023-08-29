@@ -25,7 +25,7 @@ namespace NomadsPlanet
             return gameQueue switch
             {
                 GameQueue.Solo => NetworkSetup.SoloQueue,
-                // GameQueue.Team => NetworkSetup.TeamQueue,
+                GameQueue.Team => NetworkSetup.TeamQueue,
                 _ => NetworkSetup.SoloQueue,
             };
         }

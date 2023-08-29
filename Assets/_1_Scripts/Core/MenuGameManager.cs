@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -18,8 +17,8 @@ namespace NomadsPlanet
         [SerializeField] private TMP_Text userNameText;
         [SerializeField] private TMP_Text coinValueText;
 
-        [SerializeField] private CinemachineVirtualCamera virtualCamera;
         [SerializeField] private AudioSource bgmSource;
+        [SerializeField] private CinemachineVirtualCamera virtualCamera;
         [SerializeField] private LoadingFaderController faderController;
 
         private readonly List<Transform> _carPrefabs = new();
@@ -65,6 +64,7 @@ namespace NomadsPlanet
             }
 
             ES3.Save(PrefsKey.CarTypeKey, _currentCar);
+            ClientSingleton.Instance.GameManager.UpdateUserData(userCarType: _currentCar);
         }
 
         public void SetRightCarClick()
@@ -80,6 +80,7 @@ namespace NomadsPlanet
             }
 
             ES3.Save(PrefsKey.CarTypeKey, _currentCar);
+            ClientSingleton.Instance.GameManager.UpdateUserData(userCarType: _currentCar);
         }
 
         public void SetLeftCharacterClick()
@@ -96,6 +97,7 @@ namespace NomadsPlanet
 
             virtualCamera.Follow = _characterPrefabs[_currentCharacter];
             ES3.Save(PrefsKey.AvatarTypeKey, _currentCharacter);
+            ClientSingleton.Instance.GameManager.UpdateUserData(userAvatarType: _currentCharacter);
             AllCharacterDefaultPosition();
         }
 
@@ -113,6 +115,7 @@ namespace NomadsPlanet
 
             virtualCamera.Follow = _characterPrefabs[_currentCharacter];
             ES3.Save(PrefsKey.AvatarTypeKey, _currentCharacter);
+            ClientSingleton.Instance.GameManager.UpdateUserData(userAvatarType: _currentCharacter);
             AllCharacterDefaultPosition();
         }
 
@@ -135,12 +138,14 @@ namespace NomadsPlanet
             {
                 _currentCar = Random.Range(0, 8);
                 ES3.Save(PrefsKey.CarTypeKey, _currentCar);
+                ClientSingleton.Instance.GameManager.UpdateUserData(userCarType: _currentCar);
             }
 
             if (_currentCharacter == -1)
             {
                 _currentCharacter = Random.Range(0, 8);
                 ES3.Save(PrefsKey.AvatarTypeKey, _currentCharacter);
+                ClientSingleton.Instance.GameManager.UpdateUserData(userAvatarType: _currentCharacter);
             }
 
             userNameText.text = ES3.LoadString(PrefsKey.NameKey, "Unknown");
