@@ -1,7 +1,7 @@
-﻿using NomadsPlanet.Utils;
-using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
 using Unity.Netcode;
+using Unity.Mathematics;
+using NomadsPlanet.Utils;
 using Random = UnityEngine.Random;
 
 namespace NomadsPlanet
@@ -57,19 +57,22 @@ namespace NomadsPlanet
         {
             if (other.TryGetComponent(out Coin coin))
             {
-                vfx.SetActive(false);
-                vfx.SetActive(true);
-                int coinValue = coin.Collect();
-                ES3.Save(PrefsKey.InGameCoinKey, totalCoins.Value);
-
                 if (!IsServer)
                 {
                     return;
                 }
 
-                SoundManager.Instance.PlayCoinGetSfx();
+                vfx.SetActive(false);
+
+                // Get Coin Logic
+                int coinValue = coin.Collect();
                 totalCoins.Value += coinValue;
                 playerScore.GetScore(coinValue);
+                ES3.Save(PrefsKey.InGameCoinKey, totalCoins.Value);
+
+                // Vfx
+                vfx.SetActive(true);
+                SoundManager.Instance.PlayCoinGetSfx();
             }
         }
 
