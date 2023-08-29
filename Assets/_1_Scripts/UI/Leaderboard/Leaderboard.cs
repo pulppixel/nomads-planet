@@ -142,7 +142,7 @@ namespace NomadsPlanet
             {
                 ClientId = drivingPlayer.OwnerClientId,
                 PlayerName = drivingPlayer.playerName.Value,
-                CharacterType = drivingPlayer.characterType.Value,
+                CharacterType = drivingPlayer.avatarType.Value,
                 Coins = 0,
             });
 

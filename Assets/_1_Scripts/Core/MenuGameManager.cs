@@ -42,10 +42,9 @@ namespace NomadsPlanet
 
         private IEnumerator Start()
         {
-            InitSetup();
-
             yield return new WaitForSeconds(.1f);
 
+            InitSetup();
             bgmSource.volume = 0f;
             bgmSource.DOFade(1f, .5f);
             StartCoroutine(faderController.FadeOut());

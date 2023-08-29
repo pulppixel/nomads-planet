@@ -19,7 +19,7 @@ namespace NomadsPlanet
         [SerializeField] private GameObject[] carPrefabs;
 
         public NetworkVariable<FixedString32Bytes> playerName = new();
-        public NetworkVariable<int> characterType = new();
+        public NetworkVariable<int> avatarType = new();
         public NetworkVariable<int> carType = new();
 
         public static event Action<DrivingPlayer> OnPlayerSpawned;
@@ -48,23 +48,18 @@ namespace NomadsPlanet
 #endif
 
                 playerName.Value = userData.userName;
-                SyncSetupClientRpc(userData.userCarType, userData.userAvatarType);
+                avatarType.Value = userData.userAvatarType;
+                carType.Value = userData.userCarType;
+                UpdateCharacterClientRpc(avatarType.Value, carType.Value);
                 OnPlayerSpawned?.Invoke(this);
             }
         }
 
         [ClientRpc]
-        private void SyncSetupClientRpc(int charIdx, int carIdx)
-        {
-            characterType.Value = charIdx;
-            carType.Value = carIdx;
-            UpdateCharacter(charIdx, carIdx);
-        }
-
-        private void UpdateCharacter(int charIdx, int catIdx)
+        private void UpdateCharacterClientRpc(int avatarIdx, int catIdx)
         {
             CloseAllPrefabs();
-            var avatar = playerPrefabs[charIdx].gameObject;
+            var avatar = playerPrefabs[avatarIdx].gameObject;
             avatar.gameObject.SetActive(true);
             avatar.transform.SetParent(transform);
             avatar.transform.SetSiblingIndex(2);
