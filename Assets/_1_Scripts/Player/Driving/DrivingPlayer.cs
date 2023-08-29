@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
 using NomadsPlanet.Utils;
-using UnityEngine.Serialization;
 using UnityStandardAssets.Vehicles.Car;
 using Random = UnityEngine.Random;
 
@@ -47,11 +46,9 @@ namespace NomadsPlanet
 #endif
 
                 playerName.Value = userData.userName;
-                int charIdx = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8));
-                int carIdx = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8));
+                characterType.Value = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8));
+                carType.Value = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8));
 
-                CloseAllPrefabs();
-                SetCharacterAndCarTypeServerRpc(charIdx, carIdx);
                 OnPlayerSpawned?.Invoke(this);
             }
 
@@ -59,6 +56,11 @@ namespace NomadsPlanet
             {
                 minimapIconRenderer.materials[0].color = ownerColor;
             }
+
+            StartCoroutine(UpdateCharacter(
+                ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8)),
+                ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8))
+            ));
         }
 
         public override void OnNetworkDespawn()
@@ -68,29 +70,27 @@ namespace NomadsPlanet
                 OnPlayerDespawned?.Invoke(this);
             }
         }
-        
-        [ServerRpc(RequireOwnership = false)]
-        private void SetCharacterAndCarTypeServerRpc(int charIdx, int carIdx)
+
+        private IEnumerator UpdateCharacter(int charIdx, int catIdx)
         {
-            characterType.Value = charIdx;
-            carType.Value = carIdx;
-            UpdateCharacter(charIdx, carIdx);
-        }
+            yield return new WaitForSeconds(.1f);
 
-        private void UpdateCharacter(int charIdx, int catIdx)
-        {
-            playerPrefabs[charIdx].gameObject.SetActive(true);
-            playerPrefabs[charIdx].transform.SetParent(transform);
-            playerPrefabs[charIdx].transform.SetSiblingIndex(2);
-            playerPrefabs[charIdx].gameObject.name = "Player_Model";
+            CloseAllPrefabs();
+            var avatar = playerPrefabs[charIdx].gameObject;
+            avatar.gameObject.SetActive(true);
+            avatar.transform.SetParent(transform);
+            avatar.transform.SetSiblingIndex(2);
+            avatar.gameObject.name = "Player_Model";
 
-            carPrefabs[catIdx].gameObject.SetActive(true);
-            carPrefabs[catIdx].transform.SetParent(transform);
-            carPrefabs[catIdx].transform.SetSiblingIndex(3);
-            carPrefabs[catIdx].gameObject.name = "Player_Car";
+            var car = carPrefabs[catIdx].gameObject;
+            car.gameObject.SetActive(true);
+            car.transform.SetParent(transform);
+            car.transform.SetSiblingIndex(3);
+            car.gameObject.name = "Player_Car";
 
+            yield return new WaitForSeconds(.1f);
+            CarController.Init(car.transform);
             GetComponent<Animator>().Rebind();
-            CarController.Init(carPrefabs[catIdx].transform);
         }
 
         private void CloseAllPrefabs()
