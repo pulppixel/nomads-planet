@@ -58,7 +58,7 @@ namespace NomadsPlanet
 
         private async Task SpawnPlayerDelayed(ulong clientId)
         {
-            await Task.Delay(2000);
+            await Task.Delay(2500);
 
             NetworkObject playerInstance = Object.Instantiate(
                 _playerPrefab,
@@ -67,13 +67,6 @@ namespace NomadsPlanet
             );
 
             var player = playerInstance.GetComponent<DrivingPlayer>();
-
-            CustomFunc.ConsoleLog($"생성된 플레이어: {player.name}, " +
-                                  $"위치: {playerInstance.transform.position}, " +
-                                  $"프리펩: {player.playerName}, " +
-                                  $"캐릭터: {player.characterType}, " +
-                                  $"차: {player.carType}");
-
             playerInstance.SpawnAsPlayerObject(clientId);
         }
 
