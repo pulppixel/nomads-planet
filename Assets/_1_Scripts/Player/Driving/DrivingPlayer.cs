@@ -90,7 +90,7 @@ namespace NomadsPlanet
 
         public override void OnNetworkDespawn()
         {
-            if (IsServer)
+            if (IsServer && OnPlayerDespawned != null)
             {
                 OnPlayerDespawned?.Invoke(this);
             }
@@ -106,6 +106,7 @@ namespace NomadsPlanet
             if (transform.GetChildFromName<Transform>("Player_Model") == null)
             {
                 UpdateCharacter();
+                CustomFunc.ConsoleLog($"{playerName.Value} 설정됨!");
             }
         }
     }
