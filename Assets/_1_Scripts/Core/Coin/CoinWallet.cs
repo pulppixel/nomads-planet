@@ -62,8 +62,6 @@ namespace NomadsPlanet
                     return;
                 }
 
-                vfx.SetActive(false);
-
                 // Get Coin Logic
                 int coinValue = coin.Collect();
                 totalCoins.Value += coinValue;
@@ -71,6 +69,7 @@ namespace NomadsPlanet
                 ES3.Save(PrefsKey.InGameCoinKey, totalCoins.Value);
 
                 // Vfx
+                vfx.SetActive(false);
                 vfx.SetActive(true);
                 SoundManager.Instance.PlayCoinGetSfx();
             }

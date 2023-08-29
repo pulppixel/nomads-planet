@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using NomadsPlanet.Utils;
 using UnityEngine;
 using Unity.Netcode;
@@ -8,7 +7,7 @@ namespace NomadsPlanet
 {
     public class PlayerScore : NetworkBehaviour
     {
-        [field: SerializeField] public int MaxScore { get; private set; } = 100;
+        private const int MaxScore = 1000;
 
         public PlayerWeapon playerWeapon;
         public NetworkVariable<int> currentScore = new();
@@ -36,26 +35,18 @@ namespace NomadsPlanet
         {
             hitVfx.SetActive(false);
             hitVfx.SetActive(true);
-            ModifyScoreServerRpc(scoreValue);
+            ModifyScoreClientRpc(scoreValue);
         }
 
         public void LostScore(int scoreValue)
         {
-            ModifyScoreServerRpc(-scoreValue);
+            ModifyScoreClientRpc(-scoreValue);
             int currentCoin = ES3.Load(PrefsKey.InGameCoinKey, 0);
             ES3.Save(PrefsKey.InGameCoinKey, Mathf.Max(currentCoin - scoreValue, 0));
-            StartCoroutine(AttackedLogic());
         }
 
-        private IEnumerator AttackedLogic()
-        {
-            playerWeapon.enabled = false;
-            yield return new WaitForSeconds(3f);
-            playerWeapon.enabled = true;
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        private void ModifyScoreServerRpc(int value)
+        [ClientRpc]
+        private void ModifyScoreClientRpc(int value)
         {
             if (_isScoreMax)
             {
