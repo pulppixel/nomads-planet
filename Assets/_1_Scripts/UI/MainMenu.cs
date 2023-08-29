@@ -2,9 +2,11 @@
 using DG.Tweening;
 using NomadsPlanet.Utils;
 using TMPro;
+using Unity.Netcode;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace NomadsPlanet
 {
@@ -133,7 +135,12 @@ namespace NomadsPlanet
             _isBusy = true;
 
             StartCoroutine(fadeController.FadeIn());
-            await ClientSingleton.Instance.GameManager.StartClientAsync(joinCodeField.text);
+            bool result = await ClientSingleton.Instance.GameManager.StartClientAsync(joinCodeField.text);
+
+            if (!result)
+            {
+                StartCoroutine(fadeController.FadeOut());
+            }
 
             _isBusy = false;
         }

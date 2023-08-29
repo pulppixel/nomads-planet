@@ -16,8 +16,8 @@ namespace NomadsPlanet
         private readonly int _serverPort;
         private readonly int _queryPort;
         private MatchplayBackfiller _backfiller;
-        public NetworkServer NetworkServer { get; private set; }
         private readonly MultiplayAllocationService _multiplayAllocationService;
+        public NetworkServer NetworkServer { get; private set; }
 
         public ServerGameManager(string serverIP, int serverPort,
             int queryPort, NetworkManager manager, NetworkObject playerPrefab)
@@ -59,8 +59,6 @@ namespace NomadsPlanet
                 CustomFunc.ConsoleLog("네트워크 서버가 예상대로 시작되지 않았습니다.");
                 return;
             }
-            
-            NetworkManager.Singleton.SceneManager.LoadScene(SceneName.GameScene, LoadSceneMode.Single);
         }
 
         private async Task<MatchmakingResults> GetMatchmakerPayload()

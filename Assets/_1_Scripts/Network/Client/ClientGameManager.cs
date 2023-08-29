@@ -19,10 +19,9 @@ namespace NomadsPlanet
     {
         private JoinAllocation _allocation;
 
+        private UserData _userData;
         private NetworkClient _networkClient;
         private MatchplayMatchmaker _matchmaker;
-
-        public UserData UserData { get; private set; }
 
         public async Task<bool> InitAsync()
         {
@@ -35,7 +34,7 @@ namespace NomadsPlanet
 
             if (authState == AuthState.Authenticated)
             {
-                UserData = new UserData
+                _userData = new UserData
                 {
                     userName = ES3.LoadString(PrefsKey.NameKey, "Missing Name"),
                     userCarType = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8)),
@@ -53,25 +52,25 @@ namespace NomadsPlanet
             SceneManager.LoadScene(SceneName.MenuScene);
         }
 
-        public void StartClient(string ip, int port)
+        private void StartClient(string ip, int port)
         {
             UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
             transport.SetConnectionData(ip, (ushort)port);
             ConnectClient();
         }
-        
+
         public void UpdateUserData(string userName = "", int userCarType = -1, int userAvatarType = -1)
         {
-            UserData.userName = userName == "" ? UserData.userName : userName;
-            UserData.userCarType = userCarType == -1 ? UserData.userCarType : userCarType;
-            UserData.userAvatarType = userAvatarType == -1 ? UserData.userAvatarType : userAvatarType;
+            _userData.userName = userName == "" ? _userData.userName : userName;
+            _userData.userCarType = userCarType == -1 ? _userData.userCarType : userCarType;
+            _userData.userAvatarType = userAvatarType == -1 ? _userData.userAvatarType : userAvatarType;
 
-            string payload = JsonUtility.ToJson(UserData);
+            string payload = JsonUtility.ToJson(_userData);
             byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
             NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
         }
 
-        public async Task StartClientAsync(string joinCode)
+        public async Task<bool> StartClientAsync(string joinCode)
         {
             try
             {
@@ -80,7 +79,7 @@ namespace NomadsPlanet
             catch (Exception e)
             {
                 CustomFunc.ConsoleLog(e);
-                return;
+                return false;
             }
 
             UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
@@ -89,15 +88,15 @@ namespace NomadsPlanet
             transport.SetRelayServerData(relayServerData);
 
             ConnectClient();
+            return true;
         }
 
         private void ConnectClient()
         {
-            string payload = JsonUtility.ToJson(UserData);
+            string payload = JsonUtility.ToJson(_userData);
             byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
 
             NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
-
             NetworkManager.Singleton.StartClient();
         }
 
@@ -108,14 +107,13 @@ namespace NomadsPlanet
                 return;
             }
 
-            UserData.userGamePreferences.gameQueue = GameQueue.Solo;
             MatchmakerPollingResult matchResult = await GetMatchAsync();
             onMatchmakeResponse?.Invoke(matchResult);
         }
 
         private async Task<MatchmakerPollingResult> GetMatchAsync()
         {
-            MatchmakingResult matchmakingResult = await _matchmaker.Matchmake(UserData);
+            MatchmakingResult matchmakingResult = await _matchmaker.Matchmake(_userData);
 
             if (matchmakingResult.Result == MatchmakerPollingResult.Success)
             {

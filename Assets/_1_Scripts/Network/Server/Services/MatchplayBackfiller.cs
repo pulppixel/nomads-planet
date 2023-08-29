@@ -59,7 +59,7 @@ namespace NomadsPlanet
             }
 
             IsBackfilling = true;
-            _ = BackfillLoop();
+            BackfillLoop();
         }
 
         public void AddPlayerToMatch(UserData userData)
@@ -127,7 +127,7 @@ namespace NomadsPlanet
             _localBackfillTicket.Id = null;
         }
 
-        private async Task BackfillLoop()
+        private async void BackfillLoop()
         {
             while (IsBackfilling)
             {

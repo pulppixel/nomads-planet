@@ -50,8 +50,7 @@ namespace NomadsPlanet
             try
             {
                 IsMatchmaking = true;
-                CreateTicketResponse createResult =
-                    await MatchmakerService.Instance.CreateTicketAsync(players, createTicketOptions);
+                CreateTicketResponse createResult = await MatchmakerService.Instance.CreateTicketAsync(players, createTicketOptions);
 
                 _lastUsedTicket = createResult.Id;
 
@@ -59,8 +58,7 @@ namespace NomadsPlanet
                 {
                     while (!_cancelToken.IsCancellationRequested)
                     {
-                        TicketStatusResponse checkTicket =
-                            await MatchmakerService.Instance.GetTicketAsync(_lastUsedTicket);
+                        TicketStatusResponse checkTicket = await MatchmakerService.Instance.GetTicketAsync(_lastUsedTicket);
 
                         if (checkTicket.Type == typeof(MultiplayAssignment))
                         {
