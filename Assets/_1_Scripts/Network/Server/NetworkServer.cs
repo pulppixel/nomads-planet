@@ -66,6 +66,7 @@ namespace NomadsPlanet
             );
 
             playerInstance.SpawnAsPlayerObject(clientId);
+            playerInstance.GetComponent<DrivingPlayer>().UpdateCharacter();
         }
 
         private void OnNetworkReady()

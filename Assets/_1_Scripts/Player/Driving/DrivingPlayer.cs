@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
@@ -50,29 +51,35 @@ namespace NomadsPlanet
                 playerName.Value = userData.userName;
                 avatarType.Value = userData.userAvatarType;
                 carType.Value = userData.userCarType;
-                UpdateCharacterServerRpc(avatarType.Value, carType.Value);
                 OnPlayerSpawned?.Invoke(this);
             }
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        private void UpdateCharacterServerRpc(int avatarIdx, int catIdx)
+        public void UpdateCharacter()
         {
-            CloseAllPrefabs();
-            var avatar = playerPrefabs[avatarIdx].gameObject;
-            avatar.gameObject.SetActive(true);
-            avatar.transform.SetParent(transform);
-            avatar.transform.SetSiblingIndex(2);
-            avatar.gameObject.name = "Player_Model";
+            StartCoroutine(IEUpdateCharacter());
+            return;
 
-            var car = carPrefabs[catIdx].gameObject;
-            car.gameObject.SetActive(true);
-            car.transform.SetParent(transform);
-            car.transform.SetSiblingIndex(3);
-            car.gameObject.name = "Player_Car";
+            IEnumerator IEUpdateCharacter()
+            {
+                yield return new WaitForSeconds(.5f);
 
-            CarController.Init(car.transform);
-            GetComponent<Animator>().Rebind();
+                CloseAllPrefabs();
+                var avatar = playerPrefabs[avatarType.Value].gameObject;
+                avatar.gameObject.SetActive(true);
+                avatar.transform.SetParent(transform);
+                avatar.transform.SetSiblingIndex(2);
+                avatar.gameObject.name = "Player_Model";
+
+                var car = carPrefabs[carType.Value].gameObject;
+                car.gameObject.SetActive(true);
+                car.transform.SetParent(transform);
+                car.transform.SetSiblingIndex(3);
+                car.gameObject.name = "Player_Car";
+
+                CarController.Init(car.transform);
+                GetComponent<Animator>().Rebind();
+            }
         }
 
         private void CloseAllPrefabs()
