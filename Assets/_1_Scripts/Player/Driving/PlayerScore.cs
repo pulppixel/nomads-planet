@@ -2,12 +2,13 @@ using System;
 using NomadsPlanet.Utils;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.Serialization;
 
 namespace NomadsPlanet
 {
     public class PlayerScore : NetworkBehaviour
     {
-        private const int MaxScore = 1000;
+        public int maxScore = 1000;
 
         public PlayerWeapon playerWeapon;
         public NetworkVariable<int> currentScore = new();
@@ -35,18 +36,18 @@ namespace NomadsPlanet
         {
             hitVfx.SetActive(false);
             hitVfx.SetActive(true);
-            ModifyScoreClientRpc(scoreValue);
+            ModifyScoreServerRpc(scoreValue);
         }
 
         public void LostScore(int scoreValue)
         {
-            ModifyScoreClientRpc(-scoreValue);
+            ModifyScoreServerRpc(-scoreValue);
             int currentCoin = ES3.Load(PrefsKey.InGameCoinKey, 0);
             ES3.Save(PrefsKey.InGameCoinKey, Mathf.Max(currentCoin - scoreValue, 0));
         }
 
-        [ClientRpc]
-        private void ModifyScoreClientRpc(int value)
+        [ServerRpc(RequireOwnership = false)]
+        private void ModifyScoreServerRpc(int value)
         {
             if (_isScoreMax)
             {
@@ -54,9 +55,9 @@ namespace NomadsPlanet
             }
 
             int newScore = currentScore.Value + value;
-            currentScore.Value = Mathf.Clamp(newScore, 0, MaxScore);
+            currentScore.Value = Mathf.Clamp(newScore, 0, maxScore);
 
-            if (currentScore.Value == MaxScore)
+            if (currentScore.Value == maxScore)
             {
                 OnWin?.Invoke(this);
                 _isScoreMax = true;

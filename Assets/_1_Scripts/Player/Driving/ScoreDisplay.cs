@@ -33,8 +33,8 @@ namespace NomadsPlanet
 
         private void HandleScoreChanged(int oldScore, int newScore)
         {
-            scoreText.text = $"{newScore:N0} <#b3bedb>/{score.MaxScore:N0}";
-            scoreSlider.value = (float)newScore / score.MaxScore;
+            scoreText.text = $"{newScore:N0} <#b3bedb>/{score.maxScore:N0}";
+            scoreSlider.value = (float)newScore / score.maxScore;
         }
     }
 }
