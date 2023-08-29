@@ -57,7 +57,7 @@ namespace NomadsPlanet
         {
             ServerConfig config = _multiplayService.ServerConfig;
             int timeoutCount = 0;
-            
+
             CustomFunc.ConsoleLog($"Awaiting Allocation. Server Config is:\n" +
                                   $"-ServerID: {config.ServerId}\n" +
                                   $"-AllocationID: {config.AllocationId}\n" +
@@ -112,7 +112,13 @@ namespace NomadsPlanet
             }
 
             _serverCheckManager =
-                await _multiplayService.StartServerQueryHandlerAsync(20, "ServerName", "", "0", "");
+                await _multiplayService.StartServerQueryHandlerAsync(
+                    (ushort)20,
+                    "ServerName",
+                    "",
+                    "0",
+                    ""
+                );
 
             _ = ServerCheckLoop(_serverCheckCancel.Token);
         }
@@ -161,7 +167,7 @@ namespace NomadsPlanet
                     _serverCheckManager.UpdateServerCheck();
                     await Task.Delay(100, cancellationToken);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     CustomFunc.ConsoleLog($"Error during server check: {ex}");
                 }
