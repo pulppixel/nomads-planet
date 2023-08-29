@@ -1,8 +1,9 @@
 using System;
-using System.Collections;
+using NomadsPlanet.Utils;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
+using Unity.Netcode.Components;
 using UnityStandardAssets.Vehicles.Car;
 
 namespace NomadsPlanet
@@ -19,7 +20,7 @@ namespace NomadsPlanet
         [SerializeField] private GameObject[] playerPrefabs;
         [SerializeField] private GameObject[] carPrefabs;
 
-        public NetworkVariable<FixedString32Bytes> playerName = new();
+        public NetworkVariable<FixedString32Bytes> playerName = new("");
         public NetworkVariable<int> avatarType = new();
         public NetworkVariable<int> carType = new();
 
@@ -55,31 +56,23 @@ namespace NomadsPlanet
             }
         }
 
-        public void UpdateCharacter()
+        private void UpdateCharacter()
         {
-            StartCoroutine(IEUpdateCharacter());
-            return;
+            CloseAllPrefabs();
+            var avatar = playerPrefabs[avatarType.Value].gameObject;
+            avatar.gameObject.SetActive(true);
+            avatar.transform.SetParent(transform);
+            avatar.transform.SetSiblingIndex(2);
+            avatar.gameObject.name = "Player_Model";
 
-            IEnumerator IEUpdateCharacter()
-            {
-                yield return new WaitForSeconds(.5f);
+            var car = carPrefabs[carType.Value].gameObject;
+            car.gameObject.SetActive(true);
+            car.transform.SetParent(transform);
+            car.transform.SetSiblingIndex(3);
+            car.gameObject.name = "Player_Car";
 
-                CloseAllPrefabs();
-                var avatar = playerPrefabs[avatarType.Value].gameObject;
-                avatar.gameObject.SetActive(true);
-                avatar.transform.SetParent(transform);
-                avatar.transform.SetSiblingIndex(2);
-                avatar.gameObject.name = "Player_Model";
-
-                var car = carPrefabs[carType.Value].gameObject;
-                car.gameObject.SetActive(true);
-                car.transform.SetParent(transform);
-                car.transform.SetSiblingIndex(3);
-                car.gameObject.name = "Player_Car";
-
-                CarController.Init(car.transform);
-                GetComponent<Animator>().Rebind();
-            }
+            CarController.Init(car.transform);
+            GetComponent<NetworkAnimator>().Animator.Rebind();
         }
 
         private void CloseAllPrefabs()
@@ -100,6 +93,19 @@ namespace NomadsPlanet
             if (IsServer)
             {
                 OnPlayerDespawned?.Invoke(this);
+            }
+        }
+
+        private void Update()
+        {
+            if (playerName.Value == "")
+            {
+                return;
+            }
+
+            if (transform.GetChildFromName<Transform>("Player_Model") == null)
+            {
+                UpdateCharacter();
             }
         }
     }
