@@ -34,6 +34,11 @@ namespace NomadsPlanet
             {
                 minimapCamera.gameObject.SetActive(false);
             }
+            
+            if (IsOwner)
+            {
+                minimapIconRenderer.materials[0].color = ownerColor;
+            }
 
             if (IsServer)
             {
@@ -46,35 +51,24 @@ namespace NomadsPlanet
 #endif
 
                 playerName.Value = userData.userName;
-                characterType.Value = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8));
-                carType.Value = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8));
+                int charIdx = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8));
+                int carIdx = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8));
 
+                SyncSetupClientRpc(charIdx, carIdx);
                 OnPlayerSpawned?.Invoke(this);
             }
-
-            if (IsOwner)
-            {
-                minimapIconRenderer.materials[0].color = ownerColor;
-            }
-
-            StartCoroutine(UpdateCharacter(
-                ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8)),
-                ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8))
-            ));
+        }
+        
+        [ClientRpc]
+        private void SyncSetupClientRpc(int charIdx, int carIdx)
+        {
+            characterType.Value = charIdx;
+            carType.Value = carIdx;
+            UpdateCharacter(charIdx, carIdx);
         }
 
-        public override void OnNetworkDespawn()
+        private void UpdateCharacter(int charIdx, int catIdx)
         {
-            if (IsServer)
-            {
-                OnPlayerDespawned?.Invoke(this);
-            }
-        }
-
-        private IEnumerator UpdateCharacter(int charIdx, int catIdx)
-        {
-            yield return new WaitForSeconds(.1f);
-
             CloseAllPrefabs();
             var avatar = playerPrefabs[charIdx].gameObject;
             avatar.gameObject.SetActive(true);
@@ -88,7 +82,6 @@ namespace NomadsPlanet
             car.transform.SetSiblingIndex(3);
             car.gameObject.name = "Player_Car";
 
-            yield return new WaitForSeconds(.1f);
             CarController.Init(car.transform);
             GetComponent<Animator>().Rebind();
         }
@@ -103,6 +96,14 @@ namespace NomadsPlanet
             foreach (var prefab in carPrefabs)
             {
                 prefab.SetActive(false);
+            }
+        }
+        
+        public override void OnNetworkDespawn()
+        {
+            if (IsServer)
+            {
+                OnPlayerDespawned?.Invoke(this);
             }
         }
     }
