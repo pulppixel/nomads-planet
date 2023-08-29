@@ -67,6 +67,11 @@ namespace UnityStandardAssets.Vehicles.Car
         public float Revs { get; private set; }
         public float AccelInput { get; private set; }
 
+        private void Awake()
+        {
+            m_Rigidbody = GetComponent<Rigidbody>();
+        }
+
         // Use this for initialization
         public void Init(Transform parent)
         {
@@ -86,10 +91,7 @@ namespace UnityStandardAssets.Vehicles.Car
             }
 
             m_WheelColliders[0].attachedRigidbody.centerOfMass = m_CentreOfMassOffset;
-
             m_MaxHandbrakeTorque = float.MaxValue;
-
-            m_Rigidbody = GetComponent<Rigidbody>();
             m_CurrentTorque = m_FullTorqueOverAllWheels - (m_TractionControl * m_FullTorqueOverAllWheels);
         }
 
@@ -191,8 +193,12 @@ namespace UnityStandardAssets.Vehicles.Car
                 Quaternion quat;
                 Vector3 position;
                 m_WheelColliders[i].GetWorldPose(out position, out quat);
-                m_WheelMeshes[i].transform.position = position;
-                m_WheelMeshes[i].transform.rotation = quat;
+                
+                if (m_WheelMeshes.Length >= 4)
+                {
+                    m_WheelMeshes[i].transform.position = position;
+                    m_WheelMeshes[i].transform.rotation = quat;
+                }
             }
 
             //clamp input values

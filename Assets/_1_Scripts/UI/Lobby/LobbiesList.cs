@@ -29,21 +29,22 @@ namespace NomadsPlanet
 
             try
             {
-                QueryLobbiesOptions options = new QueryLobbiesOptions();
-                options.Count = 25;
-
-                options.Filters = new List<QueryFilter>()
+                QueryLobbiesOptions options = new QueryLobbiesOptions
                 {
-                    new QueryFilter(
-                        field: QueryFilter.FieldOptions.AvailableSlots,
-                        op: QueryFilter.OpOptions.GT,
-                        value: "0"
-                    ),
-                    new QueryFilter(
-                        field: QueryFilter.FieldOptions.IsLocked,
-                        op: QueryFilter.OpOptions.EQ,
-                        value: "0"
-                    ),
+                    Count = 25,
+                    Filters = new List<QueryFilter>
+                    {
+                        new(
+                            field: QueryFilter.FieldOptions.AvailableSlots,
+                            op: QueryFilter.OpOptions.GT,
+                            value: "0"
+                        ),
+                        new(
+                            field: QueryFilter.FieldOptions.IsLocked,
+                            op: QueryFilter.OpOptions.EQ,
+                            value: "0"
+                        ),
+                    }
                 };
 
                 QueryResponse lobbies = await Lobbies.Instance.QueryLobbiesAsync(options);

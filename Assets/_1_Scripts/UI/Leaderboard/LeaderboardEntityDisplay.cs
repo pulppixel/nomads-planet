@@ -19,9 +19,9 @@ namespace NomadsPlanet
         public int Coins { get; private set; }
 
         private FixedString32Bytes _playerName;
-        private CharacterType _characterType;
+        private int _characterType;
 
-        public void Initialize(ulong clientId, FixedString32Bytes playerName, CharacterType characterType, int coins)
+        public void Initialize(ulong clientId, FixedString32Bytes playerName, int characterType, int coins)
         {
             ClientId = clientId;
             Coins = coins;
@@ -44,7 +44,7 @@ namespace NomadsPlanet
 
         public void UpdateDisplays()
         {
-            displayThumb.sprite = thumbs[(int)_characterType];
+            displayThumb.sprite = thumbs[_characterType];
             displayText.text =
                 $"{_playerName.ToString().TruncateString(9)} " +
                 $"({Coins})";

@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
@@ -18,36 +18,15 @@ namespace NomadsPlanet
         [SerializeField] private Camera minimapCamera;
         [SerializeField] private Color ownerColor;
 
-        public NetworkVariable<FixedString32Bytes> playerName = new();
-        public NetworkVariable<FixedString32Bytes> characterType = new();
-        public NetworkVariable<FixedString32Bytes> carType = new();
+        [SerializeField] private GameObject[] playerPrefabs;
+        [SerializeField] private GameObject[] carPrefabs;
 
-        private Animator _animator;
-        private readonly List<GameObject> _playerPrefabs = new();
-        private readonly List<GameObject> _carPrefabs = new();
+        public NetworkVariable<FixedString32Bytes> playerName = new();
+        public NetworkVariable<int> characterType = new();
+        public NetworkVariable<int> carType = new();
 
         public static event Action<DrivingPlayer> OnPlayerSpawned;
         public static event Action<DrivingPlayer> OnPlayerDespawned;
-
-        private void Awake()
-        {
-            _animator = GetComponent<Animator>();
-            var parent = transform.GetChildFromName<Transform>("CharacterPrefabs");
-            for (int i = 0; i < parent.childCount; i++)
-            {
-                var obj = parent.GetChild(i).gameObject;
-                obj.SetActive(false);
-                _playerPrefabs.Add(obj);
-            }
-
-            parent = transform.GetChildFromName<Transform>("CarPrefabs");
-            for (int i = 0; i < parent.childCount; i++)
-            {
-                var obj = parent.GetChild(i).gameObject;
-                obj.SetActive(false);
-                _carPrefabs.Add(obj);
-            }
-        }
 
         public override void OnNetworkSpawn()
         {
@@ -67,8 +46,9 @@ namespace NomadsPlanet
 #endif
 
                 playerName.Value = userData.userName;
-                characterType.Value = ES3.LoadString(PrefsKey.CarKey, ((CharacterType)Random.Range(0, 8)).ToString());
-                carType.Value = ES3.LoadString(PrefsKey.AvatarKey, ((CarType)Random.Range(0, 8)).ToString());
+                characterType.Value = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8));
+                carType.Value = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8));
+
                 OnPlayerSpawned?.Invoke(this);
             }
 
@@ -77,7 +57,10 @@ namespace NomadsPlanet
                 minimapIconRenderer.materials[0].color = ownerColor;
             }
 
-            UpdateCharacter();
+            StartCoroutine(UpdateCharacter(
+                ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8)),
+                ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8))
+            ));
         }
 
         public override void OnNetworkDespawn()
@@ -88,25 +71,39 @@ namespace NomadsPlanet
             }
         }
 
-        private void UpdateCharacter()
+        private IEnumerator UpdateCharacter(int charIdx, int catIdx)
         {
-            CharacterType character = (CharacterType)Enum.Parse(typeof(CharacterType), characterType.Value.ToString());
-            CarType car = (CarType)Enum.Parse(typeof(CarType), carType.Value.ToString());
+            yield return new WaitForSeconds(.1f);
 
-            int idx = (int)character;
-            _playerPrefabs[idx].transform.SetParent(transform);
-            _playerPrefabs[idx].transform.SetSiblingIndex(2);
-            _playerPrefabs[idx].gameObject.name = "Player_Model";
-            _playerPrefabs[idx].gameObject.SetActive(true);
+            CloseAllPrefabs();
+            var avatar = playerPrefabs[charIdx].gameObject;
+            avatar.gameObject.SetActive(true);
+            avatar.transform.SetParent(transform);
+            avatar.transform.SetSiblingIndex(2);
+            avatar.gameObject.name = "Player_Model";
 
-            idx = (int)car;
-            _carPrefabs[idx].transform.SetParent(transform);
-            _carPrefabs[idx].transform.SetSiblingIndex(3);
-            _carPrefabs[idx].gameObject.name = "Player_Car";
-            _carPrefabs[idx].gameObject.SetActive(true);
+            var car = carPrefabs[catIdx].gameObject;
+            car.gameObject.SetActive(true);
+            car.transform.SetParent(transform);
+            car.transform.SetSiblingIndex(3);
+            car.gameObject.name = "Player_Car";
 
-            _animator.Rebind();
-            CarController.Init(_carPrefabs[idx].transform);
+            yield return new WaitForSeconds(.1f);
+            CarController.Init(car.transform);
+            GetComponent<Animator>().Rebind();
+        }
+
+        private void CloseAllPrefabs()
+        {
+            foreach (var prefab in playerPrefabs)
+            {
+                prefab.SetActive(false);
+            }
+
+            foreach (var prefab in carPrefabs)
+            {
+                prefab.SetActive(false);
+            }
         }
     }
 }

@@ -66,7 +66,7 @@ namespace NomadsPlanet
                 quaternion.identity
             );
 
-            CustomFunc.ConsoleLog($"생성된 플레이어: {playerInstance}, 위치: {playerInstance.transform.position}");
+            var player = playerInstance.GetComponent<DrivingPlayer>();
             playerInstance.SpawnAsPlayerObject(clientId);
         }
 
