@@ -2,11 +2,10 @@
 using DG.Tweening;
 using NomadsPlanet.Utils;
 using TMPro;
-using Unity.Netcode;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace NomadsPlanet
 {
@@ -16,8 +15,10 @@ namespace NomadsPlanet
         [SerializeField] private GameObject queueBoard;
         [SerializeField] private TMP_Text queueStatusText;
         [SerializeField] private TMP_Text queueTimerText;
-        [SerializeField] private TMP_InputField joinCodeField;
         [SerializeField] private TMP_Text findMatchButtonText;
+        [SerializeField] private Toggle teamToggle;
+
+        // [SerializeField] private TMP_InputField joinCodeField;
 
         private bool _isMatchmaking;
         private bool _isCancelling;
@@ -31,21 +32,19 @@ namespace NomadsPlanet
                 return;
             }
 
-            queueBoard.SetActive(false);
             queueStatusText.text = string.Empty;
             queueTimerText.text = string.Empty;
+            queueBoard.SetActive(false);
         }
 
         private void Update()
         {
-            if (!_isMatchmaking)
+            if (_isMatchmaking)
             {
-                return;
+                _timeInQueue += Time.deltaTime;
+                TimeSpan ts = TimeSpan.FromSeconds(_timeInQueue);
+                queueTimerText.text = $"{ts.Minutes:00}:{ts.Seconds:00}";
             }
-
-            _timeInQueue += Time.deltaTime;
-            TimeSpan ts = TimeSpan.FromSeconds(_timeInQueue);
-            queueTimerText.text = $"{ts.Minutes:00}:{ts.Seconds:00}";
         }
 
         public async void FindMatchPressed()
@@ -59,12 +58,13 @@ namespace NomadsPlanet
             {
                 queueStatusText.DOText("Cancelling...", .25f, scrambleMode: ScrambleMode.Lowercase);
                 _isCancelling = true;
+
                 // Cancel Matchmaking
                 await ClientSingleton.Instance.GameManager.CancelMatchmaking();
-                queueBoard.SetActive(false);
                 _isCancelling = false;
                 _isMatchmaking = false;
                 _isBusy = false;
+                queueBoard.SetActive(false);
                 findMatchButtonText.DOText("Find Match", .25f, scrambleMode: ScrambleMode.Lowercase);
                 queueStatusText.DOText(string.Empty, .25f, scrambleMode: ScrambleMode.Lowercase);
                 queueTimerText.text = string.Empty;
@@ -77,7 +77,7 @@ namespace NomadsPlanet
             }
 
             // Start queue
-            ClientSingleton.Instance.GameManager.MatchmakeAsync(OnMatchMade);
+            ClientSingleton.Instance.GameManager.MatchmakeAsync(teamToggle.isOn, OnMatchMade);
             findMatchButtonText.DOText("Cancel", .25f, scrambleMode: ScrambleMode.Lowercase);
             queueStatusText.DOText("Searching...", .25f, scrambleMode: ScrambleMode.Lowercase);
             _timeInQueue = 0f;
@@ -120,27 +120,7 @@ namespace NomadsPlanet
 
             _isBusy = true;
             StartCoroutine(fadeController.FadeIn());
-            await HostSingleton.Instance.GameManager.StartHostAsync();
-
-            _isBusy = false;
-        }
-
-        public async void StartClient()
-        {
-            if (_isBusy)
-            {
-                return;
-            }
-
-            _isBusy = true;
-
-            StartCoroutine(fadeController.FadeIn());
-            bool result = await ClientSingleton.Instance.GameManager.StartClientAsync(joinCodeField.text);
-
-            if (!result)
-            {
-                StartCoroutine(fadeController.FadeOut());
-            }
+            await HostSingleton.Instance.GameManager.StartHostAsync(false);
 
             _isBusy = false;
         }
@@ -170,5 +150,25 @@ namespace NomadsPlanet
 
             _isBusy = false;
         }
+
+        // public async void StartClient()
+        // {
+        //     if (_isBusy)
+        //     {
+        //         return;
+        //     }
+        //
+        //     _isBusy = true;
+        //
+        //     StartCoroutine(fadeController.FadeIn());
+        //     bool result = await ClientSingleton.Instance.GameManager.StartClientAsync(joinCodeField.text);
+        //
+        //     if (!result)
+        //     {
+        //         StartCoroutine(fadeController.FadeOut());
+        //     }
+        //
+        //     _isBusy = false;
+        // }
     }
 }

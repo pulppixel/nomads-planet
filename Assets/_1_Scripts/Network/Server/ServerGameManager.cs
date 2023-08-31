@@ -6,7 +6,6 @@ using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 using NomadsPlanet.Utils;
-using UnityEngine.SceneManagement;
 
 namespace NomadsPlanet
 {

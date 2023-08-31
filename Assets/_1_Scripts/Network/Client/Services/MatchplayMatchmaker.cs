@@ -44,7 +44,7 @@ namespace NomadsPlanet
 
             List<Player> players = new List<Player>
             {
-                new Player(data.userAuthId, data.userGamePreferences)
+                new(data.userAuthId, data.userGamePreferences)
             };
 
             try

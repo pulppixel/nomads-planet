@@ -9,7 +9,7 @@ namespace NomadsPlanet
     {
         public static AuthState AuthState { get; private set; } = AuthState.NotAuthenticated;
 
-        public static async Task<AuthState> DoAuth(int maxTries = 10)
+        public static async Task<AuthState> DoAuth(int maxTries = 5)
         {
             if (AuthState == AuthState.Authenticated)
             {
@@ -27,15 +27,17 @@ namespace NomadsPlanet
 
             return AuthState;
         }
-
-        private static async Task Authenticating()
+        
+        private static async Task<AuthState> Authenticating()
         {
             while (AuthState is AuthState.Authenticating or AuthState.NotAuthenticated)
             {
                 await Task.Delay(200);
             }
-        }
 
+            return AuthState;
+        }
+        
         private static async Task SignInAnonymouslyAsync(int maxRetries)
         {
             AuthState = AuthState.Authenticating;

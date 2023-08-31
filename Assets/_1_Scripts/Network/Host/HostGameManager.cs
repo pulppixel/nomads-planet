@@ -27,14 +27,13 @@ namespace NomadsPlanet
         private string _lobbyId;
 
         public NetworkServer NetworkServer { get; private set; }
-        public string JoinCode => _joinCode;
 
         public HostGameManager(NetworkObject playerPrefab)
         {
             _playerPrefab = playerPrefab;
         }
 
-        public async Task StartHostAsync()
+        public async Task StartHostAsync(bool isPrivate)
         {
             try
             {
@@ -64,16 +63,18 @@ namespace NomadsPlanet
 
             try
             {
-                CreateLobbyOptions lobbyOptions = new CreateLobbyOptions();
-                lobbyOptions.IsPrivate = false;
-                lobbyOptions.Data = new Dictionary<string, DataObject>()
+                CreateLobbyOptions lobbyOptions = new CreateLobbyOptions
                 {
+                    IsPrivate = isPrivate,
+                    Data = new Dictionary<string, DataObject>
                     {
-                        NetworkSetup.JoinCode,
-                        new DataObject(
-                            visibility: DataObject.VisibilityOptions.Member,
-                            value: _joinCode
-                        )
+                        {
+                            NetworkSetup.JoinCode,
+                            new DataObject(
+                                visibility: DataObject.VisibilityOptions.Member,
+                                value: _joinCode
+                            )
+                        }
                     }
                 };
 
@@ -125,20 +126,7 @@ namespace NomadsPlanet
                 yield return delay;
             }
         }
-
-        private async void HandleClientLeft(string authId)
-        {
-            try
-            {
-                await LobbyService.Instance.RemovePlayerAsync(_lobbyId, authId);
-            }
-            catch (LobbyServiceException lobbyServiceException)
-            {
-                CustomFunc.ConsoleLog(lobbyServiceException, true);
-                return;
-            }
-        }
-
+        
         public void Dispose()
         {
             Shutdown();
@@ -167,6 +155,18 @@ namespace NomadsPlanet
             NetworkServer.OnClientLeft -= HandleClientLeft;
 
             NetworkServer?.Dispose();
+        }
+        
+        private async void HandleClientLeft(string authId)
+        {
+            try
+            {
+                await LobbyService.Instance.RemovePlayerAsync(_lobbyId, authId);
+            }
+            catch (LobbyServiceException lobbyServiceException)
+            {
+                CustomFunc.ConsoleLog(lobbyServiceException, true);
+            }
         }
     }
 }

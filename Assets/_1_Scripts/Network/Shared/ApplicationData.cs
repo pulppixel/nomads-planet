@@ -3,124 +3,125 @@ using System.Collections.Generic;
 using System.Text;
 using NomadsPlanet.Utils;
 
-/// <summary>
-/// Basic launch command processor (Multiplay prefers passing IP and port along)
-/// </summary>
-public class ApplicationData
+namespace NomadsPlanet
 {
     /// <summary>
-    /// Commands Dictionary
-    /// Supports flags and single variable args (eg. '-argument', '-variableArg variable')
+    /// 기본 실행 명령 프로세서(멀티플레이는 IP와 포트 전달을 선호합니다)
     /// </summary>
-    private readonly Dictionary<string, Action<string>> _commandDictionary = new();
-
-    private const string IPCmdKey = "k_ip";
-    private const string PortCmdKey = "k_port";
-    private const string QueryPortCmdKey = "k_queryPort";
-
-    public static string IP()
+    public class ApplicationData
     {
-        return ES3.LoadString(IPCmdKey, "127.0.0.1");
-    }
+        /// <summary>
+        /// Commands Dictionary
+        /// 플래그 및 단일 변수 인수(예: '-argument', '-variableArg 변수')를 지원합니다.
+        /// </summary>
+        private readonly Dictionary<string, Action<string>> _commandDictionary = new();
 
-    public static int Port()
-    {
-        return ES3.Load(PortCmdKey, 7777);
-    }
-
-    public static int QPort()
-    {
-        return ES3.Load(QueryPortCmdKey, 7787);
-    }
-
-    //Ensure this gets instantiated Early on
-    public ApplicationData()
-    {
-        SetIP("127.0.0.1");
-        SetPort("7777");
-        SetQueryPort("7787");
-        _commandDictionary["-" + IPCmdKey] = SetIP;
-        _commandDictionary["-" + PortCmdKey] = SetPort;
-        _commandDictionary["-" + QueryPortCmdKey] = SetQueryPort;
-        ProcessCommandLinearguments(Environment.GetCommandLineArgs());
-    }
-
-    private void ProcessCommandLinearguments(string[] args)
-    {
-        StringBuilder sb = new StringBuilder();
-        sb.AppendLine("Launch Args: ");
-        for (var i = 0; i < args.Length; i++)
+        public static string IP()
         {
-            var arg = args[i];
-            var nextArg = "";
+            return ES3.LoadString(PrefsKey.IPCmdKey, "127.0.0.1");
+        }
 
-            if (i + 1 < args.Length) // if we are evaluating the last item in the array, it must be a flag
+        public static int Port()
+        {
+            return ES3.Load(PrefsKey.PortCmdKey, 7777);
+        }
+
+        public static int QPort()
+        {
+            return ES3.Load(PrefsKey.QueryPortCmdKey, 7787);
+        }
+
+        // 초기에 인스턴스화되도록 보장
+        public ApplicationData()
+        {
+            SetIP("127.0.0.1");
+            SetPort("7777");
+            SetQueryPort("7787");
+            _commandDictionary["-" + PrefsKey.IPCmdKey] = SetIP;
+            _commandDictionary["-" + PrefsKey.PortCmdKey] = SetPort;
+            _commandDictionary["-" + PrefsKey.QueryPortCmdKey] = SetQueryPort;
+            ProcessCommandLineArguments(Environment.GetCommandLineArgs());
+        }
+
+        private void ProcessCommandLineArguments(IReadOnlyList<string> args)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Launch Args: ");
+            for (var i = 0; i < args.Count; i++)
             {
-                nextArg = args[i + 1];
+                var arg = args[i];
+                var nextArg = "";
+
+                // 배열의 마지막 항목을 평가하는 경우, 해당 항목은 플래그여야 합니다.
+                if (i + 1 < args.Count)
+                {
+                    nextArg = args[i + 1];
+                }
+
+                if (EvaluatedArgs(arg, nextArg))
+                {
+                    sb.Append(arg);
+                    sb.Append(" : ");
+                    sb.AppendLine(nextArg);
+                    i++;
+                }
             }
 
-            if (EvaluatedArgs(arg, nextArg))
+            CustomFunc.ConsoleLog(sb);
+        }
+
+        /// <summary>
+        /// 명령과 값은 쌍으로 배열된 args에 들어 있으므로
+        /// </summary>
+        private bool EvaluatedArgs(string arg, string nextArg)
+        {
+            if (!IsCommand(arg))
             {
-                sb.Append(arg);
-                sb.Append(" : ");
-                sb.AppendLine(nextArg);
-                i++;
+                return false;
+            }
+
+            // 플래그가 필요한 경우 별도의 딕셔너리를 만드세요.
+            if (IsCommand(nextArg))
+            {
+                return false;
+            }
+
+            _commandDictionary[arg].Invoke(nextArg);
+            return true;
+        }
+
+        private static void SetIP(string ipArgument)
+        {
+            ES3.Save(PrefsKey.IPCmdKey, ipArgument);
+        }
+
+        private static void SetPort(string portArgument)
+        {
+            if (int.TryParse(portArgument, out int parsedPort))
+            {
+                ES3.Save(PrefsKey.PortCmdKey, parsedPort);
+            }
+            else
+            {
+                CustomFunc.ConsoleLog($"{portArgument}에 구문 분석 가능한 포트가 없습니다!");
             }
         }
 
-        CustomFunc.ConsoleLog(sb);
-    }
-
-    /// <summary>
-    /// Commands and values come in the args array in pairs, so we
-    /// </summary>
-    private bool EvaluatedArgs(string arg, string nextArg)
-    {
-        if (!IsCommand(arg))
+        private static void SetQueryPort(string qPortArgument)
         {
-            return false;
-        }
-        
-        if (IsCommand(nextArg)) // If you have need for flags, make a separate dict for those.
-        {
-            return false;
+            if (int.TryParse(qPortArgument, out int parsedQPort))
+            {
+                ES3.Save(PrefsKey.QueryPortCmdKey, parsedQPort);
+            }
+            else
+            {
+                CustomFunc.ConsoleLog($"{qPortArgument}에 구문 분석 가능한 쿼리 포트가 포함되어 있지 않습니다!");
+            }
         }
 
-        _commandDictionary[arg].Invoke(nextArg);
-        return true;
-    }
-
-    private static void SetIP(string ipArgument)
-    {
-        ES3.Save(IPCmdKey, ipArgument);
-    }
-
-    private static void SetPort(string portArgument)
-    {
-        if (int.TryParse(portArgument, out int parsedPort))
+        private bool IsCommand(string arg)
         {
-            ES3.Save(PortCmdKey, parsedPort);
+            return !string.IsNullOrEmpty(arg) && _commandDictionary.ContainsKey(arg) && arg.StartsWith("-");
         }
-        else
-        {
-            CustomFunc.ConsoleLog($"{portArgument} does not contain a parseable port!");
-        }
-    }
-
-    private static void SetQueryPort(string qPortArgument)
-    {
-        if (int.TryParse(qPortArgument, out int parsedQPort))
-        {
-            ES3.Save(QueryPortCmdKey, parsedQPort);
-        }
-        else
-        {
-            CustomFunc.ConsoleLog($"{qPortArgument} does not contain a parseable query port!");
-        }
-    }
-
-    private bool IsCommand(string arg)
-    {
-        return !string.IsNullOrEmpty(arg) && _commandDictionary.ContainsKey(arg) && arg.StartsWith("-");
     }
 }

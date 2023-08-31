@@ -13,12 +13,12 @@ namespace NomadsPlanet
 {
     public class MatchplayBackfiller : IDisposable
     {
-        private BackfillTicket _localBackfillTicket;
         private readonly CreateBackfillTicketOptions _createBackfillOptions;
+        private BackfillTicket _localBackfillTicket;
 
-        private const int TicketCheckMs = 1000;
         private bool _localDataDirty;
         private readonly int _maxPlayers;
+        private const int TicketCheckMs = 1000;
 
         private int MatchPlayerCount => _localBackfillTicket?.Properties.MatchProperties.Players.Count ?? 0;
 
@@ -47,11 +47,11 @@ namespace NomadsPlanet
         {
             if (IsBackfilling)
             {
-                CustomFunc.ConsoleLog("Already backfilling, no need to start another.");
+                CustomFunc.ConsoleLog("이미 Backfill이 완료되었으므로, 다시 시작할 필요가 없습니다.");
                 return;
             }
 
-            CustomFunc.ConsoleLog($"Starting backfill Server: {MatchPlayerCount}/{_maxPlayers}");
+            CustomFunc.ConsoleLog($"backfill 서버 시작: {MatchPlayerCount}/{_maxPlayers}");
 
             if (string.IsNullOrEmpty(_localBackfillTicket.Id))
             {
@@ -66,7 +66,7 @@ namespace NomadsPlanet
         {
             if (!IsBackfilling)
             {
-                CustomFunc.ConsoleLog("Can't add users to the backfill ticket before it's been created");
+                CustomFunc.ConsoleLog("Backfill 티켓이 만들어지기 전에 사용자를 Backfill 티켓에 추가할 수 없습니다.");
                 return;
             }
 
@@ -92,7 +92,7 @@ namespace NomadsPlanet
             Player playerToRemove = GetPlayerById(userId);
             if (playerToRemove == null)
             {
-                CustomFunc.ConsoleLog($"No user by the ID: {userId} in local backfill Data.");
+                CustomFunc.ConsoleLog($"로컬 Backfill 데이터에 ID: {userId}의 사용자가 없습니다.");
                 return MatchPlayerCount;
             }
 
@@ -118,7 +118,7 @@ namespace NomadsPlanet
         {
             if (!IsBackfilling)
             {
-                CustomFunc.ConsoleLog("Can't stop backfilling before we start.");
+                CustomFunc.ConsoleLog("시작하기 전에 Backfill을 멈출 수는 없습니다.", true);
                 return;
             }
 
