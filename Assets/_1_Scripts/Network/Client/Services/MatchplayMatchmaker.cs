@@ -50,7 +50,7 @@ namespace NomadsPlanet
             try
             {
                 IsMatchmaking = true;
-                CreateTicketResponse createResult = await MatchmakerService.Instance.CreateTicketAsync(players, createTicketOptions);
+                var createResult = await MatchmakerService.Instance.CreateTicketAsync(players, createTicketOptions);
 
                 _lastUsedTicket = createResult.Id;
 
@@ -58,7 +58,8 @@ namespace NomadsPlanet
                 {
                     while (!_cancelToken.IsCancellationRequested)
                     {
-                        TicketStatusResponse checkTicket = await MatchmakerService.Instance.GetTicketAsync(_lastUsedTicket);
+                        TicketStatusResponse checkTicket =
+                            await MatchmakerService.Instance.GetTicketAsync(_lastUsedTicket);
 
                         if (checkTicket.Type == typeof(MultiplayAssignment))
                         {
@@ -69,14 +70,16 @@ namespace NomadsPlanet
                                 return ReturnMatchResult(MatchmakerPollingResult.Success, "", matchAssignment);
                             }
 
-                            if (matchAssignment.Status is MultiplayAssignment.StatusOptions.Timeout or MultiplayAssignment.StatusOptions.Failed)
+                            if (matchAssignment.Status is MultiplayAssignment.StatusOptions.Timeout
+                                or MultiplayAssignment.StatusOptions.Failed)
                             {
                                 return ReturnMatchResult(MatchmakerPollingResult.MatchAssignmentError,
                                     $"Ticket: {_lastUsedTicket} - {matchAssignment.Status} - {matchAssignment.Message}",
                                     null);
                             }
 
-                            CustomFunc.ConsoleLog($"Polled Ticket: {_lastUsedTicket} Status: {matchAssignment.Status} ");
+                            CustomFunc.ConsoleLog(
+                                $"Polled Ticket: {_lastUsedTicket} Status: {matchAssignment.Status} ");
                         }
 
                         await Task.Delay(TicketCooldown);
@@ -123,32 +126,33 @@ namespace NomadsPlanet
         {
             IsMatchmaking = false;
 
-            if (assignment != null)
+            if (assignment == null)
             {
-                string parsedIp = assignment.Ip;
-                int? parsedPort = assignment.Port;
-                if (parsedPort == null)
-                {
-                    return new MatchmakingResult
-                    {
-                        Result = MatchmakerPollingResult.MatchAssignmentError,
-                        ResultMessage = $"Port missing? - {assignment.Port}\n-{assignment.Message}"
-                    };
-                }
-
                 return new MatchmakingResult
                 {
-                    Result = MatchmakerPollingResult.Success,
-                    IP = parsedIp,
-                    Port = (int)parsedPort,
-                    ResultMessage = assignment.Message
+                    Result = resultErrorType,
+                    ResultMessage = message
+                };
+            }
+
+            string parsedIp = assignment.Ip;
+            int? parsedPort = assignment.Port;
+
+            if (parsedPort == null)
+            {
+                return new MatchmakingResult
+                {
+                    Result = MatchmakerPollingResult.MatchAssignmentError,
+                    ResultMessage = $"Port missing? - {assignment.Port}\n-{assignment.Message}"
                 };
             }
 
             return new MatchmakingResult
             {
-                Result = resultErrorType,
-                ResultMessage = message
+                Result = MatchmakerPollingResult.Success,
+                IP = parsedIp,
+                Port = (int)parsedPort,
+                ResultMessage = assignment.Message
             };
         }
 

@@ -1,5 +1,4 @@
-﻿#if UNITY_ANDROID || UNITY_IOS
-#else
+﻿#if UNITY_SERVER
 using System;
 using System.Threading.Tasks;
 using Unity.Netcode;

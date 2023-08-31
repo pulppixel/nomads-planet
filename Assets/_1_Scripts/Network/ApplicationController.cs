@@ -1,13 +1,9 @@
 ﻿using UnityEngine;
 using Unity.Netcode;
-using System.Threading.Tasks;
-
-#if UNITY_ANDROID || UNITY_IOS
-#else
 using System.Collections;
+using System.Threading.Tasks;
 using NomadsPlanet.Utils;
 using UnityEngine.SceneManagement;
-#endif
 
 namespace NomadsPlanet
 {
@@ -17,8 +13,7 @@ namespace NomadsPlanet
         [SerializeField] private HostSingleton hostPrefab;
         [SerializeField] private NetworkObject playerPrefab;
 
-#if UNITY_ANDROID || UNITY_IOS
-#else
+#if UNITY_SERVER
         [SerializeField] private ServerSingleton serverPrefab;
 #endif
 
@@ -35,12 +30,11 @@ namespace NomadsPlanet
         {
             if (isDedicatedServer)
             {
+#if UNITY_SERVER
                 Application.targetFrameRate = 60;
 
                 _appData = new ApplicationData();
 
-#if UNITY_ANDROID || UNITY_IOS
-#else
                 ServerSingleton serverSingleton = Instantiate(serverPrefab);
                 StartCoroutine(LoadGameSceneAsync(serverSingleton));
 #endif
@@ -60,8 +54,7 @@ namespace NomadsPlanet
             }
         }
 
-#if UNITY_ANDROID || UNITY_IOS
-#else
+#if UNITY_SERVER
         private IEnumerator LoadGameSceneAsync(ServerSingleton serverSingleton)
         {
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneName.GameScene);

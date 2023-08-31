@@ -4,14 +4,14 @@ namespace NomadsPlanet
 {
     public abstract class Coin : NetworkBehaviour
     {
-        protected int coinValue = 10;
-        protected bool alreadyCollected;
+        protected int CoinValue = 10;
+        protected bool AlreadyCollected;
 
         public abstract int Collect();
 
         public void SetValue(int value)
         {
-            coinValue = value;
+            CoinValue = value;
         }
 
         protected void Show(bool show)

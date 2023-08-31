@@ -10,17 +10,17 @@
                 return 0;
             }
 
-            if (alreadyCollected)
+            if (AlreadyCollected)
             {
                 return 0;
             }
 
-            alreadyCollected = true;
+            AlreadyCollected = true;
 
             SoundManager.Instance.PlayBoosterSfx();
             Destroy(gameObject);
 
-            return coinValue;
+            return CoinValue;
         }
     }
 }

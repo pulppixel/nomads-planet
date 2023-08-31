@@ -1,5 +1,4 @@
-#if UNITY_ANDROID || UNITY_IOS
-#else
+#if UNITY_SERVER
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -78,9 +77,11 @@ namespace NomadsPlanet
 
         private async Task<MatchmakingResults> GetMatchmakerAllocationPayloadAsync()
         {
-            MatchmakingResults payloadAllocation = await MultiplayService.Instance.GetPayloadAllocationFromJsonAs<MatchmakingResults>();
+            MatchmakingResults payloadAllocation =
+                await MultiplayService.Instance.GetPayloadAllocationFromJsonAs<MatchmakingResults>();
             string modelAsJson = JsonConvert.SerializeObject(payloadAllocation, Formatting.Indented);
-            CustomFunc.ConsoleLog(nameof(GetMatchmakerAllocationPayloadAsync) + ":" + Environment.NewLine + modelAsJson);
+            CustomFunc.ConsoleLog(nameof(GetMatchmakerAllocationPayloadAsync) + ":" + Environment.NewLine +
+                                  modelAsJson);
             return payloadAllocation;
         }
 
@@ -103,7 +104,8 @@ namespace NomadsPlanet
                 return;
             }
 
-            _serverCheckManager = await _multiplayService.StartServerQueryHandlerAsync((ushort)20, "ServerName", "", "0", "");
+            _serverCheckManager =
+                await _multiplayService.StartServerQueryHandlerAsync((ushort)20, "ServerName", "", "0", "");
 
             ServerCheckLoop(_serverCheckCancel.Token);
         }

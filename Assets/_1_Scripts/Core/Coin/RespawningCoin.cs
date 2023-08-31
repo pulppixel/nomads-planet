@@ -41,21 +41,21 @@ namespace NomadsPlanet
                 return 0;
             }
 
-            if (alreadyCollected)
+            if (AlreadyCollected)
             {
                 return 0;
             }
 
-            alreadyCollected = true;
+            AlreadyCollected = true;
 
             OnCollected?.Invoke(this);
 
-            return coinValue;
+            return CoinValue;
         }
 
         public void Reset()
         {
-            alreadyCollected = false;
+            AlreadyCollected = false;
         }
     }
 }

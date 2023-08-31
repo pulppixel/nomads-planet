@@ -1,13 +1,10 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine;
 using NomadsPlanet.Utils;
 using Unity.Services.Matchmaker;
 using Unity.Services.Matchmaker.Models;
-
-#if UNITY_EDITOR
-using UnityEngine;
-#endif
 
 namespace NomadsPlanet
 {
