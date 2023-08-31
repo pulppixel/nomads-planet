@@ -39,21 +39,23 @@ namespace NomadsPlanet
                 minimapIconRenderer.materials[0].color = ownerColor;
             }
 
-            if (IsServer)
+            if (!IsServer)
             {
-#if UNITY_ANDROID || UNITY_IOS
-                var userData = HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
-#else
+                return;
+            }
+
+#if UNITY_SERVER
                 var userData = IsHost
                     ? HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId)
                     : ServerSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
+#else
+            var userData = HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
 #endif
 
-                playerName.Value = userData.userName;
-                avatarType.Value = userData.userAvatarType;
-                carType.Value = userData.userCarType;
-                OnPlayerSpawned?.Invoke(this);
-            }
+            playerName.Value = userData.userName;
+            avatarType.Value = userData.userAvatarType;
+            carType.Value = userData.userCarType;
+            OnPlayerSpawned?.Invoke(this);
         }
 
         private void UpdateCharacter()
