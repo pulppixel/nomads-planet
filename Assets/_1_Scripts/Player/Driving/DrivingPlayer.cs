@@ -44,13 +44,9 @@ namespace NomadsPlanet
                 return;
             }
 
-#if UNITY_SERVER
-                var userData = IsHost
-                    ? HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId)
-                    : ServerSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
-#else
-            var userData = HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
-#endif
+            var userData = IsHost
+                ? HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId)
+                : ServerSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
 
             playerName.Value = userData.userName;
             avatarType.Value = userData.userAvatarType;

@@ -1,5 +1,4 @@
-﻿#if UNITY_SERVER
-using UnityEngine;
+﻿using UnityEngine;
 using Unity.Netcode;
 using Unity.Services.Core;
 using System.Threading.Tasks;
@@ -51,4 +50,3 @@ namespace NomadsPlanet
         }
     }
 }
-#endif

@@ -92,7 +92,7 @@ namespace NomadsPlanet
             {
                 case MatchmakerPollingResult.Success:
                     queueStatusText.DOText("Connecting...", .25f, scrambleMode: ScrambleMode.Lowercase);
-                    StartCoroutine(fadeController.FadeIn());
+                    // StartCoroutine(fadeController.FadeIn());
                     break;
                 case MatchmakerPollingResult.TicketCreationError:
                     queueStatusText.DOText("TicketCreationError", .2f, scrambleMode: ScrambleMode.Lowercase);

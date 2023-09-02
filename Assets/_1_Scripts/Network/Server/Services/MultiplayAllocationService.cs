@@ -1,4 +1,3 @@
-#if UNITY_SERVER
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -179,4 +178,3 @@ namespace NomadsPlanet
         }
     }
 }
-#endif

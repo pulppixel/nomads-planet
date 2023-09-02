@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using Unity.Netcode;
-using System.Collections;
 using System.Threading.Tasks;
+
 using NomadsPlanet.Utils;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 namespace NomadsPlanet
@@ -12,10 +13,7 @@ namespace NomadsPlanet
         [SerializeField] private ClientSingleton clientPrefab;
         [SerializeField] private HostSingleton hostPrefab;
         [SerializeField] private NetworkObject playerPrefab;
-
-#if UNITY_SERVER
         [SerializeField] private ServerSingleton serverPrefab;
-#endif
 
         private ApplicationData _appData;
 
@@ -30,14 +28,12 @@ namespace NomadsPlanet
         {
             if (isDedicatedServer)
             {
-#if UNITY_SERVER
                 Application.targetFrameRate = 60;
 
                 _appData = new ApplicationData();
 
                 ServerSingleton serverSingleton = Instantiate(serverPrefab);
                 StartCoroutine(LoadGameSceneAsync(serverSingleton));
-#endif
             }
             else
             {
@@ -54,7 +50,6 @@ namespace NomadsPlanet
             }
         }
 
-#if UNITY_SERVER
         private IEnumerator LoadGameSceneAsync(ServerSingleton serverSingleton)
         {
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneName.GameScene);
@@ -70,6 +65,5 @@ namespace NomadsPlanet
             Task startServerTask = serverSingleton.GameManager.StartGameServerAsync();
             yield return new WaitUntil(() => startServerTask.IsCompleted);
         }
-#endif
     }
 }
