@@ -18,7 +18,6 @@ namespace NomadsPlanet
     public class ClientGameManager : IDisposable
     {
         private JoinAllocation _allocation;
-
         private NetworkClient _networkClient;
         private MatchplayMatchmaker _matchmaker;
         private UserData _userData;
@@ -32,19 +31,20 @@ namespace NomadsPlanet
 
             AuthState authState = await AuthenticationWrapper.DoAuth();
 
-            if (authState == AuthState.Authenticated)
+            if (authState != AuthState.Authenticated)
             {
-                _userData = new UserData
-                {
-                    userName = ES3.LoadString(PrefsKey.NameKey, "Missing Name"),
-                    userAuthId = AuthenticationService.Instance.PlayerId,
-                    userCarType = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8)),
-                    userAvatarType = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8)),
-                };
-                return true;
+                return false;
             }
 
-            return false;
+            _userData = new UserData
+            {
+                userName = ES3.LoadString(PrefsKey.NameKey, "Missing Name"),
+                userAuthId = AuthenticationService.Instance.PlayerId,
+                userCarType = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8)),
+                userAvatarType = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8)),
+            };
+
+            return true;
         }
 
         public static void GoToMenu()
@@ -58,7 +58,7 @@ namespace NomadsPlanet
             transport.SetConnectionData(ip, (ushort)port);
             ConnectClient();
         }
-        
+
         public async Task StartClientAsync(string joinCode)
         {
             try
@@ -72,7 +72,6 @@ namespace NomadsPlanet
             }
 
             UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-
             RelayServerData relayServerData = new RelayServerData(_allocation, NetworkSetup.ConnectType);
             transport.SetRelayServerData(relayServerData);
 
@@ -93,10 +92,7 @@ namespace NomadsPlanet
 
         private void ConnectClient()
         {
-            string payload = JsonUtility.ToJson(_userData);
-            byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
-
-            NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
+            UpdateUserData(_userData.userName, _userData.userCarType, _userData.userAvatarType);
             NetworkManager.Singleton.StartClient();
         }
 

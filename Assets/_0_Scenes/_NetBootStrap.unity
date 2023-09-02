@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6960e84d07fb87f47956e7a81d71c4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ProtocolType: 1
+  m_ProtocolType: 0
   m_MaxPacketQueueSize: 128
   m_MaxPayloadSize: 6144
   m_HeartbeatTimeoutMS: 500
@@ -563,9 +563,9 @@ MonoBehaviour:
     type: 3}
   hostPrefab: {fileID: 4678076296080468538, guid: f5e3333fe5db4e8428234c5e38a8be57,
     type: 3}
-  playerPrefab: {fileID: 8850297710679569454, guid: 7cf71736d451d4b47a54ca46e4f8615f,
-    type: 3}
   serverPrefab: {fileID: 8660748756414125226, guid: 9216da7c07cd7294eb9285749eeddb4d,
+    type: 3}
+  playerPrefab: {fileID: 8850297710679569454, guid: 7cf71736d451d4b47a54ca46e4f8615f,
     type: 3}
 --- !u!4 &940310416
 Transform:

@@ -19,8 +19,8 @@ namespace NomadsPlanet
 
         public Action<string> OnClientLeft;
 
-        private readonly Dictionary<ulong, string> _clientIdToAuth = new();
-        private readonly Dictionary<string, UserData> _authIdToUserData = new();
+        private readonly Dictionary<ulong, string> _clientIdToAuth = new Dictionary<ulong, string>();
+        private readonly Dictionary<string, UserData> _authIdToUserData = new Dictionary<string, UserData>();
 
         public NetworkServer(NetworkManager networkManager, NetworkObject playerPrefab)
         {
@@ -57,8 +57,7 @@ namespace NomadsPlanet
 
         private async Task SpawnPlayerDelayed(ulong clientId)
         {
-            await Task.Delay(1000);
-
+            await Task.Delay(3000);
             
             NetworkObject playerInstance = Object.Instantiate(
                 _playerPrefab,

@@ -12,7 +12,6 @@ namespace NomadsPlanet
         public NetworkClient(NetworkManager networkManager)
         {
             _networkManager = networkManager;
-
             _networkManager.OnClientDisconnectCallback += OnClientDisconnect;
         }
 

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using Unity.Netcode;
 using System.Threading.Tasks;
-
 using NomadsPlanet.Utils;
 using System.Collections;
 using UnityEngine.SceneManagement;
@@ -12,8 +11,9 @@ namespace NomadsPlanet
     {
         [SerializeField] private ClientSingleton clientPrefab;
         [SerializeField] private HostSingleton hostPrefab;
-        [SerializeField] private NetworkObject playerPrefab;
         [SerializeField] private ServerSingleton serverPrefab;
+
+        [SerializeField] private NetworkObject playerPrefab;
 
         private ApplicationData _appData;
 

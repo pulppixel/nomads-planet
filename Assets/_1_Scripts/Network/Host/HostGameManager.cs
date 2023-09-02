@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using NomadsPlanet.Utils;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
@@ -15,6 +14,7 @@ using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
+using NomadsPlanet.Utils;
 
 namespace NomadsPlanet
 {
@@ -57,7 +57,6 @@ namespace NomadsPlanet
             }
 
             UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-
             RelayServerData relayServerData = new RelayServerData(_allocation, NetworkSetup.ConnectType);
             transport.SetRelayServerData(relayServerData);
 

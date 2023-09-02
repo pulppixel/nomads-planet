@@ -2,6 +2,15 @@
 
 namespace NomadsPlanet.Utils
 {
+    public enum MatchmakerPollingResult
+    {
+        Success,
+        TicketCreationError,
+        TicketCancellationError,
+        TicketRetrievalError,
+        MatchAssignmentError
+    }
+
     public enum CharacterType
     {
         Null = -1,

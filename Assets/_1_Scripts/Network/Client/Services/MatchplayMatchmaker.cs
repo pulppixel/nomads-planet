@@ -8,15 +8,6 @@ using NomadsPlanet.Utils;
 
 namespace NomadsPlanet
 {
-    public enum MatchmakerPollingResult
-    {
-        Success,
-        TicketCreationError,
-        TicketCancellationError,
-        TicketRetrievalError,
-        MatchAssignmentError
-    }
-
     public class MatchmakingResult
     {
         public string IP;
@@ -44,7 +35,7 @@ namespace NomadsPlanet
 
             List<Player> players = new List<Player>
             {
-                new(data.userAuthId, data.userGamePreferences)
+                new Player(data.userAuthId, data.userGamePreferences)
             };
 
             try
@@ -58,8 +49,7 @@ namespace NomadsPlanet
                 {
                     while (!_cancelToken.IsCancellationRequested)
                     {
-                        TicketStatusResponse checkTicket =
-                            await MatchmakerService.Instance.GetTicketAsync(_lastUsedTicket);
+                        TicketStatusResponse checkTicket = await MatchmakerService.Instance.GetTicketAsync(_lastUsedTicket);
 
                         if (checkTicket.Type == typeof(MultiplayAssignment))
                         {
@@ -70,12 +60,13 @@ namespace NomadsPlanet
                                 return ReturnMatchResult(MatchmakerPollingResult.Success, "", matchAssignment);
                             }
 
-                            if (matchAssignment.Status is MultiplayAssignment.StatusOptions.Timeout
-                                or MultiplayAssignment.StatusOptions.Failed)
+                            if (matchAssignment.Status == MultiplayAssignment.StatusOptions.Timeout ||
+                                matchAssignment.Status == MultiplayAssignment.StatusOptions.Failed)
                             {
                                 return ReturnMatchResult(MatchmakerPollingResult.MatchAssignmentError,
                                     $"Ticket: {_lastUsedTicket} - {matchAssignment.Status} - {matchAssignment.Message}",
-                                    null);
+                                    null
+                                );
                             }
 
                             CustomFunc.ConsoleLog(
@@ -122,7 +113,8 @@ namespace NomadsPlanet
             await MatchmakerService.Instance.DeleteTicketAsync(_lastUsedTicket);
         }
 
-        private MatchmakingResult ReturnMatchResult(MatchmakerPollingResult resultErrorType, string message, MultiplayAssignment assignment)
+        private MatchmakingResult ReturnMatchResult(MatchmakerPollingResult resultErrorType, string message,
+            MultiplayAssignment assignment)
         {
             IsMatchmaking = false;
 

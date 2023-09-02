@@ -4,6 +4,7 @@ using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 using NomadsPlanet.Utils;
+using UnityEngine.SceneManagement;
 
 namespace NomadsPlanet
 {
@@ -56,12 +57,15 @@ namespace NomadsPlanet
                 CustomFunc.ConsoleLog("네트워크 서버가 예상대로 시작되지 않았습니다.");
                 return;
             }
+
+            // 이거 추가 안해서 안넘어간 것 같아 그동안.
+            CustomFunc.ConsoleLog("게임이 시작됩니다!!");
+            NetworkManager.Singleton.SceneManager.LoadScene(SceneName.GameScene, LoadSceneMode.Single);
         }
 
         private async Task<MatchmakingResults> GetMatchmakerPayload()
         {
-            Task<MatchmakingResults> matchmakerPayloadTask =
-                _multiplayAllocationService.SubscribeAndAwaitMatchmakerAllocation();
+            Task<MatchmakingResults> matchmakerPayloadTask = _multiplayAllocationService.SubscribeAndAwaitMatchmakerAllocation();
 
             if (await Task.WhenAny(matchmakerPayloadTask, Task.Delay(20000)) == matchmakerPayloadTask)
             {
