@@ -33,6 +33,7 @@ namespace NomadsPlanet
                 _appData = new ApplicationData();
 
                 ServerSingleton serverSingleton = Instantiate(serverPrefab);
+                
                 StartCoroutine(LoadGameSceneAsync(serverSingleton));
             }
             else

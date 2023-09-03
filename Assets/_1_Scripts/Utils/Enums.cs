@@ -29,12 +29,12 @@ namespace NomadsPlanet.Utils
         Null = -1,
         Black,
         Blue,
-        Carrot,
+        Green,
         Grey,
         Orange,
         Red,
         Sports,
-        White,
+        Yellow,
     }
 
     public enum AuthState

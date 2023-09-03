@@ -44,9 +44,16 @@ namespace NomadsPlanet
                 return;
             }
 
-            var userData = IsHost
-                ? HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId)
-                : ServerSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
+            UserData userData = null;
+            
+            if (IsHost)
+            {
+                userData = HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
+            }
+            else
+            {
+                userData = ServerSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
+            }
 
             playerName.Value = userData.userName;
             avatarType.Value = userData.userAvatarType;
@@ -56,36 +63,18 @@ namespace NomadsPlanet
 
         private void UpdateCharacter()
         {
-            CloseAllPrefabs();
-            var avatar = playerPrefabs[avatarType.Value].gameObject;
-            avatar.gameObject.SetActive(true);
-            avatar.transform.SetParent(transform);
+            var avatar = Instantiate(playerPrefabs[avatarType.Value], transform);
             avatar.transform.SetSiblingIndex(2);
             avatar.gameObject.name = "Player_Model";
-
-            var car = carPrefabs[carType.Value].gameObject;
-            car.gameObject.SetActive(true);
-            car.transform.SetParent(transform);
+        
+            var car = Instantiate(carPrefabs[carType.Value], transform);
             car.transform.SetSiblingIndex(3);
             car.gameObject.name = "Player_Car";
-
+        
             CarController.Init(car.transform);
             GetComponent<NetworkAnimator>().Animator.Rebind();
         }
-
-        private void CloseAllPrefabs()
-        {
-            foreach (var prefab in playerPrefabs)
-            {
-                prefab.SetActive(false);
-            }
-
-            foreach (var prefab in carPrefabs)
-            {
-                prefab.SetActive(false);
-            }
-        }
-
+        
         public override void OnNetworkDespawn()
         {
             if (IsServer && OnPlayerDespawned != null)
@@ -100,7 +89,7 @@ namespace NomadsPlanet
             {
                 return;
             }
-
+        
             if (transform.GetChildFromName<Transform>("Player_Model") == null)
             {
                 UpdateCharacter();

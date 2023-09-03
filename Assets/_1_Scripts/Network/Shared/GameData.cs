@@ -10,7 +10,7 @@ namespace NomadsPlanet
         public string userAuthId;
         public int userCarType;
         public int userAvatarType;
-        public GameInfo userGamePreferences = new();
+        public GameInfo userGamePreferences = new GameInfo();
     }
 
     [Serializable]

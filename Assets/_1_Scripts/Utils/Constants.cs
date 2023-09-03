@@ -20,18 +20,18 @@
     public struct PrefsKey
     {
 #if UNITY_EDITOR
-        public const string IPCmdKey = "_k_ip_3";
-        public const string PortCmdKey = "_k_port_3";
-        public const string QueryPortCmdKey = "_k_queryPort_3";
+        public const string IPCmdKey = "ip";
+        public const string PortCmdKey = "port";
+        public const string QueryPortCmdKey = "queryPort";
 
         public const string NameKey = "_Name_Key_3";
         public const string AvatarTypeKey = "_Avatar_Key_3";
         public const string CarTypeKey = "_Car_Key_3";
         public const string CoinKey = "_Coin_Key_3";
 #else
-        public const string IPCmdKey = "k_ip_3";
-        public const string PortCmdKey = "k_port_3";
-        public const string QueryPortCmdKey = "k_queryPort_3";
+        public const string IPCmdKey = "ip";
+        public const string PortCmdKey = "port";
+        public const string QueryPortCmdKey = "queryPort";
         
         public const string NameKey = "Name_Key_3";
         public const string AvatarTypeKey = "Avatar_Key_3";
