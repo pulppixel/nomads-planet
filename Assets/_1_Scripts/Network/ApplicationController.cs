@@ -12,7 +12,6 @@ namespace NomadsPlanet
         [SerializeField] private ClientSingleton clientPrefab;
         [SerializeField] private HostSingleton hostPrefab;
         [SerializeField] private ServerSingleton serverPrefab;
-
         [SerializeField] private NetworkObject playerPrefab;
 
         private ApplicationData _appData;
@@ -21,34 +20,31 @@ namespace NomadsPlanet
         {
             DontDestroyOnLoad(gameObject);
 
-            await LaunchInMode(SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Null);
+            await LaunchInMode();
         }
 
-        private async Task LaunchInMode(bool isDedicatedServer)
+        private async Task LaunchInMode()
         {
-            if (isDedicatedServer)
+#if UNITY_SERVER
+            Application.targetFrameRate = 60;
+
+            _appData = new ApplicationData();
+
+            ServerSingleton serverSingleton = Instantiate(serverPrefab);
+
+            StartCoroutine(LoadGameSceneAsync(serverSingleton));
+#else
+            HostSingleton hostSingleton = Instantiate(hostPrefab);
+            hostSingleton.CreateHost(playerPrefab);
+
+            ClientSingleton clientSingleton = Instantiate(clientPrefab);
+            bool authenticated = await clientSingleton.CreateClient();
+
+            if (authenticated)
             {
-                Application.targetFrameRate = 60;
-
-                _appData = new ApplicationData();
-
-                ServerSingleton serverSingleton = Instantiate(serverPrefab);
-                
-                StartCoroutine(LoadGameSceneAsync(serverSingleton));
+                ClientGameManager.GoToMenu();
             }
-            else
-            {
-                HostSingleton hostSingleton = Instantiate(hostPrefab);
-                hostSingleton.CreateHost(playerPrefab);
-
-                ClientSingleton clientSingleton = Instantiate(clientPrefab);
-                bool authenticated = await clientSingleton.CreateClient();
-
-                if (authenticated)
-                {
-                    ClientGameManager.GoToMenu();
-                }
-            }
+#endif
         }
 
         private IEnumerator LoadGameSceneAsync(ServerSingleton serverSingleton)

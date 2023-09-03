@@ -119,7 +119,9 @@ namespace NomadsPlanet
             }
 
             _isBusy = true;
+
             StartCoroutine(fadeController.FadeIn());
+
             await HostSingleton.Instance.GameManager.StartHostAsync(false);
 
             _isBusy = false;

@@ -21,7 +21,7 @@ namespace NomadsPlanet
     public class HostGameManager : IDisposable
     {
         private Allocation _allocation;
-        private readonly NetworkObject _playerPrefab;
+        private NetworkObject _playerPrefab;
 
         private string _joinCode;
         private string _lobbyId;

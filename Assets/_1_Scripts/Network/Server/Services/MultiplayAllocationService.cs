@@ -10,11 +10,11 @@ namespace NomadsPlanet
 {
     public class MultiplayAllocationService : IDisposable
     {
-        private readonly IMultiplayService _multiplayService;
+        private IMultiplayService _multiplayService;
         private MultiplayEventCallbacks _serverCallbacks;
         private IServerQueryHandler _serverCheckManager;
         private IServerEvents _serverEvents;
-        private readonly CancellationTokenSource _serverCheckCancel;
+        private CancellationTokenSource _serverCheckCancel;
         private string _allocationId;
 
         public MultiplayAllocationService()
@@ -105,7 +105,7 @@ namespace NomadsPlanet
                     (ushort)20,
                     "ServerName",
                     "",
-                    "",
+                    "0", // 이거 언제 빠졌었지...
                     "");
 
             ServerCheckLoop(_serverCheckCancel.Token);

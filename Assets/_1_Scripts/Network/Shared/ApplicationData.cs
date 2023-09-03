@@ -43,17 +43,17 @@ namespace NomadsPlanet
             ProcessCommandLineArguments(Environment.GetCommandLineArgs());
         }
 
-        private void ProcessCommandLineArguments(IReadOnlyList<string> args)
+        private void ProcessCommandLineArguments(string[] args)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Launch Args: ");
-            for (var i = 0; i < args.Count; i++)
+            for (var i = 0; i < args.Length; i++)
             {
                 var arg = args[i];
                 var nextArg = "";
 
                 // 배열의 마지막 항목을 평가하는 경우, 해당 항목은 플래그여야 합니다.
-                if (i + 1 < args.Count)
+                if (i + 1 < args.Length)
                 {
                     nextArg = args[i + 1];
                 }

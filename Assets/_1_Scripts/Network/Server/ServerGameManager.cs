@@ -4,18 +4,17 @@ using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 using NomadsPlanet.Utils;
-using UnityEngine.SceneManagement;
 
 namespace NomadsPlanet
 {
     public class ServerGameManager : IDisposable
     {
-        private readonly string _serverIP;
-        private readonly int _serverPort;
-        private readonly int _queryPort;
+        private string _serverIP;
+        private int _serverPort;
+        private int _queryPort;
         private MatchplayBackfiller _backfiller;
-        private readonly MultiplayAllocationService _multiplayAllocationService;
-        public NetworkServer NetworkServer { get; private set; }
+        private MultiplayAllocationService _multiplayAllocationService;
+        public NetworkServer NetworkServer { get; }
 
         public ServerGameManager(string serverIP, int serverPort,
             int queryPort, NetworkManager manager, NetworkObject playerPrefab)
@@ -58,9 +57,8 @@ namespace NomadsPlanet
                 return;
             }
 
-            // 이거 추가 안해서 안넘어간 것 같아 그동안.
-            CustomFunc.ConsoleLog("게임이 시작됩니다!!");
-            NetworkManager.Singleton.SceneManager.LoadScene(SceneName.GameScene, LoadSceneMode.Single);
+            // NOT USE
+            // NetworkManager.Singleton.SceneManager.LoadScene(SceneName.GameScene, LoadSceneMode.Single);
         }
 
         private async Task<MatchmakingResults> GetMatchmakerPayload()

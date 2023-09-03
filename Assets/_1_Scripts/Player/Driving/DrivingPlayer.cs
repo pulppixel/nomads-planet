@@ -24,6 +24,8 @@ namespace NomadsPlanet
         public NetworkVariable<int> avatarType = new();
         public NetworkVariable<int> carType = new();
 
+        private bool isSetupDone;
+
         public static event Action<DrivingPlayer> OnPlayerSpawned;
         public static event Action<DrivingPlayer> OnPlayerDespawned;
 
@@ -44,8 +46,9 @@ namespace NomadsPlanet
                 return;
             }
 
-            UserData userData = null;
-            
+            UserData userData;
+            isSetupDone = false;
+
             if (IsHost)
             {
                 userData = HostSingleton.Instance.GameManager.NetworkServer.GetUserDataByClientId(OwnerClientId);
@@ -66,15 +69,15 @@ namespace NomadsPlanet
             var avatar = Instantiate(playerPrefabs[avatarType.Value], transform);
             avatar.transform.SetSiblingIndex(2);
             avatar.gameObject.name = "Player_Model";
-        
+
             var car = Instantiate(carPrefabs[carType.Value], transform);
             car.transform.SetSiblingIndex(3);
             car.gameObject.name = "Player_Car";
-        
+
             CarController.Init(car.transform);
             GetComponent<NetworkAnimator>().Animator.Rebind();
         }
-        
+
         public override void OnNetworkDespawn()
         {
             if (IsServer && OnPlayerDespawned != null)
@@ -85,14 +88,15 @@ namespace NomadsPlanet
 
         private void Update()
         {
-            if (playerName.Value == "")
+            if (isSetupDone || playerName.Value == "")
             {
                 return;
             }
-        
+
             if (transform.GetChildFromName<Transform>("Player_Model") == null)
             {
                 UpdateCharacter();
+                isSetupDone = true;
             }
         }
     }
