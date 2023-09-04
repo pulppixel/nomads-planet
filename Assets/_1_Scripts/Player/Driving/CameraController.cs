@@ -33,11 +33,7 @@ namespace NomadsPlanet
             _horizontalRotation = rotation.y;
             _verticalRotation = rotation.x;
             _yawRotation = rotation.z;
-
-            if (!IsOwner)
-            {
-                _virtualCamera.Priority = -5;
-            }
+            _virtualCamera.Priority = IsOwner ? 15 : -2;
         }
 
         private void Update()
