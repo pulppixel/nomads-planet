@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using NomadsPlanet.Utils;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
@@ -15,26 +14,26 @@ using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
+using NomadsPlanet.Utils;
 
 namespace NomadsPlanet
 {
     public class HostGameManager : IDisposable
     {
         private Allocation _allocation;
-        private readonly NetworkObject _playerPrefab;
+        private NetworkObject _playerPrefab;
 
         private string _joinCode;
         private string _lobbyId;
 
         public NetworkServer NetworkServer { get; private set; }
-        public string JoinCode => _joinCode;
 
         public HostGameManager(NetworkObject playerPrefab)
         {
             _playerPrefab = playerPrefab;
         }
 
-        public async Task StartHostAsync()
+        public async Task StartHostAsync(bool isPrivate)
         {
             try
             {
@@ -58,22 +57,23 @@ namespace NomadsPlanet
             }
 
             UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-
             RelayServerData relayServerData = new RelayServerData(_allocation, NetworkSetup.ConnectType);
             transport.SetRelayServerData(relayServerData);
 
             try
             {
-                CreateLobbyOptions lobbyOptions = new CreateLobbyOptions();
-                lobbyOptions.IsPrivate = false;
-                lobbyOptions.Data = new Dictionary<string, DataObject>()
+                CreateLobbyOptions lobbyOptions = new CreateLobbyOptions
                 {
+                    IsPrivate = isPrivate,
+                    Data = new Dictionary<string, DataObject>
                     {
-                        NetworkSetup.JoinCode,
-                        new DataObject(
-                            visibility: DataObject.VisibilityOptions.Member,
-                            value: _joinCode
-                        )
+                        {
+                            NetworkSetup.JoinCode,
+                            new DataObject(
+                                visibility: DataObject.VisibilityOptions.Member,
+                                value: _joinCode
+                            )
+                        }
                     }
                 };
 
@@ -125,20 +125,7 @@ namespace NomadsPlanet
                 yield return delay;
             }
         }
-
-        private async void HandleClientLeft(string authId)
-        {
-            try
-            {
-                await LobbyService.Instance.RemovePlayerAsync(_lobbyId, authId);
-            }
-            catch (LobbyServiceException lobbyServiceException)
-            {
-                CustomFunc.ConsoleLog(lobbyServiceException, true);
-                return;
-            }
-        }
-
+        
         public void Dispose()
         {
             Shutdown();
@@ -167,6 +154,18 @@ namespace NomadsPlanet
             NetworkServer.OnClientLeft -= HandleClientLeft;
 
             NetworkServer?.Dispose();
+        }
+        
+        private async void HandleClientLeft(string authId)
+        {
+            try
+            {
+                await LobbyService.Instance.RemovePlayerAsync(_lobbyId, authId);
+            }
+            catch (LobbyServiceException lobbyServiceException)
+            {
+                CustomFunc.ConsoleLog(lobbyServiceException, true);
+            }
         }
     }
 }

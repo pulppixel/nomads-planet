@@ -29,7 +29,7 @@ namespace NomadsPlanet
             board.rectTransform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBack);
 
             int coinValues = ES3.Load(PrefsKey.CoinKey, 0);
-            ES3.Save(PrefsKey.CoinKey, coinValues + leaderboard.GetClientDisplay().Coins);
+            ES3.Save(PrefsKey.CoinKey, coinValues + leaderboard.GetClientDisplay()!.Coins);
 
             coinText.DOText(
                     leaderboard.GetClientDisplay().Coins.ToString("N0"),

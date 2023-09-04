@@ -13,7 +13,9 @@ namespace NomadsPlanet
         public GameObject hitVfx;
 
         private bool _isScoreMax;
-        public Action<PlayerScore> OnWin;
+
+        // 싱글 플레이 종료 이벤트
+        public Action<PlayerScore> onWin;
 
         private void Start()
         {
@@ -55,7 +57,7 @@ namespace NomadsPlanet
 
             if (currentScore.Value == maxScore)
             {
-                OnWin?.Invoke(this);
+                onWin?.Invoke(this);
                 _isScoreMax = true;
             }
         }

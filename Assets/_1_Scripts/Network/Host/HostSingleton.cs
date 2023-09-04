@@ -8,12 +8,15 @@ namespace NomadsPlanet
         private static HostSingleton _instance;
 
         public HostGameManager GameManager { get; private set; }
-        
+
         public static HostSingleton Instance
         {
             get
             {
-                if (_instance != null) { return _instance; }
+                if (_instance != null)
+                {
+                    return _instance;
+                }
 
                 _instance = FindObjectOfType<HostSingleton>();
 

@@ -1,33 +1,30 @@
-﻿using System.Threading.Tasks;
-using NomadsPlanet.Utils;
+﻿using Unity.Services.Core;
 using Unity.Services.Authentication;
-using Unity.Services.Core;
+using System.Threading.Tasks;
+using NomadsPlanet.Utils;
 
 namespace NomadsPlanet
 {
     public static class AuthenticationWrapper
     {
-        public static AuthState AuthState { get; private set; } = AuthState.NotAuthenticated;
+        private static AuthState AuthState { get; set; } = AuthState.NotAuthenticated;
 
-        public static async Task<AuthState> DoAuth(int maxTries = 10)
+        public static async Task<AuthState> DoAuth(int maxTries = 5)
         {
-            if (AuthState == AuthState.Authenticated)
+            switch (AuthState)
             {
-                return AuthState;
+                case AuthState.Authenticated:
+                    return AuthState;
+                case AuthState.Authenticating:
+                    CustomFunc.ConsoleLog("이미 인증되었습니다!!");
+                    await Authenticating();
+                    return AuthState;
+                default:
+                    await SignInAnonymouslyAsync(maxTries);
+                    return AuthState;
             }
-
-            if (AuthState == AuthState.Authenticating)
-            {
-                CustomFunc.ConsoleLog("이미 인증되었습니다!!");
-                await Authenticating();
-                return AuthState;
-            }
-
-            await SignInAnonymouslyAsync(maxTries);
-
-            return AuthState;
         }
-
+        
         private static async Task Authenticating()
         {
             while (AuthState is AuthState.Authenticating or AuthState.NotAuthenticated)
@@ -35,7 +32,7 @@ namespace NomadsPlanet
                 await Task.Delay(200);
             }
         }
-
+        
         private static async Task SignInAnonymouslyAsync(int maxRetries)
         {
             AuthState = AuthState.Authenticating;

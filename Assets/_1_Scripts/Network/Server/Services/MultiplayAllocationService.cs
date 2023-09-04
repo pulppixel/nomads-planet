@@ -1,5 +1,3 @@
-#if UNITY_ANDROID || UNITY_IOS
-#else
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,12 +10,11 @@ namespace NomadsPlanet
 {
     public class MultiplayAllocationService : IDisposable
     {
+        private IMultiplayService _multiplayService;
         private MultiplayEventCallbacks _serverCallbacks;
         private IServerQueryHandler _serverCheckManager;
         private IServerEvents _serverEvents;
-
-        private readonly IMultiplayService _multiplayService;
-        private readonly CancellationTokenSource _serverCheckCancel;
+        private CancellationTokenSource _serverCheckCancel;
         private string _allocationId;
 
         public MultiplayAllocationService()
@@ -29,7 +26,7 @@ namespace NomadsPlanet
             }
             catch (Exception ex)
             {
-                CustomFunc.ConsoleLog($"Error creating Multiplay allocation service.\n{ex}");
+                CustomFunc.ConsoleLog($"멀티플레이 할당 서비스를 만드는 동안 오류가 발생했습니다.\n{ex}");
             }
         }
 
@@ -104,7 +101,12 @@ namespace NomadsPlanet
                 return;
             }
 
-            _serverCheckManager = await _multiplayService.StartServerQueryHandlerAsync((ushort)20, "ServerName", "", "0", "");
+            _serverCheckManager = await _multiplayService.StartServerQueryHandlerAsync(
+                    (ushort)20,
+                    "ServerName",
+                    "",
+                    "0", // 이거 언제 빠졌었지...
+                    "");
 
             ServerCheckLoop(_serverCheckCancel.Token);
         }
@@ -153,13 +155,15 @@ namespace NomadsPlanet
             }
         }
 
-        private void OnMultiplayDeAllocation(MultiplayDeallocation deallocation)
+        private static void OnMultiplayDeAllocation(MultiplayDeallocation deallocation)
         {
             CustomFunc.ConsoleLog(
-                $"Multiplay Deallocated : ID: {deallocation.AllocationId}\nEvent: {deallocation.EventId}\nServer{deallocation.ServerId}");
+                $"Multiplay Deallocated : ID: {deallocation.AllocationId}\n" +
+                $"Event: {deallocation.EventId}\n" +
+                $"Server{deallocation.ServerId}");
         }
 
-        private void OnMultiplayError(MultiplayError error)
+        private static void OnMultiplayError(MultiplayError error)
         {
             CustomFunc.ConsoleLog($"MultiplayError : {error.Reason}\n{error.Detail}");
         }
@@ -173,13 +177,8 @@ namespace NomadsPlanet
                 _serverCallbacks.Error -= OnMultiplayError;
             }
 
-            if (_serverCheckCancel != null)
-            {
-                _serverCheckCancel.Cancel();
-            }
-
+            _serverCheckCancel?.Cancel();
             _serverEvents?.UnsubscribeAsync();
         }
     }
 }
-#endif

@@ -2,25 +2,13 @@
 
 namespace NomadsPlanet.Utils
 {
-    public enum LightType
+    public enum MatchmakerPollingResult
     {
-        Red,
-        Yellow,
-        Green
-    }
-
-    public enum LaneType
-    {
-        First,
-        Second,
-    }
-
-    [Flags]
-    public enum TrafficType
-    {
-        Left = 1,
-        Right = 2,
-        Forward = 4,
+        Success,
+        TicketCreationError,
+        TicketCancellationError,
+        TicketRetrievalError,
+        MatchAssignmentError
     }
 
     public enum CharacterType
@@ -41,12 +29,12 @@ namespace NomadsPlanet.Utils
         Null = -1,
         Black,
         Blue,
-        Carrot,
+        Green,
         Grey,
         Orange,
         Red,
         Sports,
-        White,
+        Yellow,
     }
 
     public enum AuthState
@@ -72,5 +60,26 @@ namespace NomadsPlanet.Utils
     {
         Solo,
         Team,
+    }
+
+    public enum LightType
+    {
+        Red,
+        Yellow,
+        Green
+    }
+
+    public enum LaneType
+    {
+        First,
+        Second,
+    }
+
+    [Flags]
+    public enum TrafficType
+    {
+        Left = 1,
+        Right = 2,
+        Forward = 4,
     }
 }

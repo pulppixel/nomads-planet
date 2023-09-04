@@ -1,13 +1,9 @@
 ﻿using UnityEngine;
 using Unity.Netcode;
 using System.Threading.Tasks;
-
-#if UNITY_ANDROID || UNITY_IOS
-#else
-using System.Collections;
 using NomadsPlanet.Utils;
+using System.Collections;
 using UnityEngine.SceneManagement;
-#endif
 
 namespace NomadsPlanet
 {
@@ -15,12 +11,8 @@ namespace NomadsPlanet
     {
         [SerializeField] private ClientSingleton clientPrefab;
         [SerializeField] private HostSingleton hostPrefab;
-        [SerializeField] private NetworkObject playerPrefab;
-
-#if UNITY_ANDROID || UNITY_IOS
-#else
         [SerializeField] private ServerSingleton serverPrefab;
-#endif
+        [SerializeField] private NetworkObject playerPrefab;
 
         private ApplicationData _appData;
 
@@ -28,40 +20,33 @@ namespace NomadsPlanet
         {
             DontDestroyOnLoad(gameObject);
 
-            await LaunchInMode(SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Null);
+            await LaunchInMode();
         }
 
-        private async Task LaunchInMode(bool isDedicatedServer)
+        private async Task LaunchInMode()
         {
-            if (isDedicatedServer)
-            {
-                Application.targetFrameRate = 60;
+#if UNITY_SERVER
+            Application.targetFrameRate = 60;
 
-                _appData = new ApplicationData();
+            _appData = new ApplicationData();
 
-#if UNITY_ANDROID || UNITY_IOS
+            ServerSingleton serverSingleton = Instantiate(serverPrefab);
+
+            StartCoroutine(LoadGameSceneAsync(serverSingleton));
 #else
-                ServerSingleton serverSingleton = Instantiate(serverPrefab);
-                StartCoroutine(LoadGameSceneAsync(serverSingleton));
-#endif
-            }
-            else
+            HostSingleton hostSingleton = Instantiate(hostPrefab);
+            hostSingleton.CreateHost(playerPrefab);
+
+            ClientSingleton clientSingleton = Instantiate(clientPrefab);
+            bool authenticated = await clientSingleton.CreateClient();
+
+            if (authenticated)
             {
-                HostSingleton hostSingleton = Instantiate(hostPrefab);
-                hostSingleton.CreateHost(playerPrefab);
-
-                ClientSingleton clientSingleton = Instantiate(clientPrefab);
-                bool authenticated = await clientSingleton.CreateClient();
-
-                if (authenticated)
-                {
-                    ClientGameManager.GoToMenu();
-                }
+                ClientGameManager.GoToMenu();
             }
+#endif
         }
 
-#if UNITY_ANDROID || UNITY_IOS
-#else
         private IEnumerator LoadGameSceneAsync(ServerSingleton serverSingleton)
         {
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneName.GameScene);
@@ -77,6 +62,5 @@ namespace NomadsPlanet
             Task startServerTask = serverSingleton.GameManager.StartGameServerAsync();
             yield return new WaitUntil(() => startServerTask.IsCompleted);
         }
-#endif
     }
 }

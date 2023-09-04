@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -9,12 +8,10 @@ namespace NomadsPlanet
     {
         [SerializeField] private LoadingFaderController faderController;
         [SerializeField] private ResultBoard resultBoard;
-        [SerializeField] private TMP_Text joinCode;
 
         private IEnumerator Start()
         {
             yield return new WaitForSeconds(.25f);
-            joinCode.text = HostSingleton.Instance.GameManager.JoinCode;
             StartCoroutine(faderController.FadeOut());
         }
 

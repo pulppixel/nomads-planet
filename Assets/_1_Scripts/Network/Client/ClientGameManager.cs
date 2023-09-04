@@ -18,10 +18,9 @@ namespace NomadsPlanet
     public class ClientGameManager : IDisposable
     {
         private JoinAllocation _allocation;
-
-        private UserData _userData;
         private NetworkClient _networkClient;
         private MatchplayMatchmaker _matchmaker;
+        private UserData _userData;
 
         public async Task<bool> InitAsync()
         {
@@ -32,19 +31,20 @@ namespace NomadsPlanet
 
             AuthState authState = await AuthenticationWrapper.DoAuth();
 
-            if (authState == AuthState.Authenticated)
+            if (authState != AuthState.Authenticated)
             {
-                _userData = new UserData
-                {
-                    userName = ES3.LoadString(PrefsKey.NameKey, "Missing Name"),
-                    userCarType = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8)),
-                    userAvatarType = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8)),
-                    userAuthId = AuthenticationService.Instance.PlayerId
-                };
-                return true;
+                return false;
             }
 
-            return false;
+            _userData = new UserData
+            {
+                userName = ES3.LoadString(PrefsKey.NameKey, "Missing Name"),
+                userAuthId = AuthenticationService.Instance.PlayerId,
+                userCarType = ES3.Load(PrefsKey.CarTypeKey, Random.Range(0, 8)),
+                userAvatarType = ES3.Load(PrefsKey.AvatarTypeKey, Random.Range(0, 8)),
+            };
+
+            return true;
         }
 
         public static void GoToMenu()
@@ -59,6 +59,25 @@ namespace NomadsPlanet
             ConnectClient();
         }
 
+        public async Task StartClientAsync(string joinCode)
+        {
+            try
+            {
+                _allocation = await Relay.Instance.JoinAllocationAsync(joinCode);
+            }
+            catch (Exception e)
+            {
+                CustomFunc.ConsoleLog(e);
+                return;
+            }
+
+            UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+            RelayServerData relayServerData = new RelayServerData(_allocation, NetworkSetup.ConnectType);
+            transport.SetRelayServerData(relayServerData);
+
+            ConnectClient();
+        }
+
         public void UpdateUserData(string userName = "", int userCarType = -1, int userAvatarType = -1)
         {
             _userData.userName = userName == "" ? _userData.userName : userName;
@@ -70,43 +89,21 @@ namespace NomadsPlanet
             NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
         }
 
-        public async Task<bool> StartClientAsync(string joinCode)
-        {
-            try
-            {
-                _allocation = await Relay.Instance.JoinAllocationAsync(joinCode);
-            }
-            catch (Exception e)
-            {
-                CustomFunc.ConsoleLog(e);
-                return false;
-            }
-
-            UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-
-            RelayServerData relayServerData = new RelayServerData(_allocation, NetworkSetup.ConnectType);
-            transport.SetRelayServerData(relayServerData);
-
-            ConnectClient();
-            return true;
-        }
 
         private void ConnectClient()
         {
-            string payload = JsonUtility.ToJson(_userData);
-            byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
-
-            NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
+            UpdateUserData(_userData.userName, _userData.userCarType, _userData.userAvatarType);
             NetworkManager.Singleton.StartClient();
         }
 
-        public async void MatchmakeAsync(Action<MatchmakerPollingResult> onMatchmakeResponse)
+        public async void MatchmakeAsync(bool isTeamQueue, Action<MatchmakerPollingResult> onMatchmakeResponse)
         {
             if (_matchmaker.IsMatchmaking)
             {
                 return;
             }
 
+            _userData.userGamePreferences.gameQueue = isTeamQueue ? GameQueue.Team : GameQueue.Solo;
             MatchmakerPollingResult matchResult = await GetMatchAsync();
             onMatchmakeResponse?.Invoke(matchResult);
         }

@@ -1,23 +1,20 @@
-﻿#if UNITY_ANDROID || UNITY_IOS
-#else
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 using NomadsPlanet.Utils;
-using UnityEngine.SceneManagement;
 
 namespace NomadsPlanet
 {
     public class ServerGameManager : IDisposable
     {
-        private readonly string _serverIP;
-        private readonly int _serverPort;
-        private readonly int _queryPort;
+        private string _serverIP;
+        private int _serverPort;
+        private int _queryPort;
         private MatchplayBackfiller _backfiller;
-        private readonly MultiplayAllocationService _multiplayAllocationService;
-        public NetworkServer NetworkServer { get; private set; }
+        private MultiplayAllocationService _multiplayAllocationService;
+        public NetworkServer NetworkServer { get; }
 
         public ServerGameManager(string serverIP, int serverPort,
             int queryPort, NetworkManager manager, NetworkObject playerPrefab)
@@ -59,12 +56,14 @@ namespace NomadsPlanet
                 CustomFunc.ConsoleLog("네트워크 서버가 예상대로 시작되지 않았습니다.");
                 return;
             }
+
+            // NOT USE
+            // NetworkManager.Singleton.SceneManager.LoadScene(SceneName.GameScene, LoadSceneMode.Single);
         }
 
         private async Task<MatchmakingResults> GetMatchmakerPayload()
         {
-            Task<MatchmakingResults> matchmakerPayloadTask =
-                _multiplayAllocationService.SubscribeAndAwaitMatchmakerAllocation();
+            Task<MatchmakingResults> matchmakerPayloadTask = _multiplayAllocationService.SubscribeAndAwaitMatchmakerAllocation();
 
             if (await Task.WhenAny(matchmakerPayloadTask, Task.Delay(20000)) == matchmakerPayloadTask)
             {
@@ -135,4 +134,3 @@ namespace NomadsPlanet
         }
     }
 }
-#endif

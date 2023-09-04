@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NomadsPlanet.Utils;
 using Unity.Mathematics;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace NomadsPlanet
 {
     public class NetworkServer : IDisposable
     {
-        private readonly NetworkManager _networkManager;
-        private readonly NetworkObject _playerPrefab;
+        private NetworkManager _networkManager;
+        private NetworkObject _playerPrefab;
 
         public Action<UserData> OnUserJoined;
         public Action<UserData> OnUserLeft;
 
         public Action<string> OnClientLeft;
 
-        private readonly Dictionary<ulong, string> _clientIdToAuth = new();
-        private readonly Dictionary<string, UserData> _authIdToUserData = new();
+        private readonly Dictionary<ulong, string> _clientIdToAuth = new Dictionary<ulong, string>();
+        private readonly Dictionary<string, UserData> _authIdToUserData = new Dictionary<string, UserData>();
 
         public NetworkServer(NetworkManager networkManager, NetworkObject playerPrefab)
         {
@@ -57,13 +57,17 @@ namespace NomadsPlanet
 
         private async Task SpawnPlayerDelayed(ulong clientId)
         {
-            await Task.Delay(2000);
+            await Task.Delay(3000);
 
-            NetworkObject playerInstance = Object.Instantiate(
+            NetworkObject playerInstance = GameObject.Instantiate(
                 _playerPrefab,
                 SpawnPoint.GetRandomSpawnPos(),
                 quaternion.identity
             );
+
+            CustomFunc.ConsoleLog($"{clientId} 생성됨!!\n" +
+                                  $"{playerInstance.name}\n" +
+                                  $"{playerInstance.transform.position}");
 
             playerInstance.SpawnAsPlayerObject(clientId);
         }

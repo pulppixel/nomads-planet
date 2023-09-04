@@ -1,9 +1,7 @@
-﻿#if UNITY_ANDROID || UNITY_IOS
-#else
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using Unity.Netcode;
 using Unity.Services.Core;
+using System.Threading.Tasks;
 
 namespace NomadsPlanet
 {
@@ -12,12 +10,15 @@ namespace NomadsPlanet
         private static ServerSingleton _instance;
 
         public ServerGameManager GameManager { get; private set; }
-        
+
         public static ServerSingleton Instance
         {
             get
             {
-                if (_instance != null) { return _instance; }
+                if (_instance != null)
+                {
+                    return _instance;
+                }
 
                 _instance = FindObjectOfType<ServerSingleton>();
 
@@ -49,4 +50,3 @@ namespace NomadsPlanet
         }
     }
 }
-#endif
