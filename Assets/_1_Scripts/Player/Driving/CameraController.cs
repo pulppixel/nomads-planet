@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cinemachine;
+using UnityEngine;
 using Unity.Netcode;
 
 #if UNITY_ANDROID || UNITY_IOS
@@ -17,11 +18,13 @@ namespace NomadsPlanet
         private float _horizontalRotation;
         private float _yawRotation;
 
+        private CinemachineVirtualCamera _virtualCamera;
         private Transform _transform;
 
         private void Awake()
         {
             _transform = GetComponent<Transform>();
+            _virtualCamera = GetComponent<CinemachineVirtualCamera>();
         }
 
         private void Start()
@@ -33,7 +36,7 @@ namespace NomadsPlanet
 
             if (!IsOwner)
             {
-                gameObject.SetActive(false);
+                _virtualCamera.Priority = -5;
             }
         }
 
