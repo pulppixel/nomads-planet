@@ -716,11 +716,11 @@ RectTransform:
   - {fileID: 1633901104}
   m_Father: {fileID: 1638798604}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 426.39185}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 500, y: 150}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &128113526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2364,7 +2364,7 @@ GameObject:
   - component: {fileID: 298344863}
   - component: {fileID: 298344862}
   m_Layer: 0
-  m_Name: BackGround
+  m_Name: MenuBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2383,6 +2383,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 848359511}
+  - {fileID: 1726925911}
   - {fileID: 257142927}
   - {fileID: 186482924}
   m_Father: {fileID: 1638798604}
@@ -3563,7 +3564,7 @@ GameObject:
   - component: {fileID: 549762521}
   - component: {fileID: 549762522}
   m_Layer: 0
-  m_Name: MainMenu
+  m_Name: MainMenuManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3581,9 +3582,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1638798604}
-  m_Father: {fileID: 920029230}
+  m_Children: []
+  m_Father: {fileID: 1568471470}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &549762522
 MonoBehaviour:
@@ -5836,7 +5836,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
+  m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 427.5, y: 109.29462}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &848359512
@@ -6244,7 +6244,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 549762521}
+  - {fileID: 1638798604}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &928441195
@@ -7749,7 +7749,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 61dfe07337d3f4e12bfc4b67e951392d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 14a0eb90162af4cc3869a5610f599a07, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8307,6 +8307,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 467753144}
+  - {fileID: 549762521}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1591037690
@@ -8725,11 +8726,10 @@ RectTransform:
   - {fileID: 128113525}
   - {fileID: 1459915896}
   - {fileID: 298344861}
-  - {fileID: 1726925911}
   - {fileID: 928441196}
   - {fileID: 836571590}
   - {fileID: 242420739}
-  m_Father: {fileID: 549762521}
+  m_Father: {fileID: 920029230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -9827,7 +9827,7 @@ GameObject:
   - component: {fileID: 1726925911}
   - component: {fileID: 1726925912}
   m_Layer: 0
-  m_Name: '- Menus'
+  m_Name: Menus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9840,7 +9840,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726925910}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9848,12 +9848,12 @@ RectTransform:
   - {fileID: 595082398}
   - {fileID: 1691712036}
   - {fileID: 387693005}
-  m_Father: {fileID: 1638798604}
+  m_Father: {fileID: 298344861}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -79.30408}
-  m_SizeDelta: {x: 450, y: -218.61}
+  m_AnchoredPosition: {x: 0.000022888184, y: -75}
+  m_SizeDelta: {x: 450, y: -290}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1726925912
 MonoBehaviour:
@@ -9873,7 +9873,7 @@ MonoBehaviour:
     m_Top: 100
     m_Bottom: 100
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: 100
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -13690,7 +13690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &340641063728043282
 RectTransform:
   m_ObjectHideFlags: 0
