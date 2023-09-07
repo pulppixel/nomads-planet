@@ -13,6 +13,7 @@ namespace NomadsPlanet
         [SerializeField] private HostSingleton hostPrefab;
         [SerializeField] private ServerSingleton serverPrefab;
         [SerializeField] private NetworkObject playerPrefab;
+        [SerializeField] private VivoxVoiceManager vivoxPrefab;
 
         private ApplicationData _appData;
 
@@ -44,6 +45,9 @@ namespace NomadsPlanet
             {
                 ClientGameManager.GoToMenu();
             }
+            
+            VivoxVoiceManager vivoxSingleton = Instantiate(vivoxPrefab);
+            vivoxSingleton.Login(ES3.LoadString(PrefsKey.NameKey, "Unknown"));
 #endif
         }
 
