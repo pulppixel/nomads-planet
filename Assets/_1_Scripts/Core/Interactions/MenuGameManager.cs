@@ -5,6 +5,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using NomadsPlanet.Utils;
+using VivoxUnity;
 using Random = UnityEngine.Random;
 
 namespace NomadsPlanet
@@ -48,6 +49,15 @@ namespace NomadsPlanet
             bgmSource.volume = 0f;
             bgmSource.DOFade(1f, .5f);
             StartCoroutine(faderController.FadeOut());
+
+            while (!VivoxVoiceManager.Instance.IsSetupDone)
+            {
+                yield return null;
+            }
+
+            VivoxVoiceManager.Instance.Login(ES3.LoadString(PrefsKey.NameKey, "Unknown"));
+            yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
+            VivoxVoiceManager.Instance.JoinChannel(SceneName.MenuScene, ChannelType.NonPositional, VivoxVoiceManager.ChatCapability.TextOnly);
         }
 
         public void SetLeftCarClick()
