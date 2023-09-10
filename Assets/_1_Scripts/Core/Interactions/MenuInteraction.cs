@@ -1,5 +1,4 @@
-﻿using System;
-using Cinemachine;
+﻿using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +11,8 @@ namespace NomadsPlanet
         [SerializeField] private RectTransform userInfoRectTr;
         [SerializeField] private Image blockImage;
         [SerializeField] private CinemachineVirtualCamera virtualCamera;
+
+        [SerializeField] private GameObject characterParent;
 
         public static bool IsInteracting;
         private Collider _collider;
@@ -37,9 +38,9 @@ namespace NomadsPlanet
         {
             if (other.CompareTag("Player"))
             {
-                interactionButton.interactable = false;
                 interactionButton.image.rectTransform.DOScale(0f, .5f)
-                    .SetEase(Ease.InBack);
+                    .SetEase(Ease.InBack)
+                    .OnComplete(() => { interactionButton.interactable = false; });
             }
         }
 
@@ -50,16 +51,18 @@ namespace NomadsPlanet
             interactionButton.image.rectTransform.DOScale(0f, .5f)
                 .SetEase(Ease.InBack);
             userInfoRectTr.DOScale(0f, .5f)
-                .SetEase(Ease.InBack);
+                .SetEase(Ease.InBack)
+                .OnComplete(() => { characterParent.SetActive(false); });
             virtualCamera.Priority = 20;
         }
-        
+
         public void LeaveThisMenu()
         {
             IsInteracting = false;
             blockImage.raycastTarget = true;
             virtualCamera.Priority = -1;
-            
+
+            characterParent.SetActive(true);
             userInfoRectTr.DOScale(1f, .5f)
                 .SetEase(Ease.OutBack);
         }

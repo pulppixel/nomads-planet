@@ -173,8 +173,8 @@ namespace NomadsPlanet
                 break;
             }
 
-            drivingPlayer.Wallet.totalCoins.OnValueChanged -= (oldCoins, newCoins) =>
-                HandleCoinsChanged(drivingPlayer.OwnerClientId, newCoins);
+            drivingPlayer!.Wallet.totalCoins.OnValueChanged -= (oldCoins, newCoins) =>
+                HandleCoinsChanged(drivingPlayer!.OwnerClientId, newCoins);
         }
 
         private void HandleCoinsChanged(ulong clientId, int newCoins)

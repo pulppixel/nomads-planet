@@ -6231,7 +6231,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 1
+    m_Time: 0.8
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -6582,6 +6582,11 @@ PrefabInstance:
       propertyPath: userInfoRectTr
       value: 
       objectReference: {fileID: 1459915896}
+    - target: {fileID: 5777876271425282908, guid: cf46744293bd63f4cb67c368012f4ea2,
+        type: 3}
+      propertyPath: characterParent
+      value: 
+      objectReference: {fileID: 3022020389846776014}
     - target: {fileID: 5777876271425282908, guid: cf46744293bd63f4cb67c368012f4ea2,
         type: 3}
       propertyPath: interactionButton
@@ -14292,6 +14297,11 @@ PrefabInstance:
       propertyPath: userInfoRectTr
       value: 
       objectReference: {fileID: 1459915896}
+    - target: {fileID: 5777876271425282908, guid: cf46744293bd63f4cb67c368012f4ea2,
+        type: 3}
+      propertyPath: characterParent
+      value: 
+      objectReference: {fileID: 3022020389846776014}
     - target: {fileID: 5777876271425282908, guid: cf46744293bd63f4cb67c368012f4ea2,
         type: 3}
       propertyPath: interactionButton

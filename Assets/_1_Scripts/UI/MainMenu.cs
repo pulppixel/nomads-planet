@@ -92,6 +92,7 @@ namespace NomadsPlanet
                 case MatchmakerPollingResult.Success:
                     queueStatusText.DOText("Connecting...", .25f, scrambleMode: ScrambleMode.Lowercase);
                     VivoxVoiceManager.Instance.Logout();
+                    MenuInteraction.IsInteracting = false;
                     StartCoroutine(fadeController.FadeIn());
                     break;
                 case MatchmakerPollingResult.TicketCreationError:
@@ -122,6 +123,7 @@ namespace NomadsPlanet
 
             StartCoroutine(fadeController.FadeIn());
             VivoxVoiceManager.Instance.Logout();
+            MenuInteraction.IsInteracting = false;
             await HostSingleton.Instance.GameManager.StartHostAsync(false);
 
             _isBusy = false;
