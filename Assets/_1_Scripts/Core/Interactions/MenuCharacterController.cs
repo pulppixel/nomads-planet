@@ -13,8 +13,8 @@ namespace NomadsPlanet
         public AudioClip rightFoot;
 
         private const float SpeedSmoothTime = 0.1f;
-        private const float WalkSpeed = 3f;
-        private const float RunSpeed = 6f;
+        private const float WalkSpeed = 5f;
+        private const float RunSpeed = 8f;
         private const float TurnSmoothTime = 0.1f;
         private const float JumpHeight = 2.5f;
         private const float Gravity = -9.81f;
@@ -48,6 +48,15 @@ namespace NomadsPlanet
 
         private void Update()
         {
+            if (MenuInteraction.IsInteracting)
+            {
+                AllStop();
+                return;
+            }
+
+#if UNITY_ANDROID || UNITY_IOS
+            FingersJoystickScript.Instance.gameObject.SetActive(true);
+#endif
             HandleJump();
             ApplyGravity();
             HandleMovementAndRun();
@@ -202,6 +211,17 @@ namespace NomadsPlanet
             {
                 _animator.SetTrigger(Jump1);
             }
+        }
+
+        private void AllStop()
+        {
+#if UNITY_ANDROID || UNITY_IOS
+            FingersJoystickScript.Instance.gameObject.SetActive(false);
+#endif
+            _animator.SetBool(Run, false);
+            _animator.SetBool(Dance, false);
+            _animator.SetBool(Walk, false);
+            _animator.SetBool(Jump1, false);
         }
     }
 }

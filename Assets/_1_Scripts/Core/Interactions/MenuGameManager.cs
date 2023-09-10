@@ -16,6 +16,7 @@ namespace NomadsPlanet
     {
         [SerializeField] private Transform carParent;
         [SerializeField] private Transform characterParent;
+        [SerializeField] private Transform characterStartPoint;
 
         [SerializeField] private TMP_Text userNameText;
         [SerializeField] private TMP_Text coinValueText;
@@ -65,14 +66,14 @@ namespace NomadsPlanet
             OnUserLoggedIn();
         }
 
-        private void JoinChannel()
+        private static void JoinChannel()
         {
             VivoxVoiceManager.Instance.OnParticipantAddedEvent += VivoxVoiceManager_OnParticipantAddedEvent;
             VivoxVoiceManager.Instance.JoinChannel(SceneName.MenuScene, ChannelType.NonPositional,
                 VivoxVoiceManager.ChatCapability.TextOnly);
         }
 
-        private void VivoxVoiceManager_OnParticipantAddedEvent(string username, ChannelId channel,
+        private static void VivoxVoiceManager_OnParticipantAddedEvent(string username, ChannelId channel,
             IParticipant participant)
         {
             if (channel.Name == SceneName.MenuScene && participant.IsSelf)
@@ -82,7 +83,7 @@ namespace NomadsPlanet
             }
         }
 
-        private void OnUserLoggedIn()
+        private static void OnUserLoggedIn()
         {
             var lobbyChannel =
                 VivoxVoiceManager.Instance.ActiveChannels.FirstOrDefault(ac => ac.Channel.Name == SceneName.MenuScene);
@@ -98,7 +99,7 @@ namespace NomadsPlanet
             }
         }
 
-        private void OnUserLoggedOut()
+        private static void OnUserLoggedOut()
         {
             VivoxVoiceManager.Instance.DisconnectAllChannels();
         }
@@ -228,8 +229,13 @@ namespace NomadsPlanet
             {
                 _characterPrefabs[i].gameObject.SetActive(i == _currentCharacter);
                 _characterPrefabs[i].localRotation = Quaternion.identity;
-            }
 
+                if (i == _currentCharacter)
+                {
+                    _characterPrefabs[i].transform.position = characterStartPoint.position;
+                }
+            }
+            
             virtualCamera.Follow = _characterPrefabs[_currentCharacter];
         }
 
