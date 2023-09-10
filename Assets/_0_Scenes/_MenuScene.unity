@@ -905,7 +905,7 @@ GameObject:
   - component: {fileID: 146023326}
   - component: {fileID: 146023325}
   m_Layer: 0
-  m_Name: Scroll View
+  m_Name: Roaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -919,7 +919,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 146023323}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5033,6 +5033,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 772937919}
+  - component: {fileID: 772937921}
   - component: {fileID: 772937920}
   m_Layer: 0
   m_Name: Content
@@ -5086,6 +5087,22 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &772937921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772937918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a06ff476a8497d9718e94d2aa3ea63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rosterPrefab: {fileID: 6320977947215646707, guid: 64fd016d8d7c0fe4985d363ff3760e3b,
+    type: 3}
+  otherPrefab: {fileID: 7207360477063784807, guid: 1ed9050b4f5701743954a20fc09c0690,
+    type: 3}
 --- !u!1 &789888856
 GameObject:
   m_ObjectHideFlags: 0
@@ -14617,15 +14634,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7573838929342530686, guid: cf46744293bd63f4cb67c368012f4ea2,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 146023324}
+    - targetCorrespondingSourceObject: {fileID: 7573838929342530686, guid: cf46744293bd63f4cb67c368012f4ea2,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1374278254}
     - targetCorrespondingSourceObject: {fileID: 7573838929342530686, guid: cf46744293bd63f4cb67c368012f4ea2,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1451267596}
-    - targetCorrespondingSourceObject: {fileID: 7573838929342530686, guid: cf46744293bd63f4cb67c368012f4ea2,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 146023324}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf46744293bd63f4cb67c368012f4ea2, type: 3}
 --- !u!224 &461749175779673567 stripped
