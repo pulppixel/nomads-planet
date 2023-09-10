@@ -16,7 +16,6 @@ namespace NomadsPlanet
         [SerializeField] private TMP_Text queueStatusText;
         [SerializeField] private TMP_Text queueTimerText;
         [SerializeField] private TMP_Text findMatchButtonText;
-        [SerializeField] private Toggle teamToggle;
 
         // [SerializeField] private TMP_InputField joinCodeField;
 
@@ -77,7 +76,7 @@ namespace NomadsPlanet
             }
 
             // Start queue
-            ClientSingleton.Instance.GameManager.MatchmakeAsync(teamToggle.isOn, OnMatchMade);
+            ClientSingleton.Instance.GameManager.MatchmakeAsync(false, OnMatchMade);
             findMatchButtonText.DOText("Cancel", .25f, scrambleMode: ScrambleMode.Lowercase);
             queueStatusText.DOText("Searching...", .25f, scrambleMode: ScrambleMode.Lowercase);
             _timeInQueue = 0f;
@@ -92,6 +91,7 @@ namespace NomadsPlanet
             {
                 case MatchmakerPollingResult.Success:
                     queueStatusText.DOText("Connecting...", .25f, scrambleMode: ScrambleMode.Lowercase);
+                    VivoxVoiceManager.Instance.Logout();
                     StartCoroutine(fadeController.FadeIn());
                     break;
                 case MatchmakerPollingResult.TicketCreationError:
@@ -121,7 +121,7 @@ namespace NomadsPlanet
             _isBusy = true;
 
             StartCoroutine(fadeController.FadeIn());
-
+            VivoxVoiceManager.Instance.Logout();
             await HostSingleton.Instance.GameManager.StartHostAsync(false);
 
             _isBusy = false;
