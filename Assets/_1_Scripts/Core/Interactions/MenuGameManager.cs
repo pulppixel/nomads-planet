@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cinemachine;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using NomadsPlanet.Utils;
+using UnityEngine.UI;
 using VivoxUnity;
 using Random = UnityEngine.Random;
 
@@ -21,6 +23,9 @@ namespace NomadsPlanet
         [SerializeField] private AudioSource bgmSource;
         [SerializeField] private CinemachineVirtualCamera virtualCamera;
         [SerializeField] private LoadingFaderController faderController;
+
+        [SerializeField] private Image connectionIndicator;
+        [SerializeField] private TMP_Text connectionText;
 
         private readonly List<Transform> _carPrefabs = new();
         private readonly List<Transform> _characterPrefabs = new();
@@ -39,6 +44,10 @@ namespace NomadsPlanet
             {
                 _characterPrefabs.Add(characterParent.GetChild(i));
             }
+
+            VivoxVoiceManager.Instance.OnUserLoggedInEvent += OnUserLoggedIn;
+            VivoxVoiceManager.Instance.OnUserLoggedOutEvent += OnUserLoggedOut;
+            VivoxVoiceManager.Instance.OnRecoveryStateChangedEvent += OnRecoveryStateChanged;
         }
 
         private IEnumerator Start()
@@ -50,15 +59,64 @@ namespace NomadsPlanet
             bgmSource.DOFade(1f, .5f);
             StartCoroutine(faderController.FadeOut());
 
-            while (!VivoxVoiceManager.Instance.IsSetupDone)
-            {
-                yield return null;
-            }
-
             VivoxVoiceManager.Instance.Login(ES3.LoadString(PrefsKey.NameKey, "Unknown"));
             yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
-            VivoxVoiceManager.Instance.JoinChannel(SceneName.MenuScene, ChannelType.NonPositional, VivoxVoiceManager.ChatCapability.TextOnly);
+            OnUserLoggedIn();
         }
+
+        private void JoinChannel()
+        {
+            VivoxVoiceManager.Instance.OnParticipantAddedEvent += VivoxVoiceManager_OnParticipantAddedEvent;
+            VivoxVoiceManager.Instance.JoinChannel(SceneName.MenuScene, ChannelType.NonPositional,
+                VivoxVoiceManager.ChatCapability.TextOnly);
+        }
+
+        private void VivoxVoiceManager_OnParticipantAddedEvent(string username, ChannelId channel,
+            IParticipant participant)
+        {
+            if (channel.Name == SceneName.MenuScene && participant.IsSelf)
+            {
+                // if joined the lobby channel and we're not hosting a match
+                // we should request invites from hosts
+            }
+        }
+
+        private void OnUserLoggedIn()
+        {
+            var lobbyChannel =
+                VivoxVoiceManager.Instance.ActiveChannels.FirstOrDefault(ac => ac.Channel.Name == SceneName.MenuScene);
+
+            if (VivoxVoiceManager.Instance && VivoxVoiceManager.Instance.ActiveChannels.Count == 0 ||
+                lobbyChannel == null)
+            {
+                JoinChannel();
+            }
+            else
+            {
+                CustomFunc.ConsoleLog("Now Transmitting into lobby channel");
+            }
+        }
+
+        private void OnUserLoggedOut()
+        {
+            VivoxVoiceManager.Instance.DisconnectAllChannels();
+        }
+
+        private void OnRecoveryStateChanged(ConnectionRecoveryState state)
+        {
+            connectionIndicator.color = state switch
+            {
+                ConnectionRecoveryState.Connected => Color.green,
+                ConnectionRecoveryState.Disconnected => Color.red,
+                ConnectionRecoveryState.FailedToRecover => Color.black,
+                ConnectionRecoveryState.Recovered => Color.green,
+                ConnectionRecoveryState.Recovering => Color.yellow,
+                _ => Color.white
+            };
+
+            connectionText.text = state.ToString();
+        }
+
 
         public void SetLeftCarClick()
         {
@@ -172,6 +230,14 @@ namespace NomadsPlanet
             }
 
             virtualCamera.Follow = _characterPrefabs[_currentCharacter];
+        }
+
+        private void OnDestroy()
+        {
+            VivoxVoiceManager.Instance.OnUserLoggedInEvent -= OnUserLoggedIn;
+            VivoxVoiceManager.Instance.OnUserLoggedOutEvent -= OnUserLoggedOut;
+            VivoxVoiceManager.Instance.OnParticipantAddedEvent -= VivoxVoiceManager_OnParticipantAddedEvent;
+            VivoxVoiceManager.Instance.OnRecoveryStateChangedEvent -= OnRecoveryStateChanged;
         }
     }
 }
