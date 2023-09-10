@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 
 namespace NomadsPlanet
@@ -10,9 +11,16 @@ namespace NomadsPlanet
         [SerializeField] private TMP_Text timeText;
         [SerializeField] private TMP_Text nameText;
 
+        private RectTransform _rectTransform;
+        
         private const float MaxWidth = 110f;
         private const float PaddingTopBottom = 5f;
         private readonly Vector2 _paddingLeftRight = new Vector2(10, 10);
+
+        private void Awake()
+        {
+            _rectTransform = GetComponent<RectTransform>();
+        }
 
         public void SetText(string message)
         {
@@ -42,6 +50,8 @@ namespace NomadsPlanet
                 Mathf.Min(size.x, MaxWidth) + _paddingLeftRight.x + _paddingLeftRight.y,
                 size.y + PaddingTopBottom * 2
             );
+
+            _rectTransform.sizeDelta = new Vector2(_rectTransform.sizeDelta.x, bubbleRectTr.sizeDelta.y);
         }
     }
 }
