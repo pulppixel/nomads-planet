@@ -12,7 +12,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void Awake()
         {
-            thisImg = GetComponent<Image>();
+            thisImg = transform.GetChild(0).GetComponent<Image>();
         }
 
         public void OnPointerDown(PointerEventData eventData)
