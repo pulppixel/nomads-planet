@@ -44,7 +44,7 @@ namespace NomadsPlanet
             {
                 _characterPrefabs.Add(characterParent.GetChild(i));
             }
-
+            
             VivoxVoiceManager.Instance.OnUserLoggedInEvent += OnUserLoggedIn;
             VivoxVoiceManager.Instance.OnUserLoggedOutEvent += OnUserLoggedOut;
             VivoxVoiceManager.Instance.OnRecoveryStateChangedEvent += OnRecoveryStateChanged;
@@ -61,6 +61,7 @@ namespace NomadsPlanet
 
             VivoxVoiceManager.Instance.Login(ES3.LoadString(PrefsKey.NameKey, "Unknown"));
             yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
+
             OnUserLoggedIn();
         }
 

@@ -10,9 +10,9 @@ namespace NomadsPlanet
         [SerializeField] private TMP_Text timeText;
         [SerializeField] private TMP_Text nameText;
 
-        private const float MaxWidth = 100f;
-        private const float PaddingTopBottom = 5;
-        private readonly Vector2 _paddingLeftRight = new Vector2(5, 15);
+        private const float MaxWidth = 110f;
+        private const float PaddingTopBottom = 5f;
+        private readonly Vector2 _paddingLeftRight = new Vector2(10, 10);
 
         public void SetText(string message)
         {

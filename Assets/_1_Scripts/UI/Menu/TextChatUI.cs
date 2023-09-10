@@ -10,7 +10,7 @@ using VivoxUnity;
 
 namespace NomadsPlanet
 {
-    public class TextChaiUI : MonoBehaviour
+    public class TextChatUI : MonoBehaviour
     {
         [SerializeField] private TMP_InputField messageInputField;
         [SerializeField] private Transform messageParent;
@@ -34,6 +34,11 @@ namespace NomadsPlanet
 
             VivoxVoiceManager.Instance.OnParticipantAddedEvent += OnParticipantAdded;
             VivoxVoiceManager.Instance.OnTextMessageLogReceivedEvent += OnTextMessageLogReceivedEvent;
+        }
+
+        private IEnumerator Start()
+        {
+            yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
 
 #if UNITY_SERVER
             sendButton.gameObject.SetActive(false);
@@ -42,11 +47,6 @@ namespace NomadsPlanet
             sendButton.onClick.AddListener(SubmitTextToVivox);
             messageInputField.onEndEdit.AddListener(_ => { EnterKeyOnTextField(); });
 #endif
-        }
-
-        private IEnumerator Start()
-        {
-            yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
 
             if (VivoxVoiceManager.Instance.ActiveChannels.Count > 0)
             {
@@ -63,32 +63,26 @@ namespace NomadsPlanet
             {
                 _lobbyChannelId = VivoxVoiceManager.Instance.ActiveChannels.FirstOrDefault()?.Channel;
             }
-            CustomFunc.ConsoleLog("OnParticipantAdded!!");
         }
 
-        private void OnTextMessageLogReceivedEvent(string sender, IChannelTextMessage channeltextmessage)
+        private void OnTextMessageLogReceivedEvent(string sender, IChannelTextMessage channelTextMessage)
         {
-            if (!string.IsNullOrEmpty(channeltextmessage.ApplicationStanzaNamespace))
+            if (!string.IsNullOrEmpty(channelTextMessage.ApplicationStanzaNamespace))
             {
                 return;
             }
 
-            if (channeltextmessage.FromSelf)
-            {
-                var newMessageObj = Instantiate(chatContentObj, messageParent);
-                _messageObjPool.Add(newMessageObj);
-                newMessageObj.SetText(channeltextmessage.Message);
-                newMessageObj.SetTime(channeltextmessage.ReceivedTime.ToString("tt h:mm"));
-                StartCoroutine(SendScrollRectToBottom());
-            }
-            else
-            {
-                var newMessageObj = Instantiate(chatOtherObj, messageParent);
-                _messageObjPool.Add(newMessageObj);
-                newMessageObj.SetText(channeltextmessage.Message);
-                newMessageObj.SetTime(channeltextmessage.ReceivedTime.ToString("tt h:mm"));
-                newMessageObj.SetSender(sender);
-            }
+            var newMessageObj = Instantiate(
+                channelTextMessage.FromSelf ? chatContentObj : chatOtherObj,
+                messageParent
+            );
+
+            _messageObjPool.Add(newMessageObj);
+            newMessageObj.SetText(channelTextMessage.Message);
+            newMessageObj.SetTime(channelTextMessage.ReceivedTime.ToString("tt h:mm"));
+            newMessageObj.SetSender(sender);
+
+            StartCoroutine(SendScrollRectToBottom());
         }
 
         private void EnterKeyOnTextField()
@@ -99,7 +93,6 @@ namespace NomadsPlanet
             }
 
             SubmitTextToVivox();
-            CustomFunc.ConsoleLog("Submit Text!!");
         }
 
         private void SubmitTextToVivox()
@@ -135,9 +128,11 @@ namespace NomadsPlanet
         {
             yield return new WaitForEndOfFrame();
 
-            _textChatScrollRect.normalizedPosition = new Vector2(0, 0);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_textChatScrollRect.content);
 
             yield return null;
+
+            _textChatScrollRect.verticalNormalizedPosition = 0f;
         }
 
         private void OnDestroy()

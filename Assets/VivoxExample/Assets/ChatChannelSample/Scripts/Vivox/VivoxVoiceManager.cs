@@ -77,12 +77,12 @@ public class VivoxVoiceManager : MonoBehaviour
     private static object m_Lock = new object();
     private static VivoxVoiceManager m_Instance;
 
-    //These variables should be set to the projects Vivox credentials if the authentication package is not being used
-    //Credentials are available on the Vivox Developer Portal (developer.vivox.com) or the Unity Dashboard (dashboard.unity3d.com), depending on where the organization and project were made
-    [SerializeField] private string _key;
-    [SerializeField] private string _issuer;
-    [SerializeField] private string _domain;
-    [SerializeField] private string _server;
+    // These variables should be set to the projects Vivox credentials if the authentication package is not being used
+    // Credentials are available on the Vivox Developer Portal (developer.vivox.com) or the Unity Dashboard (dashboard.unity3d.com), depending on where the organization and project were made
+    private const string Key = "wdu0sGmBT0OXsEwht63DEI0CjvnTeuus";
+    private const string Issuer = "14568-nomad-71354-udash";
+    private const string Domain = "mtu1xp.vivox.com";
+    private const string Server = "https://unity.vivox.com/appconfig/14568-nomad-71354-udash";
 
     /// <summary>
     /// Access singleton instance through this propriety.
@@ -165,7 +165,7 @@ public class VivoxVoiceManager : MonoBehaviour
         var options = new InitializationOptions();
         if (CheckManualCredentials())
         {
-            options.SetVivoxCredentials(_server, _domain, _issuer, _key);
+            options.SetVivoxCredentials(Server, Domain, Issuer, Key);
         }
 
         await UnityServices.InitializeAsync(options);
@@ -298,8 +298,8 @@ public class VivoxVoiceManager : MonoBehaviour
 
     private bool CheckManualCredentials()
     {
-        return !(string.IsNullOrEmpty(_key) && string.IsNullOrEmpty(_issuer) && string.IsNullOrEmpty(_domain) &&
-                 string.IsNullOrEmpty(_server));
+        return !(string.IsNullOrEmpty(Key) && string.IsNullOrEmpty(Issuer) && string.IsNullOrEmpty(Domain) &&
+                 string.IsNullOrEmpty(Server));
     }
 
     #region Vivox Callbacks

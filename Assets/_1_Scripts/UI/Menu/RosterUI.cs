@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections;
+using System.Linq;
 using NomadsPlanet.Utils;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +20,11 @@ namespace NomadsPlanet
             VivoxVoiceManager.Instance.OnParticipantAddedEvent += OnParticipantAdded;
             VivoxVoiceManager.Instance.OnParticipantRemovedEvent += OnParticipantRemoved;
             VivoxVoiceManager.Instance.OnUserLoggedOutEvent += OnUserLoggedOut;
+        }
+
+        private IEnumerator Start()
+        {
+            yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
 
             if (VivoxVoiceManager.Instance && VivoxVoiceManager.Instance.ActiveChannels.Count > 0)
             {
@@ -27,7 +34,7 @@ namespace NomadsPlanet
 
                 if (lobbyChannel == null)
                 {
-                    return;
+                    yield break;
                 }
 
                 foreach (var participant in VivoxVoiceManager.Instance.LoginSession
