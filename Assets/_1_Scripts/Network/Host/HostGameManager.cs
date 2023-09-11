@@ -20,10 +20,11 @@ namespace NomadsPlanet
 {
     public class HostGameManager : IDisposable
     {
+        public string JoinCode { get; private set; }
+
         private Allocation _allocation;
         private NetworkObject _playerPrefab;
 
-        private string _joinCode;
         private string _lobbyId;
 
         public NetworkServer NetworkServer { get; private set; }
@@ -47,8 +48,8 @@ namespace NomadsPlanet
 
             try
             {
-                _joinCode = await Relay.Instance.GetJoinCodeAsync(_allocation.AllocationId);
-                CustomFunc.ConsoleLog(_joinCode);
+                JoinCode = await Relay.Instance.GetJoinCodeAsync(_allocation.AllocationId);
+                CustomFunc.ConsoleLog(JoinCode);
             }
             catch (Exception e)
             {
@@ -71,7 +72,7 @@ namespace NomadsPlanet
                             NetworkSetup.JoinCode,
                             new DataObject(
                                 visibility: DataObject.VisibilityOptions.Member,
-                                value: _joinCode
+                                value: JoinCode
                             )
                         }
                     }

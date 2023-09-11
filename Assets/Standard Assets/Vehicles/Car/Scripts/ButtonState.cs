@@ -8,23 +8,23 @@ namespace UnityStandardAssets.Vehicles.Car
     {
         public bool isPressed = false;
 
-        private Image thisImg;
+        private Image _thisImg;
 
         private void Awake()
         {
-            thisImg = GetComponent<Image>();
+            _thisImg = GetComponent<Image>();
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
             isPressed = true;
-            thisImg.color = Color.grey;
+            _thisImg.color = Color.grey;
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
             isPressed = false;
-            thisImg.color = Color.white;
+            _thisImg.color = Color.white;
         }
     }
 }

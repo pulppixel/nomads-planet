@@ -13,6 +13,7 @@ namespace NomadsPlanet
         [SerializeField] private HostSingleton hostPrefab;
         [SerializeField] private ServerSingleton serverPrefab;
         [SerializeField] private NetworkObject playerPrefab;
+        [SerializeField] private VivoxVoiceManager vivoxVoiceManager;
 
         private ApplicationData _appData;
 
@@ -26,6 +27,8 @@ namespace NomadsPlanet
         private async Task LaunchInMode()
         {
 #if UNITY_SERVER
+            Destroy(vivoxVoiceManager.gameObject);
+
             Application.targetFrameRate = 60;
 
             _appData = new ApplicationData();
@@ -44,6 +47,7 @@ namespace NomadsPlanet
             {
                 ClientGameManager.GoToMenu();
             }
+
 #endif
         }
 
