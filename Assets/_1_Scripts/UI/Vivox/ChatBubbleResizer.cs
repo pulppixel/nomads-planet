@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NomadsPlanet
 {
@@ -13,7 +14,7 @@ namespace NomadsPlanet
 
         private RectTransform _rectTransform;
         
-        private const float MaxWidth = 110f;
+        public float maxWidth = 110f;
         private const float PaddingTopBottom = 5f;
         private readonly Vector2 _paddingLeftRight = new Vector2(10, 10);
 
@@ -42,12 +43,12 @@ namespace NomadsPlanet
         {
             Vector2 size = chatText.GetPreferredValues(
                 chatText.text,
-                MaxWidth - (_paddingLeftRight.x + _paddingLeftRight.y),
+                maxWidth - (_paddingLeftRight.x + _paddingLeftRight.y),
                 0
             );
 
             bubbleRectTr.sizeDelta = new Vector2(
-                Mathf.Min(size.x, MaxWidth) + _paddingLeftRight.x + _paddingLeftRight.y,
+                Mathf.Min(size.x, maxWidth) + _paddingLeftRight.x + _paddingLeftRight.y,
                 size.y + PaddingTopBottom * 2
             );
 

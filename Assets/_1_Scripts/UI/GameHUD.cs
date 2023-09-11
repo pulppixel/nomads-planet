@@ -24,6 +24,9 @@ namespace NomadsPlanet
 
         public void LeaveGame()
         {
+#if !UNITY_SERVER
+            VivoxVoiceManager.Instance.Logout();
+#endif
             StartCoroutine(LeaveLogic());
         }
 

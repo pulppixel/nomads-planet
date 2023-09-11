@@ -27,6 +27,8 @@ namespace NomadsPlanet
         private async Task LaunchInMode()
         {
 #if UNITY_SERVER
+            Destroy(vivoxVoiceManager.gameObject);
+
             Application.targetFrameRate = 60;
 
             _appData = new ApplicationData();
@@ -35,8 +37,6 @@ namespace NomadsPlanet
 
             StartCoroutine(LoadGameSceneAsync(serverSingleton));
 #else
-            Instantiate(vivoxVoiceManager);
-            
             HostSingleton hostSingleton = Instantiate(hostPrefab);
             hostSingleton.CreateHost(playerPrefab);
 
