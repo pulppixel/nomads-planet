@@ -24,6 +24,7 @@ namespace NomadsPlanet
 
         private void Awake()
         {
+#if !UNITY_SERVER
             _textChatScrollRect = GetComponent<ScrollRect>();
             if (_messageObjPool.Count > 0)
             {
@@ -34,19 +35,18 @@ namespace NomadsPlanet
 
             VivoxVoiceManager.Instance.OnParticipantAddedEvent += OnParticipantAdded;
             VivoxVoiceManager.Instance.OnTextMessageLogReceivedEvent += OnTextMessageLogReceivedEvent;
+#endif
         }
 
         private IEnumerator Start()
         {
-            yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
-
 #if UNITY_SERVER
             sendButton.gameObject.SetActive(false);
             messageInputField.gameObject.SetActive(false);
 #else
+            yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
             sendButton.onClick.AddListener(SubmitTextToVivox);
             messageInputField.onEndEdit.AddListener(_ => { EnterKeyOnTextField(); });
-#endif
 
             if (VivoxVoiceManager.Instance.ActiveChannels.Count > 0)
             {
@@ -54,6 +54,7 @@ namespace NomadsPlanet
                     .FirstOrDefault(ac => ac.Channel.Name == SceneName.MenuScene)
                     ?.Key;
             }
+#endif
         }
 
 
@@ -137,10 +138,10 @@ namespace NomadsPlanet
 
         private void OnDestroy()
         {
+#if !UNITY_SERVER
             VivoxVoiceManager.Instance.OnParticipantAddedEvent -= OnParticipantAdded;
             VivoxVoiceManager.Instance.OnTextMessageLogReceivedEvent -= OnTextMessageLogReceivedEvent;
 
-#if !UNITY_SERVER
             sendButton.onClick.RemoveAllListeners();
             messageInputField.onEndEdit.RemoveAllListeners();
 #endif

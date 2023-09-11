@@ -15,6 +15,5 @@ namespace NomadsPlanet
             Participant = participant;
             nameText.text = participant.Account.DisplayName;
         }
-        
     }
 }

@@ -17,13 +17,16 @@ namespace NomadsPlanet
 
         private void Awake()
         {
+#if !UNITY_SERVER
             VivoxVoiceManager.Instance.OnParticipantAddedEvent += OnParticipantAdded;
             VivoxVoiceManager.Instance.OnParticipantRemovedEvent += OnParticipantRemoved;
             VivoxVoiceManager.Instance.OnUserLoggedOutEvent += OnUserLoggedOut;
+#endif
         }
 
         private IEnumerator Start()
         {
+#if !UNITY_SERVER
             yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
 
             if (VivoxVoiceManager.Instance && VivoxVoiceManager.Instance.ActiveChannels.Count > 0)
@@ -43,6 +46,7 @@ namespace NomadsPlanet
                     UpdateParticipantRoster(participant, participant.ParentChannelSession.Channel, true);
                 }
             }
+#endif
         }
 
         private void UpdateParticipantRoster(IParticipant participant, ChannelId channel, bool isAddParticipant)
@@ -146,9 +150,11 @@ namespace NomadsPlanet
 
         private void OnDestroy()
         {
+#if !UNITY_SERVER
             VivoxVoiceManager.Instance.OnParticipantAddedEvent -= OnParticipantAdded;
             VivoxVoiceManager.Instance.OnParticipantRemovedEvent -= OnParticipantRemoved;
             VivoxVoiceManager.Instance.OnUserLoggedOutEvent -= OnUserLoggedOut;
+#endif
         }
     }
 }

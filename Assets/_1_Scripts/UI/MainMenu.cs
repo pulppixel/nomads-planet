@@ -91,9 +91,11 @@ namespace NomadsPlanet
             {
                 case MatchmakerPollingResult.Success:
                     queueStatusText.DOText("Connecting...", .25f, scrambleMode: ScrambleMode.Lowercase);
-                    VivoxVoiceManager.Instance.Logout();
                     MenuInteraction.IsInteracting = false;
                     StartCoroutine(fadeController.FadeIn());
+#if !UNITY_SERVER
+                    VivoxVoiceManager.Instance.Logout();
+#endif
                     break;
                 case MatchmakerPollingResult.TicketCreationError:
                     queueStatusText.DOText("TicketCreationError", .2f, scrambleMode: ScrambleMode.Lowercase);
@@ -120,9 +122,11 @@ namespace NomadsPlanet
             }
 
             _isBusy = true;
-
-            StartCoroutine(fadeController.FadeIn());
+            
+#if !UNITY_SERVER
             VivoxVoiceManager.Instance.Logout();
+#endif
+            StartCoroutine(fadeController.FadeIn());
             MenuInteraction.IsInteracting = false;
             await HostSingleton.Instance.GameManager.StartHostAsync(false);
 

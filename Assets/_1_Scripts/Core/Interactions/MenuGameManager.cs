@@ -46,10 +46,12 @@ namespace NomadsPlanet
             {
                 _characterPrefabs.Add(characterParent.GetChild(i));
             }
-            
+
+#if !UNITY_SERVER
             VivoxVoiceManager.Instance.OnUserLoggedInEvent += OnUserLoggedIn;
             VivoxVoiceManager.Instance.OnUserLoggedOutEvent += OnUserLoggedOut;
             VivoxVoiceManager.Instance.OnRecoveryStateChangedEvent += OnRecoveryStateChanged;
+#endif
         }
 
         private IEnumerator Start()
@@ -61,10 +63,12 @@ namespace NomadsPlanet
             bgmSource.DOFade(1f, .5f);
             StartCoroutine(faderController.FadeOut());
 
+#if !UNITY_SERVER
             VivoxVoiceManager.Instance.Login(ES3.LoadString(PrefsKey.NameKey, "Unknown"));
             yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
 
             OnUserLoggedIn();
+#endif
         }
 
         private static void JoinChannel()
@@ -236,16 +240,18 @@ namespace NomadsPlanet
                     _characterPrefabs[i].transform.position = characterStartPoint.position;
                 }
             }
-            
+
             virtualCamera.Follow = _characterPrefabs[_currentCharacter];
         }
 
         private void OnDestroy()
         {
+#if !UNITY_SERVER
             VivoxVoiceManager.Instance.OnUserLoggedInEvent -= OnUserLoggedIn;
             VivoxVoiceManager.Instance.OnUserLoggedOutEvent -= OnUserLoggedOut;
             VivoxVoiceManager.Instance.OnParticipantAddedEvent -= VivoxVoiceManager_OnParticipantAddedEvent;
             VivoxVoiceManager.Instance.OnRecoveryStateChangedEvent -= OnRecoveryStateChanged;
+#endif
         }
     }
 }
