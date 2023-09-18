@@ -17,7 +17,7 @@ namespace NomadsPlanet
 
         public void PlaySfx(int idx)
         {
-            if (audioClips.Length <= idx)
+            if (audioClips == null || audioClips.Length <= idx)
             {
                 return;
             }
