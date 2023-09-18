@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +6,11 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using NomadsPlanet.Utils;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 using VivoxUnity;
 using Random = UnityEngine.Random;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace NomadsPlanet
 {
@@ -121,9 +122,18 @@ namespace NomadsPlanet
                 _ => Color.white
             };
 
-            connectionText.text = state.ToString();
+            connectionText.text = GetLocalizedString(state == ConnectionRecoveryState.Connected ? "Chat_Connected" : "Chat_Disconnected");
         }
 
+        private static string GetLocalizedString(string keyName)
+        {
+            const string tableName = "LocaleTable";
+
+            var stringOperation = LocalizationSettings.StringDatabase.GetLocalizedStringAsync(tableName, keyName);
+            return stringOperation is { IsDone: true, Status: AsyncOperationStatus.Succeeded }
+                ? stringOperation.Result
+                : string.Empty;
+        }
 
         public void SetLeftCarClick()
         {

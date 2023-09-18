@@ -5,7 +5,8 @@ using TMPro;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Localization.Settings;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace NomadsPlanet
 {
@@ -55,7 +56,8 @@ namespace NomadsPlanet
 
             if (_isMatchmaking)
             {
-                queueStatusText.DOText("Cancelling...", .25f, scrambleMode: ScrambleMode.Lowercase);
+                queueStatusText.DOText(GetLocalizedString("Menu_Cancelling"), .25f,
+                    scrambleMode: ScrambleMode.Lowercase);
                 _isCancelling = true;
 
                 // Cancel Matchmaking
@@ -64,7 +66,8 @@ namespace NomadsPlanet
                 _isMatchmaking = false;
                 _isBusy = false;
                 queueBoard.SetActive(false);
-                findMatchButtonText.DOText("Find Match", .25f, scrambleMode: ScrambleMode.Lowercase);
+                findMatchButtonText.DOText(GetLocalizedString("Menu_Find Match"), .25f,
+                    scrambleMode: ScrambleMode.Lowercase);
                 queueStatusText.DOText(string.Empty, .25f, scrambleMode: ScrambleMode.Lowercase);
                 queueTimerText.text = string.Empty;
                 return;
@@ -77,8 +80,8 @@ namespace NomadsPlanet
 
             // Start queue
             ClientSingleton.Instance.GameManager.MatchmakeAsync(false, OnMatchMade);
-            findMatchButtonText.DOText("Cancel", .25f, scrambleMode: ScrambleMode.Lowercase);
-            queueStatusText.DOText("Searching...", .25f, scrambleMode: ScrambleMode.Lowercase);
+            findMatchButtonText.DOText(GetLocalizedString("Menu_Cancel"), .25f, scrambleMode: ScrambleMode.Lowercase);
+            queueStatusText.DOText(GetLocalizedString("Menu_Searching"), .25f, scrambleMode: ScrambleMode.Lowercase);
             _timeInQueue = 0f;
             _isMatchmaking = true;
             _isBusy = true;
@@ -90,7 +93,8 @@ namespace NomadsPlanet
             switch (result)
             {
                 case MatchmakerPollingResult.Success:
-                    queueStatusText.DOText("Connecting...", .25f, scrambleMode: ScrambleMode.Lowercase);
+                    queueStatusText.DOText(GetLocalizedString("Menu_Connecting"), .25f,
+                        scrambleMode: ScrambleMode.Lowercase);
                     MenuInteraction.IsInteracting = false;
                     StartCoroutine(fadeController.FadeIn());
 #if !UNITY_SERVER
@@ -98,16 +102,16 @@ namespace NomadsPlanet
 #endif
                     break;
                 case MatchmakerPollingResult.TicketCreationError:
-                    queueStatusText.DOText("TicketCreationError", .2f, scrambleMode: ScrambleMode.Lowercase);
+                    queueStatusText.DOText(GetLocalizedString("Menu_Error"), .2f, scrambleMode: ScrambleMode.Lowercase);
                     break;
                 case MatchmakerPollingResult.TicketCancellationError:
-                    queueStatusText.DOText("TicketCreationError", .2f, scrambleMode: ScrambleMode.Lowercase);
+                    queueStatusText.DOText(GetLocalizedString("Menu_Error"), .2f, scrambleMode: ScrambleMode.Lowercase);
                     break;
                 case MatchmakerPollingResult.TicketRetrievalError:
-                    queueStatusText.DOText("TicketCreationError", .2f, scrambleMode: ScrambleMode.Lowercase);
+                    queueStatusText.DOText(GetLocalizedString("Menu_Error"), .2f, scrambleMode: ScrambleMode.Lowercase);
                     break;
                 case MatchmakerPollingResult.MatchAssignmentError:
-                    queueStatusText.DOText("TicketCreationError", .2f, scrambleMode: ScrambleMode.Lowercase);
+                    queueStatusText.DOText(GetLocalizedString("Menu_Error"), .2f, scrambleMode: ScrambleMode.Lowercase);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(result), result, null);
@@ -122,7 +126,7 @@ namespace NomadsPlanet
             }
 
             _isBusy = true;
-            
+
 #if !UNITY_SERVER
             VivoxVoiceManager.Instance.Logout();
 #endif
@@ -157,6 +161,16 @@ namespace NomadsPlanet
             }
 
             _isBusy = false;
+        }
+
+        private static string GetLocalizedString(string keyName)
+        {
+            const string tableName = "LocaleTable";
+
+            var stringOperation = LocalizationSettings.StringDatabase.GetLocalizedStringAsync(tableName, keyName);
+            return stringOperation is { IsDone: true, Status: AsyncOperationStatus.Succeeded }
+                ? stringOperation.Result
+                : string.Empty;
         }
 
         // public async void StartClient()

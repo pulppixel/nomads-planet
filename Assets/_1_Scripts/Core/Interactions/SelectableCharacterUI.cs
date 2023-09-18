@@ -7,6 +7,7 @@ namespace NomadsPlanet
     public class SelectableCharacterUI : MonoBehaviour
     {
         [SerializeField] private RectTransform rectTr;
+        [SerializeField] private SfxPlayer sfxPlayer;
         private bool _isSetupDone;
 
         private IEnumerator Start()
@@ -23,6 +24,8 @@ namespace NomadsPlanet
             {
                 rectTr.DOScale(1f, .5f)
                     .SetEase(Ease.OutBack);
+
+                sfxPlayer.PlaySfx(2);
             }
         }
 
