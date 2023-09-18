@@ -1,5 +1,5 @@
-﻿using NomadsPlanet.Utils;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Localization;
 
 namespace NomadsPlanet
 {
@@ -8,7 +8,7 @@ namespace NomadsPlanet
     {
         private AudioSource _audioSource;
 
-        [SerializeField] private AudioClip[] audioClips;
+        [SerializeField] private LocalizedAudioClip[] audioClips;
 
         private void Awake()
         {
@@ -17,7 +17,12 @@ namespace NomadsPlanet
 
         public void PlaySfx(int idx)
         {
-            _audioSource.PlayOneShot(audioClips[idx]);
+            if (audioClips.Length <= idx)
+            {
+                return;
+            }
+
+            _audioSource.PlayOneShot(audioClips[idx].LoadAsset());
         }
     }
 }

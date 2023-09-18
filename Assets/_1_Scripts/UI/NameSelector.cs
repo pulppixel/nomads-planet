@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Text.RegularExpressions;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using NomadsPlanet.Utils;
+using UnityEngine.Playables;
 
 namespace NomadsPlanet
 {
@@ -18,6 +20,8 @@ namespace NomadsPlanet
         [SerializeField] private Button connectButton;
         [SerializeField] private int minNameLength = 1;
         [SerializeField] private int maxNameLength = 12;
+
+        [SerializeField] private PlayableDirector playableDirector;
 
         private void Start()
         {
@@ -41,6 +45,18 @@ namespace NomadsPlanet
             connectButton.interactable =
                 nameField.text.Length > minNameLength &&
                 nameField.text.Length <= maxNameLength;
+        }
+
+        public void SetTime(float time)
+        {
+            playableDirector.time = time;
+        }
+
+        public void RestartTimeline()
+        {
+            playableDirector.Stop();
+            playableDirector.time = 0f;
+            playableDirector.Play();
         }
 
         public void Connect()
