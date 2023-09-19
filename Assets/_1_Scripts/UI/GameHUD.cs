@@ -24,14 +24,15 @@ namespace NomadsPlanet
 
         public void LeaveGame()
         {
-#if !UNITY_SERVER
-            VivoxVoiceManager.Instance.Logout();
-#endif
             StartCoroutine(LeaveLogic());
         }
 
         private IEnumerator LeaveLogic()
         {
+#if !UNITY_SERVER
+            VivoxVoiceManager.Instance.DisconnectAllChannels();
+            VivoxVoiceManager.Instance.Logout();
+#endif
             yield return StartCoroutine(faderController.FadeIn());
             yield return new WaitForSeconds(.2f);
 

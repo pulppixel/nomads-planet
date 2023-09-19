@@ -12,11 +12,17 @@ namespace NomadsPlanet
         private void Start()
         {
             int currentCharacter = ES3.Load(PrefsKey.AvatarTypeKey, 0);
+            virtualCamera.Priority = 100;
 
             for (int i = 0; i < characters.Length; i++)
             {
                 characters[i].SetActive(i == currentCharacter);
             }
+        }
+
+        public void InitCameraPriority()
+        {
+            virtualCamera.Priority = 100;
         }
 
         public void SetCameraPriority()

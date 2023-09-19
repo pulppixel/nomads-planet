@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NomadsPlanet.Utils;
+using UnityEngine;
 using Unity.Netcode;
 using Unity.Mathematics;
 using Random = UnityEngine.Random;
@@ -60,6 +61,7 @@ namespace NomadsPlanet
                 SoundManager.Instance.PlayCoinGetSfx();
 
                 int coinValue = coin.Collect();
+                ES3.Save(PrefsKey.CoinCacheKey, ES3.Load(PrefsKey.CoinCacheKey, 0) + coinValue);
 
                 if (IsServer)
                 {

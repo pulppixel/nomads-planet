@@ -30,6 +30,8 @@ namespace NomadsPlanet
         [SerializeField] private Image connectionIndicator;
         [SerializeField] private TMP_Text connectionText;
 
+        [SerializeField] private GameObject coinParticle;
+
         private readonly List<Transform> _carPrefabs = new();
         private readonly List<Transform> _characterPrefabs = new();
 
@@ -70,6 +72,18 @@ namespace NomadsPlanet
 
             OnUserLoggedIn();
 #endif
+
+            yield return new WaitForSeconds(.2f);
+            int gainCoins = ES3.Load(PrefsKey.CoinCacheKey, 0);
+            if (gainCoins > 0)
+            {
+                int currentCoins = ES3.Load(PrefsKey.CoinKey, 0) + gainCoins;
+                coinParticle.gameObject.SetActive(true);
+                yield return new WaitForSeconds(2f);
+                ES3.Save(PrefsKey.CoinCacheKey, 0);
+                ES3.Save(PrefsKey.CoinKey, currentCoins);
+                coinValueText.DOText(currentCoins.ToString("N0"), 1f);
+            }
         }
 
         private static void JoinChannel()
@@ -108,6 +122,7 @@ namespace NomadsPlanet
         private static void OnUserLoggedOut()
         {
             VivoxVoiceManager.Instance.DisconnectAllChannels();
+            VivoxVoiceManager.Instance.Logout();
         }
 
         private void OnRecoveryStateChanged(ConnectionRecoveryState state)
@@ -122,7 +137,8 @@ namespace NomadsPlanet
                 _ => Color.white
             };
 
-            connectionText.text = GetLocalizedString(state == ConnectionRecoveryState.Connected ? "Chat_Connected" : "Chat_Disconnected");
+            connectionText.text =
+                GetLocalizedString(state == ConnectionRecoveryState.Connected ? "Chat_Connected" : "Chat_Disconnected");
         }
 
         private static string GetLocalizedString(string keyName)
@@ -217,6 +233,7 @@ namespace NomadsPlanet
         {
             _currentCar = ES3.Load(PrefsKey.CarTypeKey, -1);
             _currentCharacter = ES3.Load(PrefsKey.AvatarTypeKey, -1);
+            coinParticle.gameObject.SetActive(false);
 
             if (_currentCar == -1)
             {

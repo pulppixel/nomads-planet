@@ -98,6 +98,7 @@ namespace NomadsPlanet
                     MenuInteraction.IsInteracting = false;
                     StartCoroutine(fadeController.FadeIn());
 #if !UNITY_SERVER
+                    VivoxVoiceManager.Instance.DisconnectAllChannels();
                     VivoxVoiceManager.Instance.Logout();
 #endif
                     break;
@@ -128,6 +129,7 @@ namespace NomadsPlanet
             _isBusy = true;
 
 #if !UNITY_SERVER
+            VivoxVoiceManager.Instance.DisconnectAllChannels();
             VivoxVoiceManager.Instance.Logout();
 #endif
             StartCoroutine(fadeController.FadeIn());
