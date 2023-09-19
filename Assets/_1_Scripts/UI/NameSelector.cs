@@ -49,7 +49,9 @@ namespace NomadsPlanet
 
         public void SetTime(float time)
         {
+            playableDirector.Stop();
             playableDirector.time = time;
+            playableDirector.Play();
         }
 
         public void RestartTimeline()
