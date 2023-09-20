@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +6,11 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using NomadsPlanet.Utils;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 using VivoxUnity;
 using Random = UnityEngine.Random;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace NomadsPlanet
 {
@@ -28,6 +29,9 @@ namespace NomadsPlanet
 
         [SerializeField] private Image connectionIndicator;
         [SerializeField] private TMP_Text connectionText;
+
+        [SerializeField] private GameObject coinParticle;
+        [SerializeField] private AudioSource coinAudioSource;
 
         private readonly List<Transform> _carPrefabs = new();
         private readonly List<Transform> _characterPrefabs = new();
@@ -62,6 +66,19 @@ namespace NomadsPlanet
             bgmSource.volume = 0f;
             bgmSource.DOFade(1f, .5f);
             StartCoroutine(faderController.FadeOut());
+
+            yield return new WaitForSeconds(.2f);
+            int gainCoins = ES3.Load(PrefsKey.CoinCacheKey, 0);
+            if (gainCoins > 0)
+            {
+                int currentCoins = ES3.Load(PrefsKey.CoinKey, 0) + gainCoins;
+                coinParticle.gameObject.SetActive(true);
+                yield return new WaitForSeconds(2f);
+                ES3.Save(PrefsKey.CoinCacheKey, 0);
+                ES3.Save(PrefsKey.CoinKey, currentCoins);
+                coinAudioSource.Play();
+                coinValueText.DOText(currentCoins.ToString("N0"), 1f);
+            }
 
 #if !UNITY_SERVER
             VivoxVoiceManager.Instance.Login(ES3.LoadString(PrefsKey.NameKey, "Unknown"));
@@ -107,6 +124,7 @@ namespace NomadsPlanet
         private static void OnUserLoggedOut()
         {
             VivoxVoiceManager.Instance.DisconnectAllChannels();
+            VivoxVoiceManager.Instance.Logout();
         }
 
         private void OnRecoveryStateChanged(ConnectionRecoveryState state)
@@ -121,9 +139,19 @@ namespace NomadsPlanet
                 _ => Color.white
             };
 
-            connectionText.text = state.ToString();
+            connectionText.text =
+                GetLocalizedString(state == ConnectionRecoveryState.Connected ? "Chat_Connected" : "Chat_Disconnected");
         }
 
+        private static string GetLocalizedString(string keyName)
+        {
+            const string tableName = "LocaleTable";
+
+            var stringOperation = LocalizationSettings.StringDatabase.GetLocalizedStringAsync(tableName, keyName);
+            return stringOperation is { IsDone: true, Status: AsyncOperationStatus.Succeeded }
+                ? stringOperation.Result
+                : string.Empty;
+        }
 
         public void SetLeftCarClick()
         {
@@ -207,6 +235,7 @@ namespace NomadsPlanet
         {
             _currentCar = ES3.Load(PrefsKey.CarTypeKey, -1);
             _currentCharacter = ES3.Load(PrefsKey.AvatarTypeKey, -1);
+            coinParticle.gameObject.SetActive(false);
 
             if (_currentCar == -1)
             {

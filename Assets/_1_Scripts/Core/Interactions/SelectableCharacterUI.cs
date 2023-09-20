@@ -7,7 +7,9 @@ namespace NomadsPlanet
     public class SelectableCharacterUI : MonoBehaviour
     {
         [SerializeField] private RectTransform rectTr;
+        [SerializeField] private SfxPlayer sfxPlayer;
         private bool _isSetupDone;
+        private bool _isPlayed;
 
         private IEnumerator Start()
         {
@@ -19,10 +21,13 @@ namespace NomadsPlanet
 
         private void OnTriggerEnter(Collider other)
         {
-            if (_isSetupDone && other.CompareTag("Player"))
+            if (!_isPlayed && _isSetupDone && other.CompareTag("Player"))
             {
+                _isPlayed = true;
                 rectTr.DOScale(1f, .5f)
                     .SetEase(Ease.OutBack);
+
+                sfxPlayer.PlaySfx(2);
             }
         }
 
@@ -30,6 +35,7 @@ namespace NomadsPlanet
         {
             if (_isSetupDone && other.CompareTag("Player"))
             {
+                _isPlayed = false;
                 rectTr.DOScale(0f, .5f)
                     .SetEase(Ease.InBack);
             }

@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 namespace NomadsPlanet
@@ -27,10 +28,12 @@ namespace NomadsPlanet
             instance = this;
         }
 
-        private void Start()
+        private IEnumerator Start()
         {
             bgmSource.clip = inGameBgm;
             bgmSource.volume = 0f;
+            yield return new WaitForSeconds(1f);
+            bgmSource.Play();
             bgmSource.DOFade(.75f, .5f);
         }
 

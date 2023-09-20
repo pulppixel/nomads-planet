@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: LocaleTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: LocaleTable
+  m_TableCollectionNameGuidString: e1455223ad699af449731f0710ef4734
+  m_Entries:
+  - m_Id: 36347478016
+    m_Key: Boot_PlayerLogin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 396050989056
+    m_Key: Boot_EnterName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 520928002048
+    m_Key: Boot_Enter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14538451353600
+    m_Key: Menu_PlayerName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14698451468288
+    m_Key: Menu_Cancelling
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14842379010048
+    m_Key: Menu_Find Match
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14944346734592
+    m_Key: Menu_Cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15032796217344
+    m_Key: Menu_Searching
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15105500282880
+    m_Key: Menu_Connecting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15175821983744
+    m_Key: Menu_Error
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16533287501824
+    m_Key: Menu_Setup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16724329660416
+    m_Key: Menu_Entrance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17193202515968
+    m_Key: Chat_EnterText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17496136122368
+    m_Key: Chat_Leave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17707021533184
+    m_Key: Chat_Connected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18682939604992
+    m_Key: Chat_Disconnected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19006236557312
+    m_Key: Menu_BumperCar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19169394982912
+    m_Key: Menu_Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19222008332288
+    m_Key: Menu_Host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19300722835456
+    m_Key: Menu_Lobbies
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19572362739712
+    m_Key: Menu_Join
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20470673604608
+    m_Key: Menu_Refresh
+    m_Metadata:
+      m_Items: []
+  - m_Id: 51332744118272
+    m_Key: Game_Chatting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 51463027589120
+    m_Key: Game_BumperCar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 417006775599104
+    m_Key: Game_Result
+    m_Metadata:
+      m_Items: []
+  - m_Id: 417076380073984
+    m_Key: Game_CoinEarned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 417142775906304
+    m_Key: Game_Ok
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 1470636802603483160
+  references:
+    version: 2
+    RefIds:
+    - rid: 1470636802603483160
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
+        asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1695034906376

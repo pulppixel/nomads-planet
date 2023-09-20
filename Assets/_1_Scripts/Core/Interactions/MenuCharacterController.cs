@@ -23,7 +23,7 @@ namespace NomadsPlanet
         private float _speed;
         private float _speedSmoothVelocity;
         private float _turnSmoothVelocity;
-        private float _idleTime = 5f;
+        private float _idleTime; // 시작 시 춤 ㄴㄴ
         private Vector3 _velocity;
 
         private CharacterController _controller;
