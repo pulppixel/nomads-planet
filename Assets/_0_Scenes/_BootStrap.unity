@@ -20,9 +20,9 @@ RenderSettings:
   m_FogDensity: 0.05
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.07643291, g: 0.080521226, b: 0.1, a: 0.1}
-  m_AmbientEquatorColor: {r: 0.05, g: 0.05, b: 0.05, a: 0.05}
-  m_AmbientGroundColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.1}
+  m_AmbientSkyColor: {r: 0.062349193, g: 0.053919695, b: 0.053051446, a: 0.07377133}
+  m_AmbientEquatorColor: {r: 0.03410851, g: 0.027799787, b: 0.027799787, a: 0.034262795}
+  m_AmbientGroundColor: {r: 0.057879835, g: 0.052484788, b: 0.051571112, a: 0.058034122}
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
@@ -259,6 +259,19 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: en
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1865640856}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: cf358941eb94e8d42bd536f243826b8c,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &84867330
@@ -888,7 +901,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 525470396}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.003518005, y: -0.6150247, z: 0.0027440365, w: 0.7884953}
+  m_LocalRotation: {x: -0.005329134, y: 0.95434815, z: -0.01705735, w: -0.29816172}
   m_LocalPosition: {x: -3.2, y: 1.5, z: 9.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2848,6 +2861,19 @@ MonoBehaviour:
           m_StringArgument: ko
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1865640857}
+        m_TargetAssemblyTypeName: NomadsPlanet.SfxPlayer, Assembly-CSharp
+        m_MethodName: PlayAudioClip
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 318e6bdbe03c74641869074d083b7950,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1277273333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2930,7 +2956,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3361,7 +3387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1410987500}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.11339476, y: 0.30179277, z: -0.036178455, w: -0.94591427}
+  m_LocalRotation: {x: 0.11339478, y: -0.30179283, z: 0.036178485, w: 0.94591427}
   m_LocalPosition: {x: 0.5670008, y: 1.407, z: -0.50499797}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4051,6 +4077,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1865640857}
+        m_TargetAssemblyTypeName: NomadsPlanet.SfxPlayer, Assembly-CSharp
+        m_MethodName: PlayAudioClip
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: b2287c5cadcda454381ea0c4d027ab18,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1545942143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4279,7 +4318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588458251}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.061693408, y: -0.71276385, z: 0.063195534, w: 0.69582176}
+  m_LocalRotation: {x: -0.02766116, y: 0.9723383, z: -0.16347672, w: -0.16452502}
   m_LocalPosition: {x: -1.6525588, y: 10, z: 25.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7162,6 +7201,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1865640857}
+        m_TargetAssemblyTypeName: NomadsPlanet.SfxPlayer, Assembly-CSharp
+        m_MethodName: PlayAudioClip
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: b2287c5cadcda454381ea0c4d027ab18,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1854182363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7226,8 +7278,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1855824928}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.010812617, y: -0.96524256, z: 0.040455993, w: -0.25797904}
-  m_LocalPosition: {x: -59.58659, y: 0.5000005, z: 25.694286}
+  m_LocalRotation: {x: 0.040950872, y: -0.20885116, z: 0.008753526, w: 0.9770505}
+  m_LocalPosition: {x: -9.372185, y: 0.5000005, z: -4.441739}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7840,11 +7892,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1199657528058070, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225886021419126, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275420074435534, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1289281111498416, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
       propertyPath: m_Name
       value: WeatherMakerPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 1289281111498416, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1315538225232122, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1444795870428380, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -7871,6 +7943,22 @@ PrefabInstance:
     - target: {fileID: 4344173008124332, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
       propertyPath: m_LocalPosition.z
       value: 43959.973
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344173008124332, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.37532535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344173008124332, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.03696528
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344173008124332, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9216963
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344173008124332, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.090776615
       objectReference: {fileID: 0}
     - target: {fileID: 4424888995834786, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7912,6 +8000,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4528676842513230, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.20406888
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528676842513230, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.324323
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528676842513230, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.8648613
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528676842513230, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.324323
+      objectReference: {fileID: 0}
     - target: {fileID: 4675549860175304, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
       propertyPath: m_LocalScale.x
       value: 6085.3145
@@ -7936,6 +8040,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -92248.914
       objectReference: {fileID: 0}
+    - target: {fileID: 4675549860175304, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6268537
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675549860175304, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.101004995
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675549860175304, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.76272446
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675549860175304, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.12289784
+      objectReference: {fileID: 0}
     - target: {fileID: 23289525222056854, guid: 66bd18e21212b8c4ab51a96f918b3197,
         type: 3}
       propertyPath: m_Enabled
@@ -7958,6 +8078,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 108505579623923364, guid: 66bd18e21212b8c4ab51a96f918b3197,
         type: 3}
+      propertyPath: m_Color.b
+      value: 0.9531036
+      objectReference: {fileID: 0}
+    - target: {fileID: 108505579623923364, guid: 66bd18e21212b8c4ab51a96f918b3197,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.9711241
+      objectReference: {fileID: 0}
+    - target: {fileID: 108505579623923364, guid: 66bd18e21212b8c4ab51a96f918b3197,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.9945794
+      objectReference: {fileID: 0}
+    - target: {fileID: 108505579623923364, guid: 66bd18e21212b8c4ab51a96f918b3197,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108505579623923364, guid: 66bd18e21212b8c4ab51a96f918b3197,
+        type: 3}
       propertyPath: m_BoundingSphereOverride.w
       value: -0.98332214
       objectReference: {fileID: 0}
@@ -7976,6 +8116,11 @@ PrefabInstance:
       propertyPath: m_BoundingSphereOverride.z
       value: 8.684e-41
       objectReference: {fileID: 0}
+    - target: {fileID: 108655182436419188, guid: 66bd18e21212b8c4ab51a96f918b3197,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114015360913458578, guid: 66bd18e21212b8c4ab51a96f918b3197,
         type: 3}
       propertyPath: Intensity
@@ -7985,6 +8130,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Precipitation
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114103042733747752, guid: 66bd18e21212b8c4ab51a96f918b3197,
+        type: 3}
+      propertyPath: PrecipitationIntensity
+      value: 0.339
       objectReference: {fileID: 0}
     - target: {fileID: 114179464140302866, guid: 66bd18e21212b8c4ab51a96f918b3197,
         type: 3}
@@ -8081,12 +8231,32 @@ PrefabInstance:
       propertyPath: UseUnityFog
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114660468980691278, guid: 66bd18e21212b8c4ab51a96f918b3197,
+        type: 3}
+      propertyPath: volumeModifier
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114660468980691278, guid: 66bd18e21212b8c4ab51a96f918b3197,
+        type: 3}
+      propertyPath: AmbientVolumeModifier
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114660468980691278, guid: 66bd18e21212b8c4ab51a96f918b3197,
+        type: 3}
+      propertyPath: WeatherVolumeModifier
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 114962901692534914, guid: 66bd18e21212b8c4ab51a96f918b3197,
         type: 3}
       propertyPath: AutoCreateMesh
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199410104535701140, guid: 66bd18e21212b8c4ab51a96f918b3197,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199530399864750628, guid: 66bd18e21212b8c4ab51a96f918b3197,
         type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -8104,6 +8274,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2128051630}
+    - targetCorrespondingSourceObject: {fileID: 1616679408357746, guid: 66bd18e21212b8c4ab51a96f918b3197,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2128051632}
   m_SourcePrefab: {fileID: 100100000, guid: 66bd18e21212b8c4ab51a96f918b3197, type: 3}
 --- !u!1 &2128051629 stripped
 GameObject:
@@ -8118,6 +8292,35 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128051629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!1 &2128051631 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1616679408357746, guid: 66bd18e21212b8c4ab51a96f918b3197,
+    type: 3}
+  m_PrefabInstance: {fileID: 2128051628}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2128051632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128051631}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}

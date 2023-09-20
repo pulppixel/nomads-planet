@@ -31,6 +31,7 @@ namespace NomadsPlanet
         [SerializeField] private TMP_Text connectionText;
 
         [SerializeField] private GameObject coinParticle;
+        [SerializeField] private AudioSource coinAudioSource;
 
         private readonly List<Transform> _carPrefabs = new();
         private readonly List<Transform> _characterPrefabs = new();
@@ -66,13 +67,6 @@ namespace NomadsPlanet
             bgmSource.DOFade(1f, .5f);
             StartCoroutine(faderController.FadeOut());
 
-#if !UNITY_SERVER
-            VivoxVoiceManager.Instance.Login(ES3.LoadString(PrefsKey.NameKey, "Unknown"));
-            yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
-
-            OnUserLoggedIn();
-#endif
-
             yield return new WaitForSeconds(.2f);
             int gainCoins = ES3.Load(PrefsKey.CoinCacheKey, 0);
             if (gainCoins > 0)
@@ -82,8 +76,16 @@ namespace NomadsPlanet
                 yield return new WaitForSeconds(2f);
                 ES3.Save(PrefsKey.CoinCacheKey, 0);
                 ES3.Save(PrefsKey.CoinKey, currentCoins);
+                coinAudioSource.Play();
                 coinValueText.DOText(currentCoins.ToString("N0"), 1f);
             }
+
+#if !UNITY_SERVER
+            VivoxVoiceManager.Instance.Login(ES3.LoadString(PrefsKey.NameKey, "Unknown"));
+            yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
+
+            OnUserLoggedIn();
+#endif
         }
 
         private static void JoinChannel()

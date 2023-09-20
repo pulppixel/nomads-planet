@@ -24,5 +24,10 @@ namespace NomadsPlanet
 
             _audioSource.PlayOneShot(audioClips[idx].LoadAsset());
         }
+
+        public void PlayAudioClip(AudioClip clip)
+        {
+            _audioSource.PlayOneShot(clip);
+        }
     }
 }
