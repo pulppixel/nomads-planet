@@ -13,7 +13,7 @@ namespace NomadsPlanet
             _headAnimation = GetComponent<Animation>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
             _headAnimation.AddClip(blinkAnimationClip, blinkAnimationClip.name);
             _headAnimation.Play(blinkAnimationClip.name);
