@@ -20,8 +20,8 @@ namespace NomadsPlanet
 
         public void UpdateLocale(string languageIdentifier)
         {
-            enAudio.SetActive(_defaultLocale == "en");
-            koAudio.SetActive(_defaultLocale == "ko");
+            enAudio.SetActive(languageIdentifier == "en");
+            koAudio.SetActive(languageIdentifier == "ko");
             ES3.Save(PrefsKey.LocaleKey, languageIdentifier);
             LocaleIdentifier localeCode = new LocaleIdentifier(languageIdentifier);
             for (int i = 0; i < LocalizationSettings.AvailableLocales.Locales.Count; i++)
