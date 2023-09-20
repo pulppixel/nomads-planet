@@ -38,6 +38,15 @@ namespace NomadsPlanet
 #endif
         }
 
+        private void OnDestroy()
+        {
+#if !UNITY_SERVER
+            VivoxVoiceManager.Instance.OnUserLoggedInEvent -= OnUserLoggedIn;
+            VivoxVoiceManager.Instance.OnUserLoggedOutEvent -= OnUserLoggedOut;
+            VivoxVoiceManager.Instance.OnRecoveryStateChangedEvent -= OnRecoveryStateChanged;
+#endif
+        }
+
         private static void JoinChannel()
         {
             VivoxVoiceManager.Instance.OnParticipantAddedEvent += VivoxVoiceManager_OnParticipantAddedEvent;
@@ -75,6 +84,7 @@ namespace NomadsPlanet
         private static void OnUserLoggedOut()
         {
             VivoxVoiceManager.Instance.DisconnectAllChannels();
+            VivoxVoiceManager.Instance.Logout();
         }
 
         public void ControlChatRoom()
