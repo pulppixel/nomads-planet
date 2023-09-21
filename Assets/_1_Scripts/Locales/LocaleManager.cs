@@ -9,6 +9,8 @@ namespace NomadsPlanet
     public class LocaleManager : MonoBehaviour
     {
         private string _defaultLocale = "en";
+        [SerializeField] private GameObject enAudio;
+        [SerializeField] private GameObject koAudio;
 
         private void Start()
         {
@@ -18,6 +20,8 @@ namespace NomadsPlanet
 
         public void UpdateLocale(string languageIdentifier)
         {
+            enAudio.SetActive(languageIdentifier == "en");
+            koAudio.SetActive(languageIdentifier == "ko");
             ES3.Save(PrefsKey.LocaleKey, languageIdentifier);
             LocaleIdentifier localeCode = new LocaleIdentifier(languageIdentifier);
             for (int i = 0; i < LocalizationSettings.AvailableLocales.Locales.Count; i++)

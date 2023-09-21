@@ -69,13 +69,13 @@ MonoBehaviour:
       - m_Id: 5ef34f163584d3040ac1ad0630c06d7c
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
       - m_Id: ca4a1ad4292eedd49b1abaa3accee7d6
-        m_Value: CCDBuildData/4917a585-1dac-4c7e-aede-7f84929e9a38/65f3eadf-6a05-4779-829b-4cd9bcbe5893/latest
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: f78137aa8b2c26a408589f742c4be655
-        m_Value: https://3970b027-88bf-4b45-b620-e91d3125aa28.client-api.unity3dusercontent.com/client_api/v1/environments/addressible/buckets/65f3eadf-6a05-4779-829b-4cd9bcbe5893/release_by_badge/latest/entry_by_path/content/?path=
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: e8327ad81b7d0ec45b5854e571c41694
-        m_Value: CCDBuildData/4917a585-1dac-4c7e-aede-7f84929e9a38/65f3eadf-6a05-4779-829b-4cd9bcbe5893/latest
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: b36a1f0358707b74f8cd3e66e624b8ca
-        m_Value: https://3970b027-88bf-4b45-b620-e91d3125aa28.client-api.unity3dusercontent.com/client_api/v1/environments/addressible/buckets/65f3eadf-6a05-4779-829b-4cd9bcbe5893/release_by_badge/latest/entry_by_path/content/?path=
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
     m_ProfileEntryNames:
     - m_Id: 5ef34f163584d3040ac1ad0630c06d7c
       m_Name: BuildTarget
@@ -116,8 +116,9 @@ MonoBehaviour:
   m_HostingServicesManager:
     m_HostingServiceInfos: []
     m_Settings: {fileID: 11400000}
-    m_NextInstanceId: 0
-    m_RegisteredServiceTypeRefs: []
+    m_NextInstanceId: 1
+    m_RegisteredServiceTypeRefs:
+    - UnityEditor.AddressableAssets.HostingServices.HttpHostingService, Unity.Addressables.Editor
     m_PingTimeoutInMilliseconds: 5000
   m_CcdManagedData:
     EnvironmentId: 

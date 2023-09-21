@@ -30,6 +30,8 @@ namespace NomadsPlanet
 
         public void Join()
         {
+            VivoxVoiceManager.Instance.DisconnectAllChannels();
+            VivoxVoiceManager.Instance.Logout();
             _lobbiesList.JoinAsync(_lobby);
         }
     }

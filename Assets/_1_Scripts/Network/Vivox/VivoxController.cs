@@ -31,10 +31,20 @@ namespace NomadsPlanet
         {
             chatRoomRectTr.localScale = new Vector3(1f, 0f, 1f);
 #if !UNITY_SERVER
+            yield return new WaitForSeconds(2f);
             VivoxVoiceManager.Instance.Login(ES3.LoadString(PrefsKey.NameKey, "Unknown"));
             yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
 
             OnUserLoggedIn();
+#endif
+        }
+
+        private void OnDestroy()
+        {
+#if !UNITY_SERVER
+            VivoxVoiceManager.Instance.OnUserLoggedInEvent -= OnUserLoggedIn;
+            VivoxVoiceManager.Instance.OnUserLoggedOutEvent -= OnUserLoggedOut;
+            VivoxVoiceManager.Instance.OnRecoveryStateChangedEvent -= OnRecoveryStateChanged;
 #endif
         }
 
@@ -75,6 +85,7 @@ namespace NomadsPlanet
         private static void OnUserLoggedOut()
         {
             VivoxVoiceManager.Instance.DisconnectAllChannels();
+            VivoxVoiceManager.Instance.Logout();
         }
 
         public void ControlChatRoom()
