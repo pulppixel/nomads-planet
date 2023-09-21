@@ -31,6 +31,7 @@ namespace NomadsPlanet
         {
             chatRoomRectTr.localScale = new Vector3(1f, 0f, 1f);
 #if !UNITY_SERVER
+            yield return new WaitForSeconds(2f);
             VivoxVoiceManager.Instance.Login(ES3.LoadString(PrefsKey.NameKey, "Unknown"));
             yield return new WaitUntil(() => VivoxVoiceManager.Instance.LoginState == LoginState.LoggedIn);
 
