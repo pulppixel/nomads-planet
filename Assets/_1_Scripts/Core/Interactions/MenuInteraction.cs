@@ -50,7 +50,7 @@ namespace NomadsPlanet
             blockImage.raycastTarget = false;
             interactionButton.image.rectTransform.DOScale(0f, .5f)
                 .SetEase(Ease.InBack);
-            userInfoRectTr.DOScale(0f, .5f)
+            userInfoRectTr.DOLocalMoveY(225f, .5f)
                 .SetEase(Ease.InBack)
                 .OnComplete(() => { characterParent.SetActive(false); });
             virtualCamera.Priority = 20;
@@ -63,7 +63,7 @@ namespace NomadsPlanet
             virtualCamera.Priority = -1;
 
             characterParent.SetActive(true);
-            userInfoRectTr.DOScale(1f, .5f)
+            userInfoRectTr.DOLocalMoveY(0f, .5f)
                 .SetEase(Ease.OutBack);
         }
     }
